@@ -127,8 +127,19 @@ class Requirement extends Admin_Controller
                 'question' => $this->input->post('question'),
                 'questionType' => $this->input->post('question_type'),
                 'questionDescription' => $this->input->post('remark'),
-                'questionChoice' => $option
+                'questionChoice' => json_encode($option)
             );
+            $update = $this->model_requirement->update($data,$question_id);
+            if($update == true)
+            {
+                $this->session->set_flashdata('success', 'Successfully Updated!');
+                redirect('requirement/', 'refresh');
+            }
+            else
+            {
+                $this->session->set_flashdata('errors', 'Error occurred!!');
+                redirect('requirement/', 'refresh');
+            }
         }
         else 
         {       
@@ -136,11 +147,10 @@ class Requirement extends Admin_Controller
             $result = array();
             $question_data = $this->model_requirement->getQuestionData($question_id);
             $result['question'] = $question_data;
-        //     $optionConversion=array();
-        //     $optionConversion=$question_data['questionChoice'];
-        //     foreach($optionConversion as $k => $v) {
-        //         $result['question_option'][] = $v;
-        //    }
+            $questionOption=json_decode($question_data['questionChoice'],true);
+            foreach($questionOption as $k => $v) {
+                $result['question_option'][] = $v;
+           }
             $this->data['question_data'] = $result;
             $this->render_template('requirement/edit', $this->data); 
         }   

@@ -73,7 +73,7 @@
                       <select class="form-control select_group" id="question_type" name="question_type">
                         <option value=""></option> 
                         <?php foreach ($question_type as $k => $v): ?>
-                          <option value="<?php echo $v['id'] ?>" 
+                          <option value="<?php echo $v['code'] ?>" 
                           <?php if(set_value('question_type', isset($question_data['question']['questionType']) ? $question_data['question']['questionType'] : '') == $v['code']) { echo "selected='selected'"; } ?> >
                           <?php echo $v['name'] ?>                            
                           </option>
@@ -101,7 +101,7 @@
                 <?php $x = 1; ?>
                 <?php foreach ($question_data['question_option'] as $key => $val): ?>
                  <tr id="row_<?php echo $x; ?>">
-                     <td><input type="text" name="option[]" id="option_<?php echo $x; ?>" class="form-control" required value="<?php echo $val['option_desc'] ?>" autocomplete="off"></td>
+                     <td><input type="text" name="option[]" id="option_<?php echo $x; ?>" class="form-control" required value="<?php echo $val?>" autocomplete="off"></td>
 
                     <td><button type="button" class="btn btn-default" onclick="removeRow('<?php echo $x; ?>')"><i class="fa fa-close"></i></button></td>
                  </tr>
@@ -109,17 +109,12 @@
                <?php endforeach; ?>
              <?php else: ?>  <!-- We insert a blank line -->
 
-                      <tr id="row_1">
-                        <td><input type="text" name="option[]" id="option_1" class="form-control" ></td>                
-                        <td><button type="button" class="btn btn-default" onclick="removeRow('1')"><i class="fa fa-close"></i></button></td>
-                     </tr>
+                      
 
              <?php endif; ?>
              </tbody>
           </table>
 
-
- 
                 <br>
               
                 <div class="row">  
