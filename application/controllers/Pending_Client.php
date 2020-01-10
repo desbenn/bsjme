@@ -42,13 +42,42 @@ class Pending_Client extends Admin_Controller
 
 			$result['data'][$key] = array(			
 				$value['companyName'],
+				$value['trn'],
 				$value['clientName'],
+				$value['attempts'],
 				$value['active'],
 				$buttons
 			);
 		} // /foreach
 
 		echo json_encode($result);
+	}
+
+	public function remove()
+	{
+        if(!in_array('deletePendingClient', $this->permission)) {redirect('dashboard', 'refresh');}
+        
+        $pending_client_id = $this->input->post('pending_client_id');
+
+        $response = array();
+
+        if($pending_client_id) {
+            $delete = $this->model_pending_client->remove($pending_client_id);
+            if($delete == true) {
+                $response['success'] = true;
+                $response['messages'] = "Successfully removed"; 
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = "Error in the database while removing the requirement information";
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = "Refresh the page again!!";
+        }
+
+        echo json_encode($response);
 	}
 
 }

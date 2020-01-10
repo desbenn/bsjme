@@ -36,7 +36,9 @@
               <thead>
               <tr>
                 <th>Company Name</th>
+                <th>TRN</th>
                 <th>Client Name</th>
+                <th>Attempts</th>
                 <th>Active</th>
                 <th>Action</th>
               </tr>
@@ -100,7 +102,7 @@ var base_url = "<?php echo base_url(); ?>";
 
 
 
-// remove an question 
+// remove a client 
 function removeFunc(id)
 {
   if(id) {
@@ -114,7 +116,7 @@ function removeFunc(id)
       $.ajax({
         url: form.attr('action'),
         type: form.attr('method'),
-        data: { requirement_id:id },  
+        data: { pending_client_id:id },  
         dataType: 'json',
         success:function(response) {
 
