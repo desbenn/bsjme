@@ -13,7 +13,7 @@ class Pending_Client extends Admin_Controller
 		$this->data['page_title'] = 'Pending Client';
 
 	}
-    //--> It only redirects to the manage client page
+    //--> It only redirects to the manage pending client page
 	public function index()
 	{
         if(!in_array('viewPendingClient', $this->permission)) {
@@ -22,6 +22,7 @@ class Pending_Client extends Admin_Controller
 		$this->render_template('pending_client/index', $this->data);
 	}
 
+	//--> retrieves information from database and displays specific info in the view 
 	public function fetchPendingClientData()
 	{
 		$result = array('data' => array());
@@ -53,6 +54,74 @@ class Pending_Client extends Admin_Controller
 		echo json_encode($result);
 	}
 
+	public function update($pending_client_id)
+    {
+        if(!in_array('updatePendingClient', $this->permission) AND !in_array('viewPendingClient', $this->permission)) {
+            redirect('dashboard', 'refresh');}
+
+        if(!$pending_client_id) {redirect('dashboard', 'refresh');}
+
+        $this->form_validation->set_rules('trn', 'trn', 'trim|required');
+        $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+
+
+		if ($this->form_validation->run() == TRUE) 
+		{
+
+
+            //--> The directory where the documents are uploaded is the
+            //    same as client register id.  If the user change the
+            //    client register id, we must rename the directory
+
+            // if ($this->input->post('directory') !=  $this->input->post('trn'))
+            //     {$old_path = "./upload/documents/".$this->input->post('directory');
+            //      $new_path = "./upload/documents/".$this->input->post('trn');
+            //      rename($old_path, $new_path);
+            //      //??? rename also the username of the user client
+            //     }
+
+            $data = array(
+				'trn' => $this->input->post('trn'),
+				'companyName' => $this->input->post('company_name'),
+				'clientName' => $this->input->post('clientName'),
+				'clientAddress' => $this->input->post('clientAddress'),
+				'clientCounty' => $this->input->post('clientCounty'),
+				'clientParish' => $this->input->post('clientParish'),
+				'clientCity' => $this->input->post('clientCity'),
+				'clientContact' => $this->input->post('clientContact'),
+				'clientEmail' => $this->input->post('clientEmail'),
+				'clientWebsite' => $this->input->post('clientWebsite'),
+				'active' => $this->input->post('active'),
+                //'directory' => $this->input->post('trn'),
+            );
+
+            $update = $this->model_pending_client->update($data, $pending_client_id);
+
+			if($update == true) 
+			{
+                $msg_error = 'Successfully updated';
+                $this->session->set_flashdata('success', $msg_error);
+				redirect('pending_client/', 'refresh');
+			}
+			else 
+			{
+                $msg_error = 'Error occurred';
+                $this->session->set_flashdata('error', $msg_error);
+				redirect('pending_client/update/'.$pending_client_id, 'refresh');
+			}
+        }
+
+        // --> We are in edit of the form, preparation of the drop down list
+        //    and reading of the client data
+
+        $client_data = $this->model_pending_client->getPendingClientData($pending_client_id);
+        $this->data['client_data'] = $client_data;
+        $this->render_template('pending_client/edit', $this->data);
+
+    }
+
+	//--> remove a pending client from the database
 	public function remove()
 	{
         if(!in_array('deletePendingClient', $this->permission)) {redirect('dashboard', 'refresh');}

@@ -21,6 +21,16 @@ class Model_pending_client extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->result_array();
     }
+
+    public function update($data,$id)
+	{
+		if($id) 
+		{	
+            $this->db->where('id', $id);
+			$update = $this->db->update('pending_clients', $data);
+			return ($update == true) ? true : false;
+		}
+	}
     
 
     public function remove($id)
