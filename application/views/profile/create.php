@@ -67,7 +67,14 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateClient" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewClient" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteClient" class="minimal"></td>
-                  </tr>     
+                  </tr>  
+                  <tr>
+                    <td>Pending Client</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createPendingClient" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updatePendingClient" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewPendingClient" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deletePendingClient" class="minimal"></td>
+                  </tr>    
                   <tr>
                     <td>Consultation</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createConsultation" class="minimal"></td>

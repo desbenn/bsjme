@@ -12,22 +12,17 @@ class Email extends Admin_Controller
 
     }
 
-    public function index() {
-
-
+    public function index() 
+    {
         $this->load->view('email/index.php');
     }
 
 
-    public function send_mail() {
-
-        $from_email = "email@example.com";
+    public function send_mail() 
+    {   
+        // //$from_email = "email@example.com";
+        $from_email = "njumpp@bsj.org.jm";
         $to_email = $this->input->post('email');
-
-        //Load email library
-
-        $from_email = "voyagine@hotmail.com";
-        $to_email = "voyagine@hotmail.com";
 
         $this->email->from($from_email, 'Identification');
         $this->email->to($to_email);
@@ -41,6 +36,7 @@ class Email extends Admin_Controller
             $this->session->set_flashdata("email_sent","You have encountered an error");
         
         $this->load->view('email/index.php');
+
     }
 }
 ?>

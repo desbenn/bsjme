@@ -86,6 +86,22 @@
                   </tr>
 
                   <tr>
+                    <td>Pending Client</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createPendingClient" <?php if($serialize_permission) {
+                      if(in_array('createPendingClient', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updatePendingClient" <?php if($serialize_permission) {
+                      if(in_array('updatePendingClient', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewPendingClient" <?php if($serialize_permission) {
+                      if(in_array('viewPendingClient', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deletePendingClient" <?php if($serialize_permission) {
+                      if(in_array('deletePendingClient', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
                     <td>Consultation</td>
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createConsultation" <?php if($serialize_permission) {
                       if(in_array('createConsultation', $serialize_permission)) { echo "checked"; }
