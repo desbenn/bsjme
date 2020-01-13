@@ -3,29 +3,12 @@
 
 <section class="content-header">
     <h1>Edit Pending Client <?php echo $client_data['companyName']; ?> (<?php echo $client_data['trn']; ?>)</h1>
+    <br>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('pending_client') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Pending Client</li>
     </ol>
 </section>
-
-
-
-
-
-<!----------------------------------------------------------------------------------------------------->
-<!--                                                                                                 -->
-<!--                                       Tab section                                               -->
-<!--                                                                                                 -->
-<!----------------------------------------------------------------------------------------------------->
-
-
-<section class="content">
-  <!-- <ul class="nav nav-tabs">
-    <li class="<?php echo (($active_tab === 'client') ? 'active' : '') ?>"><a data-toggle="tab" href="#client">Client</a></li>
-    <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
-  </ul>	 -->
-
 
 
 
@@ -57,8 +40,8 @@
                     <?php echo $this->session->flashdata('warning'); ?>
                 </div>
             <?php endif; ?>
+            
 
-            <div class="tab-content">
 
 
 <!----------------------------------------------------------------------------------------------------->
@@ -74,29 +57,12 @@
         $client_id = array('client_id' => $client_data['id']);
         $this->session->set_userdata($client_id);} ?>
 
-    <!-- Creation of a session to keep the directory for the manipulation
-          of upload of documents -->
-
-    <!-- <?php $this->session->unset_userdata('directory');?>
-    <?php if(empty($this->session->userdata('directory'))) {
-            $directory = array('directory' => '/upload/documents/'.$client_data['directory'].'/');
-            $this->session->set_userdata($directory);
-            } ?> -->
-
-
-
-
-
 
 <!----------------------------------------------------------------------------------------------------->
 <!--                                                                                                 -->
 <!--                                        C L I E N T                                              -->
 <!--                                                                                                 -->
 <!----------------------------------------------------------------------------------------------------->
-
-
-<div id="client" class="tab-pane fade <?php echo (($active_tab === 'client') ? 'in active' : '') ?>">	
-
 
         <div class="box">
             <form role="form" action="<?php base_url('pending_client/update') ?>" method="post" enctype="multipart/form-data">
@@ -107,7 +73,7 @@
 
                 <!-- /row divide by 3-->
                 <div class="row">
-
+                    
                      <div class="col-md-2 col-xs-2">
                         <div class="form-group">
                             <label for="trn">TRN <font color="red">*</font></label>
@@ -228,7 +194,9 @@
             </div>
         </form>
     </div>
-</div>
+    </div>
+    </div>
+    </div>
 
 
 <!--Javascript for Client--->
