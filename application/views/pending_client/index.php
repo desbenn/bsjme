@@ -91,7 +91,6 @@
 var manageTable;
 var base_url = "<?php echo base_url(); ?>";
 
-  $("#mainClientNav").addClass('active');
 
   // initialize the datatable 
   manageTable = $('#manageTable').DataTable({

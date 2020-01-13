@@ -33,13 +33,17 @@ class Pending_Client extends Admin_Controller
 
 			$buttons = '';
 
-			if(in_array('updatePendingClient', $this->permission)) {
-                $buttons .= '<a href="'.base_url('pending_client/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+			if(in_array('createClient', $this->permission)) {
+                $buttons .= '<a href="'.base_url('pending_client/addClient/'.$value['id']).'" class="btn btn-default"><i class="fa fa-plus"></i></a>';
             }
 
-            if(in_array('deletePendingClient', $this->permission)) { 
-                $buttons .= '<button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
-            }
+			if(in_array('updatePendingClient', $this->permission)) {
+                $buttons .= '<a href="'.base_url('pending_client/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+			}
+
+            // if(in_array('deletePendingClient', $this->permission)) { 
+            //     $buttons .= '<button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+            // }
 
 			$result['data'][$key] = array(			
 				$value['companyName'],
@@ -52,6 +56,11 @@ class Pending_Client extends Admin_Controller
 		} // /foreach
 
 		echo json_encode($result);
+	}
+
+	public function addClient($pending_client_id)
+	{
+
 	}
 
 	public function update($pending_client_id)
