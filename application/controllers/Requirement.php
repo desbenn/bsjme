@@ -148,9 +148,12 @@ class Requirement extends Admin_Controller
             $question_data = $this->model_requirement->getQuestionData($question_id);
             $result['question'] = $question_data;
             $questionOption=json_decode($question_data['questionChoice'],true);
-            foreach($questionOption as $k => $v) {
-                $result['question_option'][] = $v;
-           }
+            if($questionOption!=null){
+                foreach($questionOption as $k => $v) 
+                {
+                    $result['question_option'][] = $v;
+                }
+            }
             $this->data['question_data'] = $result;
             $this->render_template('requirement/edit', $this->data); 
         }   
