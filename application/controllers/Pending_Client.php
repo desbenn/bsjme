@@ -58,9 +58,64 @@ class Pending_Client extends Admin_Controller
 		echo json_encode($result);
 	}
 
-	public function addClient($pending_client_id)
+	//--> It Fetches the document data from the document table
+    //    this function is called from the datatable ajax function
+	public function featchClientDocument()
 	{
 
+	}
+
+	public function addClient($pending_client_id)
+	{
+		if(!in_array('createClient', $this->permission)) {redirect('dashboard', 'refresh');}
+
+        $this->form_validation->set_rules('trn', 'trn', 'trim|required|is_unique[client.trn]');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+
+        if ($this->form_validation->run() == TRUE) {
+            // True case, we create the new client
+            $data = array(
+                'active' => $this->input->post('active'),
+                'address' => $this->input->post('clientAddress'),                
+                'city_id' => $this->input->post('clientCity'),  
+                'client_name' => $this->input->post('clientName'),                             
+                'company_name' => $this->input->post('company_name'),
+                'trn' => $this->input->post('trn'),
+                'county_id' => $this->input->post('clientCounty'), 
+                'directory' => $this->input->post('trn'),
+                'email' => $this->input->post('clientEmail'),                
+                'parish_id' => $this->input->post('clientParish'),
+                'phone' => $this->input->post('clientContact'), 
+                'website' => $this->input->post('clientWebsite'),
+                'updated_by' => $this->session->user_id,
+            );
+
+            $create = $this->model_client->create($data);
+
+			if($create!=false)
+			{
+				echo "Good Job";
+			}
+			else{
+				echo "Error occured";
+			}
+            // if($create == false) {
+            //     $msg_error = 'Error occurred';
+            //     $this->session->set_flashdata('error', $msg_error);
+            //     redirect('client/create', 'refresh');}
+            // else {
+            //     //---> Create the directory for deposit of documents-->
+            //     $path = "./upload/documents/".$this->input->post('trn');
+            //     //---> Create the folder if it does not exists
+            //     if(!is_dir($path))  {mkdir($path,0755,TRUE);}
+            //     //The create return the client_id created if it's successful
+            //     $client_id = $create;
+            //     redirect('client/update/'.$client_id, 'refresh');}
+
+		}
+		$client_data = $this->model_pending_client->getPendingClientData($pending_client_id);
+        $this->data['client_data'] = $client_data;
+        $this->render_template('pending_client/create', $this->data);
 	}
 
 	public function update($pending_client_id)

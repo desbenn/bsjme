@@ -2,10 +2,10 @@
 <div class="content-wrapper">
 
 <section class="content-header">
-    <h1>Edit Pending Client <?php echo $client_data['companyName']; ?> (<?php echo $client_data['trn']; ?>)</h1>
+    <h1>Add New Client - <?php echo $client_data['companyName']; ?> (<?php echo $client_data['trn']; ?>)</h1>
     <ol class="breadcrumb">
-        <li><a href="<?php echo base_url('pending_client') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Pending Client</li>
+        <li><a href="<?php echo base_url('client') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Pending Client(s)</li>
     </ol>
 </section>
 
@@ -19,12 +19,13 @@
 <!--                                                                                                 -->
 <!----------------------------------------------------------------------------------------------------->
 
+<?php $active_tab='client'; ?>
 
 <section class="content">
-  <!-- <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs">
     <li class="<?php echo (($active_tab === 'client') ? 'active' : '') ?>"><a data-toggle="tab" href="#client">Client</a></li>
     <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
-  </ul>	 -->
+  </ul>	
 
 
 
@@ -98,8 +99,8 @@
 <div id="client" class="tab-pane fade <?php echo (($active_tab === 'client') ? 'in active' : '') ?>">	
 
 
-        <div class="box">
-            <form role="form" action="<?php base_url('pending_client/update') ?>" method="post" enctype="multipart/form-data">
+<div class="box">
+            <form role="form" action="<?php base_url('pending_client/addClient') ?>" method="post" enctype="multipart/form-data">
 
             <div class="box-body">
 
@@ -107,7 +108,7 @@
 
                 <!-- /row divide by 3-->
                 <div class="row">
-
+                    
                      <div class="col-md-2 col-xs-2">
                         <div class="form-group">
                             <label for="trn">TRN <font color="red">*</font></label>
@@ -239,9 +240,13 @@
 $(document).ready(function() {
     $(".select_group").select2({width: '100%'});
     //$("#remark").wysihtml5();
+    $("#mainClientNav").addClass('active');
+    //$("#manageClientNav").addClass('active');
 
 });
 </script>
+
+
 
 <!----------------------------------------------------------------------------------------------------->
 <!--                                                                                                 -->
@@ -257,20 +262,6 @@ $(document).ready(function() {
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
 
-
-                        <?php echo form_open_multipart('client/uploadDocument') ?>
-                        <?php echo "<table width='100%'>" ?>
-                        <?php echo "<tr>" ?>
-                        <?php if(in_array('createDocument', $user_permission)): ?>
-                            <?php echo "<td width='10%' align=left><input type='file' required='required' name='client_document' id='client_document' size='60'  /></td>" ?>
-                            <?php echo "<td><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
-                        <?php endif; ?>	
-                        <?php echo "</tr>" ?>
-                        <?php echo "</table>" ?>
-                        <?php echo "</form>"?>
-
-                        <br>
-
                         <div class="col-md-12 col-xs-12">
                             <table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
@@ -278,7 +269,6 @@ $(document).ready(function() {
                                         <th>Type</th>
                                         <th>Document</th>
                                         <th>Size</th>
-                                        <th>Consultation</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -351,7 +341,7 @@ $("#DocumentClientNav").addClass('active');
 // initialize the datatable
 manageTableDocument = $('#manageTableDocument').DataTable({
     'ajax': {
-            url: base_url + 'client/fetchClientDocument/',
+            url: base_url + 'pending_client/fetchClientDocument/',
             type: 'POST',
             dataType: 'json',
             data: {document_client_id: document_client_id, document_type_id: document_type_id},
