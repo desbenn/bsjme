@@ -234,6 +234,24 @@ class Pending_Client extends Admin_Controller
     public function fetchClientDocument()
     {
         $result = array('data' => array());
+        $data = $this->model_pending_client->getPendingClientsDocuments($id, $type);
+        foreach ($data as $key => $value)
+        {
+            $link = base_url('upload/documents/'.$value['directory'].'/'.$value['doc_name']);
+            $doc_link = '<a href="'.$link.'" target="_blank" >'.($value['doc_name']).'</a>';
+            $buttons = '';
+
+            if(in_array('viewDocument', $this->permission)) {
+                $buttons .= '<a href="'.$link.'" target="_blank" class="btn btn-default"><i class="fa fa-search"></i></a>';
+            }
+
+            $result['data'][$key] = array(
+                $doc_link,
+                $buttons
+            );
+
+        }
+        echo json_encode($result);
     }
 
 }
