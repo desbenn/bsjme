@@ -10,7 +10,7 @@
 </section>
 
 
-
+<?php $active_tab='client'; ?>
 
 
 <!----------------------------------------------------------------------------------------------------->
@@ -19,11 +19,12 @@
 <!--                                                                                                 -->
 <!----------------------------------------------------------------------------------------------------->
 
-<?php $active_tab='client'; ?>
+
 
 <section class="content">
   <ul class="nav nav-tabs">
     <li class="<?php echo (($active_tab === 'client') ? 'active' : '') ?>"><a data-toggle="tab" href="#client">Client</a></li>
+    <li class="<?php echo (($active_tab === 'requirement') ? 'active' : '') ?>"><a data-toggle="tab" href="#requirement">Requirement Question(s)</a></li>		
     <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
   </ul>	
 
@@ -83,10 +84,6 @@
             $directory = array('directory' => '/upload/documents/'.$client_data['directory'].'/');
             $this->session->set_userdata($directory);
             } ?> -->
-
-
-
-
 
 
 <!----------------------------------------------------------------------------------------------------->
@@ -219,7 +216,7 @@
                 <div class="row">
                       <div class="col-md-6 col-xs-6">
                            <?php if(in_array('updateConsultation', $user_permission)): ?>   <!-- you must have the permission to update with the Save button -->   
-                              <button type="submit" class="btn btn-primary">Save</button>
+                              <button type="submit" class="btn btn-primary">Add Client</button>
                          <?php endif; ?>
 
                         <?php echo '<a href="'.base_url('report_client/REP0C/'.$client_data['id']).'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
@@ -250,6 +247,61 @@ $(document).ready(function() {
 
 <!----------------------------------------------------------------------------------------------------->
 <!--                                                                                                 -->
+<!--                                        R E Q U I R E M E N T                                    -->
+<!--                                                                                                 -->
+<!----------------------------------------------------------------------------------------------------->
+
+
+<div id="requirement" class="tab-pane fade <?php echo (($active_tab === 'requirement') ? 'in active' : '') ?>">	
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="manageTableConsultation" class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Response(s)</th>
+                                <?php if(in_array('viewPendingClient', $user_permission)): ?>
+                                <th>Action</th>
+                                <?php endif; ?>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------------------------------->
+<!-- Javascript part of Requirements--->
+<!------------------------------------->
+
+<script type="text/javascript">
+var manageTableConsultation;
+var base_url = "<?php echo base_url(); ?>";
+
+$(document).ready(function() {
+
+$("#consultationClientNav").addClass('active');
+
+
+// initialize the datatable
+manageTableConsultation = $('#manageTableConsultation').DataTable({
+    'ajax': base_url+'pending_client/fetchPendingQuestions/'+<?php echo $client_data['trn']; ?>,
+    // 'order': [[0, 'asc']]
+});
+
+});
+
+</script>
+
+<!----------------------------------------------------------------------------------------------------->
+<!--                                                                                                 -->
 <!--                                        D O C U M E N T                                         -->
 <!--                                                                                                 -->
 <!----------------------------------------------------------------------------------------------------->
@@ -261,14 +313,11 @@ $(document).ready(function() {
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
-
                         <div class="col-md-12 col-xs-12">
                             <table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Type</th>
                                         <th>Document</th>
-                                        <th>Size</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -299,33 +348,6 @@ $(document).ready(function() {
 </div>
 
 
-<!-- Delete Document -->
-
-<?php if(in_array('deleteDocument', $user_permission)): ?>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="removeDocumentModal">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Delete Document</h4>
-  </div>
-  <form role="form" action="<?php echo base_url('client/removeDocument') ?>" method="post" id="removeFormDocument">
-    <div class="modal-body">
-      <p>Do you really want to delete?</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Delete</button>
-    </div>
-  </form>
-</div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<?php endif; ?>
-
-
 <!------------------------------------->
 <!-- Javascript part of Document    --->
 <!------------------------------------->
@@ -341,7 +363,7 @@ $("#DocumentClientNav").addClass('active');
 // initialize the datatable
 manageTableDocument = $('#manageTableDocument').DataTable({
     'ajax': {
-            url: base_url + 'pending_client/fetchClientDocument/',
+            url: base_url + 'client/fetchClientDocument/',
             type: 'POST',
             dataType: 'json',
             data: {document_client_id: document_client_id, document_type_id: document_type_id},
@@ -350,42 +372,4 @@ manageTableDocument = $('#manageTableDocument').DataTable({
     'order': [[0, "asc"]]
 });
 
-
-function removeDocument(id)
-{
-if(id) {
-$("#removeFormDocument").on('submit', function() {
-
-  var form = $(this);
-
-  // remove the text-danger
-  $(".text-danger").remove();
-
-  $.ajax({
-    url: form.attr('action'),
-    type: form.attr('method'),
-    data: { document_id:id },
-    dataType: 'json',
-    success:function(response) {
-
-      manageTableDocument.ajax.reload(null, false);
-
-      if(response.success === true) {
-        // hide the modal
-        $("#removeDocumentModal").modal('hide');
-
-      } else {
-
-        $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
-          '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-          '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
-        '</div>');
-      }
-    }
-  });
-
-  return false;
-});
-}
-}
 </script>

@@ -58,11 +58,24 @@ class Pending_Client extends Admin_Controller
 		echo json_encode($result);
 	}
 
-	//--> It Fetches the document data from the document table
-    //    this function is called from the datatable ajax function
-	public function featchClientDocument()
+	public function fetchPendingQuestions($id)
 	{
+        $result = array('data' => array());
+        $data = $this->model_pending_client->getPendingClientQuestions($id);
+        foreach($data as $key => $value)
+        {
+            $buttons = '';
+            if(in_array('viewPendingClient', $this->permission)){
+                $buttons .= '<a href="'.base_url('pending_client/viewQuestion/'.$value['id']).'" class="btn btn-default"><i class="fa fa-plus"></i></a>';
+            }
+            $result['data'][$key] = array(
+                $value['question'],
+                $value['questionResponse'],
+                $buttons
+            );
+        }
 
+        echo json_encode($result);
 	}
 
 	public function addClient($pending_client_id)
@@ -211,7 +224,17 @@ class Pending_Client extends Admin_Controller
         }
 
         echo json_encode($response);
-	}
+    }
+    
+    
+//-------------------------------------   DOCUMENT ------------------------------------------------------
+
+    //--> It Fetches the document data from the document table
+    //    this function is called from the datatable ajax function
+    public function fetchClientDocument()
+    {
+        $result = array('data' => array());
+    }
 
 }
 

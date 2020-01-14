@@ -31,6 +31,13 @@ class Model_pending_client extends CI_Model
 			return ($update == true) ? true : false;
 		}
 	}
+
+	public function getPendingClientQuestions($trn)
+	{
+		$sql = "SELECT pcresponses.id, pcresponses.pdTRN, pcresponses.questionResponse,  requirements.question FROM `pcresponses` LEFT JOIN `requirements` on pcresponses.rId=requirements.id WHERE `pdTRN`='$trn'";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
     
 
     public function remove($id)
