@@ -39,7 +39,9 @@ class Pending_Client extends Admin_Controller
 
 			if(in_array('updatePendingClient', $this->permission)) {
                 $buttons .= '<a href="'.base_url('pending_client/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
-			}
+            }
+            
+            $active = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
 
             // if(in_array('deletePendingClient', $this->permission)) { 
             //     $buttons .= '<button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
@@ -50,7 +52,7 @@ class Pending_Client extends Admin_Controller
 				$value['trn'],
 				$value['clientName'],
 				$value['attempts'],
-				$value['active'],
+				$active,
 				$buttons
 			);
 		} // /foreach
