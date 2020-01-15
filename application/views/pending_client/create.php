@@ -76,16 +76,6 @@
         $client_id = array('client_id' => $client_data['id']);
         $this->session->set_userdata($client_id);} ?>
 
-    <!-- Creation of a session to keep the directory for the manipulation
-          of upload of documents -->
-
-    <!-- <?php $this->session->unset_userdata('directory');?>
-    <?php if(empty($this->session->userdata('directory'))) {
-            $directory = array('directory' => '/upload/documents/'.$client_data['directory'].'/');
-            $this->session->set_userdata($directory);
-            } ?> -->
-
-
 <!----------------------------------------------------------------------------------------------------->
 <!--                                                                                                 -->
 <!--                                        C L I E N T                                              -->
@@ -318,7 +308,6 @@ manageTableConsultation = $('#manageTableConsultation').DataTable({
                                 <thead>
                                     <tr>
                                         <th>Document</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -328,7 +317,7 @@ manageTableConsultation = $('#manageTableConsultation').DataTable({
 
             <div class="box-footer">
 
-                    <a href="<?php echo base_url('client/') ?>" class="btn btn-warning">Close</a>
+                    <a href="<?php echo base_url('pending_client/') ?>" class="btn btn-warning">Close</a>
             </div>
 
         </form>
@@ -354,22 +343,16 @@ manageTableConsultation = $('#manageTableConsultation').DataTable({
 
 <script type="text/javascript">
 var manageTableDocument;
-var base_url = '<?php echo base_url(); ?>';
-var document_client_id = <?php echo $client_data['id']; ?>;
-var document_type_id = 'all';  //for all type of documents
+var base_url = "<?php echo base_url(); ?>";
 
-$("#DocumentClientNav").addClass('active');
+$(document).ready(function() {
 
 // initialize the datatable
 manageTableDocument = $('#manageTableDocument').DataTable({
-    'ajax': {
-            url: base_url + 'client/fetchClientDocument/',
-            type: 'POST',
-            dataType: 'json',
-            data: {document_client_id: document_client_id, document_type_id: document_type_id},
-            },
-    
-    'order': [[0, "asc"]]
+    'ajax': base_url+'pending_client/fetchClientDocument/'+<?php echo $client_data['trn']; ?>
+    // 'order': [[0, 'asc']]
+});
+
 });
 
 </script>

@@ -231,29 +231,24 @@ class Pending_Client extends Admin_Controller
 
     //--> It Fetches the document data from the document table
     //    this function is called from the datatable ajax function
-    public function fetchClientDocument()
+    public function fetchClientDocument($trn)
     {
         $result = array('data' => array());
-        $data = $this->model_pending_client->getPendingClientsDocuments($id, $type);
+        $data = $this->model_pending_client->getPendingClientsDocuments($trn);
+        // var_dump($data);
+        // echo $data[id];
         foreach ($data as $key => $value)
         {
-            $link = base_url('upload/documents/'.$value['directory'].'/'.$value['doc_name']);
-            $doc_link = '<a href="'.$link.'" target="_blank" >'.($value['doc_name']).'</a>';
-            $buttons = '';
-
-            if(in_array('viewDocument', $this->permission)) {
-                $buttons .= '<a href="'.$link.'" target="_blank" class="btn btn-default"><i class="fa fa-search"></i></a>';
-            }
+            $link = base_url('upload/documents/'.$value['trn'].'/'.$value['docname']);
+            $doc_link = '<a href="'.$link.'" target="_blank" >'.($value['docname']).'</a>';
 
             $result['data'][$key] = array(
                 $doc_link,
-                $buttons
             );
 
         }
         echo json_encode($result);
     }
-
 }
 
 ?>

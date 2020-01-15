@@ -41,7 +41,12 @@ class Model_pending_client extends CI_Model
 
 	public function getPendingClientsDocuments($trn)
 	{
-
+		if($trn)
+		{
+			$sql = "SELECT * FROM `pcdocument` WHERE trn = '$trn'";
+			$query = $this->db->query($sql);
+			return $query->result_array();
+		}
 	}
     
 
