@@ -236,7 +236,6 @@
               <!-- you must have the permission to update the client or create a user -->   
               <?php if(in_array('updateConsultation', $user_permission)): ?>      
                 <?php echo '<a href="'.base_url('client/update/'.$consultation_data['client_id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>'; ?>
-                <?php echo '<a href="'.base_url('user/createUserClient/'.$consultation_data['client_id']).'" class="btn btn-primary">Create User</a>'; ?> 
               <?php endif; ?>
 
               <br>
@@ -336,7 +335,7 @@
                 <div class="form-group">
                   <label for="consultation_no">Consultation No <font color="red">*</font></label>
                   <input type="text" class="form-control" id="consultation_no" name="consultation_no" autocomplete="off"
-                  value="<?php echo set_value('consultation_no', isset($consultation_data['consultation_no']) ? $consultation_data['consultation_no'] : ''); ?>" />
+                  value="<?php echo set_value('consultation_no', isset($consultation_data['consultation_no']) ? $consultation_data['consultation_no'] : ''); ?>" readonly/>
                 </div>
               </div>
 
@@ -352,7 +351,7 @@
                 <div class="form-group">
                   <label for="consultant">Consultant</label>
                   <?php $consultant_data = json_decode($consultation_data['consultant_id']); ?>
-                  <select class="form-control select_group" id="consultant" name="consultant[]" multiple="multiple">
+                  <select class="form-control select_group" id="consultant" name="consultant[]" multiple="multiple" disabled>
                     <option value=""></option>
                     <?php foreach ($consultant as $k => $v): ?>
                        <option value="<?php echo $v['id'] ?>" 
@@ -373,7 +372,7 @@
                 <div class="form-group">
                   <label for="date_creation">Date creation <font color="red">*</font></label></label>
                   <input type="date" class="form-control" id="date_creation" name="date_creation" autocomplete="off"
-                  value="<?php echo set_value('date_creation', isset($consultation_data['date_creation']) ? $consultation_data['date_creation'] : ''); ?>" />
+                  value="<?php echo set_value('date_creation', isset($consultation_data['date_creation']) ? $consultation_data['date_creation'] : ''); ?>" readonly/>
                 </div>
               </div>       
               
@@ -389,6 +388,7 @@
                 </div>
               </div>                  
 
+              <?php if(in_array('updateConsultation', $user_permission)): ?>
               <div class="col-md-3 col-xs-3">
                 <div class="form-group">
                   <label for="property">Phase <font color="red">*</font></label>
@@ -401,6 +401,7 @@
                     </select>
                 </div>
               </div>
+              <?php endif; ?>
 
               <div class="col-md-3 col-xs-3">
                 <div class="form-group">
@@ -513,15 +514,49 @@
       
     <div class="box">
         <div class="box-body">
+          <!-- Actual Questions -->
+          <?php if ($consultation_data['phase_id'] ==1): ?>
           <div class="row">
             <div class="col-md-12 col-xs-12">
-                  Q U E S T I O N S
+              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="" enctype="multipart/form-data">
+                <?php echo validation_errors(); ?>
+                
+              </form>
             </div>
           </div>
+
+          <?php elseif($consultation_data['phase_id'] ==2): ?>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <p>Phase 2</p>
+            </div>
+          </div>
+
+          <?php elseif($consultation_data['phase_id'] ==3): ?>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <p>Phase 3</p>
+            </div>
+          </div>  
+
+          <?php elseif($consultation_data['phase_id'] ==4): ?>
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <p>Phase 4</p>
+            </div>
+          </div>
+
+          <?php endif; ?>  
         </div>
       </div>    
 
    </div>
+
+ <!-- JavaScript for QUESTION -->
+ <script>
+ 
+ </script>
+ 
 
 
 
@@ -695,8 +730,5 @@ function removeDocument(id)
   }
 }
 </script>
-
-
-
 
 

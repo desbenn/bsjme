@@ -185,8 +185,6 @@ class Model_consultation extends CI_Model
 		WHERE consultation_id = ?";
 		$query = $this->db->query($sql, array($consultation_id));
 		return $query->result_array();
-
-
 	}
 
 	//---> Validate if the consultation have some documents attached
@@ -195,6 +193,11 @@ class Model_consultation extends CI_Model
 		$sql = "SELECT * FROM document WHERE consultation_id = ?";
 		$query = $this->db->query($sql, array($id));
 		return $query->num_rows();
+
+	}
+
+	public function getQuestions()
+	{
 
 	}
 

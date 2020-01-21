@@ -52,6 +52,15 @@ class Model_question extends CI_Model
 		return $query->result_array();
 	}
 
+	public function getConsultationQuestions($standardId)
+	{
+		$sql = "SELECT question.id as questionId, question.question as question, question.sub_clause as subClause, 
+		question_type.code as questionType  FROM `question` JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+		JOIN clause ON sub_clause.clause_id=clause.id JOIN standard on clause.standard_id = standard.id JOIN question_type 
+		on question.question_type_id=question_type.id where standard.id = $standardId";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 
 	
 
