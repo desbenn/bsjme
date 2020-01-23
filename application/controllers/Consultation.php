@@ -519,45 +519,10 @@ class Consultation extends Admin_Controller
     //--                                                                                                 --
     //-----------------------------------------------------------------------------------------------------
 
-    public function getQuestion($phase, $standardId)
+
+    public function captureQuestions($phase=null,$standardId=null)
     {
-        $result = array();
-        $question_data = $this->model_question->getConsultationQuestions($standardId);
-        if(!$question_data)
-        {
-            var_dump($question_data);
-            $result['question'] = $question_data;
-            var_dump($result['question']);
-            $question_option = $this->model_question->getOptionData($question_data['questionId']);
-            if($phase==1)
-            {
-                foreach($question_option as $k => $v) 
-                {
-                    $result['question_option'][] = $v;
-                }
-            }
-            elseif($phase==2)
-            {
-
-            }
-            elseif($phase==3)
-            {
-
-            }
-            elseif($phase==4)
-            {
-
-            }
-        }
-        else
-        {
-            echo "An error occured getting the question Data";
-        }
-    }
-
-    public function captureQuestions($phase, $standardId)
-    {
-        if(!$phase && !$standardId)
+        if($phase==null && $standardId==null)
         {redirect('dashboard', 'refresh');}
         if($this->form_validation->run() == TRUE)
         {
@@ -566,34 +531,31 @@ class Consultation extends Admin_Controller
         else
         {
             $result = array();
-            $question_data = $this->model_question->getConsultationQuestions($standardId);
-            if(!$question_data)
+            $question_data = $this->model_question->getConsultationQuestions($standardId,$phase);
+            
+            if($question_data!=null)
             {
-                var_dump($question_data);
+                //var_dump($question_data);
                 $result['question'] = $question_data;
-                var_dump($result['question']);
-                $question_option = $this->model_question->getOptionData($question_data['questionId']);
-                if($phase==1)
+                //var_dump($result['question']);
+                for($i=0; $i<count($result['question']); $i++)
                 {
+                    echo $result['question'][$i]['questionId'];
+                    echo "<br>";
+                    $question_option=$this->model_question->getOptionData($result['question'][$i]['questionId']);
+                    var_dump($question_option);
                     foreach($question_option as $k => $v) 
                     {
                         $result['question_option'][] = $v;
-                    }
-                }
-                elseif($phase==2)
-                {
-
-                }
-                elseif($phase==3)
-                {
-
-                }
-                elseif($phase==4)
-                {
-
-                }
+                   }
+                }    
+                var_dump($result['question']);         
+            }
+            else{
+                echo "No data captured from database";
             }
         }
+        //echo json_encode($result);
     }
 
 }

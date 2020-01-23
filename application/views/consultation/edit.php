@@ -553,8 +553,15 @@
    </div>
 
  <!-- JavaScript for QUESTION -->
- <script>
- 
+ <script type="text/javascript">
+  var standard_id = $('#standard').val();
+  var phase_id = $('#phase').val();
+  console.log(phase_id,standard_id);
+  $(document).ready(function(){
+    $.ajax({
+      url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
+    });
+  });
  </script>
  
 
