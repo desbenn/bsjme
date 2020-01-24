@@ -520,6 +520,13 @@
             <div class="col-md-12 col-xs-12">
               <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="" enctype="multipart/form-data">
                 <?php echo validation_errors(); ?>
+                <?php
+                echo $question_data['question'];
+                  // for($i=0;$i<count($question_data['question']);$i++)
+                  // {
+
+                  // }
+                ?>
                 
               </form>
             </div>
