@@ -521,11 +521,6 @@
               <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="" enctype="multipart/form-data">
                 <?php echo validation_errors(); ?>
                 <?php
-                echo $question_data['question'];
-                  // for($i=0;$i<count($question_data['question']);$i++)
-                  // {
-
-                  // }
                 ?>
                 
               </form>
@@ -566,8 +561,19 @@
   console.log(phase_id,standard_id);
   $(document).ready(function(){
     $.ajax({
+      type: "POST",
       url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
+      dataType: "json",
+      success:function(result){
+        if(result.status=="ok"){
+          $('#questionId').text(result.question.questionId);
+          $('#question').text(result.question.question);
+          $('#subClauseno').text(result.question.subClause);
+          $('#questionType').text(result.question.questionType);
+        }
+      }
     });
+
   });
  </script>
  

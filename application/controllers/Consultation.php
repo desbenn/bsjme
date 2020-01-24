@@ -535,30 +535,30 @@ class Consultation extends Admin_Controller
             
             if($question_data!=null)
             {
-                //var_dump($question_data);
+                $result['status']="ok";
                 $result['question'] = $question_data;
-                //var_dump($result['question']);
                 for($i=0; $i<count($result['question']); $i++)
                 {
-                    //echo $result['question'][$i]['questionId'];
-                    // echo "<br>";
                     $question_option=$this->model_question->getOptionData($result['question'][$i]['questionId']);
-                    // var_dump($question_option);
-                    foreach($question_option as $k => $v) 
+                    if($question_option!=null)
                     {
-                        $result['question_option'][] = $v;
-                   }
-                }    
-                //var_dump($result);         
+                        foreach($question_option as $k => $v) 
+                        {
+                            $result['question_option'][] = $v;
+                        }
+                    }
+                }         
             }
-            else{
+            else
+            {
+                $result['status']="err";
                 echo "No data captured from database";
             }
         }
-        $this->data['question_data'] = $result;
-        var_dump($this->data['question_data']);
-        //$this->render_template('consultation/edit', $this->data); 
-        //echo json_encode($result);
+        // $this->data['question_data'] = $result;
+        // var_dump($this->data['question_data']);
+        //$this->render_template('consultation/edit', $this->data);
+        echo json_encode($result);
     }
 
 }
