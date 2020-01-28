@@ -528,21 +528,30 @@
           <?php elseif($consultation_data['phase_id'] ==2): ?>
           <div class="row">
             <div class="col-md-12 col-xs-12">
-              <p>Phase 2</p>
+              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
+                <?php echo validation_errors(); ?>
+                
+              </form>
             </div>
           </div>
 
           <?php elseif($consultation_data['phase_id'] ==3): ?>
           <div class="row">
             <div class="col-md-12 col-xs-12">
-              <p>Phase 3</p>
+              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
+                <?php echo validation_errors(); ?>
+                
+              </form>
             </div>
           </div>  
 
           <?php elseif($consultation_data['phase_id'] ==4): ?>
           <div class="row">
             <div class="col-md-12 col-xs-12">
-              <p>Phase 4</p>
+              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
+                <?php echo validation_errors(); ?>
+                
+              </form>
             </div>
           </div>
 
@@ -560,25 +569,27 @@
   console.log(phase_id,standard_id);
   $(document).ready(function(){
     $.ajax({
-      //type: "POST",
       url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
       dataType: "json",
       data: result,
       success:function(result){
-        if(result.status=='ok'){
+        if(result.status=='ok')
+        {
           let questNo=0;
           for(i in result.question)
           {
-            questNo++;
+			      questNo++;
             let questionId, question, questionType, option;
             questionId=result.question[i].questionId;
             question=result.question[i].question;
             questionType=result.question[i].questionType;
+            let html=``;
+            html=`<label for='q`+questionId+`'>`+questNo+')'+question+`</label>`;
             if(result.hasOwnProperty("question_option"))
             {
               var options = [];
-              for(count in result.question_option){
-                let html=``;
+              for(count in result.question_option)
+				      {
                 if(result.question_option[count].question_id === result.question[i].questionId)
                 {
                   options.push(result.question_option[count].option_desc);
@@ -587,44 +598,56 @@
             }
             if(questionType === "TEXT" || questionType === "TEXTAREA")
             {
-              
+                html+=`<textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='`+questionId+`'></textarea>`;
             }
             else if(questionType === "BOOLEAN" || questionType === "RADIO")
             {
-              html=`<label for='q`+questionId+`'>`+questNo+`)`+question+`</label>`;
-              if(options !== undefined || options.length != 0)
+              if(options !== undefined)
               {
-                options.forEach(function(option){
+                options.forEach(function(option)
+                {
                   html+=`<div class='form-check-inline'>
                             <label class='form-check-label'>
                                 <input type='radio' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
                             </label>
                         </div>`;
                 });
-                console.log(html);
-                //document.getElementById("questionForm").innerHTML = html;
-                //$".questionForm".append(html);
               }
-
             }
             else if(questionType === "LIST")
             {
-
+              if(options !== undefined)
+              {
+                html+=`<div class='form-group'>`+
+                          `<select class='form-control' name='`+questionId+`'>
+                            <option value='' selected>Select One</option>`;
+                options.forEach(function(option)
+                {
+                  html+=`<option value='`+option+`'>`+option+`</option>`;
+                });
+                html+=`</select></div>`;
+              }
             }
             else if(questionType === "CHECKBOX")
             {
-
+              if(options !== undefined)
+              {
+                options.forEach(function(option)
+                {
+                  html+=`<div class='form-check-inline'>
+                            <label class='form-check-label'>
+                                <input type='checkbox' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
+                            </label>
+                        </div>`;
+                });
+              }
             }
+            let form = document.getElementById('questionForm'); 
+            form.innerHTML += html;
           }
-          
-        //   $('#questionId').text(result.question.questionId);
-        //   $('#question').text(result.question.question);
-        //   $('#subClauseNo').text(result.question.subClause);
-        //   $('#questionType').text(result.question.questionType);
         }
       }
     });
-
   });
  </script>
  
