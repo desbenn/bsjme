@@ -518,10 +518,8 @@
           <?php if ($consultation_data['phase_id'] ==1): ?>
           <div class="row">
             <div class="col-md-12 col-xs-12">
-              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="" enctype="multipart/form-data">
+              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
                 <?php echo validation_errors(); ?>
-                <?php
-                ?>
                 
               </form>
             </div>
@@ -558,18 +556,71 @@
  <script type="text/javascript">
   var standard_id = $('#standard').val();
   var phase_id = $('#phase').val();
+  var result;
   console.log(phase_id,standard_id);
   $(document).ready(function(){
     $.ajax({
-      type: "POST",
+      //type: "POST",
       url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
       dataType: "json",
+      data: result,
       success:function(result){
-        if(result.status=="ok"){
-          $('#questionId').text(result.question.questionId);
-          $('#question').text(result.question.question);
-          $('#subClauseno').text(result.question.subClause);
-          $('#questionType').text(result.question.questionType);
+        if(result.status=='ok'){
+          let questNo=0;
+          for(i in result.question)
+          {
+            questNo++;
+            let questionId, question, questionType, option;
+            questionId=result.question[i].questionId;
+            question=result.question[i].question;
+            questionType=result.question[i].questionType;
+            if(result.hasOwnProperty("question_option"))
+            {
+              var options = [];
+              for(count in result.question_option){
+                let html=``;
+                if(result.question_option[count].question_id === result.question[i].questionId)
+                {
+                  options.push(result.question_option[count].option_desc);
+                }
+              }
+            }
+            if(questionType === "TEXT" || questionType === "TEXTAREA")
+            {
+              
+            }
+            else if(questionType === "BOOLEAN" || questionType === "RADIO")
+            {
+              html=`<label for='q`+questionId+`'>`+questNo+`)`+question+`</label>`;
+              if(options !== undefined || options.length != 0)
+              {
+                options.forEach(function(option){
+                  html+=`<div class='form-check-inline'>
+                            <label class='form-check-label'>
+                                <input type='radio' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
+                            </label>
+                        </div>`;
+                });
+                console.log(html);
+                //document.getElementById("questionForm").innerHTML = html;
+                //$".questionForm".append(html);
+              }
+
+            }
+            else if(questionType === "LIST")
+            {
+
+            }
+            else if(questionType === "CHECKBOX")
+            {
+
+            }
+          }
+          
+        //   $('#questionId').text(result.question.questionId);
+        //   $('#question').text(result.question.question);
+        //   $('#subClauseNo').text(result.question.subClause);
+        //   $('#questionType').text(result.question.questionType);
         }
       }
     });
