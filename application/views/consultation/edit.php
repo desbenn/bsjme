@@ -509,57 +509,17 @@
 <!----------------------------------------------------------------------------------------------------->
 
 
-    <div id="question" class="tab-pane fade <?php echo (($active_tab === 'question') ? 'in active' : '') ?>"> 
-
-      
+  <div id="question" class="tab-pane fade <?php echo (($active_tab === 'question') ? 'in active' : '') ?>">
     <div class="box">
-        <div class="box-body">
-          <!-- Actual Questions -->
-          <?php if ($consultation_data['phase_id'] ==1): ?>
-          <div class="row">
-            <div class="col-md-12 col-xs-12">
-              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
-                <?php echo validation_errors(); ?>
-                
-              </form>
-            </div>
-          </div>
-
-          <?php elseif($consultation_data['phase_id'] ==2): ?>
-          <div class="row">
-            <div class="col-md-12 col-xs-12">
-              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
-                <?php echo validation_errors(); ?>
-                
-              </form>
-            </div>
-          </div>
-
-          <?php elseif($consultation_data['phase_id'] ==3): ?>
-          <div class="row">
-            <div class="col-md-12 col-xs-12">
-              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
-                <?php echo validation_errors(); ?>
-                
-              </form>
-            </div>
-          </div>  
-
-          <?php elseif($consultation_data['phase_id'] ==4): ?>
-          <div class="row">
-            <div class="col-md-12 col-xs-12">
-              <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" id="questionForm" enctype="multipart/form-data">
-                <?php echo validation_errors(); ?>
-                
-              </form>
-            </div>
-          </div>
-
-          <?php endif; ?>  
+      <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" enctype="multipart/form-data">
+        <div class="box-body" id="questionForm"> 
+        </div> 
+        <div class="box-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
-      </div>    
-
-   </div>
+      </form>
+    </div>    
+  </div>
 
  <!-- JavaScript for QUESTION -->
  <script type="text/javascript">
