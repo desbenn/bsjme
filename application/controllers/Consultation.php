@@ -526,7 +526,7 @@ class Consultation extends Admin_Controller
         {redirect('dashboard', 'refresh');}
         if($this->form_validation->run() == TRUE)
         {
-
+            echo "Form Submitted";
         }
         else
         {
@@ -555,9 +555,6 @@ class Consultation extends Admin_Controller
                 echo "No data captured from database";
             }
         }
-        // $this->data['question_data'] = $result;
-        // var_dump($this->data['question_data']);
-        //$this->render_template('consultation/edit', $this->data);
         echo json_encode($result);
     }
 

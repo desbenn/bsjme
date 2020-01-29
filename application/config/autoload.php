@@ -136,6 +136,7 @@ $autoload['language'] = array('english');
 */
 $autoload['model'] = array('model_county',
 	'model_auth',
+	'model_answer',
 	'model_category',
 	'model_clause',
 	'model_sub_clause',

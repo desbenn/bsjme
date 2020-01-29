@@ -515,7 +515,7 @@
         <div class="box-body" id="questionForm"> 
         </div> 
         <div class="box-footer">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <input type="submit" class="btn btn-primary" value="Save Changes">
         </div>
       </form>
     </div>    
