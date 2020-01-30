@@ -558,6 +558,57 @@ class Consultation extends Admin_Controller
         echo json_encode($result);
     }
 
+    public function answerQuestion($question_id)
+    {
+        if ($this->form_validation->run() == TRUE) 
+        {
+            if (!empty($this->input->post('option'))) 
+            {
+                
+            }
+            else
+            {
+                
+            }
+            
+           
+            if($update == true)
+            {
+                
+            }
+            else
+            {
+                
+            }
+        }
+        else 
+        {   
+            $result = array();
+            $question_data = $this->model_question->getQuestionData($question_id);
+            $result['question'] = $question_data;
+            //var_dump($result);
+            $this->data['question_data'] = $result;
+            $this->render_template('response/edit', $this->data); 
+        }  
+    }
+
+    public function fetchQuestionData($phase=null,$standardId=null)
+    {
+        $result = array('data' => array());
+        $data = $this->model_question->getConsultationQuestions($standardId,$phase);
+        foreach($data as $key => $value){
+            $buttons = '';
+            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['questionId']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+            $result['data'][$key] = array(
+                $value['questionId'],
+                $value['question'],
+                $value['question'],//complete or incomplete inidicator
+                $buttons
+            );
+        }
+        echo json_encode($result);
+    }
+
 }
 
 ?>

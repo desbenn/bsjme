@@ -511,13 +511,18 @@
 
   <div id="question" class="tab-pane fade <?php echo (($active_tab === 'question') ? 'in active' : '') ?>">
     <div class="box">
-      <form role="form" action="<?php base_url('consultation/captureQuestions') ?>" method="post" class="questionForm" enctype="multipart/form-data">
-        <div class="box-body" id="questionForm"> 
-        </div> 
-        <div class="box-footer">
-          <input type="submit" class="btn btn-primary" value="Save Changes">
-        </div>
-      </form>
+      <div class="box-body" id="questionForm"> 
+        <table id="manageTable" class="table table-bordered table-striped">
+          <thead>
+            <tr> 
+                <th>Question Number</th>
+                <th>Question</th>
+                <th>Complete/Incomplete</th>
+                <th>Action</th>
+            </tr>
+          </thead>
+        </table>
+      </div> 
     </div>    
   </div>
 
@@ -526,89 +531,96 @@
   var standard_id = $('#standard').val();
   var phase_id = $('#phase').val();
   var result;
-  console.log(phase_id,standard_id);
-  $(document).ready(function(){
-    $.ajax({
-      url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
-      dataType: "json",
-      data: result,
-      success:function(result){
-        if(result.status=='ok')
-        {
-          let questNo=0;
-          for(i in result.question)
-          {
-			      questNo++;
-            let questionId, question, questionType, option;
-            questionId=result.question[i].questionId;
-            question=result.question[i].question;
-            questionType=result.question[i].questionType;
-            let html=``;
-            html=`<label for='q`+questionId+`'>`+questNo+')'+question+`</label>`;
-            if(result.hasOwnProperty("question_option"))
-            {
-              var options = [];
-              for(count in result.question_option)
-				      {
-                if(result.question_option[count].question_id === result.question[i].questionId)
-                {
-                  options.push(result.question_option[count].option_desc);
-                }
-              }
-            }
-            if(questionType === "TEXT" || questionType === "TEXTAREA")
-            {
-                html+=`<textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='`+questionId+`'></textarea>`;
-            }
-            else if(questionType === "BOOLEAN" || questionType === "RADIO")
-            {
-              if(options !== undefined)
-              {
-                options.forEach(function(option)
-                {
-                  html+=`<div class='form-check-inline'>
-                            <label class='form-check-label'>
-                                <input type='radio' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
-                            </label>
-                        </div>`;
-                });
-              }
-            }
-            else if(questionType === "LIST")
-            {
-              if(options !== undefined)
-              {
-                html+=`<div class='form-group'>`+
-                          `<select class='form-control' name='`+questionId+`'>
-                            <option value='' selected>Select One</option>`;
-                options.forEach(function(option)
-                {
-                  html+=`<option value='`+option+`'>`+option+`</option>`;
-                });
-                html+=`</select></div>`;
-              }
-            }
-            else if(questionType === "CHECKBOX")
-            {
-              if(options !== undefined)
-              {
-                options.forEach(function(option)
-                {
-                  html+=`<div class='form-check-inline'>
-                            <label class='form-check-label'>
-                                <input type='checkbox' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
-                            </label>
-                        </div>`;
-                });
-              }
-            }
-            let form = document.getElementById('questionForm'); 
-            form.innerHTML += html;
-          }
-        }
-      }
-    });
+  var base_url= "<?php echo base_url(); ?>";
+
+  var manageTable;
+  manageTable=$('#manageTable').DataTable({
+    'ajax': base_url + 'consultation/fetchQuestionData/'+phase_id+'/'+standard_id
   });
+
+  console.log(phase_id,standard_id);
+  // $(document).ready(function(){
+  //   $.ajax({
+  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
+  //     dataType: "json",
+  //     data: result,
+  //     success:function(result){
+  //       if(result.status=='ok')
+  //       {
+  //         let questNo=0;
+  //         for(i in result.question)
+  //         {
+	// 		      questNo++;
+  //           let questionId, question, questionType, option;
+  //           questionId=result.question[i].questionId;
+  //           question=result.question[i].question;
+  //           questionType=result.question[i].questionType;
+  //           let html=``;
+  //           html=`<label for='q`+questionId+`'>`+questNo+')'+question+`</label>`;
+  //           if(result.hasOwnProperty("question_option"))
+  //           {
+  //             var options = [];
+  //             for(count in result.question_option)
+	// 			      {
+  //               if(result.question_option[count].question_id === result.question[i].questionId)
+  //               {
+  //                 options.push(result.question_option[count].option_desc);
+  //               }
+  //             }
+  //           }
+  //           if(questionType === "TEXT" || questionType === "TEXTAREA")
+  //           {
+  //               html+=`<textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='`+questionId+`'></textarea>`;
+  //           }
+  //           else if(questionType === "BOOLEAN" || questionType === "RADIO")
+  //           {
+  //             if(options !== undefined)
+  //             {
+  //               options.forEach(function(option)
+  //               {
+  //                 html+=`<div class='form-check-inline'>
+  //                           <label class='form-check-label'>
+  //                               <input type='radio' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
+  //                           </label>
+  //                       </div>`;
+  //               });
+  //             }
+  //           }
+  //           else if(questionType === "LIST")
+  //           {
+  //             if(options !== undefined)
+  //             {
+  //               html+=`<div class='form-group'>`+
+  //                         `<select class='form-control' name='`+questionId+`'>
+  //                           <option value='' selected>Select One</option>`;
+  //               options.forEach(function(option)
+  //               {
+  //                 html+=`<option value='`+option+`'>`+option+`</option>`;
+  //               });
+  //               html+=`</select></div>`;
+  //             }
+  //           }
+  //           else if(questionType === "CHECKBOX")
+  //           {
+  //             if(options !== undefined)
+  //             {
+  //               options.forEach(function(option)
+  //               {
+  //                 html+=`<div class='form-check-inline'>
+  //                           <label class='form-check-label'>
+  //                               <input type='checkbox' class='form-check-input' name='`+questionId+`' value='`+option+`'>  `+option+`
+  //                           </label>
+  //                       </div>`;
+  //               });
+  //             }
+  //           }
+  //           let form = document.getElementById('questionForm'); 
+  //           form.innerHTML += html;
+  //         }
+  //       }
+  //     }
+  //   });
+  // });
  </script>
  
 
