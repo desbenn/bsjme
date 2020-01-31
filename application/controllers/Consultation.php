@@ -586,7 +586,12 @@ class Consultation extends Admin_Controller
             $result = array();
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
-            //var_dump($result);
+            $question_option = $this->model_question->getOptionData($question_data['id']);
+            var_dump($question_option);
+            foreach($question_option as $k => $v) 
+            {
+                $result['question_option'][] = $v;
+            }
             $this->data['question_data'] = $result;
             $this->render_template('response/edit', $this->data); 
         }  

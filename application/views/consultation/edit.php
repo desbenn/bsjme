@@ -388,7 +388,7 @@
                 </div>
               </div>                  
 
-              <?php if(in_array('updateConsultation', $user_permission)): ?>
+              <?php //if(in_array('updateConsultation', $user_permission)): ?>
               <div class="col-md-3 col-xs-3">
                 <div class="form-group">
                   <label for="property">Phase <font color="red">*</font></label>
@@ -401,7 +401,7 @@
                     </select>
                 </div>
               </div>
-              <?php endif; ?>
+              <?php //endif; ?>
 
               <div class="col-md-3 col-xs-3">
                 <div class="form-group">
