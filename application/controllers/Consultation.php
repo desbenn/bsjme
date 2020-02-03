@@ -596,8 +596,6 @@ class Consultation extends Admin_Controller
                 $result['question_option'][] = $v;
             }
             $this->data['question_data'] = $result;
-            
-            var_dump($this->data);
             $this->render_template('response/edit', $this->data); 
         }  
     }
