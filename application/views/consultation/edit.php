@@ -517,7 +517,6 @@
             <tr> 
                 <th>Question Number</th>
                 <th>Question</th>
-                <th>Complete/Incomplete</th>
                 <th>Action</th>
             </tr>
           </thead>
@@ -530,15 +529,14 @@
  <script type="text/javascript">
   var standard_id = $('#standard').val();
   var phase_id = $('#phase').val();
+  var consultation_id = $('#consultation_no').val();
   var result;
   var base_url= "<?php echo base_url(); ?>";
 
   var manageTable;
   manageTable=$('#manageTable').DataTable({
-    'ajax': base_url + 'consultation/fetchQuestionData/'+phase_id+'/'+standard_id
+    'ajax': base_url + 'consultation/fetchQuestionData/'+phase_id+'/'+standard_id+'/'+'<?php echo $consultation_data['id']; ?>'
   });
-
-  console.log(phase_id,standard_id);
   // $(document).ready(function(){
   //   $.ajax({
   //     url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,

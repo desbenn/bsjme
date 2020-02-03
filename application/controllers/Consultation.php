@@ -11,7 +11,7 @@ class Consultation extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Consultation';
-        $this->data['active_tab'] = $this->input->get('tab') ?? 'consultation';
+        $this->data['active_tab'] = $this->input->get('tab') ?? 'question';
 
 	}
 
@@ -558,8 +558,9 @@ class Consultation extends Admin_Controller
         echo json_encode($result);
     }
 
-    public function answerQuestion($question_id)
+    public function answerQuestion($question_id, $consultationId=null)
     {
+        
         if ($this->form_validation->run() == TRUE) 
         {
             if (!empty($this->input->post('option'))) 
@@ -583,31 +584,34 @@ class Consultation extends Admin_Controller
         }
         else 
         {   
+            $this->data['consultationId'] = $consultationId;
             $result = array();
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
             $question_option = $this->model_question->getOptionData($question_data['id']);
-            var_dump($question_option);
+            $trn = $this->session->username;
+            echo $trn;
             foreach($question_option as $k => $v) 
             {
                 $result['question_option'][] = $v;
             }
             $this->data['question_data'] = $result;
+            
+            var_dump($this->data);
             $this->render_template('response/edit', $this->data); 
         }  
     }
 
-    public function fetchQuestionData($phase=null,$standardId=null)
+    public function fetchQuestionData($phase=null,$standardId=null, $consultationId=null)
     {
         $result = array('data' => array());
         $data = $this->model_question->getConsultationQuestions($standardId,$phase);
         foreach($data as $key => $value){
             $buttons = '';
-            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['questionId']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['questionId'].'/'.$consultationId).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
             $result['data'][$key] = array(
                 $value['questionId'],
                 $value['question'],
-                $value['question'],//complete or incomplete inidicator
                 $buttons
             );
         }

@@ -123,7 +123,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                <a href="<?php echo base_url('consultation/update') ?>" class="btn btn-warning">Close</a>
+                <a href="<?php echo base_url('consultation/update/'.$consultationId); ?>" class="btn btn-warning">Close</a>
               </div>
             </form>
           </div>
