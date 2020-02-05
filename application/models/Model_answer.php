@@ -7,10 +7,14 @@ class Model_answer extends CI_Model
 		parent::__construct();
     }
     
-
-    public function retrieve_answer()
+    public function retrieveAnswer($id=null)
     {
-
+      if($id)
+      {
+        $sql = "SELECT * FROM `answer` where id='$id'";
+        $query = $this->db->query($sql, array($id));
+        return $query->row_array();
+      }
     }
 
     public function create($data)
@@ -19,23 +23,24 @@ class Model_answer extends CI_Model
       return ($insert) ? $insert : false;
     }
 
-    public function update($data, $criteria)
+    public function update($data, $id)
     {
-      if($data && $criteria) 
+      if($data && $id) 
       {
-			  $this->db->where($criteria);
+			  $this->db->where('id', $id);
 			  $update = $this->db->update('answer', $data);
 			  return ($update == true) ? true : false;
 		  }
     }
 
-    public function ifExist($trn, $consultationId, $questionId)
+    public function ifExist($consultationId, $questionId)
     {
-      $sql = "SELECT * FROM `answer` WHERE `question_id`='$questionId' AND `user_id`='$trn' AND `consultation_id`='$consultationId'";
+      $sql = "SELECT * FROM `answer` WHERE `question_id`='$questionId' AND `consultation_id`='$consultationId'";
       $query = $this->db->query($sql);
-      if($query->row_array()!=null)
+      $row = $query->row_array();
+      if($row!=null)
       {
-        return true;
+        return $row['id'];
       }
       else
       {

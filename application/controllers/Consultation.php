@@ -558,7 +558,7 @@ class Consultation extends Admin_Controller
         echo json_encode($result);
     }
 
-    public function answerQuestion($question_id, $consultationId=null)
+    public function answerQuestion($question_id, $consultationId)
     {
         $this->form_validation->set_rules('response[]', ' ', 'trim|required');
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');   
@@ -577,12 +577,15 @@ class Consultation extends Admin_Controller
                 'consultation_id' => $consultationId,
                 'answer' => json_encode($response),
                 'updated_by' => $trn);
+            
+            //gets an ID of response if it exist, false if it does not exist
+            $ifExist = $this->model_answer->ifExist($consultationId, $question_id);
+
             //check to see if a record of this question has already been answered by this user
             // if true then it will be updated else it will be created
-            if($this->model_answer->ifExist($trn, $consultationId, $question_id)) 
+            if($ifExist!=false) 
             {
-                $criteria = array('question_id' => $question_id, 'user_id' => $trn, 'consultation_id' => $consultationId);
-                $success = $this->model_answer->update($data,$criteria);
+                $success = $this->model_answer->update($data, $ifExist);
                 if($success)
                 {
                     $this->session->set_flashdata('success', 'Successfully updated');
@@ -607,20 +610,36 @@ class Consultation extends Admin_Controller
                     $this->session->set_flashdata('errors', 'Error occurred!!');
                     redirect('consultation/update/'.$consultationId, 'refresh');
                 }
-
             }
         }
         else 
         {   
-            $this->data['consultationId'] = $consultationId;
             $result = array();
+            $ifExist = $this->model_answer->ifExist($consultationId, $question_id);
+            if($ifExist)
+            {
+                $response_data = $this->model_answer->retrieveAnswer($ifExist);
+                $response = json_decode($response_data['answer'],true);
+                foreach($response as $k => $v)
+                {
+                    $result['question_response'][] = $v;
+                }
+                
+            }
+            $this->data['consultationId'] = $consultationId;            
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
             $question_option = $this->model_question->getOptionData($question_data['id']);
-            foreach($question_option as $k => $v) 
+            if($question_option!=null)
             {
-                $result['question_option'][] = $v;
-            }
+                foreach($question_option as $k => $v) 
+                {
+                    $result['question_option'][] = $v;
+                }
+            }            
+
+            //var_dump($result);
+
             $this->data['question_data'] = $result;
             $this->render_template('response/edit', $this->data); 
         }  

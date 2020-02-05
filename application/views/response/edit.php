@@ -58,7 +58,7 @@
                             if($question_data['question']['question_type_id']==1 || $question_data['question']['question_type_id']==2)//CHECK IF QUESTION TYPE IS A TEXT OR TEXTAREA
                             {
                                 echo"
-                                    <textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='response".'[]'."'></textarea>
+                                    <textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='response".'[]'."'>".set_value('response', isset($question_data['question_response'][0]) ? $question_data['question_response'][0] : '' )."</textarea>
                                 ";
                             }
                             elseif($question_data['question']['question_type_id']==3 || $question_data['question']['question_type_id']==4)//CHECK IF QUESTION TYPE IS A BOOLEAN OR RADIO
@@ -70,7 +70,7 @@
                                     echo"
                                     <div class='form-check'>
                                         <label class='form-check-label'>
-                                            <input type='radio' class='form-check-input' name='response".'[]'."'  value='".$option['id']."'>".$option['option_desc']."
+                                            <input type='radio' class='form-check-input' name='response".'[]'."'  value='".$option['id']."' "; if(array_key_exists('question_response', $question_data) && !empty($question_data['question_response'])){if($question_data['question_response'][0]==$option['id']){echo "checked='checked'";}} echo">".$option['option_desc']."
                                         </label>
                                     </div>
                                     ";
@@ -82,18 +82,16 @@
                               if(array_key_exists('question_option', $question_data) && !empty($question_data['question_option']))
                               {
                                 echo"
-                                <div class='form-group>
-                                  <select class='form-control' name='response".'[]'."'>
+                                  <select class='form-control select_group' name='response".'[]'."'>
                                     <option value='' selected>Select One</option>";
                                     foreach($question_data['question_option'] as $option)
                                     {
                                       echo"
-                                      <option value='".$option['id']."'>".$option['option_desc']."</option>
+                                      <option value='".$option['id']."'"; if(array_key_exists('question_response', $question_data) && !empty($question_data['question_response'])){if($question_data['question_response'][0]==$option['id']){echo "selected='selected'";}} echo ">".$option['option_desc']."</option>
                                       ";
                                     }
                                   echo"
                                   </select>
-                                </div>
                                 ";
                               }
                             }
@@ -114,8 +112,6 @@
                               }                                
                             }
                         ?>
-                      
-                      <!-- <textarea type="text" class="form-control" rows="1" id="response" name="response" autocomplete="off"><?php echo set_value('response', isset($question_data['question']['question']) ? $question_data['question']['question'] : ''); ?></textarea> -->
                     </div>
                   </div>                
                 </div>                   
