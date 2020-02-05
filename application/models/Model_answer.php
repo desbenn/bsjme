@@ -19,11 +19,11 @@ class Model_answer extends CI_Model
       return ($insert) ? $insert : false;
     }
 
-    public function update($data, $id)
+    public function update($data, $criteria)
     {
-      if($data && $id) 
+      if($data && $criteria) 
       {
-			  $this->db->where('id', $id);
+			  $this->db->where($criteria);
 			  $update = $this->db->update('answer', $data);
 			  return ($update == true) ? true : false;
 		  }
