@@ -560,26 +560,53 @@ class Consultation extends Admin_Controller
 
     public function answerQuestion($question_id, $consultationId=null)
     {
-        
+        $this->form_validation->set_rules('response[]', ' ', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');   
         if ($this->form_validation->run() == TRUE) 
         {
-            if (!empty($this->input->post('option'))) 
+            $count_response = count($this->input->post('response'));
+            $response = array();
+            for($x = 0; $x < $count_response; $x++) 
             {
-                
+                array_push($response,$this->input->post('response')[$x]);
+            }  
+            $data = array(
+                'question_id' => $question_id,
+                'user_id' =>  $this->session->username,
+                'consultation_id' => $consultationId,
+                'answer' => json_encode($response),
+                'updated_by' => $this->session->username);
+                var_dump($data);
+            //check to see if a record of this question has already been answered by this user
+            // if true then it will be updated else it will be created
+            if($this->model_answer->ifExist($this->session->username, $consultationId, $question_id)) 
+            {
+                $success = $this->model_answer->update();
+                if($success)
+                {
+                    $this->session->set_flashdata('success', 'Successfully updated');
+                    redirect('consultation/edit', 'refresh');
+                }
+                else
+                {
+                    $this->session->set_flashdata('errors', 'Error occurred!!');
+                    redirect('consultation/edit', 'refresh');
+                }
             }
             else
             {
-                
-            }
-            
-           
-            if($update == true)
-            {
-                
-            }
-            else
-            {
-                
+                $success = $this->model_answer->create($data);
+                if($success)
+                {
+                    $this->session->set_flashdata('success', 'Successfully created');
+                    redirect('response/edit', 'refresh');
+                }
+                else
+                {
+                    $this->session->set_flashdata('errors', 'Error occurred!!');
+                    redirect('response/edit', 'refresh');
+                }
+
             }
         }
         else 
@@ -589,8 +616,6 @@ class Consultation extends Admin_Controller
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
             $question_option = $this->model_question->getOptionData($question_data['id']);
-            $trn = $this->session->username;
-            echo $trn;
             foreach($question_option as $k => $v) 
             {
                 $result['question_option'][] = $v;

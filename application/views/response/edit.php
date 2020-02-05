@@ -58,7 +58,7 @@
                             if($question_data['question']['question_type_id']==1 || $question_data['question']['question_type_id']==2)//CHECK IF QUESTION TYPE IS A TEXT OR TEXTAREA
                             {
                                 echo"
-                                    <textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='".$question_data['question']['id']."'></textarea>
+                                    <textarea style='overflow:auto;resize:none' class='form-control' rows='1' name='response".'[]'."'></textarea>
                                 ";
                             }
                             elseif($question_data['question']['question_type_id']==3 || $question_data['question']['question_type_id']==4)//CHECK IF QUESTION TYPE IS A BOOLEAN OR RADIO
@@ -70,7 +70,7 @@
                                     echo"
                                     <div class='form-check'>
                                         <label class='form-check-label'>
-                                            <input type='radio' class='form-check-input' name='".$option['question_id']."'  value='".$option['id']."'>".$option['option_desc']."
+                                            <input type='radio' class='form-check-input' name='response".'[]'."'  value='".$option['id']."'>".$option['option_desc']."
                                         </label>
                                     </div>
                                     ";
@@ -83,7 +83,7 @@
                               {
                                 echo"
                                 <div class='form-group>
-                                  <select class='form-control' name='".$option['question_id']."'>
+                                  <select class='form-control' name='response".'[]'."'>
                                     <option value='' selected>Select One</option>";
                                     foreach($question_data['question_option'] as $option)
                                     {
@@ -106,7 +106,7 @@
                                   echo"
                                   <div class='form-check'>
                                     <label class='form-check-label'>
-                                        <input type='checkbox' class='form-check-input' name='".$option['id']."' value='".$option['id']."'>".$option['option_desc']."
+                                        <input type='checkbox' class='form-check-input' name='response".'[]'."' value='".$option['id']."'>".$option['option_desc']."
                                     </label>
                                   </div>
                                   ";
