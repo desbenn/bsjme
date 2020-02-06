@@ -56,7 +56,7 @@
             <div class="panel-heading bg-black">Client/Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -116,6 +116,23 @@
                       if(in_array('deleteConsultation', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
                   </tr>
+
+                  <tr>
+                    <td>Update Answers</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createAnswers" <?php if($serialize_permission) {
+                      if(in_array('createAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateAnswers" <?php if($serialize_permission) {
+                      if(in_array('updateAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewAnswers" <?php if($serialize_permission) {
+                      if(in_array('viewAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteAnswers" <?php if($serialize_permission) {
+                      if(in_array('deleteAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
                   <tr>
                     <td>Phase</td>
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createPhase" <?php if($serialize_permission) {
@@ -206,7 +223,7 @@
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -321,7 +338,7 @@
             <div class="panel-heading bg-black">Location</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>

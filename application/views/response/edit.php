@@ -118,7 +118,9 @@
               </div>    <!-- /.box-body -->
 
               <div class="box-footer">
+              <?php if(in_array('updateAnswers', $user_permission)): ?>
                 <button type="submit" class="btn btn-primary">Save Changes</button>
+              <?php endif; ?>
                 <a href="<?php echo base_url('consultation/update/'.$consultationId); ?>" class="btn btn-warning">Close</a>
               </div>
             </form>

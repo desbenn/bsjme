@@ -48,7 +48,7 @@
             <div class="panel-heading bg-black">Client/Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -81,6 +81,13 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateConsultation" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewConsultation" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteConsultation" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Update Answers</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteAnswers" class="minimal"></td>
                   </tr>
                   <tr>
                     <td>Phase</td>
@@ -131,7 +138,7 @@
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -198,7 +205,7 @@
             <div class="panel-heading bg-black">Location</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:320px">
+                <ul class="chart-legend" style="height:380px">
 
                 <table class="table table-responsive">
                   <thead>
