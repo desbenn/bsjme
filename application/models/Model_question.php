@@ -159,8 +159,6 @@ class Model_question extends CI_Model
 		}
 	}
 
-	
-
 	public function remove($id)
 	{
 		if($id) {
@@ -174,7 +172,6 @@ class Model_question extends CI_Model
 
 		}
 	}
-
 
 
 }

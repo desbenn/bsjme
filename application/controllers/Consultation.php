@@ -616,16 +616,15 @@ class Consultation extends Admin_Controller
         {   
             $result = array();
             $ifExist = $this->model_answer->ifExist($consultationId, $question_id);
-            if($ifExist)
-            {
-                $response_data = $this->model_answer->retrieveAnswer($ifExist);
-                $response = json_decode($response_data['answer'],true);
-                foreach($response as $k => $v)
-                {
-                    $result['question_response'][] = $v;
-                }
-                
-            }
+            // if($ifExist)
+            // {
+            //     $response_data = $this->model_answer->retrieveAnswer($ifExist);
+            //     $response = json_decode($response_data['answer'],true);
+            //     foreach($response as $k => $v)
+            //     {
+            //         $result['question_response'][] = $v;
+            //     }
+            // }
             $this->data['consultationId'] = $consultationId;            
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
@@ -638,7 +637,7 @@ class Consultation extends Admin_Controller
                 }
             }            
 
-            //var_dump($result);
+            var_dump($result);
 
             $this->data['question_data'] = $result;
             $this->render_template('response/edit', $this->data); 
