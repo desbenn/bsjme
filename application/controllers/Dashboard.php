@@ -19,19 +19,23 @@ class Dashboard extends Admin_Controller
 
 	public function index()
 	{
-
 		$year_selected = date('Y');
-
-		
-		if($this->input->post('year')) {
+		if($this->input->post('year')) 
+		{
 			$year_selected = $this->input->post('year');
 		}
-
 		$this->data['total_consultation'] = $this->model_consultation->countTotalConsultation($year_selected);
 		$this->data['total_client'] = $this->model_client->countTotalClient();
 		$this->data['total_post'] = $this->model_post->countTotalPost();
-
 		$this->data['select_year'] = $year_selected;
-		$this->render_template('dashboard', $this->data);
+		
+		if($this->agent->is_mobile())
+		{
+			$this->render_template('mobile/dashboard/index', $this->data);
+		}
+		else
+		{
+			$this->render_template('dashboard', $this->data);
+		}
 	}
 }
