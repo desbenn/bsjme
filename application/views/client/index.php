@@ -57,19 +57,21 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
+          <div class="table-responsive">
             <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>Company Name</th>
-                <th>TRN</th>
-                <th>Client Name</th>
-                <th>Consultation No</th>
-                <th>Consultant Name</th>
-                <th>Active</th>
-                <th>Action</th>
-              </tr>
-              </thead>
-            </table>
+                <thead>
+                <tr>
+                  <th>Company Name</th>
+                  <th>TRN</th>
+                  <th>Client Name</th>
+                  <th>Consultation No</th>
+                  <th>Consultant Name</th>
+                  <th>Active</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+              </table>
+          </div>            
           </div>    <!-- /.box-body -->
         </div>   <!-- /.box -->
       </div>  <!-- col-md-12 -->

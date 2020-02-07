@@ -32,7 +32,8 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
+          <div class="table-responsive">
+          <table id="manageTable" class="table table-bordered table-striped">
               <thead>
               <tr>
                 <th>Company Name</th>
@@ -44,6 +45,7 @@
               </tr>
               </thead>
             </table>
+          </div>            
           </div>    <!-- /.box-body -->
         </div>   <!-- /.box -->
       </div>  <!-- col-md-12 -->

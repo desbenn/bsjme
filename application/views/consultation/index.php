@@ -57,21 +57,22 @@
         <div class="box">
           <div class="box-header"></div>
             <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th width="5%">Consultation No</th>
-                <th width="20%">Description</th>
-                <th width="15%">Company Name</th>
-                <th width="10%">Consultant</th>
-                <th width="10%">Sector</th>
-                <th width="10%">Phase</th>
-                <th width="10%">Status</th>
-                <th width="15%">Action</th>
-              </tr>
-              </thead>
-
-            </table>
+            <div class="table-responsive">
+              <table id="manageTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th width="5%">Consultation No</th>
+                  <th width="20%">Description</th>
+                  <th width="15%">Company Name</th>
+                  <th width="10%">Consultant</th>
+                  <th width="10%">Sector</th>
+                  <th width="10%">Phase</th>
+                  <th width="10%">Status</th>
+                  <th width="15%">Action</th>
+                </tr>
+                </thead>
+              </table>
+            </div>            
           </div>          <!-- /.box-body -->
         </div>        <!-- /.box -->
       </div>      <!-- col-md-12 -->
