@@ -37,22 +37,23 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>                
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Profile</th>
-                  <th>Active</th>
-                <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
-              </tr>
-              </thead>
-
-            </table>
+            <div class="table-responsive">
+              <table id="manageTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>                
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Profile</th>
+                    <th>Active</th>
+                  <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
+                    <th>Action</th>
+                  <?php endif; ?>
+                </tr>
+                </thead>
+              </table>
+            </div>
           </div>
         </div>
       </div>

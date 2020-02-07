@@ -104,7 +104,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="<?php echo base_url('user/my_user') ?>" class="btn btn-warning">Close</a>
+                <a href="<?php echo base_url('setting') ?>" class="btn btn-warning">Close</a>
               </div>
             </form>
           </div>          <!-- /.box -->
