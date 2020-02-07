@@ -100,8 +100,47 @@
             <?php echo set_value('post_text'); ?>
           </textarea>
         </div>
+        
+        <?php if($this->agent->is_mobile()): ?>
+          <div class="row">
+            <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                  <label>Upload image</label>
+                  <input type="file" name="post_image" size="20">
+                </div>
+            </div>
+            </div>
 
-        <div class="row">
+            <div class="row">
+            <div class="col-md-4 col-xs-4">
+              <div class="form-group">
+                <label for="client_visibility">Client visibility</label>
+                  <div class="radio">
+                    <label><input type="radio" name="client_visibility" id="client_visibility" value="1">
+                    Visible&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <label><input type="radio" name="client_visibility" id="client_visibility" value="2" checked="checked">
+                    Non Visible</label>
+                  </div>
+              </div>
+            </div>    
+            </div>   
+
+            <div class="row">
+            <div class="col-md-4 col-xs-4">
+              <div class="form-group">
+                <label for="active">Active</label>
+                  <div class="radio">
+                    <label><input type="radio" name="active" id="active" value="1" checked="checked">
+                Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <label><input type="radio" name="active" id="active" value="2">
+                Inactive</label>
+                  </div>
+              </div>
+            </div>
+          </div> <!-- /.box-body -->
+        
+        <?php else: ?>
+          <div class="row">
             <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label>Upload image</label>
@@ -132,11 +171,8 @@
                   </div>
               </div>
             </div>
-
-
-
-
-      </div> <!-- /.box-body -->
+        </div> <!-- /.box-body -->
+        <?php endif; ?>
 
       <div class="box-footer">
         <button type="submit" class="btn btn-primary">Save</button>
