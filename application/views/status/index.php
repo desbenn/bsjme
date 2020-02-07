@@ -41,20 +41,22 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>     
-                <th>Phase</th> 
-                <th>Code</th>
-                <th>Name</th>
-                <th>Active</th>
-                <?php if(in_array('updateStatus', $user_permission) || in_array('deleteStatus', $user_permission)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
-              </tr>
-              </thead>
+            <div class="table-responsive">
+              <table id="manageTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>     
+                  <th>Phase</th> 
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Active</th>
+                  <?php if(in_array('updateStatus', $user_permission) || in_array('deleteStatus', $user_permission)): ?>
+                    <th>Action</th>
+                  <?php endif; ?>
+                </tr>
+                </thead>
 
-            </table>
+              </table>
+            </div>            
           </div>
         </div>
       </div>

@@ -37,22 +37,24 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                  <th width="15%">Category</th>
-                  <th width="30%">Title</th>
-                  <th width="5%">Client Visibility</th>
-                  <th width="10%">Date from</th>
-                  <th width="10%">Date to</th>
-                  <th width="15%">Posted by</th>
-        		      <th width="5%">Active</th>
-                    <?php if(in_array('updatePost', $user_permission) || in_array('deletePost', $user_permission)): ?>
-                  <th width="10%">Action</th>
-                   <?php endif; ?>
-              </tr>
-              </thead>
-            </table>
+            <div class="table-responsive">
+              <table id="manageTable" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th width="15%">Category</th>
+                    <th width="30%">Title</th>
+                    <th width="5%">Client Visibility</th>
+                    <th width="10%">Date from</th>
+                    <th width="10%">Date to</th>
+                    <th width="15%">Posted by</th>
+                    <th width="5%">Active</th>
+                      <?php if(in_array('updatePost', $user_permission) || in_array('deletePost', $user_permission)): ?>
+                    <th width="10%">Action</th>
+                    <?php endif; ?>
+                </tr>
+                </thead>
+              </table>
+            </div>            
           </div>    <!-- /.box-body -->
         </div>   <!-- /.box -->
       </div>  <!-- col-md-12 -->

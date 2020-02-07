@@ -41,22 +41,23 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
+          <div class="table-responsive">
             <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr>                
-                <th>Name</th>
-                <th>Code</th>
-                <th>Standard</th>
-                <th>Clause</th>
-                <th>Phase</th>
-                <th>Active</th>
-                <?php if(in_array('updateSubClause', $user_permission) || in_array('deleteSubClause', $user_permission)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
-              </tr>
-              </thead>
-
-            </table>
+                <thead>
+                <tr>                
+                  <th>Name</th>
+                  <th>Code</th>
+                  <th>Standard</th>
+                  <th>Clause</th>
+                  <th>Phase</th>
+                  <th>Active</th>
+                  <?php if(in_array('updateSubClause', $user_permission) || in_array('deleteSubClause', $user_permission)): ?>
+                    <th>Action</th>
+                  <?php endif; ?>
+                </tr>
+                </thead>
+              </table>
+          </div>
           </div>
         </div>
       </div>

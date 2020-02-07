@@ -56,21 +56,22 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="manageTable" class="table table-bordered table-striped">
-              <thead>
-              <tr> 
-                  <th>Standard</th>
-                  <th>Clause</th>
-                  <th>Sub Clause</th>
-                  <th>Question</th>
-                  <th>Question Type</th>
-                <?php if(in_array('updateQuestion', $user_permission) || in_array('deleteQuestion', $user_permission)): ?>
-                  <th>Action</th>
-                <?php endif; ?>
-              </tr>
-              </thead>
-
-            </table>
+            <div class="table-responsive">
+              <table id="manageTable" class="table table-bordered table-striped">
+                <thead>
+                <tr> 
+                    <th>Standard</th>
+                    <th>Clause</th>
+                    <th>Sub Clause</th>
+                    <th>Question</th>
+                    <th>Question Type</th>
+                  <?php if(in_array('updateQuestion', $user_permission) || in_array('deleteQuestion', $user_permission)): ?>
+                    <th>Action</th>
+                  <?php endif; ?>
+                </tr>
+                </thead>
+              </table>
+            </div>
           </div>
         </div>
       </div>
