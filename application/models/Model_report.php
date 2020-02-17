@@ -165,8 +165,8 @@ class Model_report extends CI_Model
 		//--> Criteria Phase
 		$phase = $this->session->phase;
         if ($phase == 'all') {
-        	$phase_from = '0';
-			$phase_to = '999';
+        	$phase_from = 0;
+			$phase_to = 999;
         }
         else {
 			$phase_from = $phase;
@@ -176,8 +176,8 @@ class Model_report extends CI_Model
 		//--> Criteria Status
 		$status = $this->session->status;
         if ($status == 'all') {
-        	$status_from = '0';
-			$status_to = '999';
+        	$status_from = 0;
+			$status_to = 999;
         }
         else {
 			$status_from = $status;
@@ -188,8 +188,8 @@ class Model_report extends CI_Model
 		//--> Criteria Standard
 		$standard = $this->session->standard;
         if ($standard == 'all') {
-        	$standard_from = '0';
-			$standard_to = '999';
+        	$standard_from = 0;
+			$standard_to = 999;
         }
         else {
 			$standard_from = $standard;
@@ -205,6 +205,8 @@ class Model_report extends CI_Model
         else {
 			$sector_from = $sector;
 			$sector_to = $sector;		}
+
+
 
 		//--> Criteria date
 		$date_creation_from = $this->session->date_creation_from;
@@ -227,7 +229,7 @@ class Model_report extends CI_Model
 						LEFT JOIN status ON consultation.status_id = status.id
 						LEFT JOIN sector ON consultation.sector_id = sector.id
 						
-					WHERE  phase_id BETWEEN $phase_from AND $phase_to
+					WHERE  consultation.phase_id BETWEEN $phase_from AND $phase_to
 						AND standard_id BETWEEN $standard_from AND $standard_to
 						AND sector_id BETWEEN $sector_from AND $sector_to
 						AND status_id BETWEEN $status_from AND $status_to
@@ -249,7 +251,7 @@ class Model_report extends CI_Model
 				LEFT JOIN status ON consultation.status_id = status.id
 				LEFT JOIN sector ON consultation.sector_id = sector.id
 				
-			WHERE  phase_id BETWEEN $phase_from AND $phase_to
+			WHERE  consultation.phase_id BETWEEN $phase_from AND $phase_to
 				AND standard_id BETWEEN $standard_from AND $standard_to
 				AND sector_id BETWEEN $sector_from AND $sector_to
 				AND status_id BETWEEN $status_from AND $status_to
@@ -383,7 +385,7 @@ class Model_report extends CI_Model
 					LEFT JOIN phase ON consultation.phase_id = phase.id
 					LEFT JOIN user ON consultation.consultant_id = user.id
 					LEFT JOIN county ON client.county_id = county.id
-				WHERE  phase_id BETWEEN $phase_from AND $phase_to
+				WHERE  consultation.phase_id BETWEEN $phase_from AND $phase_to
 					AND status_id BETWEEN $status_from AND $status_to
 					AND consultant_id BETWEEN $consultant_from AND $consultant_to
 					AND date_creation BETWEEN $date_creation_from AND $date_creation_to";

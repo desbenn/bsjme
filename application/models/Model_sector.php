@@ -55,18 +55,13 @@ class Model_sector extends CI_Model
 		}
 	}
 
-	//---> Validate if the sector is used in table Client
+	//---> Validate if the sector is used in table consultation
 	public function checkIntegrity($id)
 	{
-		// select with the wildcard %.  It is possible to have more
-		// than one sector in client table.   In this case, the information
-		// will appear between bracket ["1"].  The search will be
-		// SELECT * FROM client WHERE sector_id LIKE '%["1"]%'
-		$this->db->select('*');
-		$this->db->from('client');
-		$this->db->like('sector_id', $id, 'both');
-		$query = $this->db->get();
+		$sql = "SELECT * FROM consultation WHERE sector_id = ?";
+		$query = $this->db->query($sql, array($id));
 		return $query->num_rows();
+
 
 	}
 }

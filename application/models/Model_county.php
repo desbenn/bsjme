@@ -66,22 +66,9 @@ class Model_county extends CI_Model
 	public function checkIntegrity($id)
 	{
 
-		$num_rows = 0;
-
-		// select with the wildcard %.  It is possible to have more
-		// than one county in consultation table.   In this case, the information
-		// will appear between bracket ex:["1"].  The search will be
-		// SELECT * FROM consultation WHERE parish_id LIKE '%["1"]%'
-		$this->db->select('*');
-		$this->db->from('consultation');
-		$this->db->like('county_id', $id, 'both');
-		$query = $this->db->get();
-		$num_rows = $query->num_rows();
-
 		$sql = "SELECT * FROM client WHERE county_id = ?";
 		$query = $this->db->query($sql, array($id));
-		$num_rows = $num_rows + $query->num_rows();
-		return $num_rows;
+		return $query->num_rows();
 
 	}
 
