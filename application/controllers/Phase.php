@@ -62,6 +62,7 @@ class Phase extends Admin_Controller
 
 			if(in_array('updatePhase', $this->permission)) {
 				$buttons = '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
+				$name='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['name'].'</a>';
 			}
 
 			if(in_array('deletePhase', $this->permission)) {
@@ -71,7 +72,7 @@ class Phase extends Admin_Controller
 			$active = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
 
 			$result['data'][$key] = array(
-				$value['name'],
+				$name,
 				$value['code'],
 				$active,
 				$buttons

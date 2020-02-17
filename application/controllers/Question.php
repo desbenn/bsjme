@@ -161,11 +161,11 @@ class Question extends Admin_Controller
                     $count_option = count($this->input->post('option'));               
                      for($x = 0; $x < $count_option; $x++) 
                      {
-                         $option = array(
-                        'question_id' => $question_id,
-                        'option_desc' => $this->input->post('option')[$x]          
-                        );
-                        $this->db->insert('question_option', $option);
+                        $option = array(
+                            'question_id' => $question_id,
+                            'option_desc' => $this->input->post('option')[$x]           
+                    );
+                    $this->db->insert('question_option', $option);
                     }                
                 }
 
