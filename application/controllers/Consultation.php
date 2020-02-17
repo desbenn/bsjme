@@ -177,8 +177,14 @@ class Consultation extends Admin_Controller
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
 		$this->data['sector'] = $this->model_sector->getActiveSector();
 
-        $this->render_template('consultation/create', $this->data);
-
+        if($this->agent->is_mobile())
+        {
+            $this->render_template('mobile/consultation/create', $this->data);
+        }
+        else
+        {
+            $this->render_template('consultation/create', $this->data);
+        }
 	}
 
 
@@ -268,7 +274,13 @@ class Consultation extends Admin_Controller
 
         $consultation_data = $this->model_consultation->getConsultationData($consultation_id);
         $this->data['consultation_data'] = $consultation_data;
-        $this->render_template('consultation/edit', $this->data);
+        if($this->agent->is_mobile())
+        {
+            $this->render_template('mobile/consultation/edit', $this->data);
+        }
+        else{            
+            $this->render_template('consultation/edit', $this->data);
+        }
 
 	}
 
