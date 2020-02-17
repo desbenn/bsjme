@@ -69,12 +69,12 @@
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', base_url('assets/images/logo_mining.jpg'));
+//define ('PDF_HEADER_LOGO', '');
 
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 0);
+//define ('PDF_HEADER_LOGO_WIDTH', 0);
 
 /**
  * Cache directory for temporary files (full path).
@@ -114,7 +114,7 @@ define ('PDF_HEADER_TITLE', 'TCPDF Example');
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "Tuv Province");
+define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -139,7 +139,7 @@ define ('PDF_MARGIN_TOP', 27);
 /**
  * Bottom margin.
  */
-define ('PDF_MARGIN_BOTTOM', 25);
+define ('PDF_MARGIN_BOTTOM', 15);
 
 /**
  * Left margin.
@@ -154,7 +154,7 @@ define ('PDF_MARGIN_RIGHT', 15);
 /**
  * Default main font name.
  */
-define ('PDF_FONT_NAME_MAIN', 'dejavusans');
+define ('PDF_FONT_NAME_MAIN', 'helvetica');
 
 /**
  * Default main font size.
@@ -164,17 +164,17 @@ define ('PDF_FONT_SIZE_MAIN', 10);
 /**
  * Default data font name.
  */
-define ('PDF_FONT_NAME_DATA', 'dejavusans');
+define ('PDF_FONT_NAME_DATA', 'helvetica');
 
 /**
  * Default data font size.
  */
-define ('PDF_FONT_SIZE_DATA', 9);
+define ('PDF_FONT_SIZE_DATA', 8);
 
 /**
  * Default monospaced font name.
  */
-define ('PDF_FONT_MONOSPACED', 'dejavusans');
+define ('PDF_FONT_MONOSPACED', 'courier');
 
 /**
  * Ratio used to adjust the conversion of pixels to user units.

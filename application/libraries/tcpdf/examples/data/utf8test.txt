@@ -121,7 +121,7 @@ Thai (th)
   ปฏิบัติประพฤติกฎกำหนดใจ        พูดจาให้จ๊ะๆ จ๋าๆ น่าฟังเอย ฯ
 
   [The copyright for the Thai example is owned by The Computer
-  Consultant of Thailand under the Royal Patronage of His Majesty the
+  Association of Thailand under the Royal Patronage of His Majesty the
   King.]
 
 Please let me know if you find others! Special thanks to the people

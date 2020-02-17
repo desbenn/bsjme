@@ -71,7 +71,7 @@ echo '<'.'?'.'xml version="1.0" encoding="UTF-8"'.'?'.'>';
 <li>TCPDF methods in HTML: [<a href="example_049.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
 <li>2D Barcode (QR-Code, Datamatrix ECC200 and PDF417): [<a href="example_050.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
 <li>Full page background: [<a href="example_051.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
-<li>Digital Signature Standard: [<a href="example_052.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
+<li>Digital Signature Certification: [<a href="example_052.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
 <li>Javascript functions: [<a href="example_053.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
 <li>XHTML Form: [<a href="example_054.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
 <li>Font Dump: [<a href="example_055.php" title="PDF [new window]" target="_blank">PDF</a>]</li>
