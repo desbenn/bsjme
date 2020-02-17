@@ -30,7 +30,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createCategory', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Category</button>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()"  data-target="#addModal">Add Category</button>
         <?php endif; ?>
 
          <?php if(in_array('viewCategory', $user_permission)): ?>
@@ -252,9 +252,22 @@ var manageTable;
   });
 
 
-//--> edit function
-function editFunc(id)
+
+function createFunc()
 {
+          $("#createForm")[0].reset();
+          $("#createForm .form-group").removeClass('has-error').removeClass('has-success');  
+          $(".text-danger").remove();
+}
+
+
+// edit function
+function editFunc(id)
+{ 
+  $("#updateForm")[0].reset();
+  $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
+  $(".text-danger").remove();
+
   $.ajax({
     url: 'fetchCategoryDataById/'+id,
     type: 'post',

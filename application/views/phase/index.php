@@ -30,7 +30,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createPhase', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Phase</button>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()" data-target="#addModal">Add Phase</button>
         <?php endif; ?>
 
         <?php if(in_array('viewPhase', $user_permission)): ?>
@@ -281,9 +281,22 @@ $(document).ready(function() {
 
 });
 
+
+function createFunc()
+{
+          $("#createForm")[0].reset();
+          $("#createForm .form-group").removeClass('has-error').removeClass('has-success');  
+          $(".text-danger").remove();
+}
+
+
 // edit function
 function editFunc(id)
 { 
+  $("#updateForm")[0].reset();
+  $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
+  $(".text-danger").remove();
+
   $.ajax({
     url: 'fetchPhaseDataById/'+id,
     type: 'post',

@@ -1,10 +1,10 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Sector Client</h1>
+    <h1>Sector</h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('setting') ?>"><i class="fa fa-dashboard">
       </i> Home</a></li>
-      <li class="active">Sector Client</li>
+      <li class="active">Sector</li>
     </ol>
   </section>
 
@@ -30,7 +30,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createSector', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Sector Client</button>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()" data-target="#addModal">Add Sector</button>
         <?php endif; ?>
 
         <?php if(in_array('viewSector', $user_permission)): ?>
@@ -72,7 +72,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Sector Client</h4>
+        <h4 class="modal-title">Add Sector</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('sector/create') ?>" method="post" id="createForm">
@@ -116,7 +116,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Edit Sector Client</h4>
+        <h4 class="modal-title">Edit Sector</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('sector/update') ?>" method="post" id="updateForm">
@@ -160,7 +160,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Sector Client</h4>
+        <h4 class="modal-title">Delete Sector</h4>
       </div>
 
       <form role="form" action="<?php echo base_url('sector/remove') ?>" method="post" id="removeForm">
@@ -251,9 +251,24 @@ $(document).ready(function() {
 
 });
 
+
+
+
+function createFunc()
+{
+          $("#createForm")[0].reset();
+          $("#createForm .form-group").removeClass('has-error').removeClass('has-success');  
+          $(".text-danger").remove();
+}
+
+
 // edit function
 function editFunc(id)
-{
+{ 
+  $("#updateForm")[0].reset();
+  $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
+  $(".text-danger").remove();
+
   $.ajax({
     url: 'fetchSectorDataById/'+id,
     type: 'post',

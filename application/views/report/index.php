@@ -175,7 +175,7 @@
                       <select class="form-control select_group" id="status" name="status" >
                         <option value="all">All Status</option>
                         <?php foreach ($status as $k => $v): ?>
-                          <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
+                          <option value="<?php echo $v['id'] ?>"><?php echo $v['phase_name'] ?> - <?php echo $v['status_name'] ?></option>
                         <?php endforeach ?>
                       </select>
                     </div>

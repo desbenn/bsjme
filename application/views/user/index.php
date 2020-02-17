@@ -30,34 +30,35 @@
         <?php endif; ?>
 
         <?php if(in_array('createUser', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add User</button>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()" data-target="#addModal">Add User</button>
           <br /> <br />
         <?php endif; ?>
 
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <div class="table-responsive">
-              <table id="manageTable" class="table table-bordered table-striped">
-                <thead>
-                <tr>                
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Profile</th>
-                    <th>Active</th>
-                  <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
-                    <th>Action</th>
-                  <?php endif; ?>
-                </tr>
-                </thead>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table id="manageTable" class="table table-bordered table-striped">
+              <thead>
+              <tr>                
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Profile</th>
+                  <th>Active</th>
+                <?php if(in_array('updateUser', $user_permission) || in_array('deleteUser', $user_permission)): ?>
+                  <th>Action</th>
+                <?php endif; ?>
+              </tr>
+              </thead>
+
+            </table>
           </div>
         </div>
       </div>
-    </div>    
+    </div>   
+    </div>  
 
   </section>
 </div>  <!-- /.content-wrapper -->
@@ -376,12 +377,20 @@ $(document).ready(function() {
 
 
 
+function createFunc()
+{
+          $("#createForm")[0].reset();
+          $("#createForm .form-group").removeClass('has-error').removeClass('has-success');  
+          $(".text-danger").remove();
+}
+
+
 // edit function
 function editFunc(id)
-
 { 
-
-
+  $("#updateForm")[0].reset();
+  $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
+  $(".text-danger").remove();
 
   $.ajax({
     url: base_url + 'user/fetchUserDataById/'+id,

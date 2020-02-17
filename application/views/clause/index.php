@@ -30,7 +30,7 @@
         <?php endif; ?>
 
         <?php if(in_array('createClause', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Clause</button>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()"  data-target="#addModal">Add Clause</button>
           <?php endif; ?>
 
         <?php if(in_array('viewClause', $user_permission)): ?>
@@ -41,26 +41,26 @@
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-            <div class="table-responsive">
-              <table id="manageTable" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>                
-                    <th>Name</th>
-                    <th>Code</th>
-                    <th>Standard</th>
-                    <th>Active</th>
-                    <?php if(in_array('updateClause', $user_permission) || in_array('deleteClause', $user_permission)): ?>
-                      <th>Action</th>
-                    <?php endif; ?>
-                  </tr>
-                  </thead>
+          <div class="table-responsive">
+            <table id="manageTable" class="table table-bordered table-striped">
+              <thead>
+              <tr>                
+                <th>Name</th>
+                <th>Code</th>
+                <th>Standard</th>
+                <th>Active</th>
+                <?php if(in_array('updateClause', $user_permission) || in_array('deleteClause', $user_permission)): ?>
+                  <th>Action</th>
+                <?php endif; ?>
+              </tr>
+              </thead>
 
-                </table>
-            </div>            
+            </table>
           </div>
         </div>
       </div>
     </div>    
+    </div> 
 
   </section>
 </div>  <!-- /.content-wrapper -->
@@ -311,9 +311,22 @@ var base_url = "<?php echo base_url(); ?>";
 
 
 
+
+function createFunc()
+{
+          $("#createForm")[0].reset();
+          $("#createForm .form-group").removeClass('has-error').removeClass('has-success');  
+          $(".text-danger").remove();
+}
+
+
 // edit function
 function editFunc(id)
 { 
+  $("#updateForm")[0].reset();
+  $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
+  $(".text-danger").remove();
+  
   $.ajax({
     url: 'fetchClauseDataById/'+id,
     type: 'post',
