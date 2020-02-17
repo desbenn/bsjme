@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 27 déc. 2019 à 17:11
--- Version du serveur :  5.7.21
--- Version de PHP :  7.2.4
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 17, 2020 at 04:27 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,31 +19,38 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `bsjme`
+-- Database: `bsjme`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `answer`
+-- Table structure for table `answer`
 --
 
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` varchar(9) NOT NULL,
   `consultation_id` int(11) NOT NULL,
   `answer` text NOT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` int(11) NOT NULL,
+  `updated_by` varchar(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`id`, `question_id`, `user_id`, `consultation_id`, `answer`, `updated_date`, `updated_by`) VALUES
+(15, 2, 'TRN001', 10, '[\"2\"]', '2020-02-17 13:57:53', 'TRN001');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `category`
+-- Table structure for table `category`
 --
 
 DROP TABLE IF EXISTS `category`;
@@ -55,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `name`, `active`) VALUES
@@ -64,7 +71,7 @@ INSERT INTO `category` (`id`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `city`
+-- Table structure for table `city`
 --
 
 DROP TABLE IF EXISTS `city`;
@@ -77,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `city` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `city`
+-- Dumping data for table `city`
 --
 
 INSERT INTO `city` (`id`, `code`, `name`, `active`) VALUES
@@ -86,7 +93,7 @@ INSERT INTO `city` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `clause`
+-- Table structure for table `clause`
 --
 
 DROP TABLE IF EXISTS `clause`;
@@ -97,10 +104,10 @@ CREATE TABLE IF NOT EXISTS `clause` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `clause`
+-- Dumping data for table `clause`
 --
 
 INSERT INTO `clause` (`id`, `standard_id`, `code`, `name`, `active`) VALUES
@@ -110,13 +117,12 @@ INSERT INTO `clause` (`id`, `standard_id`, `code`, `name`, `active`) VALUES
 (7, 1, '7', 'clause 7', 1),
 (8, 1, '8', 'clause 8', 1),
 (9, 1, '9', 'clause 9', 1),
-(10, 1, '10', 'clause 10', 1),
-(11, 3, '80', 'Clause 80', 1);
+(10, 1, '10', 'clause 10', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `client`
+-- Table structure for table `client`
 --
 
 DROP TABLE IF EXISTS `client`;
@@ -144,22 +150,23 @@ CREATE TABLE IF NOT EXISTS `client` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `client`
+-- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`id`, `trn`, `city_id`, `county_id`, `parish_id`, `address`, `client_name`, `company_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `phone`, `postal_box`, `postal_code`, `remark`, `website`, `active`, `updated_date`, `updated_by`) VALUES
 (6, 'TRN002', 1, 1, 1, '888 Street One', 'M. Untel', 'Company No 2', 'Director name', 'TRN002', 'district1', 'director@hotmail.com', '8765432', '12345678', 'H3C0G3', 'H3C0G3', 'remark', 'website', 1, '2019-12-04 19:53:23', 18),
 (7, 'TRN003', 1, 1, 2, '777 Street', 'Client No 3', 'Company No 3', 'M. Untel', 'TRN003', '', 'untel@hotmail.com', '65656565', '05149836594', 'H3C0G3', 'H3C0G3', '', '', 1, '2019-12-10 17:13:44', 18),
 (8, 'TRN001', 0, 1, 1, '999 Street 9', 'Mr Number One', 'Company No 1', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', 1, '2019-12-23 00:32:45', 18),
-(9, 'TRN004', 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', 1, '2019-12-23 16:00:12', 18);
+(9, 'TRN004', 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', 1, '2019-12-23 16:00:12', 18),
+(10, '123456789', 0, 0, 0, '6 Wichester Road', 'Nicholas Jumpp', 'Bureau of Standards', NULL, '123456789', NULL, 'jumppnicholas1@gmail.com', NULL, '1-876-788-9327', NULL, NULL, NULL, 'www.bsj.org.jm', 1, '2020-02-17 13:51:17', 23);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comment`
+-- Table structure for table `comment`
 --
 
 DROP TABLE IF EXISTS `comment`;
@@ -177,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `consultation`
+-- Table structure for table `consultation`
 --
 
 DROP TABLE IF EXISTS `consultation`;
@@ -207,19 +214,19 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `consultation`
+-- Dumping data for table `consultation`
 --
 
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `remark`, `updated_date`, `updated_by`) VALUES
-(6, '5678', 0, 6, '[\"29\",\"30\"]', 2, 4, 1, 13, '', '', NULL, '2019-12-03', NULL, 'Production of a manual for Exportation of coffee', '', '', '                                ', '2019-12-10 14:47:28', 18),
-(7, '555', 0, 7, '[\"31\"]', 3, 4, 1, 14, '', '', NULL, '2019-12-18', NULL, 'Consultant for No 3', '', '', '', '2019-12-18 15:33:56', 18),
-(10, 'CON001', 5, 8, '[\"29\",\"30\"]', 1, 1, 1, 11, '', '', NULL, '2019-12-22', NULL, 'Consultation no 1', '', '', '                                                                                                                                                                                                                ', '2019-12-23 00:33:28', 18),
+(6, '5678', 8, 6, 'null', 2, 4, 1, 13, '', '', NULL, '2019-12-03', NULL, 'Production of a manual for Exportation of coffee', '', '', '                                                                                                                                                                                                                                                                                                                                                                ', '2019-12-10 14:47:28', 23),
+(7, '555', 6, 7, '[\"31\"]', 3, 4, 1, 14, '', '', NULL, '2019-12-18', NULL, 'Consultant for No 3', '', '', '                ', '2019-12-18 15:33:56', 23),
+(10, 'CON001', 5, 8, 'null', 1, 1, 1, 11, '', '', NULL, '2019-12-22', NULL, 'Consultation no 1', '', '', '                                                                                                                                                                                                                                                                ', '2019-12-23 00:33:28', 23),
 (11, '12345', 4, 8, '[\"30\"]', 4, 1, 1, 11, '', '', NULL, '2019-12-24', NULL, 'Help for development', '', '', '                                                                    ', '2019-12-24 17:55:08', 18);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `county`
+-- Table structure for table `county`
 --
 
 DROP TABLE IF EXISTS `county`;
@@ -232,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `county` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `county`
+-- Dumping data for table `county`
 --
 
 INSERT INTO `county` (`id`, `code`, `name`, `active`) VALUES
@@ -241,7 +248,7 @@ INSERT INTO `county` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `document`
+-- Table structure for table `document`
 --
 
 DROP TABLE IF EXISTS `document`;
@@ -261,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `document` (
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `document`
+-- Dumping data for table `document`
 --
 
 INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `document_type_id`, `doc_name`, `doc_size`, `doc_type`, `updated_date`, `updated_by`) VALUES
@@ -275,7 +282,7 @@ INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `docume
 -- --------------------------------------------------------
 
 --
--- Structure de la table `document_type`
+-- Table structure for table `document_type`
 --
 
 DROP TABLE IF EXISTS `document_type`;
@@ -288,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `document_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `document_type`
+-- Dumping data for table `document_type`
 --
 
 INSERT INTO `document_type` (`id`, `code`, `name`, `active`) VALUES
@@ -304,7 +311,7 @@ INSERT INTO `document_type` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `inquiry`
+-- Table structure for table `inquiry`
 --
 
 DROP TABLE IF EXISTS `inquiry`;
@@ -322,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `inquiry`
+-- Dumping data for table `inquiry`
 --
 
 INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, `request`, `feedback`, `answered_by`, `inquiry_date`) VALUES
@@ -332,7 +339,7 @@ INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `inquiry_type`
+-- Table structure for table `inquiry_type`
 --
 
 DROP TABLE IF EXISTS `inquiry_type`;
@@ -345,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `inquiry_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `inquiry_type`
+-- Dumping data for table `inquiry_type`
 --
 
 INSERT INTO `inquiry_type` (`id`, `code`, `name`, `active`) VALUES
@@ -354,7 +361,7 @@ INSERT INTO `inquiry_type` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `migrations`
+-- Table structure for table `migrations`
 --
 
 DROP TABLE IF EXISTS `migrations`;
@@ -363,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`version`) VALUES
@@ -372,7 +379,7 @@ INSERT INTO `migrations` (`version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `parish`
+-- Table structure for table `parish`
 --
 
 DROP TABLE IF EXISTS `parish`;
@@ -385,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `parish` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `parish`
+-- Dumping data for table `parish`
 --
 
 INSERT INTO `parish` (`id`, `code`, `name`, `active`) VALUES
@@ -395,7 +402,95 @@ INSERT INTO `parish` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `phase`
+-- Table structure for table `pcdocument`
+--
+
+DROP TABLE IF EXISTS `pcdocument`;
+CREATE TABLE IF NOT EXISTS `pcdocument` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trn` int(9) NOT NULL,
+  `docname` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pcdocument`
+--
+
+INSERT INTO `pcdocument` (`id`, `trn`, `docname`) VALUES
+(33, 123456789, 'Vision 2020- Nicholas Jumpp.docx'),
+(34, 123456789, 'Vision 2020- Nicholas Jumpp.docx');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pcresponses`
+--
+
+DROP TABLE IF EXISTS `pcresponses`;
+CREATE TABLE IF NOT EXISTS `pcresponses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pdTRN` int(9) NOT NULL COMMENT 'pending client TRN',
+  `rId` int(11) NOT NULL,
+  `questionResponse` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pcresponses_ibfk_1` (`rId`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pcresponses`
+--
+
+INSERT INTO `pcresponses` (`id`, `pdTRN`, `rId`, `questionResponse`) VALUES
+(115, 123456789, 18, 'IT'),
+(116, 123456789, 19, 'less than 5'),
+(117, 123456789, 20, '0-2 '),
+(118, 123456789, 21, 'No'),
+(119, 123456789, 22, 'UI, UX'),
+(120, 123456789, 23, 'No'),
+(121, 123456789, 18, 'IT'),
+(122, 123456789, 19, 'less than 5'),
+(123, 123456789, 20, '0-2 '),
+(124, 123456789, 21, 'No'),
+(125, 123456789, 22, 'UI, UX'),
+(126, 123456789, 23, 'No');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pending_clients`
+--
+
+DROP TABLE IF EXISTS `pending_clients`;
+CREATE TABLE IF NOT EXISTS `pending_clients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trn` varchar(9) NOT NULL,
+  `companyName` varchar(100) NOT NULL,
+  `clientName` varchar(100) NOT NULL,
+  `clientAddress` varchar(100) NOT NULL,
+  `clientCounty` varchar(20) NOT NULL,
+  `clientParish` varchar(40) NOT NULL,
+  `clientCity` varchar(60) NOT NULL,
+  `clientContact` varchar(20) NOT NULL,
+  `clientEmail` varchar(100) NOT NULL,
+  `clientWebsite` varchar(50) NOT NULL,
+  `attempts` int(11) NOT NULL,
+  `active` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `trn` (`trn`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pending_clients`
+--
+
+INSERT INTO `pending_clients` (`id`, `trn`, `companyName`, `clientName`, `clientAddress`, `clientCounty`, `clientParish`, `clientCity`, `clientContact`, `clientEmail`, `clientWebsite`, `attempts`, `active`) VALUES
+(10, '123456789', 'Bureau of Standards', 'Nicholas Jumpp', '6 Wichester Road', 'Surrey', 'St. Andrew', 'Kingston 10', '1-876-788-9327', 'jumppnicholas1@gmail.com', 'www.bsj.org.jm', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `phase`
 --
 
 DROP TABLE IF EXISTS `phase`;
@@ -408,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `phase` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `phase`
+-- Dumping data for table `phase`
 --
 
 INSERT INTO `phase` (`id`, `code`, `name`, `active`) VALUES
@@ -420,7 +515,7 @@ INSERT INTO `phase` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `post`
+-- Table structure for table `post`
 --
 
 DROP TABLE IF EXISTS `post`;
@@ -443,7 +538,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `post`
+-- Dumping data for table `post`
 --
 
 INSERT INTO `post` (`id`, `category_id`, `date_from`, `date_to`, `doc_type`, `post_title`, `post_slug`, `post_text`, `post_image`, `posted_by`, `client_visibility`, `active`, `updated_date`, `updated_by`) VALUES
@@ -455,7 +550,7 @@ INSERT INTO `post` (`id`, `category_id`, `date_from`, `date_to`, `doc_type`, `po
 -- --------------------------------------------------------
 
 --
--- Structure de la table `profile`
+-- Table structure for table `profile`
 --
 
 DROP TABLE IF EXISTS `profile`;
@@ -465,23 +560,23 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `permission` text NOT NULL,
   `protected` tinyint(4) DEFAULT NULL COMMENT '1=Protected ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `profile`
+-- Dumping data for table `profile`
 --
 
 INSERT INTO `profile` (`id`, `name`, `permission`, `protected`) VALUES
 (1, 'Super Admin', 'a:36:{i:0;s:10:\"createUser\";i:1;s:10:\"updateUser\";i:2;s:8:\"viewUser\";i:3;s:10:\"deleteUser\";i:4;s:11:\"createGroup\";i:5;s:11:\"updateGroup\";i:6;s:9:\"viewGroup\";i:7;s:11:\"deleteGroup\";i:8;s:11:\"createBrand\";i:9;s:11:\"updateBrand\";i:10;s:9:\"viewBrand\";i:11;s:11:\"deleteBrand\";i:12;s:14:\"createCategory\";i:13;s:14:\"updateCategory\";i:14;s:12:\"viewCategory\";i:15;s:14:\"deleteCategory\";i:16;s:11:\"createStore\";i:17;s:11:\"updateStore\";i:18;s:9:\"viewStore\";i:19;s:11:\"deleteStore\";i:20;s:15:\"createAttribute\";i:21;s:15:\"updateAttribute\";i:22;s:13:\"viewAttribute\";i:23;s:15:\"deleteAttribute\";i:24;s:13:\"createProduct\";i:25;s:13:\"updateProduct\";i:26;s:11:\"viewProduct\";i:27;s:13:\"deleteProduct\";i:28;s:11:\"createOrder\";i:29;s:11:\"updateOrder\";i:30;s:9:\"viewOrder\";i:31;s:11:\"deleteOrder\";i:32;s:11:\"viewReports\";i:33;s:13:\"updateCompany\";i:34;s:11:\"viewProfile\";i:35;s:13:\"updateSetting\";}', 1),
 (2, 'Coordinator', 'a:87:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:18:\"createConsultation\";i:5;s:18:\"updateConsultation\";i:6;s:16:\"viewConsultation\";i:7;s:18:\"deleteConsultation\";i:8;s:11:\"createPhase\";i:9;s:11:\"updatePhase\";i:10;s:9:\"viewPhase\";i:11;s:11:\"deletePhase\";i:12;s:12:\"createStatus\";i:13;s:12:\"updateStatus\";i:14;s:10:\"viewStatus\";i:15;s:12:\"deleteStatus\";i:16;s:12:\"createSector\";i:17;s:12:\"updateSector\";i:18;s:10:\"viewSector\";i:19;s:12:\"deleteSector\";i:20;s:14:\"createDocument\";i:21;s:14:\"updateDocument\";i:22;s:12:\"viewDocument\";i:23;s:14:\"deleteDocument\";i:24;s:18:\"createDocumentType\";i:25;s:18:\"updateDocumentType\";i:26;s:16:\"viewDocumentType\";i:27;s:18:\"deleteDocumentType\";i:28;s:14:\"createStandard\";i:29;s:14:\"updateStandard\";i:30;s:12:\"viewStandard\";i:31;s:14:\"deleteStandard\";i:32;s:12:\"createClause\";i:33;s:12:\"updateClause\";i:34;s:10:\"viewClause\";i:35;s:12:\"deleteClause\";i:36;s:15:\"createSubClause\";i:37;s:15:\"updateSubClause\";i:38;s:13:\"viewSubClause\";i:39;s:15:\"deleteSubClause\";i:40;s:14:\"createQuestion\";i:41;s:14:\"updateQuestion\";i:42;s:12:\"viewQuestion\";i:43;s:14:\"deleteQuestion\";i:44;s:12:\"createManual\";i:45;s:12:\"updateManual\";i:46;s:10:\"viewManual\";i:47;s:12:\"deleteManual\";i:48;s:12:\"createCounty\";i:49;s:12:\"updateCounty\";i:50;s:10:\"viewCounty\";i:51;s:12:\"deleteCounty\";i:52;s:12:\"createParish\";i:53;s:12:\"updateParish\";i:54;s:10:\"viewParish\";i:55;s:12:\"deleteParish\";i:56;s:10:\"createCity\";i:57;s:10:\"updateCity\";i:58;s:8:\"viewCity\";i:59;s:10:\"deleteCity\";i:60;s:10:\"createPost\";i:61;s:10:\"updatePost\";i:62;s:8:\"viewPost\";i:63;s:10:\"deletePost\";i:64;s:14:\"createCategory\";i:65;s:14:\"updateCategory\";i:66;s:12:\"viewCategory\";i:67;s:14:\"deleteCategory\";i:68;s:13:\"createInquiry\";i:69;s:13:\"updateInquiry\";i:70;s:11:\"viewInquiry\";i:71;s:13:\"deleteInquiry\";i:72;s:17:\"createInquiryType\";i:73;s:17:\"updateInquiryType\";i:74;s:15:\"viewInquiryType\";i:75;s:17:\"deleteInquiryType\";i:76;s:17:\"createSupportType\";i:77;s:17:\"updateSupportType\";i:78;s:15:\"viewSupportType\";i:79;s:17:\"deleteSupportType\";i:80;s:13:\"viewDashboard\";i:81;s:8:\"viewNews\";i:82;s:10:\"viewReport\";i:83;s:17:\"viewDocumentation\";i:84;s:10:\"viewMyUser\";i:85;s:20:\"viewSearchConsultant\";i:86;s:13:\"updateSetting\";}', 1),
 (3, 'Consultant', 'a:13:{i:0;s:10:\"viewClient\";i:1;s:16:\"viewConsultation\";i:2;s:12:\"viewDocument\";i:3;s:8:\"viewPost\";i:4;s:13:\"createInquiry\";i:5;s:13:\"updateInquiry\";i:6;s:11:\"viewInquiry\";i:7;s:13:\"deleteInquiry\";i:8;s:13:\"viewDashboard\";i:9;s:8:\"viewNews\";i:10;s:10:\"viewReport\";i:11;s:17:\"viewDocumentation\";i:12;s:10:\"viewMyUser\";}', 1),
-(4, 'Client', 'a:10:{i:0;s:12:\"updateClient\";i:1;s:10:\"viewClient\";i:2;s:18:\"createConsultation\";i:3;s:18:\"updateConsultation\";i:4;s:16:\"viewConsultation\";i:5;s:8:\"viewPost\";i:6;s:13:\"viewDashboard\";i:7;s:8:\"viewNews\";i:8;s:17:\"viewDocumentation\";i:9;s:10:\"viewMyUser\";}', 1),
-(5, 'Admin', 'a:96:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:18:\"createConsultation\";i:5;s:18:\"updateConsultation\";i:6;s:16:\"viewConsultation\";i:7;s:18:\"deleteConsultation\";i:8;s:11:\"createPhase\";i:9;s:11:\"updatePhase\";i:10;s:9:\"viewPhase\";i:11;s:11:\"deletePhase\";i:12;s:12:\"createStatus\";i:13;s:12:\"updateStatus\";i:14;s:10:\"viewStatus\";i:15;s:12:\"deleteStatus\";i:16;s:12:\"createSector\";i:17;s:12:\"updateSector\";i:18;s:10:\"viewSector\";i:19;s:12:\"deleteSector\";i:20;s:14:\"createDocument\";i:21;s:14:\"updateDocument\";i:22;s:12:\"viewDocument\";i:23;s:14:\"deleteDocument\";i:24;s:18:\"createDocumentType\";i:25;s:18:\"updateDocumentType\";i:26;s:16:\"viewDocumentType\";i:27;s:18:\"deleteDocumentType\";i:28;s:14:\"createStandard\";i:29;s:14:\"updateStandard\";i:30;s:12:\"viewStandard\";i:31;s:14:\"deleteStandard\";i:32;s:12:\"createClause\";i:33;s:12:\"updateClause\";i:34;s:10:\"viewClause\";i:35;s:12:\"deleteClause\";i:36;s:15:\"createSubClause\";i:37;s:15:\"updateSubClause\";i:38;s:13:\"viewSubClause\";i:39;s:15:\"deleteSubClause\";i:40;s:14:\"createQuestion\";i:41;s:14:\"updateQuestion\";i:42;s:12:\"viewQuestion\";i:43;s:14:\"deleteQuestion\";i:44;s:12:\"createManual\";i:45;s:12:\"updateManual\";i:46;s:10:\"viewManual\";i:47;s:12:\"deleteManual\";i:48;s:12:\"createCounty\";i:49;s:12:\"updateCounty\";i:50;s:10:\"viewCounty\";i:51;s:12:\"deleteCounty\";i:52;s:12:\"createParish\";i:53;s:12:\"updateParish\";i:54;s:10:\"viewParish\";i:55;s:12:\"deleteParish\";i:56;s:10:\"createCity\";i:57;s:10:\"updateCity\";i:58;s:8:\"viewCity\";i:59;s:10:\"deleteCity\";i:60;s:10:\"createPost\";i:61;s:10:\"updatePost\";i:62;s:8:\"viewPost\";i:63;s:10:\"deletePost\";i:64;s:14:\"createCategory\";i:65;s:14:\"updateCategory\";i:66;s:12:\"viewCategory\";i:67;s:14:\"deleteCategory\";i:68;s:13:\"createInquiry\";i:69;s:13:\"updateInquiry\";i:70;s:11:\"viewInquiry\";i:71;s:13:\"deleteInquiry\";i:72;s:17:\"createInquiryType\";i:73;s:17:\"updateInquiryType\";i:74;s:15:\"viewInquiryType\";i:75;s:17:\"deleteInquiryType\";i:76;s:17:\"createSupportType\";i:77;s:17:\"updateSupportType\";i:78;s:15:\"viewSupportType\";i:79;s:17:\"deleteSupportType\";i:80;s:13:\"viewDashboard\";i:81;s:8:\"viewNews\";i:82;s:10:\"viewReport\";i:83;s:17:\"viewDocumentation\";i:84;s:10:\"viewMyUser\";i:85;s:20:\"viewSearchConsultant\";i:86;s:10:\"createUser\";i:87;s:10:\"updateUser\";i:88;s:8:\"viewUser\";i:89;s:10:\"deleteUser\";i:90;s:13:\"createProfile\";i:91;s:13:\"updateProfile\";i:92;s:11:\"viewProfile\";i:93;s:13:\"deleteProfile\";i:94;s:12:\"updateSystem\";i:95;s:13:\"updateSetting\";}', 1);
+(4, 'Client', 'a:10:{i:0;s:12:\"updateClient\";i:1;s:10:\"viewClient\";i:2;s:18:\"createConsultation\";i:3;s:16:\"viewConsultation\";i:4;s:13:\"updateAnswers\";i:5;s:8:\"viewPost\";i:6;s:13:\"viewDashboard\";i:7;s:8:\"viewNews\";i:8;s:17:\"viewDocumentation\";i:9;s:10:\"viewMyUser\";}', 1),
+(5, 'Admin', 'a:104:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:19:\"createPendingClient\";i:5;s:19:\"updatePendingClient\";i:6;s:17:\"viewPendingClient\";i:7;s:19:\"deletePendingClient\";i:8;s:18:\"createConsultation\";i:9;s:18:\"updateConsultation\";i:10;s:16:\"viewConsultation\";i:11;s:18:\"deleteConsultation\";i:12;s:11:\"createPhase\";i:13;s:11:\"updatePhase\";i:14;s:9:\"viewPhase\";i:15;s:11:\"deletePhase\";i:16;s:12:\"createStatus\";i:17;s:12:\"updateStatus\";i:18;s:10:\"viewStatus\";i:19;s:12:\"deleteStatus\";i:20;s:12:\"createSector\";i:21;s:12:\"updateSector\";i:22;s:10:\"viewSector\";i:23;s:12:\"deleteSector\";i:24;s:14:\"createDocument\";i:25;s:14:\"updateDocument\";i:26;s:12:\"viewDocument\";i:27;s:14:\"deleteDocument\";i:28;s:18:\"createDocumentType\";i:29;s:18:\"updateDocumentType\";i:30;s:16:\"viewDocumentType\";i:31;s:18:\"deleteDocumentType\";i:32;s:17:\"createRequirement\";i:33;s:17:\"updateRequirement\";i:34;s:15:\"viewRequirement\";i:35;s:17:\"deleteRequirement\";i:36;s:14:\"createStandard\";i:37;s:14:\"updateStandard\";i:38;s:12:\"viewStandard\";i:39;s:14:\"deleteStandard\";i:40;s:12:\"createClause\";i:41;s:12:\"updateClause\";i:42;s:10:\"viewClause\";i:43;s:12:\"deleteClause\";i:44;s:15:\"createSubClause\";i:45;s:15:\"updateSubClause\";i:46;s:13:\"viewSubClause\";i:47;s:15:\"deleteSubClause\";i:48;s:14:\"createQuestion\";i:49;s:14:\"updateQuestion\";i:50;s:12:\"viewQuestion\";i:51;s:14:\"deleteQuestion\";i:52;s:12:\"createManual\";i:53;s:12:\"updateManual\";i:54;s:10:\"viewManual\";i:55;s:12:\"deleteManual\";i:56;s:12:\"createCounty\";i:57;s:12:\"updateCounty\";i:58;s:10:\"viewCounty\";i:59;s:12:\"deleteCounty\";i:60;s:12:\"createParish\";i:61;s:12:\"updateParish\";i:62;s:10:\"viewParish\";i:63;s:12:\"deleteParish\";i:64;s:10:\"createCity\";i:65;s:10:\"updateCity\";i:66;s:8:\"viewCity\";i:67;s:10:\"deleteCity\";i:68;s:10:\"createPost\";i:69;s:10:\"updatePost\";i:70;s:8:\"viewPost\";i:71;s:10:\"deletePost\";i:72;s:14:\"createCategory\";i:73;s:14:\"updateCategory\";i:74;s:12:\"viewCategory\";i:75;s:14:\"deleteCategory\";i:76;s:13:\"createInquiry\";i:77;s:13:\"updateInquiry\";i:78;s:11:\"viewInquiry\";i:79;s:13:\"deleteInquiry\";i:80;s:17:\"createInquiryType\";i:81;s:17:\"updateInquiryType\";i:82;s:15:\"viewInquiryType\";i:83;s:17:\"deleteInquiryType\";i:84;s:17:\"createSupportType\";i:85;s:17:\"updateSupportType\";i:86;s:15:\"viewSupportType\";i:87;s:17:\"deleteSupportType\";i:88;s:13:\"viewDashboard\";i:89;s:8:\"viewNews\";i:90;s:10:\"viewReport\";i:91;s:17:\"viewDocumentation\";i:92;s:10:\"viewMyUser\";i:93;s:20:\"viewSearchConsultant\";i:94;s:10:\"createUser\";i:95;s:10:\"updateUser\";i:96;s:8:\"viewUser\";i:97;s:10:\"deleteUser\";i:98;s:13:\"createProfile\";i:99;s:13:\"updateProfile\";i:100;s:11:\"viewProfile\";i:101;s:13:\"deleteProfile\";i:102;s:12:\"updateSystem\";i:103;s:13:\"updateSetting\";}', 1);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `qms`
+-- Table structure for table `qms`
 --
 
 DROP TABLE IF EXISTS `qms`;
@@ -502,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `qms` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `qms`
+-- Dumping data for table `qms`
 --
 
 INSERT INTO `qms` (`id`, `certification`, `phase`, `clause`, `heading`, `sub_clause`, `question`, `input_format`, `field_length`, `upload`) VALUES
@@ -692,7 +787,7 @@ INSERT INTO `qms` (`id`, `certification`, `phase`, `clause`, `heading`, `sub_cla
 -- --------------------------------------------------------
 
 --
--- Structure de la table `question`
+-- Table structure for table `question`
 --
 
 DROP TABLE IF EXISTS `question`;
@@ -715,13 +810,13 @@ CREATE TABLE IF NOT EXISTS `question` (
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `question`
+-- Dumping data for table `question`
 --
 
 INSERT INTO `question` (`id`, `sub_clause_id`, `question_type_id`, `question`, `choice`, `remark`, `upload_document`, `active`, `updated_date`, `updated_by`, `input_format`, `field_length`, `upload`, `sub_clause`) VALUES
-(1, 1, 3, 'Has the organization identified all external and internal issues relevant to its strategic plan ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'Boolean', NULL, NULL, '4.1'),
-(2, 1, 3, 'Has the organization established a process for monitor and review the external and internal issues that may affect the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'Boolean', NULL, NULL, '4.1'),
-(3, 2, 3, 'Has the organization identified all relevant interested party and how their requierments may impact the operations of the organization?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'Boolean', NULL, 'yes', '4.2'),
+(1, 1, 3, 'Has the organization identified all external and internal issues relevant to its strategic plan ?', 1, '', 1, 1, '2020-02-06 03:41:15', 23, 'Boolean', NULL, NULL, '4.1'),
+(2, 1, 3, 'Has the organization established a process for monitor and review the external and internal issues that may affect the QMS?', 1, '', 1, 1, '2020-02-17 18:57:42', 23, 'Boolean', NULL, NULL, '4.1'),
+(3, 2, 3, 'Has the organization identified all relevant interested party and how their requierments may impact the operations of the organization?', 1, '', 1, 1, '2020-01-28 21:34:29', 23, 'Boolean', NULL, 'yes', '4.2'),
 (4, 2, 1, 'How do you monitor and review the information about interested parties  and their requierments ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'String', 'Text Area', 'yes', '4.2'),
 (5, 3, 3, 'Does the scope of the QMS, include products and services provided by the organization, and a justification for any exclusions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'Boolean', NULL, 'yes', '4.3'),
 (6, 3, 3, 'Does the organization have the scope of the quality management system\nmaintained as documented information?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL, 'Boolean', NULL, 'yes', '4.3'),
@@ -906,7 +1001,7 @@ INSERT INTO `question` (`id`, `sub_clause_id`, `question_type_id`, `question`, `
 -- --------------------------------------------------------
 
 --
--- Structure de la table `question_option`
+-- Table structure for table `question_option`
 --
 
 DROP TABLE IF EXISTS `question_option`;
@@ -914,23 +1009,22 @@ CREATE TABLE IF NOT EXISTS `question_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
   `option_desc` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `question_id` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `question_option`
+-- Dumping data for table `question_option`
 --
 
 INSERT INTO `question_option` (`id`, `question_id`, `option_desc`) VALUES
-(29, 184, ''),
-(27, 180, ''),
-(28, 186, ''),
-(26, 192, '');
+(1, 2, 'yes'),
+(2, 2, 'no');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `question_type`
+-- Table structure for table `question_type`
 --
 
 DROP TABLE IF EXISTS `question_type`;
@@ -943,7 +1037,7 @@ CREATE TABLE IF NOT EXISTS `question_type` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `question_type`
+-- Dumping data for table `question_type`
 --
 
 INSERT INTO `question_type` (`id`, `code`, `name`, `active`) VALUES
@@ -958,7 +1052,7 @@ INSERT INTO `question_type` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `report`
+-- Table structure for table `report`
 --
 
 DROP TABLE IF EXISTS `report`;
@@ -971,27 +1065,56 @@ CREATE TABLE IF NOT EXISTS `report` (
   `report_selection` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1=Yes 2-=No',
   PRIMARY KEY (`id`),
   UNIQUE KEY `report_code` (`report_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `report`
+-- Dumping data for table `report`
 --
 
 INSERT INTO `report` (`id`, `report_code`, `report_desc`, `report_form`, `report_title`, `report_selection`) VALUES
-(1, 'REP01', 'List of Clients', '/application/controllers/Repor01.php', 'List of Clients', 1),
+(1, 'REP01', 'List of Clients', '/application/controllers/Report01.php', 'List of Clients', 1),
 (2, 'REP02', 'List of Consultations', '/application/controllers/Report02.php', 'List of Consultations', 1),
 (4, 'REP04', 'Inquiries', '/application/controllers/Report04.php', 'Inquiries', 1),
 (5, 'REP05', 'List of Consultations by County', 'application/controllers/Report05.php', 'List of Consultations  by County', 1),
 (6, 'REP06', 'List of Settings', '/application/controllers/Report06.php', 'List of Settings', 2),
 (7, 'REP0C', 'Client', '/appliation/controllers/Report_client.php', 'Client', 2),
 (8, 'REP0I', 'Consultation', '/appliation/controllers/Report_consultation.php', 'Consultation', 2),
-(9, 'REP08', 'List of Clauses', '/application/controllers/report08.php', 'List of Clauses', 1),
-(10, 'REP07', 'List of sub-clauses', '/application/controllers/Report07.php', 'List of Sub-Clauses', 1);
+(9, 'REP08', 'List of Clauses', '/application/controllers/Report08.php', 'List of Clauses', 1),
+(10, 'REP07', 'List of sub-clauses', '/application/controllers/Report07.php', 'List of Sub-Clauses', 1),
+(11, 'QPM01', 'Quality & Procedures Manual for ISO 9001', '/application/controllers/QPM01.php', 'Quality & Procedures Manual for ISO 9001', 2);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sector`
+-- Table structure for table `requirements`
+--
+
+DROP TABLE IF EXISTS `requirements`;
+CREATE TABLE IF NOT EXISTS `requirements` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question` varchar(300) NOT NULL,
+  `questionType` varchar(30) NOT NULL,
+  `questionDescription` varchar(300) DEFAULT NULL,
+  `questionChoice` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `requirements`
+--
+
+INSERT INTO `requirements` (`id`, `question`, `questionType`, `questionDescription`, `questionChoice`) VALUES
+(18, 'What line of business are you in?', 'TEXT', '', '[]'),
+(19, 'How many employees do you have?', 'LIST', 'Individuals that work for you.', '[\"less than 5\",\"6-20\",\"21-50\",\"greater than 50\"]'),
+(20, 'How long have you been in operation? (Years)', 'RADIO', '', '[\"0-2 \",\"2-5\",\"5-10\",\"more than 10\"]'),
+(21, 'Have you or your staff engaged in any training programmes within the past five years? (Yes or No)If yes kindly state.', 'TEXT', '', '[]'),
+(22, 'What are your areas of interest?', 'TEXT', '', '[]'),
+(23, 'Are you aware of the services offered by the BSJ?(Yes, No) If yes, kindly state.', 'TEXT', '', '[]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sector`
 --
 
 DROP TABLE IF EXISTS `sector`;
@@ -1003,7 +1126,7 @@ CREATE TABLE IF NOT EXISTS `sector` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `sector`
+-- Dumping data for table `sector`
 --
 
 INSERT INTO `sector` (`id`, `name`, `active`) VALUES
@@ -1015,7 +1138,7 @@ INSERT INTO `sector` (`id`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `standard`
+-- Table structure for table `standard`
 --
 
 DROP TABLE IF EXISTS `standard`;
@@ -1028,7 +1151,7 @@ CREATE TABLE IF NOT EXISTS `standard` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `standard`
+-- Dumping data for table `standard`
 --
 
 INSERT INTO `standard` (`id`, `code`, `name`, `active`) VALUES
@@ -1039,7 +1162,7 @@ INSERT INTO `standard` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `status`
+-- Table structure for table `status`
 --
 
 DROP TABLE IF EXISTS `status`;
@@ -1053,7 +1176,7 @@ CREATE TABLE IF NOT EXISTS `status` (
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `status`
+-- Dumping data for table `status`
 --
 
 INSERT INTO `status` (`id`, `code`, `phase_id`, `name`, `active`) VALUES
@@ -1085,7 +1208,7 @@ INSERT INTO `status` (`id`, `code`, `phase_id`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sub_clause`
+-- Table structure for table `sub_clause`
 --
 
 DROP TABLE IF EXISTS `sub_clause`;
@@ -1100,7 +1223,7 @@ CREATE TABLE IF NOT EXISTS `sub_clause` (
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `sub_clause`
+-- Dumping data for table `sub_clause`
 --
 
 INSERT INTO `sub_clause` (`id`, `clause_id`, `phase_id`, `code`, `name`, `active`) VALUES
@@ -1178,7 +1301,7 @@ INSERT INTO `sub_clause` (`id`, `clause_id`, `phase_id`, `code`, `name`, `active
 -- --------------------------------------------------------
 
 --
--- Structure de la table `support_type`
+-- Table structure for table `support_type`
 --
 
 DROP TABLE IF EXISTS `support_type`;
@@ -1188,10 +1311,10 @@ CREATE TABLE IF NOT EXISTS `support_type` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `support_type`
+-- Dumping data for table `support_type`
 --
 
 INSERT INTO `support_type` (`id`, `code`, `name`, `active`) VALUES
@@ -1200,7 +1323,7 @@ INSERT INTO `support_type` (`id`, `code`, `name`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -1220,20 +1343,36 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `profile_id`, `username`, `password`, `email`, `name`, `phone`, `remark`, `active`, `updated_by`, `updated_date`) VALUES
 (18, 5, 'voyagine', '$2y$10$zdSQoIZNy10Gs3uQhG0OF.8xucSKJyP5AEkuCkPY08axj/rNm7lrW', 'voyagine@hotmail.com', 'Carmen Gagnon', '5149836594', NULL, 1, 18, '2019-12-12 17:56:40'),
 (23, 5, 'admin', '$2y$10$ZX.EHlOqIPmRWyrxP05zWuViAa1tq4lej3NnVRcsOsXh2SwF6nh8W', 'admin@hotmail.com', 'admin', '', NULL, 1, 18, '2019-12-18 20:08:01'),
 (24, 5, 'bsjme', '$2y$10$LAzMxF3v4LDX3RNP8.RDo.9J5MPz2oilCkdByFkG6hMAAWY.mqpDm', 'bsjme@gmail.com', 'bsjme', '', NULL, 1, 18, '2019-12-09 23:43:02'),
-(27, 4, 'TRN001', '$2y$10$stgkLqq5GW/hQhYIkz2bVeEBlYv6/zQCXWHVwlBOA8rRkCOEVCYta', 'client@hotmail.com', 'Client security', '5149836594', NULL, 1, 18, '2019-12-22 00:57:53'),
+(27, 4, 'TRN001', '$2y$10$6Af.UJxWPPk75MUfnC3xbuzm4ra6BgyVOZhn35QaJOOmqN5xyufMG', 'client@hotmail.com', 'Client security', '5149836594', NULL, 1, 23, '2019-12-22 00:57:53'),
 (28, 2, 'coordinator', '$2y$10$juoiwO/60oN5Ubwn.57WTeEuweYiMX8RtaaoUUDqq7qBUB7b2Oaim', 'coordinator@hotmail.com', 'Coordinator', '', NULL, 1, 18, '2019-12-18 20:04:18'),
 (29, 3, 'consultant1', '$2y$10$/YPuhMPCEryZe2Hc/CcnFegKcTu4nldja.WL0QnZhvx9gKyGNmCRK', 'consultant1@hotmail.com', 'Consultant No 1', '123456789', NULL, 1, 18, '2019-12-18 20:07:50'),
 (30, 3, 'consultant2', '$2y$10$8EjzOfJ7W9mAyq9jNEz1POGLENZX9excWKpl505iDzXbyQzeK1SkS', 'consultant2@hotmail.com', 'Consultant No 2', '', NULL, 1, 18, '2019-12-18 20:08:33'),
 (31, 3, 'consultant3', '$2y$10$LNvKCbDAmYkBL93oQlZH1uC.k4Qje.xC8JFkOdSzzdvQaBM9ERUTK', 'consultant3@hotmail.com', 'Consultant No 3', '', NULL, 1, 18, '2019-12-18 20:09:11'),
-(37, 4, 'TRN002', '$2y$10$4p8/hRM7XRvDeil0pxGeKORuFDR7JJnMv.M45jKajF523RqGUi7Um', 'voyagine@hotmail.com', 'M. Untel', 'phone', NULL, 1, 18, '2019-12-23 17:54:46'),
+(37, 4, 'TRN002', '$2y$10$i/66TmRPUoWoqSXOf9L2P.g4415vjzSZbZSUwgSeDTabRZlIyVKXm', 'voyagine@hotmail.com', 'M. Untel', 'phone', NULL, 1, 23, '2019-12-23 17:54:46'),
 (38, 4, 'TRN003', '$2y$10$FnwBu5YX5GSpu5T0sXcNvulVbC7tBBglrCPteknl..B6eODAxoBIi', 'voyagine@hotmail.com', 'Client No 3', '05149836594', NULL, 1, 18, '2019-12-23 17:59:28');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `pcresponses`
+--
+ALTER TABLE `pcresponses`
+  ADD CONSTRAINT `pcresponses_ibfk_1` FOREIGN KEY (`rId`) REFERENCES `requirements` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `question_option`
+--
+ALTER TABLE `question_option`
+  ADD CONSTRAINT `question_option_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
