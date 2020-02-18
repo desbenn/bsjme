@@ -28,7 +28,17 @@
             <div class="panel-heading bg-black">Client / Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">   
+                <ul class="chart-legend" style="height:160px"> 
+
+                <?php if(in_array('createRequirement', $user_permission) || in_array('updateRequirement', $user_permission) || in_array('viewRequirement', $user_permission) || in_array('deleteRequirement', $user_permission)): ?>
+                  <li id="requirementNav">
+                    <a href="<?php echo base_url('requirement/') ?>">Requirement</a></li>
+                <?php endif; ?> 
+
+                <?php if(in_array('createProgram', $user_permission) || in_array('updateProgram', $user_permission) || in_array('viewProgram', $user_permission) || in_array('deleteProgram', $user_permission)): ?>
+                  <li id="phaseNav">
+                    <a href="<?php echo base_url('program/') ?>">Program</a></li>
+                <?php endif; ?> 
                   
                 <?php if(in_array('createPhase', $user_permission) || in_array('updatePhase', $user_permission) || in_array('viewPhase', $user_permission) || in_array('deletePhase', $user_permission)): ?>
                   <li id="phaseNav">
@@ -43,12 +53,7 @@
                  <?php if(in_array('createSector', $user_permission) || in_array('updateSector', $user_permission) || in_array('viewSector', $user_permission) || in_array('deleteSector', $user_permission)): ?>
                   <li id="sectorNav">
                     <a href="<?php echo base_url('sector/') ?>">Sector</a></li>
-                <?php endif; ?>
-
-                <?php if(in_array('createDocumentType', $user_permission) || in_array('updateDocumentType', $user_permission) || in_array('viewDocumentType', $user_permission) || in_array('deleteDocumentType', $user_permission)): ?>
-                  <li id="typedocumentNav">
-                    <a href="<?php echo base_url('document_type/') ?>">Document Type</a></li>
-                <?php endif; ?>   
+                <?php endif; ?>                   
                 
                 <?php if(in_array('createInquiryType', $user_permission) || in_array('updateInquiryType', $user_permission) || in_array('viewInquiryType', $user_permission) || in_array('deleteInquiryType', $user_permission)): ?>
                   <li id="typeinquiryNav">
@@ -73,12 +78,7 @@
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">
-
-                <?php if(in_array('createRequirement', $user_permission) || in_array('updateRequirement', $user_permission) || in_array('viewRequirement', $user_permission) || in_array('deleteRequirement', $user_permission)): ?>
-                  <li id="requirementNav">
-                    <a href="<?php echo base_url('requirement/') ?>">Requirement</a></li>
-                <?php endif; ?>
+                <ul class="chart-legend" style="height:160px">                
 
                 <?php if(in_array('createStandard', $user_permission) || in_array('updateStandard', $user_permission) || in_array('viewStandard', $user_permission) || in_array('deleteStandard', $user_permission)): ?>
                   <li id="questionNav">
@@ -104,6 +104,16 @@
                   <li id="manualNav">
                     <a href="<?php echo base_url('manual/') ?>">Manuals</a></li>
                 <?php endif; ?> 
+
+                <?php if(in_array('createDocumentType', $user_permission) || in_array('updateDocumentType', $user_permission) || in_array('viewDocumentType', $user_permission) || in_array('deleteDocumentType', $user_permission)): ?>
+                  <li id="typedocumentNav">
+                    <a href="<?php echo base_url('document_type/') ?>">Document Type</a></li>
+                <?php endif; ?>
+
+                <?php if(in_array('createDocumentClass', $user_permission) || in_array('updateDocumentClass', $user_permission) || in_array('viewDocumentClass', $user_permission) || in_array('deleteDocumentClass', $user_permission)): ?>
+                  <li id="typedocumentNav">
+                    <a href="<?php echo base_url('document_class/') ?>">Document Class</a></li>
+                <?php endif; ?>
 
                 
                 </ul>

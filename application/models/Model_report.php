@@ -454,9 +454,21 @@ class Model_report extends CI_Model
 		}
 
 		elseif ($setting == 'document_type') {
-			$sql = "SELECT id,name,'no code' AS 'code',
+			$sql = "SELECT document_type.id AS 'id',
+						   CONCAT(document_type.name, '  (default class= ', document_class.name, ')') AS 'name',
+			               document_type.code AS 'code',
+					CASE WHEN document_type.active = 1 THEN 'Yes' else 'No' END AS 'active'
+					FROM document_type 
+					LEFT JOIN document_class ON document_class.id = document_type.document_class_id
+					ORDER BY document_type.name";
+			$query = $this->db->query($sql, array());
+			return $query->result();
+		}
+
+		elseif ($setting == 'document_class') {
+			$sql = "SELECT id,name,code,
 					CASE WHEN active = 1 THEN 'Yes' else 'No' END AS 'active'
-					FROM document_type ORDER BY name";
+					FROM document_class ORDER BY name";
 			$query = $this->db->query($sql, array());
 			return $query->result();
 		}
@@ -470,9 +482,13 @@ class Model_report extends CI_Model
 		}
 
 		elseif ($setting == 'status') {
-			$sql = "SELECT id,name,code,
-					CASE WHEN active = 1 THEN 'Yes' else 'No' END AS 'active'
-					FROM status ORDER BY name";
+			$sql = "SELECT status.id AS 'id',
+						   CONCAT(status.name, '  (Phase= ', phase.name, ')') AS 'name',
+			               status.code AS 'code',
+					CASE WHEN status.active = 1 THEN 'Yes' else 'No' END AS 'active'
+					FROM status 
+					LEFT JOIN phase ON phase.id = status.phase_id
+					ORDER BY status.name";
 			$query = $this->db->query($sql, array());
 			return $query->result();
 		}

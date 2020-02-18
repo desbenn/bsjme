@@ -1,0 +1,16 @@
+{
+    "JAM1370": "Clarendon", 
+    "JAM1371": "Hanover", 
+    "JAM1372": "Manchester", 
+    "JAM1373": "Saint Elizabeth", 
+    "JAM1374": "Saint James", 
+    "JAM1375": "Trelawny", 
+    "JAM1376": "Westmoreland", 
+    "JAM1377": "Kingston", 
+    "JAM1378": "Portland", 
+    "JAM1379": "Saint Ann", 
+    "JAM1380": "Saint Catherine", 
+    "JAM1381": "Saint Mary", 
+    "JAM1382": "Saint Andrew", 
+    "JAM1383": "Saint Thomas"
+}
