@@ -100,6 +100,7 @@ class Manual01 extends Admin_Controller
 	$pageCount = $pdf->setSourceFile('assets/documentation/corporate_profile_example.pdf');
 	// iterate through all pages
 	for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+		//$box = PdfReader/PageBoudaries::ART_BOX;
 	    // import a page
 	    $templateId = $pdf->importPage($pageNo);	    
 	    // use the imported page and adjust the page size

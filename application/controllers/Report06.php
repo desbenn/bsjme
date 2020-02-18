@@ -73,9 +73,9 @@ class Report06 extends Admin_Controller
 		$this->table->set_template($template);
 
 		$this->table->set_heading('<th width="10%" height="28"><strong>Id</strong></th>',
-								  '<th width="40%" height="28"><strong>Name</strong></th>',
+								  '<th width="55%" height="28"><strong>Name</strong></th>',
 								  '<th width="20%" height="28"><strong>Code</strong></th>',
-								  '<th width="30%" height="28"><strong>Active</strong></th>' );
+								  '<th width="15%" height="28"><strong>Active</strong></th>' );
 
 		// Call to the database
 
@@ -89,9 +89,9 @@ class Report06 extends Admin_Controller
 			foreach ($result as $rs):
 
 				$cell1 = array('data' => $rs->id, 'width' => '10%');
-				$cell2 = array('data' => $rs->name, 'width' => '40%');
+				$cell2 = array('data' => $rs->name, 'width' => '55%');
 				$cell3 = array('data' => $rs->code, 'width' => '20%');
-				$cell4 = array('data' => $rs->active, 'width' => '30%');
+				$cell4 = array('data' => $rs->active, 'width' => '15%');
 
 				$this->table->add_row($cell1, $cell2, $cell3, $cell4);
 			endforeach;

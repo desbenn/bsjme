@@ -1,15 +1,15 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Status</h1>
+    <h1>Document Class</h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo base_url('setting') ?>"><i class="fa fa-dashboard">        
-      </i>Home</a></li>
-      <li class="active">Status</li>
+      <li><a href="<?php echo base_url('setting') ?>"><i class="fa fa-dashboard">
+      </i> Home</a></li>
+      <li class="active">Document Class</li>
     </ol>
   </section>
 
 
-  <!----------------------------------------------  View ------------------------------------------------------------------>
+  <!-----------------------------------------------------------  View ------------------------------------------------------------------>
 
   <section class="content">
     <div class="row">
@@ -29,27 +29,25 @@
           </div>
         <?php endif; ?>
 
-        <?php if(in_array('createStatus', $user_permission)): ?>
-          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()"  data-target="#addModal">Add Status</button>
-          <?php endif; ?>
+        <?php if(in_array('createDocumentClass', $user_permission)): ?>
+          <button class="btn btn-primary" data-toggle="modal" onclick="createFunc()" data-target="#addModal">Add Document Class</button>
+        <?php endif; ?>
 
-        <?php if(in_array('viewStatus', $user_permission)): ?>
-           <?php echo '<a href="'.base_url('report06/report06/status').'" target="_blank"  class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
+        <?php if(in_array('viewDocumentClass', $user_permission)): ?>
+           <?php echo '<a href="'.base_url('report06/report06/document_class').'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
           <br /> <br />
         <?php endif; ?>
 
         <div class="box">
           <div class="box-header"></div>
           <div class="box-body">
-          <div class="table-responsive">
             <table id="manageTable" class="table table-bordered table-striped">
               <thead>
-              <tr>     
-                <th>Phase</th> 
-                <th>Code</th>
+              <tr>
                 <th>Name</th>
+				<th>Code</th>
                 <th>Active</th>
-                <?php if(in_array('updateStatus', $user_permission) || in_array('deleteStatus', $user_permission)): ?>
+                <?php if(in_array('updateDocumentClass', $user_permission) || in_array('deleteDocumentClass', $user_permission)): ?>
                   <th>Action</th>
                 <?php endif; ?>
               </tr>
@@ -59,59 +57,56 @@
           </div>
         </div>
       </div>
-    </div>    
-    </div> 
+    </div>
 
   </section>
 </div>  <!-- /.content-wrapper -->
 
 
 
+<!-----------------------------------------------------------  Add ------------------------------------------------------------------>
 
-<!----------------------------------------------  Add ------------------------------------------------------------------>
-
-<?php if(in_array('createStatus', $user_permission)): ?>
+<?php if(in_array('createDocumentClass', $user_permission)): ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="addModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Add Status</h4>
+        <h4 class="modal-title">Add Document Class</h4>
       </div>
 
-      <form role="form" action="<?php echo base_url('status/create') ?>" method="post" id="createForm">
+      <form role="form" action="<?php echo base_url('document_class/create') ?>" method="post" id="createForm">
 
         <div class="modal-body">
 
           <div class="row">
-           <div class="col-md-4 col-xs-4">
-            <div class="form-group">
-              <label for="status_code">Code<font color="red"> *</font></label>
-              <input type="text" class="form-control" id="status_code" name="status_code" maxlength="10" autocomplete="off">
+
+             <div class="col-md-4 col-xs-4">
+              <div class="form-group">
+                <label for="document_class_code">Code<font color="red"> *</font></label>
+                <input type="text" class="form-control" id="document_class_code" name="document_class_code" maxlength="10" autocomplete="off">
+              </div>
             </div>
-          </div>  
-          <div class="col-md-2 col-xs-2"></div>
-          <div class="col-md-6 col-xs-6" align="center">
-            <div class="radio">
-                <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
+
+            <div class="col-md-4 col-xs-4"></div>
+
+            <div class="col-md-4 col-xs-4">
+              <div class="radio">
+                  <label><input type="radio" name="active" id="active" value="1" checked="checked" >
+                    Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <label><input type="radio" name="active" id="active" value="2" >
+                    Inactive</label>
+              </div>
             </div>
-           </div>
-          </div>     
+          </div>
 
           <div class="form-group">
-            <label for="status_name">Name<font color="red"> *</font></label>
-            <input type="text" class="form-control" id="status_name" name="status_name" autocomplete="off">
-          </div>  
+            <label for="document_class_name">Name<font color="red"> *</font></label>
+            <input type="text" class="form-control" id="document_class_name" name="document_class_name" autocomplete="off">
+          </div>
 
-           <div class="form-group">
-            <label for="phase">Phase<font color="red"> *</font></label>
-              <select name="phase" id="phase" class="form-control" style="width: 100%;">
-              </select>
-          </div> 
-
-        </div><!-- /.modal-body -->
+        </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -126,10 +121,10 @@
 <?php endif; ?>
 
 
-<!----------------------------------------------  Edit  ------------------------------------------------------------------>
+<!-----------------------------------------------------------  Edit ------------------------------------------------------------------>
 
 
-<?php if(in_array('updateStatus', $user_permission)): ?>
+<?php if(in_array('updateDocumentClass', $user_permission)): ?>
 <!-- edit modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
   <div class="modal-dialog" role="document">
@@ -137,42 +132,41 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Edit Status</h4>
+        <h4 class="modal-title">Edit Document Class</h4>
       </div>
 
-      <form role="form" action="<?php echo base_url('status/update') ?>" method="post" id="updateForm">
+      <form role="form" action="<?php echo base_url('document_class/update') ?>" method="post" id="updateForm">
 
         <div class="modal-body">
           <div id="messages"></div>
 
           <div class="row">
+
              <div class="col-md-4 col-xs-4">
               <div class="form-group">
-                <label for="edit_status_code">Code<font color="red"> *</font></label>
-                <input type="text" class="form-control" id="edit_status_code" name="edit_status_code" maxlength="10"  autocomplete="off">
-              </div>              
-            </div>
-            <div class="col-md-2 col-xs-2"></div>
-            <div class="col-md-6 col-xs-6" align="center">
-              <div class="radio">
-                <label><input type="radio" name="edit_active" id="edit_active" value="1" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <label><input type="radio" name="edit_active" id="edit_inactive" value="2" >Inactive</label>
+                <label for="edit_document_class_code">Code<font color="red"> *</font></label>
+                <input type="text" class="form-control" id="edit_document_class_code" name="edit_document_class_code" maxlength="10"  autocomplete="off">
               </div>
             </div>
-          </div>    
+
+            <div class="col-md-4 col-xs-4"></div>
+
+            <div class="col-md-4 col-xs-4">
+              <div class="radio">
+                <label><input type="radio" name="edit_active" id="edit_active" value="1" >
+                  Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label><input type="radio" name="edit_active" id="edit_inactive" value="2" >
+                  Inactive</label>
+              </div>
+            </div>
+
+          </div>
 
           <div class="form-group">
-            <label for="edit_status_name">Name<font color="red"> *</font></label>
-            <input type="text" class="form-control" id="edit_status_name" name="edit_status_name" autocomplete="off">
-          </div>  
-
-          <div class="form-group">
-            <label for="edit_phase">Phase<font color="red"> *</font></label>
-              <select name="edit_phase" id="phase" class="form-control" style="width: 100%;">
-              </select>
-          </div>  
-
-        </div> <!-- /.modal-body -->
+            <label for="edit_document_class_name">Name<font color="red"> *</font></label>
+            <input type="text" class="form-control" id="edit_document_class_name" name="edit_document_class_name" autocomplete="off">
+          </div>
+        </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -186,19 +180,19 @@
 <?php endif; ?>
 
 
-<!---------------------------------------  Delete   ------------------------------------------------------------------>
+<!-----------------------------------------------------------  Delete  ------------------------------------------------------------------>
 
-<?php if(in_array('deleteStatus', $user_permission)): ?>
-<!-- remove asset modal -->
+<?php if(in_array('deleteDocumentClass', $user_permission)): ?>
+<!-- remove document modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Status</h4>
+        <h4 class="modal-title">Delete Document Class</h4>
       </div>
 
-      <form role="form" action="<?php echo base_url('status/remove') ?>" method="post" id="removeForm">
+      <form role="form" action="<?php echo base_url('document_class/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
           <p>Do you really want to delete?</p>
         </div>
@@ -212,47 +206,22 @@
 </div><!-- /.modal -->
 <?php endif; ?>
 
-
-
-<!---------------------------------------   Javascript  ---------------------------------------------------------------->
+<!-----------------------------------------------   Javascript  ---------------------------------------------------------------->
 
 <script type="text/javascript">
-
-//--> Composing the list  
 var manageTable;
-var base_url = "<?php echo base_url(); ?>";
 
-  $("#statusNav").addClass('active');
+$(document).ready(function() {
 
-  // initialize the datatable 
+  $("#document_classNav").addClass('active');
+
+  // initialize the datatable
   manageTable = $('#manageTable').DataTable({
-    'ajax': 'fetchStatusData',
+    'ajax': 'fetchDocumentClassData',
     'order': [[0, 'asc']]
   });
 
-
-//---> creation of the drop-down list  phase
-    $phase = $('[id="phase"]');    
-    $.ajax({
-        url: base_url +'phase/fetchActivePhase',
-        dataType: "JSON", 
-        success: function (data) {
-            $phase.html('<option value=""></option>');
-            //iterate over the data and append a select option
-            $.each(data, function (key, val) {
-                $phase.append('<option value="' + val.id + '">' + val.name + '</option>');
-            }); 
-            
-        }, 
-        error: function () {
-        //if there is an error append a 'none available' option
-        $phase.html('<option id="-1">none available</option>');
-        }
-    });
-
-
-
-  // submit the create from 
+  // submit the create from
   $("#createForm").unbind('submit').on('submit', function() {
     var form = $(this);
 
@@ -266,7 +235,7 @@ var base_url = "<?php echo base_url(); ?>";
       dataType: 'json',
       success:function(response) {
 
-        manageTable.ajax.reload(null, false); 
+        manageTable.ajax.reload(null, false);
 
         if(response.success === true) {
           $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
@@ -292,7 +261,7 @@ var base_url = "<?php echo base_url(); ?>";
               .removeClass('has-error')
               .removeClass('has-success')
               .addClass(value.length > 0 ? 'has-error' : 'has-success');
-              
+
               id.after(value);
 
             });
@@ -304,10 +273,12 @@ var base_url = "<?php echo base_url(); ?>";
           }
         }
       }
-    }); 
+    });
 
     return false;
   });
+
+});
 
 
 
@@ -327,27 +298,24 @@ function editFunc(id)
   $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');  
   $(".text-danger").remove();
 
+
   $.ajax({
-    url: 'fetchStatusDataById/'+id,
+    url: 'fetchDocumentClassDataById/'+id,
     type: 'post',
     dataType: 'json',
     success:function(response) {
-    
-      $("#edit_status_code").val(response.code);
-      $("#edit_status_name").val(response.status_name);
-      $('[name="edit_phase"]').val(response.phase_id);      
 
-
+      $("#edit_document_class_code").val(response.code);
+      $("#edit_document_class_name").val(response.name);
       if(response.active==1){
-          $('input:radio[id=edit_active]')[0].checked = true;     
-          $('input:radio[id=edit_inactive]')[0].checked = false;            
+          $('input:radio[id=edit_active]')[0].checked = true;
+          $('input:radio[id=edit_inactive]')[0].checked = false;
         }else{
           $('input:radio[id=edit_active]')[0].checked = false;
           $('input:radio[id=edit_inactive]')[0].checked = true;
-        } 
+        }
 
-
-      // submit the edit from 
+      // submit the edit from
       $("#updateForm").unbind('submit').bind('submit', function() {
         var form = $(this);
 
@@ -361,7 +329,7 @@ function editFunc(id)
           dataType: 'json',
           success:function(response) {
 
-            manageTable.ajax.reload(null, false); 
+            manageTable.ajax.reload(null, false);
 
             if(response.success === true) {
               $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
@@ -372,7 +340,7 @@ function editFunc(id)
 
               // hide the modal
               $("#editModal").modal('hide');
-              // reset the form 
+              // reset the form
               $("#updateForm .form-group").removeClass('has-error').removeClass('has-success');
 
             } else {
@@ -385,7 +353,7 @@ function editFunc(id)
                   .removeClass('has-error')
                   .removeClass('has-success')
                   .addClass(value.length > 0 ? 'has-error' : 'has-success');
-                  
+
                   id.after(value);
 
                 });
@@ -397,7 +365,7 @@ function editFunc(id)
               }
             }
           }
-        }); 
+        });
 
         return false;
       });
@@ -406,8 +374,7 @@ function editFunc(id)
   });
 }
 
-
-// remove functions 
+// remove functions
 function removeFunc(id)
 {
   if(id) {
@@ -421,30 +388,30 @@ function removeFunc(id)
       $.ajax({
         url: form.attr('action'),
         type: form.attr('method'),
-        data: { status_id:id }, 
+        data: { document_class_id:id },
         dataType: 'json',
         success:function(response) {
 
-          manageTable.ajax.reload(null, false); 
+          manageTable.ajax.reload(null, false);
 
           if(response.success === true) {
             $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
-            '</div>');           
+            '</div>');
 
           } else {
 
             $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
-            '</div>'); 
+            '</div>');
           }
 
            // hide the modal
             $("#removeModal").modal('hide');
         }
-      }); 
+      });
 
       return false;
     });

@@ -41,14 +41,14 @@
 
     <div class="row">
 
-       <!-- < Part on Client/Consultation -->
+       <!-- < Part on Client -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
-            <div class="panel-heading bg-black">Client/Consultation</div>
+            <div class="panel-heading bg-black">Client</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:380px">
+                <ul class="chart-legend" style="height:240px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -74,8 +74,52 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updatePendingClient" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewPendingClient" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deletePendingClient" class="minimal"></td>
-                  </tr>    
+                  </tr>  
+
                   <tr>
+                    <td>Requirement</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createRequirement" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateRequirement" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewRequirement" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteRequirement" class="minimal"></td>
+                  </tr>  
+                  
+                  <tr>
+                    <td>Update Answers</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteAnswers" class="minimal"></td>
+                  </tr>                  
+                      
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>
+
+
+
+ <!-- < Part on Consultation -->
+
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">Consultation</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:240px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                <tr>
                     <td>Consultation</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createConsultation" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateConsultation" class="minimal"></td>
@@ -83,11 +127,11 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteConsultation" class="minimal"></td>
                   </tr>
                   <tr>
-                    <td>Update Answers</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteAnswers" class="minimal"></td>
+                    <td>Program</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createProgram" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateProgram" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewProgram" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteProgram" class="minimal"></td>
                   </tr>
                   <tr>
                     <td>Phase</td>
@@ -109,36 +153,21 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateSector" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewSector" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteSector" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>Document</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createDocument" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateDocument" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewDocument" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteDocument" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>Document Type</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createDocumentType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateDocumentType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewDocumentType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteDocumentType" class="minimal"></td>
-                  </tr>                 
+                  </tr>               
                 </tbody> 
               </table>
             </ul>
           </div></div></div>
 
 
-
- <!-- < Part on QMS -->
+          <!-- < Part on QMS -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:380px">
+                <ul class="chart-legend" style="height:240px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -151,13 +180,7 @@
                     </tr>
                   </thead>
                 <tbody>
-                <tr>
-                    <td>Requirement</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createRequirement" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateRequirement" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewRequirement" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteRequirement" class="minimal"></td>
-                  </tr>
+                
                   <tr>
                     <td>Standard</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createStandard" class="minimal"></td>
@@ -186,17 +209,70 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewQuestion" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteQuestion" class="minimal"></td>
                   </tr>                 
-                  <tr>
+                                
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>
+       </div>
+       
+
+       <!-- < Part on Document -->
+
+        <div class="row">
+
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">Document</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:240px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                   <tr>
                     <td>Manual</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createManual" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateManual" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewManual" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteManual" class="minimal"></td>
                   </tr>
+                  <tr>
+                    <td>Document</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createDocument" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateDocument" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewDocument" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteDocument" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Document Type</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createDocumentType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateDocumentType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewDocumentType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteDocumentType" class="minimal"></td>
+                  </tr> 
+                  <tr>
+                    <td>Document Class</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createDocumentClass" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateDocumentClass" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewDocumentClass" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteDocumentClass" class="minimal"></td>
+                  </tr> 
                 </tbody> 
               </table>
             </ul>
           </div></div></div>
+
+
 
         <!-- < Part on location -->
 
@@ -205,7 +281,7 @@
             <div class="panel-heading bg-black">Location</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:380px">
+                <ul class="chart-legend" style="height:240px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -244,17 +320,66 @@
             </ul>
           </div></div></div>
 
-   </div>   <!-- < /row -->
-      
 
-   <div class="row">
-
-
-        <!-- < Part on News and Inquiry -->
+          <!-- < Part on Inquiry -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
-            <div class="panel-heading bg-black">News and Inquiry</div>
+            <div class="panel-heading bg-black">Inquiry</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:240px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  <tr>
+                    <td>Inquiry</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createInquiry" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateInquiry" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewInquiry" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteInquiry" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Inquiry Type</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createInquiryType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateInquiryType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewInquiryType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteInquiryType" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Support Type</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createSupportType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSupportType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewSupportType" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteSupportType" class="minimal"></td>
+                   </tr>               
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>
+
+   </div>   <!-- < /row -->
+      
+
+   
+
+
+        <!-- < Part on News -->
+
+        <div class="row">
+
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">News</div>
               <div class="panel-body">
 
                 <ul class="chart-legend" style="height:280px">
@@ -284,27 +409,7 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewCategory" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteCategory" class="minimal"></td>
                   </tr>
-                  <tr>
-                    <td>Inquiry</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createInquiry" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateInquiry" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewInquiry" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteInquiry" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>Inquiry Type</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createInquiryType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateInquiryType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewInquiryType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteInquiryType" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>Support Type</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createSupportType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSupportType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewSupportType" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteSupportType" class="minimal"></td>
-                   </tr>
+                  
                 </tbody> 
               </table>
             </ul>

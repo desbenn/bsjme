@@ -267,6 +267,13 @@
         </div> 
       </div>
       <br>
+      <div class="row">
+          <div class="col-md-12 col-xs-12">
+          <?php echo '<a href="'.base_url('Manual01/QPM01/'.$consultation_data['id']).'" target="_blank"  
+          class="btn btn-success">Print The Manual</a>'; ?>
+          </div>
+      </div>
+      <br>
       <div class="row">           
         <div class="col-md-12 col-xs-12">
             Last update <?php echo $consultation_data['updated_date']; ?> by <?php echo $consultation_data['updated_by']; ?>
