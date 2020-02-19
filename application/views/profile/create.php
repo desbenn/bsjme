@@ -82,15 +82,8 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateRequirement" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewRequirement" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteRequirement" class="minimal"></td>
-                  </tr>  
-                  
-                  <tr>
-                    <td>Update Answers</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewAnswers" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteAnswers" class="minimal"></td>
-                  </tr>                  
+                  </tr>                   
+                                
                       
                 </tbody> 
               </table>
@@ -208,7 +201,15 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateQuestion" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewQuestion" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteQuestion" class="minimal"></td>
-                  </tr>                 
+                  </tr> 
+
+                  <tr>
+                    <td>Answer</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewAnswers" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteAnswers" class="minimal"></td>
+                  </tr>                    
                                 
                 </tbody> 
               </table>

@@ -23,6 +23,7 @@
   <section class="content">
       <ul class="nav nav-tabs">
         <li class="<?php echo (($active_tab === 'client') ? 'active' : '') ?>"><a data-toggle="tab" href="#client">Client</a></li>
+        <li class="<?php echo (($active_tab === 'requirement') ? 'active' : '') ?>"><a data-toggle="tab" href="#requirement">Requirement</a></li>
 		<li class="<?php echo (($active_tab === 'consultation') ? 'active' : '') ?>"><a data-toggle="tab" href="#consultation">Consultation</a></li>		
 		<li class="<?php echo (($active_tab === 'inquiry') ? 'active' : '') ?>"><a data-toggle="tab" href="#inquiry">Inquiry</a></li>
 		<li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
@@ -107,7 +108,7 @@
 
 					<?php echo validation_errors(); ?>
 
-					<!-- /row divide by 3-->
+
 					<div class="row">
 
 						 <div class="col-md-2 col-xs-2">
@@ -135,26 +136,36 @@
 							</div>
 						</div>
 
-						<div class="col-md-2 col-xs-2" align="center">
+						<div class="col-md-2 col-xs-2" align="left">
 		                    <div class="radio">
-		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='1') echo "checked='checked'"; ?> value="1" <?php echo $this->form_validation->set_radio('active', 1); ?> />Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
-		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='2') echo "checked='checked'"; ?> value="2" <?php echo $this->form_validation->set_radio('active', 2); ?> />Inactive</label>
+		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='1') echo "checked='checked'"; ?> value="1" <?php echo $this->form_validation->set_radio('active', 1); ?> />Active</label><br>
+
+		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='2') echo "checked='checked'"; ?> value="2" <?php echo $this->form_validation->set_radio('active', 2); ?> />Inactive</label><br>
+		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='3') echo "checked='checked'"; ?> value="3" <?php echo $this->form_validation->set_radio('active', 2); ?> />Pending</label>
 		                    </div>
                   		</div>
 
 					</div>
-					<!-- /end row divide by 4-->
 
 
+					<div class="row">
+
+						<div class="col-md-10 col-xs-10">
+							<div class="form-group">
+								<label for="address">Address <font color="red">*</font></label>
+								<input type="text" class="form-control" id="address" name="address"
+								value="<?php echo set_value('address', isset($client_data['address']) ? $client_data['address'] : ''); ?>"  autocomplete="off"/>
+							</div>
+						</div>	
+						<div class="col-md-2 col-xs-2">
+							<div class="form-group">
+								<label for="attempt">Attempt</label>
+	                            <?php echo $client_data['attempt']; ?> time(s)
+	                 	    </div>
+	                 	 </div>
+	                 </div>	    
 
 
-					<div class="form-group">
-						<label for="address">Address <font color="red">*</font></label>
-						<input type="text" class="form-control" id="address" name="address"
-						value="<?php echo set_value('address', isset($client_data['address']) ? $client_data['address'] : ''); ?>"  autocomplete="off"/>
-					</div>
-
-					<!-- /row divide by 4-->
 					<div class="row">
 						<div class="col-md-3 col-xs-3">
 							<div class="form-group">
@@ -204,10 +215,9 @@
 				 </div>
 
 				</div>
-					<!-- /end row divide by 4-->
 
 
-				<!-- /row divide by 4-->
+
 				<div class="row">				 
 
 				 <div class="col-md-3 col-xs-3">
@@ -241,20 +251,20 @@
 						</div>
 					</div>
 				</div>
-					<!-- /end row divide by 4-->
 
 
-				<!-- /row divide by 3-->
-					<div class="row">
-						<div class="col-md-4 col-xs-4">
+
+				<div class="row">
+						
+						 <div class="col-md-3 col-xs-3">
 							<div class="form-group">
-								 <label for="director_name">Director Name</label>
-								<input type="text" class="form-control" id="director_name" name="director_name" autocomplete="off"
-							    value="<?php echo set_value('director_name', isset($client_data['director_name']) ? $client_data['director_name'] : ''); ?>"/>
+								 <label for="contact_name">Contact Name</label>
+								<input type="text" class="form-control" id="contact_name" name="contact_name" autocomplete="off"
+							    value="<?php echo set_value('contact_name', isset($client_data['contact_name']) ? $client_data['contact_name'] : ''); ?>"/>
 							</div>
 						 </div>
 
-						<div class="col-md-4 col-xs-4">
+						<div class="col-md-3 col-xs-3">
 							<div class="form-group">
 								<label for="phone">Phone</label>
 								<input type="text" class="form-control" id="phone" name="phone" autocomplete="off"
@@ -262,15 +272,23 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-xs-4">
+						<div class="col-md-3 col-xs-3">
 							<div class="form-group">
 								<label for="mobile">Mobile</label>
 								<input type="text" class="form-control" id="mobile" name="mobile" autocomplete="off"
 						    	value="<?php echo set_value('mobile', isset($client_data['mobile']) ? $client_data['mobile'] : ''); ?>"/>
 							</div>
 						</div>
+
+						<div class="col-md-3 col-xs-3">
+							<div class="form-group">
+								 <label for="director_name">Director Name</label>
+								<input type="text" class="form-control" id="director_name" name="director_name" autocomplete="off"
+							    value="<?php echo set_value('director_name', isset($client_data['director_name']) ? $client_data['director_name'] : ''); ?>"/>
+							</div>
+						 </div>
+
 					</div>
-					<!-- /end row divide by 3-->
 
 
 				<div class="form-group">
@@ -318,6 +336,59 @@
 		$("#manageClientNav").addClass('active');
 
 	});
+</script>
+
+
+
+
+<!----------------------------------------------------------------------------------------------------->
+<!--                                                                                                 -->
+<!--                                        R E Q U I R E M E N T                                    -->
+<!--                                                                                                 -->
+<!----------------------------------------------------------------------------------------------------->
+
+
+<div id="requirement" class="tab-pane fade <?php echo (($active_tab === 'requirement') ? 'in active' : '') ?>">	
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="manageTableRequirement" class="table table-bordered table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Response</th>                                
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+             </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------------------------------->
+<!-- Javascript part of Requirements--->
+<!------------------------------------->
+
+<script type="text/javascript">
+var manageTableRequirement;
+var base_url = "<?php echo base_url(); ?>";
+
+
+$("#requirementClientNav").addClass('active');
+
+
+// initialize the datatable
+manageTableRequirement = $('#manageTableRequirement').DataTable({
+    'ajax': base_url+'client/fetchClientRequirement/'+<?php echo $client_data['id']; ?>,
+
+});
+
+
 </script>
 
 
@@ -910,44 +981,70 @@ function removeInquiry(id)
 						<div class="col-md-12 col-xs-12">
 
 
-							<?php echo form_open_multipart('client/uploadDocument') ?>
-							<?php echo "<table width='100%'>" ?>
-							<?php echo "<tr>" ?>
-							<?php if(in_array('createDocument', $user_permission)): ?>
-								<?php echo "<td width='10%' align=left><input type='file' required='required' name='client_document' id='client_document' size='60'  /></td>" ?>
-								<?php echo "<td><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
-							<?php endif; ?>	
-							<?php echo "</tr>" ?>
-							<?php echo "</table>" ?>
-							<?php echo "</form>"?>
+							<?php echo form_open_multipart('client/uploadDocument/') ?>
+            <?php echo "<table width='100%'>" ?>
+            <?php echo "<tr>" ?>           
 
-							<br>
+            <?php if(in_array('createDocument', $user_permission)): ?>
 
-							<div class="col-md-12 col-xs-12">
-								<table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
-									<thead>
-										<tr>
-											<th>Type</th>
-											<th>Document</th>
-											<th>Size</th>
-											<th>Consultation</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-								</table>
-						</div>
-					</div>
-				</div>
+                <?php echo "<td width='20%'><div class='form_group'>" ?>
+                <?php echo "<label for='document_type'>Type of document" ?>
+                <?php echo "<select class='form-control select_group' id='document_type' name='document_type'>" ?>
+                <?php echo "<option value=''></option>" ?>
+                        <?php foreach ($document_type as $k => $v): ?>
+                            <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
+                        <?php endforeach ?> 
+                <?php echo " </select></div>" ?>                    
+                <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
 
-				<div class="box-footer">
+				<?php echo "<td width='20%'><div class='form_group'>" ?>
+                <?php echo "<label for='document_class'>Classification" ?>
+                <?php echo "<select class='form-control select_group' id='document_class' name='document_class'>" ?>
+                <?php echo "<option value=''></option>" ?>
+                        <?php foreach ($document_class as $k => $v): ?>
+                            <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
+                        <?php endforeach ?> 
+                <?php echo " </select></div>" ?>                    
+                <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>		
 
-						<a href="<?php echo base_url('client/') ?>" class="btn btn-warning">Close</a>
-				</div>
+                <?php echo "<td width='45%' align=left><input type='file' required='required' name='client_document' id='client_document' size='60'  /></td>" ?> 
+                <?php echo "<td width='15%'><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
+            <?php endif; ?>
+            
+            <?php echo "</tr>" ?>
+            <?php echo "</div>" ?>
+            <?php echo "</table>" ?>
+            <?php echo "</form>"?>
 
-			</form>
-		</div>
-	</div>
-	</div>
+
+
+              <br>
+
+              <div class="col-md-12 col-xs-12">
+                <table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
+                  <thead>
+                    <tr>                      
+                      <th>Document</th>
+                      <th>Type</th>
+                      <th>Classification</th>
+                      <th>Consultation No</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                </table>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="box-footer">
+            <a href="<?php echo base_url('client/') ?>" class="btn btn-warning">Close</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  </div>
 
 
 
@@ -959,6 +1056,7 @@ function removeInquiry(id)
 	</div>
 </section>
 </div>
+
 
 
 <!-- Delete Document -->
@@ -992,25 +1090,20 @@ function removeInquiry(id)
 <!-- Javascript part of Document    --->
 <!------------------------------------->
 
+
 <script type="text/javascript">
 var manageTableDocument;
-var base_url = '<?php echo base_url(); ?>';
-var document_client_id = <?php echo $client_data['id']; ?>;
-var document_type_id = 'all';  //for all type of documents
+var base_url = "<?php echo base_url(); ?>";
 
-	$("#DocumentClientNav").addClass('active');
 
-	// initialize the datatable
-	manageTableDocument = $('#manageTableDocument').DataTable({
-		'ajax': {
-			    url: base_url + 'client/fetchClientDocument/',
-			    type: 'POST',
-			    dataType: 'json',
-			    data: {document_client_id: document_client_id, document_type_id: document_type_id},
-			    },
-		
-		'order': [[0, "asc"]]
-	});
+  $("#DocumentClientNav").addClass('active');
+
+
+  // initialize the datatable
+  manageTableDocument = $('#manageTableDocument').DataTable({
+    'ajax': base_url+'client/fetchClientDocument/'+'<?php echo $client_data['id']; ?>',
+    'order': [[0, "asc"]]
+  });	
 
 
 function removeDocument(id)

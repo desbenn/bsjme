@@ -61,7 +61,7 @@
                 <thead>
                 <tr> 
                     <th>Question</th>
-                    <th>Question Description</th>
+                    <th>Remark</th>
                     <th>Question Type</th>
                   <?php if(in_array('updateRequirement', $user_permission) || in_array('deleteRequirement', $user_permission)): ?>
                     <th>Action</th>
@@ -114,7 +114,7 @@
 
 
 <!------------------------------------------------------------->
-<!-- Javascript part of Question                                --->
+<!-- Javascript part of Requ                                --->
 <!------------------------------------------------------------->
 
 
@@ -122,11 +122,11 @@
 var manageTable;
 var base_url = "<?php echo base_url(); ?>";
 
-  $("#mainQuestionNav").addClass('active');
+  $("#mainRequirementNav").addClass('active');
 
   // initialize the datatable 
   manageTable = $('#manageTable').DataTable({
-    'ajax': base_url + 'requirement/fetchQuestionData',    
+    'ajax': base_url + 'requirement/fetchRequirementData',    
     //'order': [2, 'asc']
   });
 

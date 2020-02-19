@@ -7,32 +7,32 @@ class Model_requirement extends CI_Model
 		parent::__construct();
 	}
 
-	public function getQuestionData($id = null)
+	public function getRequirementData($id = null)
 	{
 		if($id) {
-			$sql = "SELECT * FROM `requirements` where id='$id'";
+			$sql = "SELECT requirement.*,question_type.name AS 'question_type_name' 
+			FROM requirement 
+			JOIN question_type ON requirement.question_type_id = question_type.id
+			WHERE requirement.id=?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
 		}
 
 		else{
-			$sql = "SELECT * FROM `requirements`";
+			$sql = "SELECT requirement.*,question_type.name AS 'question_type_name' 
+			FROM requirement 
+			JOIN question_type ON requirement.question_type_id = question_type.id";
 			$query = $this->db->query($sql);
 			return $query->result_array();
 		}
 	}
 
-	public function getActiveQuestionType()
-	{
-		$sql = "SELECT * FROM question_type WHERE active = ? ORDER BY name ASC";
-		$query = $this->db->query($sql, array(1));
-		return $query->result_array();
-	}
+
 
 	public function create($data)
 	{
             
-		$insert = $this->db->insert('requirements', $data);
+		$insert = $this->db->insert('requirement', $data);
 		//$question_id = $this->db->insert_id();
 		return ($insert) ? $insert : false;
 	}
@@ -42,7 +42,7 @@ class Model_requirement extends CI_Model
 		if($id) 
 		{	
             $this->db->where('id', $id);
-			$update = $this->db->update('requirements', $data);
+			$update = $this->db->update('requirement', $data);
 			return ($update == true) ? true : false;
 		}
 	}
@@ -52,7 +52,7 @@ class Model_requirement extends CI_Model
 		if($id) 
 		{
 			$this->db->where('id', $id);
-			$delete = $this->db->delete('requirements');
+			$delete = $this->db->delete('requirement');
 			return ($delete == true) ? true : false;
 		}
 	}

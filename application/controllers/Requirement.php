@@ -13,6 +13,7 @@ class Requirement extends Admin_Controller
 		$this->data['page_title'] = 'Requirement';   
 	}
 
+
 	public function index()
 	{
         if(!in_array('viewRequirement', $this->permission)) {redirect('dashboard', 'refresh');}
@@ -20,11 +21,12 @@ class Requirement extends Admin_Controller
 		$this->render_template('requirement/index', $this->data);	
 	}
 
-	public function fetchQuestionData()
+
+	public function fetchRequirementData()
 	{
 		$result = array('data' => array());
 
-		$data = $this->model_requirement->getQuestionData();
+		$data = $this->model_requirement->getRequirementData();
 
 		foreach ($data as $key => $value) {
 
@@ -40,8 +42,8 @@ class Requirement extends Admin_Controller
 
 			$result['data'][$key] = array(			
 				$value['question'],
-				$value['questionDescription'],
-				$value['questionType'],
+				$value['remark'],
+				$value['question_type_name'],
 				$buttons
 			);
 		} // /foreach
@@ -75,9 +77,9 @@ class Requirement extends Admin_Controller
             }
             $data = array(
                 'question' => $this->input->post('question'),
-                'questionType' => $this->input->post('question_type'),
-                'questionDescription' => $this->input->post('remark'),
-                'questionChoice' => json_encode($option));  
+                'question_type_id' => $this->input->post('question_type'),
+                'remark' => $this->input->post('remark'),
+                'question_option' => json_encode($option));  
             $success = $this->model_requirement->create($data);
             if($success)
             {
@@ -93,16 +95,16 @@ class Requirement extends Admin_Controller
         else 
         {
             // false casee  	
-			$this->data['question_type'] = $this->model_requirement->getActiveQuestionType();  
+			$this->data['question_type'] = $this->model_question->getActiveQuestionType();  
             $this->render_template('requirement/create', $this->data);
         }	
     }
 
-    public function update($question_id)
+    public function update($requirement_id)
 	{      
         if(!in_array('updateRequirement', $this->permission)) {redirect('dashboard', 'refresh');}
 
-        if(!$question_id) {redirect('dashboard', 'refresh');}
+        if(!$requirement_id) {redirect('dashboard', 'refresh');}
 
         $this->form_validation->set_rules('question', 'Question', 'trim|required'); 
         $this->form_validation->set_rules('question_type', 'Question', 'trim|required');
@@ -125,11 +127,11 @@ class Requirement extends Admin_Controller
             }
             $data = array(
                 'question' => $this->input->post('question'),
-                'questionType' => $this->input->post('question_type'),
-                'questionDescription' => $this->input->post('remark'),
-                'questionChoice' => json_encode($option)
+                'question_type_id' => $this->input->post('question_type'),
+                'remark' => $this->input->post('remark'),
+                'question_option' => json_encode($option)
             );
-            $update = $this->model_requirement->update($data,$question_id);
+            $update = $this->model_requirement->update($data,$requirement_id);
             if($update == true)
             {
                 $this->session->set_flashdata('success', 'Successfully Updated!');
@@ -143,21 +145,24 @@ class Requirement extends Admin_Controller
         }
         else 
         {       
-            $this->data['question_type'] = $this->model_requirement->getActiveQuestionType();  
+            $this->data['question_type'] = $this->model_question->getActiveQuestionType();  
             $result = array();
-            $question_data = $this->model_requirement->getQuestionData($question_id);
-            $result['question'] = $question_data;
-            $questionOption=json_decode($question_data['questionChoice'],true);
-            if($questionOption!=null){
-                foreach($questionOption as $k => $v) 
+            $data_requirement = $this->model_requirement->getRequirementData($requirement_id);
+            $result['requirement'] = $data_requirement;
+            $question_option=json_decode($data_requirement['question_option'],true);
+            if($question_option!=null){
+                foreach($question_option as $k => $v) 
                 {
                     $result['question_option'][] = $v;
                 }
             }
-            $this->data['question_data'] = $result;
+            $this->data['data_requirement'] = $result;
             $this->render_template('requirement/edit', $this->data); 
-        }   
+
+            }   
 	}
+
+
     
     public function remove()
 	{

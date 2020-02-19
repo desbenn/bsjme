@@ -97,13 +97,8 @@
 
                 <?php if(in_array('createQuestion', $user_permission) || in_array('updateQuestion', $user_permission) || in_array('viewQuestion', $user_permission) || in_array('deleteQuestion', $user_permission)): ?>
                   <li id="questionNav">
-                    <a href="<?php echo base_url('question/') ?>">Questions</a></li>
+                    <a href="<?php echo base_url('question/') ?>">Question</a></li>
                 <?php endif; ?>
-
-                <?php if(in_array('createManual', $user_permission) || in_array('updateManual', $user_permission) || in_array('viewManual', $user_permission) || in_array('deleteManual', $user_permission)): ?>
-                  <li id="manualNav">
-                    <a href="<?php echo base_url('manual/') ?>">Manuals</a></li>
-                <?php endif; ?> 
 
                 <?php if(in_array('createDocumentType', $user_permission) || in_array('updateDocumentType', $user_permission) || in_array('viewDocumentType', $user_permission) || in_array('deleteDocumentType', $user_permission)): ?>
                   <li id="typedocumentNav">

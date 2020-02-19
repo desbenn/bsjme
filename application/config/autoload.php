@@ -150,7 +150,6 @@ $autoload['model'] = array(
 	'model_inquiry_type',
 	'model_manual',
 	'model_parish',
-	'model_pending_client',
 	'model_phase',
 	'model_post',
 	'model_profile',

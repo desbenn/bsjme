@@ -134,7 +134,7 @@ $(document).ready(function() {
         'consultant': $('[name="consultant"]').val(),
       }
     },
-    'order': [0, 'DESC']
+    'order':  []
   });
 
   //RELOAD TABLE ON CHANGE OF FILTERS
@@ -149,7 +149,7 @@ $(document).ready(function() {
           'consultant': $('[name="consultant"]').val(),
         }
       },
-      'order': [0, 'DESC']
+     'order': []
     });
   });
 

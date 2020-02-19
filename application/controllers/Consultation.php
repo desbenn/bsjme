@@ -532,7 +532,7 @@ class Consultation extends Admin_Controller
     //-----------------------------------------------------------------------------------------------------
 
 
-    public function captureQuestions($phase=null,$standardId=null)
+    public function captureQuestion($phase=null,$standardId=null)
     {
         if($phase==null && $standardId==null)
         {redirect('dashboard', 'refresh');}
@@ -543,7 +543,7 @@ class Consultation extends Admin_Controller
         else
         {
             $result = array();
-            $question_data = $this->model_question->getConsultationQuestions($standardId,$phase);
+            $question_data = $this->model_question->getConsultationQuestion($standardId,$phase);
             
             if($question_data!=null)
             {
@@ -656,7 +656,7 @@ class Consultation extends Admin_Controller
     public function fetchQuestionData($phase=null,$standardId=null, $consultationId=null)
     {
         $result = array('data' => array());
-        $data = $this->model_question->getConsultationQuestions($standardId,$phase);
+        $data = $this->model_question->getConsultationQuestion($standardId,$phase);
         foreach($data as $key => $value){
             $buttons = '';
             $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['questionId'].'/'.$consultationId).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';

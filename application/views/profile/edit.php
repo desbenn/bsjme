@@ -116,22 +116,6 @@
                       if(in_array('deleteRequirement', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
                   </tr>                  
-
-                  <tr>
-                    <td>Update Answers</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createAnswers" <?php if($serialize_permission) {
-                      if(in_array('createAnswers', $serialize_permission)) { echo "checked"; }
-                    } ?>></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateAnswers" <?php if($serialize_permission) {
-                      if(in_array('updateAnswers', $serialize_permission)) { echo "checked"; }
-                    } ?>></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewAnswers" <?php if($serialize_permission) {
-                      if(in_array('viewAnswers', $serialize_permission)) { echo "checked"; }
-                    } ?>></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteAnswers" <?php if($serialize_permission) {
-                      if(in_array('deleteAnswers', $serialize_permission)) { echo "checked"; }
-                    } ?>></td>
-                  </tr>
                                
                 </tbody> 
               </table>
@@ -324,7 +308,23 @@
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteQuestion" <?php if($serialize_permission) {
                       if(in_array('deleteQuestion', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
-                  </tr>     
+                  </tr>   
+
+                   <tr>
+                    <td>Answer</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createAnswers" <?php if($serialize_permission) {
+                      if(in_array('createAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateAnswers" <?php if($serialize_permission) {
+                      if(in_array('updateAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewAnswers" <?php if($serialize_permission) {
+                      if(in_array('viewAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteAnswers" <?php if($serialize_permission) {
+                      if(in_array('deleteAnswers', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>  
                 </tbody> 
               </table>
             </ul>

@@ -52,7 +52,7 @@ class Model_question extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getConsultationQuestions($standardId,$phase)
+	public function getConsultationQuestion($standardId,$phase)
 	{
 		$sql=null;
 		if($phase==1)
