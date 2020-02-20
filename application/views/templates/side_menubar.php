@@ -29,10 +29,6 @@
             <li id="manageClientNav"><a href="<?php echo base_url('Client') ?>"><i class="fa fa-user"></i>Clients</a></li>
         <?php endif; ?>
 
-        <?php if(in_array('createClient', $user_permission) || in_array('updatePendingClient', $user_permission) || in_array('viewPendingClient', $user_permission) || in_array('deletePendingClient', $user_permission)): ?>              
-            <li id="managePendingClientNav"><a href="<?php echo base_url('pending_client') ?>"><i class="fa fa-user"></i>Pending Client(s)</a></li>
-        <?php endif; ?>
-
         <?php if(in_array('createConsultation', $user_permission) || in_array('updateConsultation', $user_permission) || in_array('viewConsultation', $user_permission) || in_array('deleteConsultation', $user_permission)): ?>                
             <li><a href="<?php echo base_url('Consultation') ?>"><i class="fa fa-forumbee"></i>
                 <span>Consultations</span></a>

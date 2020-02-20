@@ -335,7 +335,7 @@
   });
   // $(document).ready(function(){
   //   $.ajax({
-  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
+  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestion/'+phase_id+'/'+standard_id,
   //     dataType: "json",
   //     data: result,
   //     success:function(result){

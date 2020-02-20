@@ -546,7 +546,7 @@
   });
   // $(document).ready(function(){
   //   $.ajax({
-  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestions/'+phase_id+'/'+standard_id,
+  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestion/'+phase_id+'/'+standard_id,
   //     dataType: "json",
   //     data: result,
   //     success:function(result){
@@ -651,17 +651,29 @@
             <?php echo "<tr>" ?>           
 
             <?php if(in_array('createDocument', $user_permission)): ?>
-                <?php echo "<td><div class='form_group'>" ?>
+
+                <?php echo "<td width='25%'><div class='form_group'>" ?>
                 <?php echo "<label for='document_type'>Type of document" ?>
                 <?php echo "<select class='form-control select_group' id='document_type' name='document_type'>" ?>
                 <?php echo "<option value=''></option>" ?>
                         <?php foreach ($document_type as $k => $v): ?>
                             <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
                         <?php endforeach ?> 
-                <?php echo " </select></div>" ?>                    
+                <?php echo " </select></div>" ?>
                 <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
-                <?php echo "<td width='10%' align=left><input type='file' required='required' name='consultation_document' id='consultation_document' size='60'  /></td>" ?> 
-                <?php echo "<td><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
+
+                <?php echo "<td width='20%'><div class='form_group'>" ?>
+                <?php echo "<label for='document_class'>Classification" ?>
+                <?php echo "<select class='form-control select_group' id='document_class' name='document_class'>" ?>
+                <?php echo "<option value=''></option>" ?>
+                        <?php foreach ($document_class as $k => $v): ?>
+                            <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
+                        <?php endforeach ?> 
+                <?php echo " </select></div>" ?>
+                <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
+
+                <?php echo "<td width='40%' align=left><input type='file' required='required' name='consultation_document' id='consultation_document' size='60'  /></td>" ?> 
+                <?php echo "<td width='15%'><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
             <?php endif; ?>
             
             <?php echo "</tr>" ?>
@@ -677,8 +689,9 @@
                 <table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Type</th>
                       <th>Document</th>
+                      <th>Type</th>
+                      <th>Classification</th>
                       <th>Size</th>
                       <th>Action</th>
                     </tr>

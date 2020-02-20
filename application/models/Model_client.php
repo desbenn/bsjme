@@ -39,14 +39,14 @@ class Model_client extends CI_Model
 			$sql = "SELECT client.*,consultant_id,consultation_no
 			FROM client
 			     LEFT JOIN consultation ON consultation.client_id = client.id
-			ORDER by company_name";
+			ORDER by client.active DESC,company_name";
 	    } else {
 
 			$sql = "SELECT client.*,consultant_id,consultation_no
 			FROM client
 			        LEFT JOIN consultation ON consultation.client_id = client.id
 		    WHERE consultation.consultant_id LIKE '%$consultant%'
-			ORDER by company_name";
+			ORDER by client.active DESC,company_name";
 	    }
 
 		$query = $this->db->query($sql);
@@ -85,31 +85,34 @@ class Model_client extends CI_Model
 
 	}
 
+
+	public function getClientRequirement($id)
+	{
+		$sql = "SELECT client_requirement.id,answer,requirement.question
+		        FROM client_requirement
+		        LEFT JOIN requirement ON client_requirement.requirement_id = requirement.id
+		        WHERE client_requirement.client_id = $id";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
 	
 
 
-	public function getClientDocument($id, $type)
+	public function getClientDocument($id)
 	{
-		If ($type == 'all') {
-			$sql = "SELECT document.*,name,directory,consultation_no
-			FROM document
-			 	 LEFT JOIN document_type ON document.document_type_id = document_type.id
-			 	 LEFT JOIN consultation ON document.consultation_id = consultation.id
-			 	 JOIN client ON document.client_id = client.id
-			WHERE document.client_id = ?";
-			$query = $this->db->query($sql, array($id));
-			return $query->result_array();
-		}
-		else {  //for a specific type of document
-			$sql = "SELECT document.*,name,directory,consultation_no
-			FROM document
-			     LEFT JOIN document_type ON document.document_type_id = document_type.id
-			     LEFT JOIN consultation ON document.consultation_id = consultation.id
-			     JOIN client ON document.client_id = client.id
-			WHERE document.client_id = ? AND document.document_type_id = ?";
-			$query = $this->db->query($sql, array($id, $type));
-			return $query->result_array();
-		}
+
+		$sql = "SELECT document.*,document_type.name AS 'document_type_name',
+		               directory,consultation_no,
+		               document_class.name AS 'document_class_name'
+		FROM document
+		 	 LEFT JOIN document_type ON document.document_type_id = document_type.id
+		 	 LEFT JOIN document_class ON document.document_class_id = document_class.id
+		 	 LEFT JOIN consultation ON document.consultation_id = consultation.id
+		 	 JOIN client ON document.client_id = client.id
+		WHERE document.client_id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->result_array();
 
 	}
 
@@ -179,12 +182,13 @@ class Model_client extends CI_Model
 	}
 
 
-	public function countTotalClient()
+	public function countTotalClient($active)
 	{
 		$sql = "SELECT * FROM client WHERE active = ?";
-		$query = $this->db->query($sql, array(1));
+		$query = $this->db->query($sql, array($active));
 		return $query->num_rows();
 	}
+
 	
 
 	public function createDocument($data)

@@ -52,41 +52,7 @@ class Model_question extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getConsultationQuestions($standardId,$phase)
-	{
-		$sql=null;
-		if($phase==1)
-		{
-			$sql = "SELECT question.id as questionId, question.question as question, question.sub_clause as subClause, 
-			question_type.code as questionType  FROM `question` JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-			JOIN clause ON sub_clause.clause_id=clause.id JOIN standard on clause.standard_id = standard.id JOIN question_type 
-			on question.question_type_id=question_type.id where standard.id = '$standardId' and question.sub_clause=4.1";
-		}
-		elseif($phase==2)
-		{
-			$sql = "SELECT question.id as questionId, question.question as question, question.sub_clause as subClause, 
-			question_type.code as questionType  FROM `question` JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-			JOIN clause ON sub_clause.clause_id=clause.id JOIN standard on clause.standard_id = standard.id JOIN question_type 
-			on question.question_type_id=question_type.id where standard.id = '$standardId' and question.sub_clause BETWEEN 4.2 AND 5";
-		}
-		elseif($phase==3)
-		{
-			$sql = "SELECT question.id as questionId, question.question as question, question.sub_clause as subClause, 
-			question_type.code as questionType  FROM `question` JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-			JOIN clause ON sub_clause.clause_id=clause.id JOIN standard on clause.standard_id = standard.id JOIN question_type 
-			on question.question_type_id=question_type.id where standard.id = '$standardId' AND clause.code BETWEEN 4 and 10";
-		}
-		elseif($phase==4)
-		{
-			$sql = "SELECT question.id as questionId, question.question as question, question.sub_clause as subClause, 
-			question_type.code as questionType  FROM `question` JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-			JOIN clause ON sub_clause.clause_id=clause.id JOIN standard on clause.standard_id = standard.id JOIN question_type 
-			on question.question_type_id=question_type.id where standard.id = '$standardId' AND clause.code BETWEEN 5 and 10";
-		}
-		if($sql==null){return null;}
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}
+	
 
 	
 

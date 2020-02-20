@@ -31,7 +31,7 @@
 
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Add Requirement Question</h3>
+            <h3 class="box-title">Add Requirement</h3>
           </div>
           <form role="form" action="<?php base_url('requirement/create') ?>" method="post" enctype="multipart/form-data">
               <div class="box-body">
@@ -42,7 +42,7 @@
                   		  
                   <div class="col-md-6 col-xs-6">
                      <div class="form-group">
-                      <label for="question">Question</label>
+                      <label for="question">Question <font color="red">*</font></label>
                       <textarea type="text" class="form-control" id="question" rows="2" name="question" autocomplete="off"><?php echo set_value('question'); ?></textarea>
                     </div>
                   </div>  
@@ -53,7 +53,7 @@
                       <select class="form-control select_group" id="question_type" name="question_type">
                         <option value=""></option> 
                         <?php foreach ($question_type as $k => $v): ?>
-                        <option value="<?php echo $v['code'] ?>" <?php echo set_select('question_type', $v['code']); ?>><?php echo $v['name'] ?></option>
+                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('question_type', $v['code']); ?>><?php echo $v['name'] ?></option>
                       <?php endforeach ?>
                     </select>
                     </div>
@@ -81,7 +81,7 @@
         
                   <div class="col-md-12 col-xs-12">
                      <div class="form-group">
-                      <label for="remark">Description</label>
+                      <label for="remark">Remark</label>
                       <textarea type="text" class="form-control" id="remark" rows="2" name="remark" autocomplete="off"><?php echo set_value('remark'); ?></textarea>
                     </div>
                   </div>  
@@ -112,8 +112,8 @@ var base_url = "<?php echo base_url(); ?>";
 
     $(document).ready(function(){
         $(".select_group").select2();
-        $("#mainQuestionNav").addClass('active');
-        $("#addQuestionNav").addClass('active');
+        $("#mainRequirementNav").addClass('active');
+        $("#addRequirementNav").addClass('active');
     });
     
    

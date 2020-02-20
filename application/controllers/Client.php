@@ -46,18 +46,18 @@ class Client extends Admin_Controller
         if ($consultant <> "all") {
             $consultant = '"'.$consultant.'"';
         }
-        
+
 
         //--> If the Profile is a Client, we must read only the consultation of the client
-        //    The client trn is the username given to the client to access the system  
-        //    If not we will read all the consultation depending on the security given (consultant or coordinator) 
+        //    The client trn is the username given to the client to access the system
+        //    If not we will read all the consultation depending on the security given (consultant or coordinator)
 
-        if ($this->session->profile == 4) {  
+        if ($this->session->profile == 4) {
            $trn = "'".$this->session->username."'";
            $data = $this->model_client->getClientByClient($trn);
         } else {
             $data = $this->model_client->getClientByConsultant($consultant);
-        }        
+        }
 
 
         foreach ($data as $key => $value)
@@ -75,7 +75,7 @@ class Client extends Admin_Controller
                        $consultant_data = $this->model_user->getConsultantData($consultant[$k]);
                        $consultant_list = $consultant_list.' '.$consultant_data['name'];
                    }
-            }       
+            }
 
             $buttons = '';
 
@@ -89,7 +89,19 @@ class Client extends Admin_Controller
             if(in_array('viewClient', $this->permission)) {
                 $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';}
 
-            $active = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
+            switch ($value['active']) {
+                case '1':
+                      $active = '<span class="label label-success">Active</span>';
+                      break;
+                case '2':
+                      $active = '<span class="label label-warning">Inactive</span>';
+                      break;
+                case '3':
+                      $active = '<span class="label label-danger">Pending</span>';
+                      break;
+            }
+
+            //$active = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
 
 			$result['data'][$key] = array(
 				$company_name,
@@ -110,6 +122,24 @@ class Client extends Admin_Controller
 
 		echo json_encode($result);
 	}
+
+
+
+    public function fetchClientRequirement($id)
+    {
+        $result = array('data' => array());
+        $data = $this->model_client->getClientRequirement($id);
+        foreach($data as $key => $value)
+        {
+            
+            $result['data'][$key] = array(
+                $value['question'],
+                $value['answer']
+            );
+        }
+
+        echo json_encode($result);
+    }
 
 
 
@@ -136,21 +166,22 @@ class Client extends Admin_Controller
             // True case, we create the new client
             $data = array(
                 'active' => $this->input->post('active'),
-                'address' => $this->input->post('address'),                
-                'city_id' => $this->input->post('city'),  
-                'client_name' => $this->input->post('client_name'),                             
+                'address' => $this->input->post('address'),
+                'city_id' => $this->input->post('city'),
+                'client_name' => $this->input->post('client_name'),
                 'company_name' => $this->input->post('company_name'),
+                'contact_name' => $this->input->post('contact_name'),
                 'trn' => $this->input->post('trn'),
-                'county_id' => $this->input->post('county'), 
+                'county_id' => $this->input->post('county'),
                 'director_name' => $this->input->post('director_name'),
                 'directory' => $this->input->post('trn'),
                 'district' => $this->input->post('district'),
-                'email' => $this->input->post('email'),                
+                'email' => $this->input->post('email'),
                 'mobile' => $this->input->post('mobile'),
                 'parish_id' => $this->input->post('parish'),
                 'phone' => $this->input->post('phone'),
                 'postal_box' => $this->input->post('postal_box'),
-                'postal_code' => $this->input->post('postal_code'),  
+                'postal_code' => $this->input->post('postal_code'),
                 'remark' => $this->input->post('remark'),
                 'website' => $this->input->post('website'),
                 'updated_by' => $this->session->user_id,
@@ -223,11 +254,12 @@ class Client extends Admin_Controller
             $data = array(
                 'active' => $this->input->post('active'),
                 'address' => $this->input->post('address'),
-                'city_id' => $this->input->post('city'),                               
+                'city_id' => $this->input->post('city'),
                 'company_name' => $this->input->post('company_name'),
                 'client_name' => $this->input->post('client_name'),
+                'contact_name' => $this->input->post('contact_name'),
                 'trn' => $this->input->post('trn'),
-                'county_id' => $this->input->post('county'), 
+                'county_id' => $this->input->post('county'),
                 'director_name' => $this->input->post('director_name'),
                 'directory' => $this->input->post('trn'),
                 'district' => $this->input->post('district'),
@@ -236,8 +268,8 @@ class Client extends Admin_Controller
                 'parish_id' => $this->input->post('parish'),
                 'phone' => $this->input->post('phone'),
                 'postal_box' => $this->input->post('postal_box'),
-                'postal_code' => $this->input->post('postal_code'),  
-                'remark' => $this->input->post('remark'),  
+                'postal_code' => $this->input->post('postal_code'),
+                'remark' => $this->input->post('remark'),
                 'website' => $this->input->post('website'),
                 'updated_by' => $this->session->user_id,
             );
@@ -260,6 +292,8 @@ class Client extends Admin_Controller
         $this->data['county'] = $this->model_county->getActiveCounty();
         $this->data['city'] = $this->model_city->getActiveCity();
         $this->data['parish'] = $this->model_parish->getActiveParish();
+        $this->data['document_type'] = $this->model_document_type->getActiveDocumentType(); 
+        $this->data['document_class'] = $this->model_document_class->getActiveDocumentClass();
 
 
         $client_data = $this->model_client->getClientDataById($client_id);
@@ -310,14 +344,11 @@ class Client extends Admin_Controller
     //--> It Fetches the document data from the document table
     //    this function is called from the datatable ajax function
 
-    public function fetchClientDocument()
+    public function fetchClientDocument($id)
     {
         $result = array('data' => array());
 
-        $id = $this->input->post('document_client_id');
-        $type = $this->input->post('document_type_id');
-
-        $data = $this->model_client->getClientDocument($id, $type);
+        $data = $this->model_client->getClientDocument($id);
 
         foreach ($data as $key => $value) {
 
@@ -325,19 +356,19 @@ class Client extends Admin_Controller
             $doc_link = '<a href="'.$link.'" target="_blank" >'.($value['doc_name']).'</a>';
 
             $buttons = '';
-
             if(in_array('viewDocument', $this->permission)) {
                 $buttons .= '<a href="'.$link.'" target="_blank" class="btn btn-default"><i class="fa fa-search"></i></a>';
             }
 
-            if(in_array('deleteDocument', $this->permission) and $type == 'all') {
+
+            if(in_array('deleteDocument', $this->permission)) {
                 $buttons .= ' <button type="button" class="btn btn-default" onclick="removeDocument('.$value['id'].')" data-toggle="modal" data-target="#removeDocumentModal"><i class="fa fa-trash"></i></button>';
             }
 
             $result['data'][$key] = array(
-                $value['name'],
                 $doc_link,
-                $value['doc_size'],
+                $value['document_type_name'],
+                $value['document_class_name'],
                 $value['consultation_no'],
                 $buttons
             );
@@ -346,6 +377,7 @@ class Client extends Admin_Controller
         echo json_encode($result);
     }
 
+ 
 
 
     //-->  This function is invoked from another function to upload the documents into the assets folder
@@ -383,7 +415,8 @@ class Client extends Admin_Controller
                 'doc_size' => $this->upload->data('file_size'),
                 'doc_type' => $this->upload->data('file_type'),
                 'doc_name' => $this->upload->data('file_name'),
-                'document_type_id' => 1,
+                'document_type_id' => $this->input->post('document_type'),
+                'document_class_id' => $this->input->post('document_class'),
                 'updated_by' => $this->session->user_id,
             );
 
@@ -426,12 +459,14 @@ class Client extends Admin_Controller
                 $response['success'] = true;
                 $response['messages'] = 'Successfully deleted';
             }
-            else {
+            else
+            {
                 $response['success'] = false;
                 $response['messages'] = 'Error in the database while deleting the information';
             }
         }
-        else {
+        else
+        {
             $response['success'] = false;
             $response['messages'] = 'Refresh the page again';
         }

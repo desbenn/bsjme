@@ -11,7 +11,7 @@ class Consultation extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Consultation';
-        $this->data['active_tab'] = $this->input->get('tab') ?? 'question';
+        $this->data['active_tab'] = $this->input->get('tab') ?? 'consultation';
 
 	}
 
@@ -271,6 +271,7 @@ class Consultation extends Admin_Controller
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
         $this->data['sector'] = $this->model_sector->getActiveSector(); 
         $this->data['document_type'] = $this->model_document_type->getActiveDocumentType(); 
+        $this->data['document_class'] = $this->model_document_class->getActiveDocumentClass(); 
 
         $consultation_data = $this->model_consultation->getConsultationData($consultation_id);
         $this->data['consultation_data'] = $consultation_data;
@@ -419,14 +420,14 @@ class Consultation extends Admin_Controller
             }
 
             if(in_array('deleteDocument', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeDocument('.$value['id'].')" data-toggle="modal" data-standard="#removeDocumentModal"><i class="fa fa-trash"></i></button>';
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeDocument('.$value['id'].')" data-toggle="modal" data-target="#removeDocumentModal"><i class="fa fa-trash"></i></button>';
             }
 
-            $document_type = $value['name'];
 
             $result['data'][$key] = array(
-                $document_type,
                 $doc_link,
+                $value['document_type_name'],
+                $value['document_class_name'],
                 $value['doc_size'],
                 $buttons
             );
@@ -470,6 +471,7 @@ class Consultation extends Admin_Controller
                 'doc_type' => $this->upload->data('file_type'),
                 'doc_name' => $this->upload->data('file_name'),
                 'document_type_id' => $this->input->post('document_type'),
+                'document_class_id' => $this->input->post('document_class'),
                 'updated_by' => $this->session->user_id,
             );
 
@@ -532,7 +534,7 @@ class Consultation extends Admin_Controller
     //-----------------------------------------------------------------------------------------------------
 
 
-    public function captureQuestions($phase=null,$standardId=null)
+    public function captureQuestion($phase=null,$standardId=null)
     {
         if($phase==null && $standardId==null)
         {redirect('dashboard', 'refresh');}
@@ -543,7 +545,7 @@ class Consultation extends Admin_Controller
         else
         {
             $result = array();
-            $question_data = $this->model_question->getConsultationQuestions($standardId,$phase);
+            $question_data = $this->model_question->getConsultationQuestion($standardId,$phase);
             
             if($question_data!=null)
             {
@@ -653,15 +655,15 @@ class Consultation extends Admin_Controller
         }  
     }
 
-    public function fetchQuestionData($phase=null,$standardId=null, $consultationId=null)
+    public function fetchQuestionData($phase=null,$standard_id=null, $consultation_id=null)
     {
         $result = array('data' => array());
-        $data = $this->model_question->getConsultationQuestions($standardId,$phase);
+        $data = $this->model_consultation->getConsultationQuestion($standard_id,$phase);
         foreach($data as $key => $value){
             $buttons = '';
-            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['questionId'].'/'.$consultationId).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['question_id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
             $result['data'][$key] = array(
-                $value['questionId'],
+                $value['question_id'],
                 $value['question'],
                 $buttons
             );

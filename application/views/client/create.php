@@ -39,7 +39,7 @@
 
               <?php echo validation_errors(); ?>
 
-              <!-- /row divide by 4-->
+
               <div class="row">
 
                 <div class="col-md-2 col-xs-2">
@@ -66,22 +66,17 @@
                  </div>
                </div> 
 
-               <div class="col-md-2 col-xs-2" align="center">
+               <div class="col-md-2 col-xs-2" align="left">
                   <div class="radio">
-                      <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                      <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active</label>
+                      <br>
                       <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
+                      <br>
+                      <label><input type="radio" name="active" id="active" value="3" >Pending</label>
                   </div>
                 </div>
 
               </div>
-
-              <!-- /row divide by 4-->
-              <div class="row">
-
-                
-                
-              </div> <!-- /end row divide by 4-->
-
 
 
   				    <div class="form-group">
@@ -90,9 +85,9 @@
                   value="<?php echo set_value('address'); ?>" autocomplete="off"/>
               </div>
 
-              <!-- /row divide by 3-->
+
               <div class="row">
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="county">County <font color="red">*</font></label>
                     <select class="form-control select_group" id="county" name="county">
@@ -104,7 +99,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="parish">Parish <font color="red">*</font></label>
                     <select class="form-control select_group" id="parish" name="parish">
@@ -116,7 +111,7 @@
                   </div>
 			          </div>
 
-                <div class="col-md-4 col-xs-4">
+                <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="city">City</label>
                     <select class="form-control select_group" id="city" name="city">
@@ -128,13 +123,7 @@
                  </div>
                </div>
 
-			        </div> <!-- /end row divide by 3-->
-
-
-              <!-- /row divide by 3-->
-              <div class="row">
-
-               <div class="col-md-4 col-xs-4">
+               <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="district">District</label>
                     <input type="text" class="form-control" id="district" name="district"
@@ -142,8 +131,13 @@
                  </div>
                </div>
 
+			        </div> 
 
-               <div class="col-md-4 col-xs-4">
+
+
+              <div class="row">
+
+               <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="postal_box">Postal Box</label>
                     <input type="text" class="form-control" id="postal_box" name="postal_box"
@@ -151,7 +145,7 @@
                  </div>
                </div>
 
-               <div class="col-md-4 col-xs-4">
+               <div class="col-md-3 col-xs-3">
                   <div class="form-group">
                     <label for="postal_code">Postal Code</label>
                     <input type="text" class="form-control" id="postal_code" name="postal_code"
@@ -159,19 +153,14 @@
                  </div>
                </div>
 
-              </div>
-
-
-				        <!-- /row divide by 2-->
-                <div class="row">
-                  <div class="col-md-6 col-xs-6">
+               <div class="col-md-3 col-xs-3">
 				            <div class="form-group">
                        <label for="email">Email <font color="red">*</font></label>
                         <input type="text" class="form-control" id="email" name="email"
                         value="<?php echo set_value('email'); ?>" autocomplete="off"/>
                     </div>
                    </div>
-				          <div class="col-md-6 col-xs-6">
+				          <div class="col-md-3 col-xs-3">
                     <div class="form-group">
                       <label for="website">Website</label>
                       <input type="text" class="form-control" id="website" name="website"
@@ -179,20 +168,20 @@
                     </div>
                   </div>
                 </div>
-                <!-- /end row divide by 2-->
 
 
-                <!-- /row divide by 3-->
-                <div class="row">
-                  <div class="col-md-4 col-xs-4">
+
+                <div class="row">                  
+
+                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
-                       <label for="director_name">Director Name</label>
-                      <input type="text" class="form-control" id="director_name" name="director_name"
-                      value="<?php echo set_value('director_name'); ?>" autocomplete="off"/>
+                       <label for="contact_name">Contact Name</label>
+                      <input type="text" class="form-control" id="contact_name" name="contact_name"
+                      value="<?php echo set_value('contact_name'); ?>" autocomplete="off"/>
                     </div>
                    </div>
 
-                  <div class="col-md-4 col-xs-4">
+                  <div class="col-md-3 col-xs-3">
                     <div class="form-group">
                        <label for="phone">Phone</label>
                       <input type="text" class="form-control" id="phone" name="phone"
@@ -200,15 +189,22 @@
                     </div>
                    </div>
 
-                   <div class="col-md-4 col-xs-4">
+                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
                        <label for="mobile">Mobile</label>
                       <input type="text" class="form-control" id="mobile" name="mobile"
                       value="<?php echo set_value('mobile'); ?>" autocomplete="off"/>
                     </div>
                    </div>
+
+                   <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                       <label for="director_name">Director Name</label>
+                      <input type="text" class="form-control" id="director_name" name="director_name"
+                      value="<?php echo set_value('director_name'); ?>" autocomplete="off"/>
+                    </div>
+                   </div>
                 </div>
-                <!-- /end row divide by 3-->
 
 
                 <div class="form-group">

@@ -62,8 +62,8 @@
 
                    <div class="col-md-6 col-xs-6">
                      <div class="form-group">
-                      <label for="question">Question</label>
-                      <textarea type="text" class="form-control" rows="2" id="question" name="question" autocomplete="off"><?php echo set_value('question', isset($question_data['question']['question']) ? $question_data['question']['question'] : ''); ?></textarea>
+                      <label for="question">Question <font color="red">*</font></label>
+                      <textarea type="text" class="form-control" rows="2" id="question" name="question" autocomplete="off"><?php echo set_value('question', isset($data_requirement['requirement']['question']) ? $data_requirement['requirement']['question'] : ''); ?></textarea>
                     </div>
                   </div>                
 
@@ -73,8 +73,8 @@
                       <select class="form-control select_group" id="question_type" name="question_type">
                         <option value=""></option> 
                         <?php foreach ($question_type as $k => $v): ?>
-                          <option value="<?php echo $v['code'] ?>" 
-                          <?php if(set_value('question_type', isset($question_data['question']['questionType']) ? $question_data['question']['questionType'] : '') == $v['code']) { echo "selected='selected'"; } ?> >
+                          <option value="<?php echo $v['id'] ?>" 
+                          <?php if(set_value('question_type', isset($data_requirement['requirement']['question_type_id']) ? $data_requirement['requirement']['question_type_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> >
                           <?php echo $v['name'] ?>                            
                           </option>
                         <?php endforeach ?>
@@ -89,7 +89,7 @@
         <table class="table table-bordered" id="option_info_table">
             <thead>
               <tr>
-                <th style="width:30%">Option <font color="red">*</font></th>
+                <th style="width:30%">Option</th>
                 <th style="width:10%">
                   <button type="button" id="add_row" class="btn btn-default"><i class="fa fa-plus"></i></button></th>
               </tr>
@@ -97,9 +97,9 @@
 
             <tbody>
 
-              <?php if(isset($question_data['question_option'])): ?>
+              <?php if(isset($data_requirement['question_option'])): ?>
                 <?php $x = 1; ?>
-                <?php foreach ($question_data['question_option'] as $key => $val): ?>
+                <?php foreach ($data_requirement['question_option'] as $key => $val): ?>
                  <tr id="row_<?php echo $x; ?>">
                      <td><input type="text" name="option[]" id="option_<?php echo $x; ?>" class="form-control" required value="<?php echo $val?>" autocomplete="off"></td>
 
@@ -121,8 +121,8 @@
         
                   <div class="col-md-12 col-xs-12">
                      <div class="form-group">
-                      <label for="remark">Description</label>
-                      <textarea type="text" class="form-control" rows="2" id="remark" name="remark" autocomplete="off"><?php echo set_value('remark', isset($question_data['question']['questionDescription']) ? $question_data['question']['questionDescription'] : ''); ?></textarea>
+                      <label for="remark">Remark</label>
+                      <textarea type="text" class="form-control" rows="2" id="remark" name="remark" autocomplete="off"><?php echo set_value('remark', isset($data_requirement['requirement']['remark']) ? $data_requirement['requirement']['remark'] : ''); ?></textarea>
                     </div>
                   </div>  
                 </div>  
@@ -143,7 +143,7 @@
 
 
 <!------------------------------------------------------------->
-<!-- Javascript part of Question                                --->
+<!-- Javascript part of Requirement                         --->
 <!------------------------------------------------------------->
 
 <script type="text/javascript">  
@@ -151,7 +151,7 @@
     $(".select_group").select2();
     //$("#remark").wysihtml5();
 
-    $("#mainQuestionNav").addClass('active');
+    $("#mainRequirementNav").addClass('active');
     $("#manageQuestionNav").addClass('active');
     
     

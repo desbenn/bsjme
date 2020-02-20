@@ -152,7 +152,6 @@ $autoload['model'] = array(
 	'model_manual',
 	'model_standard',
 	'model_sector',
-	'model_pending_client',
 	'model_phase',
 	'model_post',
 	'model_profile',
