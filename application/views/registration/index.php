@@ -70,7 +70,7 @@
             <div class="modal-content">
                 <div class="modal-body">                    
                     
-                    <form action="">
+                    <form role="form" action="<?php base_url('registration/register') ?>" method="post" enctype="multipart/form-data">
                         <!-- Page Showing only the demoogrpahic information to be collected -->
                         <div class="tab">
                             <div class="row">
@@ -97,7 +97,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyaddress">Address:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyAddress"   placeholder="6 Winchester Road" value="">
+                                        <input type="text" class="form-control" name="companyAddress" placeholder="6 Winchester Road" value="">
                                     </div> 
                                 </div>
                             </div>
@@ -105,8 +105,11 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCounty">County:<font color="red"> *</font></label>
-                                        <select name="companyCounty"   class="form-control select_group">
-                                            <option value="" selected>Select County</option>
+                                        <select name="companyCounty" class="form-control select_group">
+                                            <option value="">Select County</option>
+                                            <?php foreach ($county as $k => $v): ?>
+                                                <option value="<?php echo $v['id'] ?>" <?php echo set_select('county', $v['id']); ?>><?php echo $v['name'] ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </div>
                                 </div> 
@@ -114,7 +117,10 @@
                                     <div class="form-group">
                                         <label for="companyParish">Parish:<font color="red"> *</font></label>
                                         <select name="companyParish" class="form-control select_group">
-                                            <option value="" selected>Select Parish</option>
+                                            <option value="">Select Parish</option>
+                                            <?php foreach ($parish as $k => $v): ?>
+                                            <option value="<?php echo $v['id'] ?>" <?php echo set_select('parish', $v['id']); ?>><?php echo $v['name'] ?></option>
+                                            <?php endforeach ?>
                                         </select>
                                     </div> 
                                 </div>                        
@@ -122,7 +128,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="companyCity">City:<font color="red"> *</font></label>
+                                        <label for="companyCity">City/Town:<font color="red"> *</font></label>
                                         <input type="text" class="form-control" name="companyCity" placeholder="Kingston 10" value="">
                                     </div> 
                                 </div>

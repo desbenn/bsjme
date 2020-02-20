@@ -75,7 +75,7 @@
 
         <!-- Hyperlink to bring you to Registration Page -->
         <div class="row" align="center">
-          <h4>Don't have an account <a href="<?php echo base_url('registration/registration') ?>"><u>Click Here!</u></a></h4>
+          <h4>Don't have an account <a href="<?php echo base_url('registration/register') ?>"><u>Click Here!</u></a></h4>
         </div>
 
 

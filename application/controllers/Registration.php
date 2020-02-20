@@ -12,9 +12,13 @@ class Registration extends Admin_Controller
 
     //--> It only redirects to the registration page page
 
-	public function registration()
+	public function register()
 	{
 		$data=array();
+		$data['county'] = $this->model_county->getActiveCounty();
+		$data['parish'] = $this->model_parish->getActiveParish();
+		$data['requirement']= $this->model_requirement->getRequirementData();
+		var_dump($data);
 		$this->load->view('registration/index', $data);
 	}
 	
