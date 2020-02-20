@@ -216,6 +216,7 @@ class Post extends Admin_Controller
                 'client_visibility' => $this->input->post('client_visibility'),
                 'active' => $this->input->post('active'),
                 'post_image' => $post_image,
+                'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
 		        	);
 

@@ -1,6 +1,7 @@
 
 <div class="content-wrapper">
   <section class="content-header">
+    <h1>Add Program</h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('program') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Program</li>
@@ -31,7 +32,7 @@
 
         <div class="box">
           <div class="box-header">
-            <h3 class="box-title">Add Program</h3>
+            
           </div>
           <form role="form" action="<?php base_url('program/create') ?>" method="post" enctype="multipart/form-data">
               <div class="box-body">

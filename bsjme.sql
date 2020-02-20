@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 20 fév. 2020 à 18:38
+-- Généré le :  jeu. 20 fév. 2020 à 20:53
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client`
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `client_requirement` (
   `requirement_id` int(11) NOT NULL,
   `answer` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client_requirement`
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultation`
@@ -447,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `inquiry_type` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `inquiry_type`
@@ -509,7 +509,11 @@ CREATE TABLE IF NOT EXISTS `phase` (
   `code` varchar(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `icon` varchar(100) DEFAULT NULL,
+  `icon_type` varchar(30) DEFAULT NULL,
+  `remark` text,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -517,11 +521,11 @@ CREATE TABLE IF NOT EXISTS `phase` (
 -- Déchargement des données de la table `phase`
 --
 
-INSERT INTO `phase` (`id`, `code`, `name`, `icon`, `active`) VALUES
-(1, '1', 'Phase 1', '', 1),
-(2, '2', 'Phase 2', '', 1),
-(3, '3', 'Phase 3', '', 1),
-(4, '4', 'Phase 4', '', 1);
+INSERT INTO `phase` (`id`, `code`, `name`, `icon`, `icon_type`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
+(1, '1', 'Phase 1', 'vacance-gif-0301.gif', 'image/gif', '', 1, '2020-02-21 01:33:45', 18),
+(2, '2', 'Phase 2', 'icons8-hotel-room-key-50.png', 'image/png', '', 1, '2020-02-21 01:43:21', 18),
+(3, '3', 'Phase 3', 'icons8-check-all-50.png', '', '', 1, '2020-02-21 01:34:53', 18),
+(4, '4', 'Phase 4', 'icons8-cafe-502.png', 'image/png', '<p>aaaa</p>', 1, '2020-02-21 01:40:31', 18);
 
 -- --------------------------------------------------------
 
@@ -611,7 +615,7 @@ INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `program_name`, `remark
 (1, 2, 11, 'program name', 'test', 1, '2020-02-19 01:03:11', 18),
 (2, 1, 8, 'Program 2', 'tst remark', 1, '2020-02-19 00:56:03', 18),
 (3, 1, 10, 'test', 'aaa', 1, '2020-02-19 00:57:42', 18),
-(4, 2, 11, 'fsdfsd', 'test', 1, '2020-02-19 01:24:15', 18),
+(4, 2, 11, 'fsdfsd', 'test', 1, '2020-02-21 01:45:18', 18),
 (5, 2, 11, 'My new program', '', 1, '2020-02-20 20:24:01', 18);
 
 -- --------------------------------------------------------
@@ -627,7 +631,7 @@ CREATE TABLE IF NOT EXISTS `program_phase` (
   `phase_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program_phase`
@@ -639,12 +643,13 @@ INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`) VALUES
 (9, 2, 3),
 (10, 3, 1),
 (11, 1, 1),
-(12, 4, 2),
-(13, 4, 1),
-(14, 4, 4),
 (15, 5, 1),
 (16, 5, 2),
-(17, 5, 3);
+(17, 5, 3),
+(18, 4, 1),
+(19, 4, 2),
+(20, 4, 4),
+(21, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -937,8 +942,8 @@ INSERT INTO `report` (`id`, `report_code`, `report_desc`, `report_form`, `report
 (6, 'REP06', 'List of Settings', '/application/controllers/Report06.php', 'List of Settings', 2),
 (7, 'REP0C', 'Client', '/appliation/controllers/Report_client.php', 'Client', 2),
 (8, 'REP0I', 'Consultation', '/appliation/controllers/Report_consultation.php', 'Consultation', 2),
-(9, 'REP08', 'List of Clauses', '/application/controllers/Report08.php', 'List of Clauses', 1),
-(10, 'REP07', 'List of sub-clauses', '/application/controllers/Report07.php', 'List of Sub-Clauses', 1),
+(9, 'REP08', 'List of Clauses', '/application/controllers/Report08.php', 'List of Clauses', 2),
+(10, 'REP07', 'List of sub-clauses', '/application/controllers/Report07.php', 'List of Sub-Clauses', 2),
 (11, 'QPM01', 'Quality & Procedures Manual for ISO 9001', '/application/controllers/QPM01.php', 'Quality & Procedures Manual for ISO 9001', 2);
 
 -- --------------------------------------------------------
@@ -955,7 +960,7 @@ CREATE TABLE IF NOT EXISTS `requirement` (
   `remark` varchar(300) DEFAULT NULL,
   `question_option` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `requirement`

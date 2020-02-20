@@ -263,6 +263,7 @@ class Client extends Admin_Controller
                 'postal_code' => $this->input->post('postal_code'),
                 'remark' => $this->input->post('remark'),
                 'website' => $this->input->post('website'),
+                'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
             );
 

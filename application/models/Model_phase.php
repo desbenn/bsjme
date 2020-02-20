@@ -7,6 +7,23 @@ class Model_phase extends CI_Model
 		parent::__construct();
 	}
 
+
+	public function getPhaseData($id = null)
+	{
+		if($id) {
+			$sql = "SELECT phase.*
+			FROM phase
+			WHERE phase.id = ?";
+			$query = $this->db->query($sql, array($id));
+			return $query->row_array();
+		}
+
+		$sql = "SELECT * FROM phase ORDER BY id DESC";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
+
 	//--> Get the active phase data
 	public function getActivePhase()
 	{
@@ -15,27 +32,20 @@ class Model_phase extends CI_Model
 		return $query->result_array();
 	}
 
-	//--> Get the data
-	public function getPhaseData($id = null)
-	{
-		if($id) {
-			$sql = "SELECT * FROM phase where id = ?";
-			$query = $this->db->query($sql, array($id));
-			return $query->row_array();
-		}
 
-		$sql = "SELECT * FROM phase";
-		$query = $this->db->query($sql);
-		return $query->result_array();
-	}
+	
+
 
 	public function create($data)
 	{
 		if($data) {
 			$insert = $this->db->insert('phase', $data);
-			return ($insert == true) ? true : false;
+			$insert_id = $this->db->insert_id();
+			return ($insert == true) ? $insert_id : false;
 		}
+
 	}
+
 
 	public function update($data, $id)
 	{
@@ -55,20 +65,27 @@ class Model_phase extends CI_Model
 		}
 	}
 
-	public function countTotalPhase()
-	{
-		$sql = "SELECT * FROM phase WHERE active = ?";
-		$query = $this->db->query($sql, array(1));
-		return $query->num_rows();
-	}
 
 	//---> Validate if the phase is used in table consultation
 	public function checkIntegrity($id)
 	{
+		$num_rows = 0;
+		
 		$sql = "SELECT * FROM consultation WHERE phase_id = ?";
 		$query = $this->db->query($sql, array($id));
-		return $query->num_rows();
+		$num_rows = $num_rows + $query->num_rows();
+
+		$sql = "SELECT * FROM program_phase WHERE phase_id = ?";
+		$query = $this->db->query($sql, array($id));
+		$num_rows = $num_rows + $query->num_rows();
+
+		$sql = "SELECT * FROM status WHERE phase_id = ?";
+		$query = $this->db->query($sql, array($id));
+		$num_rows = $num_rows + $query->num_rows();
+
+		return $num_rows;
 
 	}
+
 
 }

@@ -244,6 +244,7 @@ class Consultation extends Admin_Controller
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
                 'status_id' => $this->input->post('status'),
+                'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
             );
 
