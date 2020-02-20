@@ -10,7 +10,7 @@
 	</section>
 
 
-	
+
 
 
 <!----------------------------------------------------------------------------------------------------->
@@ -24,10 +24,10 @@
       <ul class="nav nav-tabs">
         <li class="<?php echo (($active_tab === 'client') ? 'active' : '') ?>"><a data-toggle="tab" href="#client">Client</a></li>
         <li class="<?php echo (($active_tab === 'requirement') ? 'active' : '') ?>"><a data-toggle="tab" href="#requirement">Requirement</a></li>
-		<li class="<?php echo (($active_tab === 'consultation') ? 'active' : '') ?>"><a data-toggle="tab" href="#consultation">Consultation</a></li>		
-		<li class="<?php echo (($active_tab === 'inquiry') ? 'active' : '') ?>"><a data-toggle="tab" href="#inquiry">Inquiry</a></li>
-		<li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
-      </ul>	
+        <li class="<?php echo (($active_tab === 'consultation') ? 'active' : '') ?>"><a data-toggle="tab" href="#consultation">Consultation</a></li>		
+        <li class="<?php echo (($active_tab === 'inquiry') ? 'active' : '') ?>"><a data-toggle="tab" href="#inquiry">Inquiry</a></li>
+        <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
+      </ul>
 
 
 
@@ -163,7 +163,7 @@
 	                            <?php echo $client_data['attempt']; ?> time(s)
 	                 	    </div>
 	                 	 </div>
-	                 </div>	    
+	                 </div>
 
 
 					<div class="row">
@@ -218,7 +218,7 @@
 
 
 
-				<div class="row">				 
+				<div class="row">
 
 				 <div class="col-md-3 col-xs-3">
 					<div class="form-group">
@@ -255,7 +255,7 @@
 
 
 				<div class="row">
-						
+
 						 <div class="col-md-3 col-xs-3">
 							<div class="form-group">
 								 <label for="contact_name">Contact Name</label>
@@ -309,7 +309,7 @@
 							<?php echo '<a href="'.base_url('report_client/REP0C/'.$client_data['id']).'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
 							<a href="<?php echo base_url('client/') ?>" class="btn btn-warning">Close</a>
 						</div>
-					
+
 						<div class="col-md-6 col-xs-6" align="right">
 	                    Last update <?php echo $client_data['updated_date']; ?> by <?php echo $client_data['updated_by']; ?>
 	                 	</div>		
@@ -331,7 +331,6 @@
 
 	$(document).ready(function() {
 		$(".select_group").select2({width: '100%'});
-		//$("#remark").wysihtml5();
 		$("#mainClientNav").addClass('active');
 		$("#manageClientNav").addClass('active');
 
@@ -358,7 +357,7 @@
                         <thead>
                             <tr>
                                 <th>Question</th>
-                                <th>Response</th>                                
+                                <th>Answer</th>
                             </tr>
                         </thead>
                     </table>
@@ -981,38 +980,38 @@ function removeInquiry(id)
 						<div class="col-md-12 col-xs-12">
 
 
-							<?php echo form_open_multipart('client/uploadDocument/') ?>
+			<?php echo form_open_multipart('client/uploadDocument/') ?>
+
             <?php echo "<table width='100%'>" ?>
-            <?php echo "<tr>" ?>           
+            <?php echo "<tr>" ?>
 
             <?php if(in_array('createDocument', $user_permission)): ?>
 
-                <?php echo "<td width='20%'><div class='form_group'>" ?>
+                <?php echo "<td width='25%'><div class='form_group'>" ?>
                 <?php echo "<label for='document_type'>Type of document" ?>
                 <?php echo "<select class='form-control select_group' id='document_type' name='document_type'>" ?>
                 <?php echo "<option value=''></option>" ?>
                         <?php foreach ($document_type as $k => $v): ?>
                             <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
                         <?php endforeach ?> 
-                <?php echo " </select></div>" ?>                    
+                <?php echo " </select></div>" ?>
                 <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
 
-				<?php echo "<td width='20%'><div class='form_group'>" ?>
+				        <?php echo "<td width='20%'><div class='form_group'>" ?>
                 <?php echo "<label for='document_class'>Classification" ?>
                 <?php echo "<select class='form-control select_group' id='document_class' name='document_class'>" ?>
                 <?php echo "<option value=''></option>" ?>
                         <?php foreach ($document_class as $k => $v): ?>
                             <option value="<?php echo $v['id'] ?>" ><?php echo $v['name'] ?></option>
                         <?php endforeach ?> 
-                <?php echo " </select></div>" ?>                    
-                <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>		
+                <?php echo " </select></div>" ?>
+                <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
 
-                <?php echo "<td width='45%' align=left><input type='file' required='required' name='client_document' id='client_document' size='60'  /></td>" ?> 
+                <?php echo "<td width='40%' align=left><input type='file' required='required' name='client_document' id='client_document' size='60'  /></td>" ?> 
                 <?php echo "<td width='15%'><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
             <?php endif; ?>
-            
+
             <?php echo "</tr>" ?>
-            <?php echo "</div>" ?>
             <?php echo "</table>" ?>
             <?php echo "</form>"?>
 
@@ -1023,7 +1022,7 @@ function removeInquiry(id)
               <div class="col-md-12 col-xs-12">
                 <table id="manageTableDocument" class="table table-bordered table-striped" style="width:100%">
                   <thead>
-                    <tr>                      
+                    <tr>
                       <th>Document</th>
                       <th>Type</th>
                       <th>Classification</th>
@@ -1079,9 +1078,9 @@ function removeInquiry(id)
           <button type="submit" class="btn btn-primary">Delete</button>
         </div>
       </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
 
 <?php endif; ?>
 
@@ -1103,12 +1102,13 @@ var base_url = "<?php echo base_url(); ?>";
   manageTableDocument = $('#manageTableDocument').DataTable({
     'ajax': base_url+'client/fetchClientDocument/'+'<?php echo $client_data['id']; ?>',
     'order': [[0, "asc"]]
-  });	
+  });
 
 
 function removeDocument(id)
 {
-  if(id) {
+  if(id) 
+  {
     $("#removeFormDocument").on('submit', function() {
 
       var form = $(this);

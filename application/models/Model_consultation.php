@@ -132,9 +132,23 @@ class Model_consultation extends CI_Model
 	public function countTotalConsultation($year)
 	{
 		$sql = "SELECT * FROM consultation
-		WHERE ? BETWEEN year(date_begin) AND year(date_end)";
+		WHERE ? = year(date_creation)";
 		$query = $this->db->query($sql, array($year));
 		return $query->num_rows();
+	}
+
+	public function countTotalConsultationByCounty($year,$county_code)
+	{
+
+		$sql = "SELECT * 
+		FROM consultation
+			LEFT JOIN client ON consultation.client_id = client.id
+			LEFT JOIN county ON client.county_id = county.id
+		WHERE county.code = $county_code
+		      AND $year = year(date_creation)";
+		$query = $this->db->query($sql, array());
+		return $query->num_rows();
+
 	}
 
 	public function createDocument($data)
@@ -178,12 +192,66 @@ class Model_consultation extends CI_Model
 
 		//only document type related to consultation (2=consultation 3=client 4=activity 5=environment)
 
-		$sql = "SELECT document.*,name,directory
+		$sql = "SELECT document.*,directory,document_type.name AS 'document_type_name',
+		               document_class.name AS 'document_class_name'
 		FROM document
 			LEFT JOIN document_type ON document.document_type_id = document_type.id
+			LEFT JOIN document_class ON document.document_class_id = document_class.id
 			JOIN client ON document.client_id = client.id
 		WHERE consultation_id = ?";
 		$query = $this->db->query($sql, array($consultation_id));
+		return $query->result_array();
+	}
+
+	public function getConsultationQuestion($standard_id,$phase)
+	{
+		$sql=null;
+		if($phase==1)
+		{
+			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				JOIN question_type ON question.question_type_id = question_type.id 
+			WHERE standard.id = $standard_id AND sub_clause.code = 4.1";
+		}
+		elseif($phase==2)
+		{
+			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				JOIN question_type ON question.question_type_id = question_type.id 
+			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 4.2 AND 5";
+		}
+		elseif($phase==3)
+		{
+			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				JOIN question_type ON question.question_type_id = question_type.id 
+			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 4 and 10";
+		}
+		elseif($phase==4)
+		{
+			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				JOIN question_type ON question.question_type_id = question_type.id 
+			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 5 and 10";
+		}
+		if($sql==null){return null;}
+		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 

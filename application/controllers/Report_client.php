@@ -68,7 +68,7 @@ class Report_client extends Admin_Controller
 			$cell2 = array('data' => '<strong>Client Name:&nbsp;&nbsp;</strong>'.$rs->client_name, 'width' => '50%');
 			$this->table->add_row($cell1, $cell2);
 
-			$cell1 = array('data' => '<strong>trn:&nbsp;&nbsp;</strong>'.$rs->trn, 'width' => '50%');
+			$cell1 = array('data' => '<strong>TRN:&nbsp;&nbsp;</strong>'.$rs->trn, 'width' => '50%');
 			$cell2 = array('data' => '<strong>Active:&nbsp;&nbsp;</strong>'.$rs->active, 'width' => '25%');			
 			$this->table->add_row($cell1, $cell2);				
 
@@ -98,13 +98,14 @@ class Report_client extends Admin_Controller
 			$cell1 = array('data' => '<strong>Contact</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
 			$this->table->add_row($cell1);
 
-			$cell1 = array('data' => '<strong>Email'.':&nbsp;&nbsp;</strong>'.$rs->email, 'width' => '50%');
-			$cell2 = array('data' => '<strong>Website:&nbsp;&nbsp;</strong>'.$rs->website, 'width' => '50%');
-			$this->table->add_row($cell1, $cell2);
+			$cell1 = array('data' => '<strong>Contact'.':&nbsp;&nbsp;</strong>'.$rs->contact_name, 'width' => '33%');
+			$cell2 = array('data' => '<strong>Phone:&nbsp;&nbsp;</strong>'.$rs->phone, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Mobile:&nbsp;&nbsp;</strong>'.$rs->mobile, 'width' => '34%');			
+			$this->table->add_row($cell1, $cell2, $cell3);
 
 			$cell1 = array('data' => '<strong>Director Name:&nbsp;&nbsp;</strong>'.$rs->director_name, 'width' => '33%');
-			$cell2 = array('data' => '<strong>Phone:&nbsp;&nbsp;</strong>'.$rs->phone, 'width' => '33%');
-			$cell3 = array('data' => '<strong>Mobile:&nbsp;&nbsp;</strong>'.$rs->mobile, 'width' => '34%');
+			$cell2 = array('data' => '<strong>Email'.':&nbsp;&nbsp;</strong>'.$rs->email, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Website:&nbsp;&nbsp;</strong>'.$rs->website, 'width' => '34%');			
 			$this->table->add_row($cell1, $cell2, $cell3);			
 
 			endforeach;
@@ -220,19 +221,21 @@ class Report_client extends Admin_Controller
 	   }
 	else {
 
-		$cell1 = array('data' => '<strong>Type</strong>', 'width' => '22%');
-		$cell2 = array('data' => '<strong>Name</strong>', 'width' => '38%');
-		$cell3 = array('data' => '<strong>Size</strong>', 'width' => '18%');
-		$cell4 = array('data' => '<strong>Consultation</strong>', 'width' => '22%');
-		$this->table->add_row($cell1, $cell2, $cell3, $cell4);
+		$cell1 = array('data' => '<strong>Name</strong>', 'width' => '37%');
+		$cell2 = array('data' => '<strong>Type</strong>', 'width' => '20%');
+		$cell3 = array('data' => '<strong>Classification</strong>', 'width' => '20%');
+		$cell4 = array('data' => '<strong>Size</strong>', 'width' => '10%');
+		$cell5 = array('data' => '<strong>Consultation</strong>', 'width' => '13%');
+		$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
 
 		foreach($document as $rs):
 
-			$cell1 = array('data' => $rs->document_type_name, 'width' => '22%');
-			$cell2 = array('data' => $rs->doc_name, 'width' => '38%');
-			$cell3 = array('data' => $rs->doc_size, 'width' => '18%');
-			$cell4 = array('data' => $rs->consultation_no, 'width' => '22%');
-			$this->table->add_row($cell1, $cell2, $cell3, $cell4);
+			$cell1 = array('data' => $rs->doc_name, 'width' => '37%');
+			$cell2 = array('data' => $rs->document_type_name, 'width' => '20%');
+			$cell3 = array('data' => $rs->document_class_name, 'width' => '20%');			
+			$cell4 = array('data' => $rs->doc_size, 'width' => '10%');
+			$cell5 = array('data' => $rs->consultation_no, 'width' => '13%');
+			$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
 
 		 	endforeach;
 		}

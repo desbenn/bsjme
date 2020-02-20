@@ -182,12 +182,13 @@ class Model_client extends CI_Model
 	}
 
 
-	public function countTotalClient()
+	public function countTotalClient($active)
 	{
 		$sql = "SELECT * FROM client WHERE active = ?";
-		$query = $this->db->query($sql, array(1));
+		$query = $this->db->query($sql, array($active));
 		return $query->num_rows();
 	}
+
 	
 
 	public function createDocument($data)

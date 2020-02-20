@@ -344,7 +344,7 @@ class Client extends Admin_Controller
     //--> It Fetches the document data from the document table
     //    this function is called from the datatable ajax function
 
-        public function fetchClientDocument($id)
+    public function fetchClientDocument($id)
     {
         $result = array('data' => array());
 
@@ -362,7 +362,7 @@ class Client extends Admin_Controller
 
 
             if(in_array('deleteDocument', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeDocument('.$value['id'].')" data-toggle="modal" data-standard="#removeDocumentModal"><i class="fa fa-trash"></i></button>';
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeDocument('.$value['id'].')" data-toggle="modal" data-target="#removeDocumentModal"><i class="fa fa-trash"></i></button>';
             }
 
             $result['data'][$key] = array(
@@ -459,12 +459,14 @@ class Client extends Admin_Controller
                 $response['success'] = true;
                 $response['messages'] = 'Successfully deleted';
             }
-            else {
+            else
+            {
                 $response['success'] = false;
                 $response['messages'] = 'Error in the database while deleting the information';
             }
         }
-        else {
+        else
+        {
             $response['success'] = false;
             $response['messages'] = 'Refresh the page again';
         }

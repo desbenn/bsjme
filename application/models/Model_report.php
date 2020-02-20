@@ -56,7 +56,9 @@ class Model_report extends CI_Model
 	{
 		$sql = "SELECT client.*,parish.name AS 'parish_name',
 			county.name AS 'county_name',city.name AS 'city_name',
-			CASE WHEN client.active = 1 THEN 'Active' else 'Inactive' END AS 'active'
+			CASE WHEN client.active = 1 THEN 'Active' 
+			     WHEN client.active = 2 THEN 'Inactive' 
+			     ELSE 'pending' END AS 'active'
 		FROM client
 			 LEFT JOIN parish ON client.parish_id = parish.id
 			 LEFT JOIN county ON client.county_id = county.id
@@ -100,12 +102,15 @@ class Model_report extends CI_Model
 		return $query->result();
 	}
 
+
+
 	public function getReportClient_Document($client_id)
 	{
 		$sql = "SELECT document.*,document_type.name AS 'document_type_name',
-		               consultation_no
+		               consultation_no,document_class.name AS 'document_class_name'
 		FROM document
 			JOIN document_type ON document.document_type_id = document_type.id
+			JOIN document_class ON document.document_class_id = document_class.id
   	 	 	LEFT JOIN consultation ON document.consultation_id = consultation.id
 		WHERE document.client_id = ?
 		ORDER BY document_type.name";
