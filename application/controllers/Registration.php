@@ -12,11 +12,12 @@ class Registration extends Admin_Controller
 
     //--> It only redirects to the registration page page
 
-	public function index()
+	public function registration()
 	{
-		$this->load->view('registration/index');
+		$data=array();
+		$this->load->view('registration/index', $data);
 	}
-
+	
 }
 
 ?>
