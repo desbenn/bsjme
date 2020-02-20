@@ -76,6 +76,14 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="deletePendingClient" class="minimal"></td>
                   </tr>  
 
+                   <tr>
+                    <td>Activity</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createActivity" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateActivity" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewActivity" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteActivity" class="minimal"></td>
+                  </tr> 
+
                   <tr>
                     <td>Requirement</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createRequirement" class="minimal"></td>

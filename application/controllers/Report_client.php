@@ -69,7 +69,7 @@ class Report_client extends Admin_Controller
 			$this->table->add_row($cell1, $cell2);
 
 			$cell1 = array('data' => '<strong>TRN:&nbsp;&nbsp;</strong>'.$rs->trn, 'width' => '50%');
-			$cell2 = array('data' => '<strong>Active:&nbsp;&nbsp;</strong>'.$rs->active, 'width' => '25%');			
+			$cell2 = array('data' => '<strong>Activity:&nbsp;&nbsp;</strong>'.$rs->activity_name, 'width' => '25%');			
 			$this->table->add_row($cell1, $cell2);				
 
 			$cell1 = array('data' => '<strong>Remark:&nbsp;&nbsp;</strong>'.$rs->remark, 'width' => '100%');

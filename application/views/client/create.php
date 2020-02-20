@@ -66,13 +66,15 @@
                  </div>
                </div> 
 
-               <div class="col-md-2 col-xs-2" align="left">
-                  <div class="radio">
-                      <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active</label>
-                      <br>
-                      <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
-                      <br>
-                      <label><input type="radio" name="active" id="active" value="3" >Pending</label>
+                <div class="col-md2 col-xs-2">
+                  <div class="form-group">
+                    <label for="activity">Activity <font color="red">*</font></label>
+                    <select class="form-control select_group" id="activity" name="activity">
+                      <option value=""></option>
+                      <?php foreach ($activity as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('activity', $v['id']); ?>><?php echo $v['name'] ?></option>
+                      <?php endforeach ?>
+                    </select>
                   </div>
                 </div>
 

@@ -22,7 +22,7 @@ class Model_client extends CI_Model
 
 	public function getActiveClientData()
 	{
-		$sql = "SELECT * FROM client WHERE active = ?
+		$sql = "SELECT * FROM client WHERE activity_id = ?
 		 ORDER BY company_name ASC";
 		$query = $this->db->query($sql, array(1));
 		return $query->result_array();
@@ -36,17 +36,21 @@ class Model_client extends CI_Model
 	{
 
 		if ($consultant == 'all') {
-			$sql = "SELECT client.*,consultant_id,consultation_no
+			$sql = "SELECT DISTINCT client.id,activity_id,
+			               company_name,trn,client_name,activity.name AS 'activity_name'
 			FROM client
 			     LEFT JOIN consultation ON consultation.client_id = client.id
-			ORDER by client.active DESC,company_name";
+			     JOIN activity ON client.activity_id = activity.id
+			ORDER by client.activity_id DESC,company_name";
 	    } else {
 
-			$sql = "SELECT client.*,consultant_id,consultation_no
+			$sql = "SELECT DISTINCT client.id,activity_id,
+			               company_name,trn,client_name,activity.name AS 'activity_name'
 			FROM client
 			        LEFT JOIN consultation ON consultation.client_id = client.id
+			        JOIN activity ON client.activity_id = activity.id
 		    WHERE consultation.consultant_id LIKE '%$consultant%'
-			ORDER by client.active DESC,company_name";
+			ORDER by client.activity_id DESC,company_name";
 	    }
 
 		$query = $this->db->query($sql);
@@ -59,9 +63,10 @@ class Model_client extends CI_Model
 	public function getClientByClient($trn)
 	{
 
-		$sql = "SELECT client.*,consultant_id,consultation_no
+		$sql = "SELECT client.id,activity_id,
+			           company_name,trn,client_name,activity.name AS 'activity_name'
 		FROM client
-		        LEFT JOIN consultation ON consultation.client_id = client.id
+ 	        JOIN activity ON client.activity_id = activity.id
 	    WHERE client.trn = $trn";
 
 		$query = $this->db->query($sql);
@@ -78,7 +83,7 @@ class Model_client extends CI_Model
 		 FROM consultation 
 		 JOIN client ON consultation.client_id = client.id
 		 JOIN sector ON consultation.sector_id = sector.id
-		 WHERE client.active = ?
+		 WHERE client.activity_id = ?
 		 ORDER BY company_name ASC";
 		$query = $this->db->query($sql, array(1));
 		return $query->result_array();
@@ -182,10 +187,10 @@ class Model_client extends CI_Model
 	}
 
 
-	public function countTotalClient($active)
+	public function countTotalClient($activity_id)
 	{
-		$sql = "SELECT * FROM client WHERE active = ?";
-		$query = $this->db->query($sql, array($active));
+		$sql = "SELECT * FROM client WHERE activity_id = ?";
+		$query = $this->db->query($sql, array($activity_id));
 		return $query->num_rows();
 	}
 

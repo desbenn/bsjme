@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 20 fév. 2020 à 16:49
+-- Généré le :  jeu. 20 fév. 2020 à 18:38
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `bsjme`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `activity`
+--
+
+DROP TABLE IF EXISTS `activity`;
+CREATE TABLE IF NOT EXISTS `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `active` tinyint(1) NOT NULL COMMENT '1=active 2=inactive',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `activity`
+--
+
+INSERT INTO `activity` (`id`, `name`, `active`) VALUES
+(1, 'Active', 1),
+(2, 'Inactive', 1),
+(3, 'Pending', 1);
 
 -- --------------------------------------------------------
 
@@ -130,6 +153,7 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trn` varchar(25) NOT NULL,
+  `activity_id` tinyint(1) NOT NULL COMMENT '1=active  2=inactive  3=pending',
   `attempt` int(11) DEFAULT '0',
   `city_id` int(11) DEFAULT NULL,
   `county_id` int(11) NOT NULL,
@@ -148,7 +172,6 @@ CREATE TABLE IF NOT EXISTS `client` (
   `postal_code` varchar(20) DEFAULT NULL,
   `remark` text,
   `website` varchar(100) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive  3=pending',
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -160,11 +183,11 @@ CREATE TABLE IF NOT EXISTS `client` (
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id`, `trn`, `attempt`, `city_id`, `county_id`, `parish_id`, `address`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `phone`, `postal_box`, `postal_code`, `remark`, `website`, `active`, `updated_date`, `updated_by`) VALUES
-(6, 'TRN002', 0, 1, 1, 1, '888 Street One', 'M. Untel', 'Company No 2', '', 'Director name', 'TRN002', 'district1', 'director@hotmail.com', '8765432', '12345678', 'H3C0G3', 'H3C0G3', 'remark', 'website', 1, '2019-12-04 19:53:23', 18),
-(8, 'TRN001', 0, 0, 1, 1, '999 Street 9', 'Mr Number One', 'Company No 1', '', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', 1, '2019-12-23 00:32:45', 18),
-(9, 'TRN004', 0, 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', '', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', 2, '2019-12-23 16:00:12', 18),
-(10, '123456789', 2, 1, 1, 1, '6 Wichester Road', 'Nicholas Jumpp', 'Bureau of Standards', 'Nicholas Jumpp', '', '123456789', '', 'jumppnicholas1@gmail.com', '', '1-876-788-9327', '', '', '', 'www.bsj.org.jm', 3, '2020-02-17 13:51:17', 18);
+INSERT INTO `client` (`id`, `trn`, `activity_id`, `attempt`, `city_id`, `county_id`, `parish_id`, `address`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `phone`, `postal_box`, `postal_code`, `remark`, `website`, `updated_date`, `updated_by`) VALUES
+(6, 'TRN002', 1, 0, 1, 1, 1, '888 Street One', 'M. Untel', 'Company No 2', '', 'Director name', 'TRN002', 'district1', 'director@hotmail.com', '8765432', '12345678', 'H3C0G3', 'H3C0G3', 'remark', 'website', '2019-12-04 19:53:23', 18),
+(8, 'TRN001', 1, 0, 0, 1, 1, '999 Street 9', 'Mr Number One', 'Company No 1', '', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '2019-12-23 00:32:45', 18),
+(9, 'TRN004', 2, 0, 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', '', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', '2019-12-23 16:00:12', 18),
+(10, '123456789', 3, 2, 1, 1, 1, '6 Wichester Road', 'Nicholas Jumpp', 'Bureau of Standards', 'Nicholas Jumpp', '', '123456789', '', 'jumppnicholas1@gmail.com', '', '1-876-788-9327', '', '', '', 'www.bsj.org.jm', '2020-02-17 13:51:17', 18);
 
 -- --------------------------------------------------------
 
@@ -559,7 +582,7 @@ INSERT INTO `profile` (`id`, `name`, `permission`, `protected`) VALUES
 (2, 'Coordinator', 'a:87:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:18:\"createConsultation\";i:5;s:18:\"updateConsultation\";i:6;s:16:\"viewConsultation\";i:7;s:18:\"deleteConsultation\";i:8;s:11:\"createPhase\";i:9;s:11:\"updatePhase\";i:10;s:9:\"viewPhase\";i:11;s:11:\"deletePhase\";i:12;s:12:\"createStatus\";i:13;s:12:\"updateStatus\";i:14;s:10:\"viewStatus\";i:15;s:12:\"deleteStatus\";i:16;s:12:\"createSector\";i:17;s:12:\"updateSector\";i:18;s:10:\"viewSector\";i:19;s:12:\"deleteSector\";i:20;s:14:\"createDocument\";i:21;s:14:\"updateDocument\";i:22;s:12:\"viewDocument\";i:23;s:14:\"deleteDocument\";i:24;s:18:\"createDocumentType\";i:25;s:18:\"updateDocumentType\";i:26;s:16:\"viewDocumentType\";i:27;s:18:\"deleteDocumentType\";i:28;s:14:\"createStandard\";i:29;s:14:\"updateStandard\";i:30;s:12:\"viewStandard\";i:31;s:14:\"deleteStandard\";i:32;s:12:\"createClause\";i:33;s:12:\"updateClause\";i:34;s:10:\"viewClause\";i:35;s:12:\"deleteClause\";i:36;s:15:\"createSubClause\";i:37;s:15:\"updateSubClause\";i:38;s:13:\"viewSubClause\";i:39;s:15:\"deleteSubClause\";i:40;s:14:\"createQuestion\";i:41;s:14:\"updateQuestion\";i:42;s:12:\"viewQuestion\";i:43;s:14:\"deleteQuestion\";i:44;s:12:\"createManual\";i:45;s:12:\"updateManual\";i:46;s:10:\"viewManual\";i:47;s:12:\"deleteManual\";i:48;s:12:\"createCounty\";i:49;s:12:\"updateCounty\";i:50;s:10:\"viewCounty\";i:51;s:12:\"deleteCounty\";i:52;s:12:\"createParish\";i:53;s:12:\"updateParish\";i:54;s:10:\"viewParish\";i:55;s:12:\"deleteParish\";i:56;s:10:\"createCity\";i:57;s:10:\"updateCity\";i:58;s:8:\"viewCity\";i:59;s:10:\"deleteCity\";i:60;s:10:\"createPost\";i:61;s:10:\"updatePost\";i:62;s:8:\"viewPost\";i:63;s:10:\"deletePost\";i:64;s:14:\"createCategory\";i:65;s:14:\"updateCategory\";i:66;s:12:\"viewCategory\";i:67;s:14:\"deleteCategory\";i:68;s:13:\"createInquiry\";i:69;s:13:\"updateInquiry\";i:70;s:11:\"viewInquiry\";i:71;s:13:\"deleteInquiry\";i:72;s:17:\"createInquiryType\";i:73;s:17:\"updateInquiryType\";i:74;s:15:\"viewInquiryType\";i:75;s:17:\"deleteInquiryType\";i:76;s:17:\"createSupportType\";i:77;s:17:\"updateSupportType\";i:78;s:15:\"viewSupportType\";i:79;s:17:\"deleteSupportType\";i:80;s:13:\"viewDashboard\";i:81;s:8:\"viewNews\";i:82;s:10:\"viewReport\";i:83;s:17:\"viewDocumentation\";i:84;s:10:\"viewMyUser\";i:85;s:20:\"viewSearchConsultant\";i:86;s:13:\"updateSetting\";}', 1),
 (3, 'Consultant', 'a:13:{i:0;s:10:\"viewClient\";i:1;s:16:\"viewConsultation\";i:2;s:12:\"viewDocument\";i:3;s:8:\"viewPost\";i:4;s:13:\"createInquiry\";i:5;s:13:\"updateInquiry\";i:6;s:11:\"viewInquiry\";i:7;s:13:\"deleteInquiry\";i:8;s:13:\"viewDashboard\";i:9;s:8:\"viewNews\";i:10;s:10:\"viewReport\";i:11;s:17:\"viewDocumentation\";i:12;s:10:\"viewMyUser\";}', 1),
 (4, 'Client', 'a:11:{i:0;s:12:\"updateClient\";i:1;s:10:\"viewClient\";i:2;s:18:\"createConsultation\";i:3;s:16:\"viewConsultation\";i:4;s:13:\"updateAnswers\";i:5;s:10:\"viewManual\";i:6;s:8:\"viewPost\";i:7;s:13:\"viewDashboard\";i:8;s:8:\"viewNews\";i:9;s:17:\"viewDocumentation\";i:10;s:10:\"viewMyUser\";}', 1),
-(5, 'Admin', 'a:116:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:19:\"createPendingClient\";i:5;s:19:\"updatePendingClient\";i:6;s:17:\"viewPendingClient\";i:7;s:19:\"deletePendingClient\";i:8;s:17:\"createRequirement\";i:9;s:17:\"updateRequirement\";i:10;s:15:\"viewRequirement\";i:11;s:17:\"deleteRequirement\";i:12;s:18:\"createConsultation\";i:13;s:18:\"updateConsultation\";i:14;s:16:\"viewConsultation\";i:15;s:18:\"deleteConsultation\";i:16;s:13:\"createProgram\";i:17;s:13:\"updateProgram\";i:18;s:11:\"viewProgram\";i:19;s:13:\"deleteProgram\";i:20;s:11:\"createPhase\";i:21;s:11:\"updatePhase\";i:22;s:9:\"viewPhase\";i:23;s:11:\"deletePhase\";i:24;s:12:\"createStatus\";i:25;s:12:\"updateStatus\";i:26;s:10:\"viewStatus\";i:27;s:12:\"deleteStatus\";i:28;s:12:\"createSector\";i:29;s:12:\"updateSector\";i:30;s:10:\"viewSector\";i:31;s:12:\"deleteSector\";i:32;s:14:\"createStandard\";i:33;s:14:\"updateStandard\";i:34;s:12:\"viewStandard\";i:35;s:14:\"deleteStandard\";i:36;s:12:\"createClause\";i:37;s:12:\"updateClause\";i:38;s:10:\"viewClause\";i:39;s:12:\"deleteClause\";i:40;s:15:\"createSubClause\";i:41;s:15:\"updateSubClause\";i:42;s:13:\"viewSubClause\";i:43;s:15:\"deleteSubClause\";i:44;s:14:\"createQuestion\";i:45;s:14:\"updateQuestion\";i:46;s:12:\"viewQuestion\";i:47;s:14:\"deleteQuestion\";i:48;s:13:\"createAnswers\";i:49;s:13:\"updateAnswers\";i:50;s:11:\"viewAnswers\";i:51;s:13:\"deleteAnswers\";i:52;s:12:\"createManual\";i:53;s:12:\"updateManual\";i:54;s:10:\"viewManual\";i:55;s:12:\"deleteManual\";i:56;s:14:\"createDocument\";i:57;s:14:\"updateDocument\";i:58;s:12:\"viewDocument\";i:59;s:14:\"deleteDocument\";i:60;s:18:\"createDocumentType\";i:61;s:18:\"updateDocumentType\";i:62;s:16:\"viewDocumentType\";i:63;s:18:\"deleteDocumentType\";i:64;s:19:\"createDocumentClass\";i:65;s:19:\"updateDocumentClass\";i:66;s:17:\"viewDocumentClass\";i:67;s:19:\"deleteDocumentClass\";i:68;s:12:\"createCounty\";i:69;s:12:\"updateCounty\";i:70;s:10:\"viewCounty\";i:71;s:12:\"deleteCounty\";i:72;s:12:\"createParish\";i:73;s:12:\"updateParish\";i:74;s:10:\"viewParish\";i:75;s:12:\"deleteParish\";i:76;s:10:\"createCity\";i:77;s:10:\"updateCity\";i:78;s:8:\"viewCity\";i:79;s:10:\"deleteCity\";i:80;s:13:\"createInquiry\";i:81;s:13:\"updateInquiry\";i:82;s:11:\"viewInquiry\";i:83;s:13:\"deleteInquiry\";i:84;s:17:\"createInquiryType\";i:85;s:17:\"updateInquiryType\";i:86;s:15:\"viewInquiryType\";i:87;s:17:\"deleteInquiryType\";i:88;s:17:\"createSupportType\";i:89;s:17:\"updateSupportType\";i:90;s:15:\"viewSupportType\";i:91;s:17:\"deleteSupportType\";i:92;s:10:\"createPost\";i:93;s:10:\"updatePost\";i:94;s:8:\"viewPost\";i:95;s:10:\"deletePost\";i:96;s:14:\"createCategory\";i:97;s:14:\"updateCategory\";i:98;s:12:\"viewCategory\";i:99;s:14:\"deleteCategory\";i:100;s:13:\"viewDashboard\";i:101;s:8:\"viewNews\";i:102;s:10:\"viewReport\";i:103;s:17:\"viewDocumentation\";i:104;s:10:\"viewMyUser\";i:105;s:20:\"viewSearchConsultant\";i:106;s:10:\"createUser\";i:107;s:10:\"updateUser\";i:108;s:8:\"viewUser\";i:109;s:10:\"deleteUser\";i:110;s:13:\"createProfile\";i:111;s:13:\"updateProfile\";i:112;s:11:\"viewProfile\";i:113;s:13:\"deleteProfile\";i:114;s:12:\"updateSystem\";i:115;s:13:\"updateSetting\";}', 1);
+(5, 'Admin', 'a:120:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:19:\"createPendingClient\";i:5;s:19:\"updatePendingClient\";i:6;s:17:\"viewPendingClient\";i:7;s:19:\"deletePendingClient\";i:8;s:14:\"createActivity\";i:9;s:14:\"updateActivity\";i:10;s:12:\"viewActivity\";i:11;s:14:\"deleteActivity\";i:12;s:17:\"createRequirement\";i:13;s:17:\"updateRequirement\";i:14;s:15:\"viewRequirement\";i:15;s:17:\"deleteRequirement\";i:16;s:18:\"createConsultation\";i:17;s:18:\"updateConsultation\";i:18;s:16:\"viewConsultation\";i:19;s:18:\"deleteConsultation\";i:20;s:13:\"createProgram\";i:21;s:13:\"updateProgram\";i:22;s:11:\"viewProgram\";i:23;s:13:\"deleteProgram\";i:24;s:11:\"createPhase\";i:25;s:11:\"updatePhase\";i:26;s:9:\"viewPhase\";i:27;s:11:\"deletePhase\";i:28;s:12:\"createStatus\";i:29;s:12:\"updateStatus\";i:30;s:10:\"viewStatus\";i:31;s:12:\"deleteStatus\";i:32;s:12:\"createSector\";i:33;s:12:\"updateSector\";i:34;s:10:\"viewSector\";i:35;s:12:\"deleteSector\";i:36;s:14:\"createStandard\";i:37;s:14:\"updateStandard\";i:38;s:12:\"viewStandard\";i:39;s:14:\"deleteStandard\";i:40;s:12:\"createClause\";i:41;s:12:\"updateClause\";i:42;s:10:\"viewClause\";i:43;s:12:\"deleteClause\";i:44;s:15:\"createSubClause\";i:45;s:15:\"updateSubClause\";i:46;s:13:\"viewSubClause\";i:47;s:15:\"deleteSubClause\";i:48;s:14:\"createQuestion\";i:49;s:14:\"updateQuestion\";i:50;s:12:\"viewQuestion\";i:51;s:14:\"deleteQuestion\";i:52;s:13:\"createAnswers\";i:53;s:13:\"updateAnswers\";i:54;s:11:\"viewAnswers\";i:55;s:13:\"deleteAnswers\";i:56;s:12:\"createManual\";i:57;s:12:\"updateManual\";i:58;s:10:\"viewManual\";i:59;s:12:\"deleteManual\";i:60;s:14:\"createDocument\";i:61;s:14:\"updateDocument\";i:62;s:12:\"viewDocument\";i:63;s:14:\"deleteDocument\";i:64;s:18:\"createDocumentType\";i:65;s:18:\"updateDocumentType\";i:66;s:16:\"viewDocumentType\";i:67;s:18:\"deleteDocumentType\";i:68;s:19:\"createDocumentClass\";i:69;s:19:\"updateDocumentClass\";i:70;s:17:\"viewDocumentClass\";i:71;s:19:\"deleteDocumentClass\";i:72;s:12:\"createCounty\";i:73;s:12:\"updateCounty\";i:74;s:10:\"viewCounty\";i:75;s:12:\"deleteCounty\";i:76;s:12:\"createParish\";i:77;s:12:\"updateParish\";i:78;s:10:\"viewParish\";i:79;s:12:\"deleteParish\";i:80;s:10:\"createCity\";i:81;s:10:\"updateCity\";i:82;s:8:\"viewCity\";i:83;s:10:\"deleteCity\";i:84;s:13:\"createInquiry\";i:85;s:13:\"updateInquiry\";i:86;s:11:\"viewInquiry\";i:87;s:13:\"deleteInquiry\";i:88;s:17:\"createInquiryType\";i:89;s:17:\"updateInquiryType\";i:90;s:15:\"viewInquiryType\";i:91;s:17:\"deleteInquiryType\";i:92;s:17:\"createSupportType\";i:93;s:17:\"updateSupportType\";i:94;s:15:\"viewSupportType\";i:95;s:17:\"deleteSupportType\";i:96;s:10:\"createPost\";i:97;s:10:\"updatePost\";i:98;s:8:\"viewPost\";i:99;s:10:\"deletePost\";i:100;s:14:\"createCategory\";i:101;s:14:\"updateCategory\";i:102;s:12:\"viewCategory\";i:103;s:14:\"deleteCategory\";i:104;s:13:\"viewDashboard\";i:105;s:8:\"viewNews\";i:106;s:10:\"viewReport\";i:107;s:17:\"viewDocumentation\";i:108;s:10:\"viewMyUser\";i:109;s:20:\"viewSearchConsultant\";i:110;s:10:\"createUser\";i:111;s:10:\"updateUser\";i:112;s:8:\"viewUser\";i:113;s:10:\"deleteUser\";i:114;s:13:\"createProfile\";i:115;s:13:\"updateProfile\";i:116;s:11:\"viewProfile\";i:117;s:13:\"deleteProfile\";i:118;s:12:\"updateSystem\";i:119;s:13:\"updateSetting\";}', 1);
 
 -- --------------------------------------------------------
 

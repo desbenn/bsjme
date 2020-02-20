@@ -64,9 +64,7 @@
                   <th>Company Name</th>
                   <th>TRN</th>
                   <th>Client Name</th>
-                  <th>Consultation No</th>
-                  <th>Consultant Name</th>
-                  <th>Active</th>
+                  <th>Activity</th>
                   <th>Action</th>
                 </tr>
                 </thead>

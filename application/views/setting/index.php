@@ -30,9 +30,14 @@
 
                 <ul class="chart-legend" style="height:160px"> 
 
+                <?php if(in_array('createActivity', $user_permission) || in_array('updateActivity', $user_permission) || in_array('viewActivity', $user_permission) || in_array('deleteActivity', $user_permission)): ?>
+                  <li id="activityNav">
+                    <a href="<?php echo base_url('activity/') ?>">Client Activity</a></li>
+                <?php endif; ?> 
+
                 <?php if(in_array('createRequirement', $user_permission) || in_array('updateRequirement', $user_permission) || in_array('viewRequirement', $user_permission) || in_array('deleteRequirement', $user_permission)): ?>
                   <li id="requirementNav">
-                    <a href="<?php echo base_url('requirement/') ?>">Requirement</a></li>
+                    <a href="<?php echo base_url('requirement/') ?>">Client Requirement</a></li>
                 <?php endif; ?> 
 
                 <?php if(in_array('createProgram', $user_permission) || in_array('updateProgram', $user_permission) || in_array('viewProgram', $user_permission) || in_array('deleteProgram', $user_permission)): ?>
