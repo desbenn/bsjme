@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   Carmen Server          $config['base_url'] = 'https://www.voyagine.com/bsjme/';
 |
 */
-$config['base_url'] = 'http://localhost:81/bsjme/';
+$config['base_url'] = 'http://localhost/bsjme/';
 
 
 
