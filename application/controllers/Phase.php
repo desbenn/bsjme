@@ -15,6 +15,29 @@ class Phase extends Admin_Controller
 
 
 
+    //--> It retrieve the specific phase information via a phase id
+    //    and returns the data in json format
+
+    public function fetchPhaseDataById($id)
+    {
+        if($id) {
+            $data = $this->model_phase->getPhaseData($id);
+            echo json_encode($data);
+        }
+    }
+
+
+    //-->  For creation of drop-down list 
+
+    public function fetchActivePhase() 
+    {
+        $data = $this->model_phase->getActivePhase();
+        echo json_encode($data);
+
+    }
+
+
+
     //--> Redirects to the manage phase page
 
 	public function index()
@@ -41,7 +64,8 @@ class Phase extends Admin_Controller
             $buttons = '';
 
             if(in_array('updatePhase', $this->permission)) {
-                $buttons .= '<a href="'.base_url('phase/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';}
+                $buttons .= '<a href="'.base_url('phase/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                $name='<a href="'.base_url('phase/update/'.$value['id']).'">'.$value['name'].'</a>';}
 
             if(in_array('deletePhase', $this->permission)) {
                 $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';}
@@ -52,7 +76,7 @@ class Phase extends Admin_Controller
             
 			$result['data'][$key] = array(
                 $icon,
-			    $value['name'],
+			    $name,
 				$value['code'],
                	$value['remark'],                
 				$active,

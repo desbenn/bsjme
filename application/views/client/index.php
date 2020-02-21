@@ -30,18 +30,30 @@
         <?php endif; ?>
 
         <div class="row">
-              <div class="col-md-6 col-xs-6 form-inline clearfix">
+              <div class="col-md-4 col-xs-4 form-inline clearfix">
                 <?php if(in_array('createClient', $user_permission)): ?>
                   <a href="<?php echo base_url('client/create') ?>" class="btn btn-primary">Add Client</a>
                 <?php endif; ?>
               </div>
 
-               <!-- If the user can search for a specific consultant, the drop-down list will appear -->
+               <div class="col-md-4 col-xs-4 form-inline clearfix" align="right">
+                  <div class="form-group">
+                    <label for="activity">Activity&nbsp;&nbsp;&nbsp;</label>
+                    <select class="custom-search-filter form-control" id="activity" name="activity" autocomplete="off">
+                       <option value="all">All Activity</option>
+                        <?php foreach ($activity as $k => $v): ?>
+                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('activity', $v['id']); ?>><?php echo $v['name'] ?></option>
+                        <?php endforeach ?>
+                      </select>
+                  </div>
+                </div>
+
+             <!-- If the user can search for a specific consultant, the drop-down list will appear -->
              <?php if(in_array('viewSearchConsultant', $user_permission)): ?>
-                  <div class="col-md-6 col-xs-6 form-inline clearfix" align="right">
+                  <div class="col-md-4 col-xs-4 form-inline clearfix" align="right">
                     <div class="form-group">
-                      <label for="consultant">Consultant</label>
-                      <select class="custom-consultant-filter form-control" id="consultant" name="consultant" autocomplete="off">
+                      <label for="consultant">Consultant&nbsp;&nbsp;&nbsp;</label>
+                      <select class="custom-search-filter form-control" id="consultant" name="consultant" autocomplete="off">
                          <option value="all">All Consultant</option>
                           <?php foreach ($consultant as $k => $v): ?>
                           <option value="<?php echo $v['id'] ?>" <?php echo set_select('consultant', $v['id']); ?>><?php echo $v['name'] ?></option>
@@ -123,13 +135,14 @@ $(document).ready(function() {
   $("#mainClientNav").addClass('active');
 
  //THE CONSULTANT FILTER CONTROLS
-  var $consultantFilter = $('.custom-consultant-filter');
+  var $consultantFilter = $('.custom-search-filter');
 
   manageTable = $('#manageTable').DataTable({
     'ajax': {
       'url': base_url+'client/fetchClientData/',
       'data': {
         'consultant': $('[name="consultant"]').val(),
+        'activity': $('[name="activity"]').val(),
       }
     },
     'order':  []
@@ -145,10 +158,12 @@ $(document).ready(function() {
         'url': base_url+'client/fetchClientData/',        
         'data': {
           'consultant': $('[name="consultant"]').val(),
+          'activity': $('[name="activity"]').val(),
         }
       },
      'order': []
     });
+
   });
 
 });

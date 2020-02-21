@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 20 fév. 2020 à 20:53
+-- Généré le :  ven. 21 fév. 2020 à 14:30
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active 2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `category`
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 INSERT INTO `client` (`id`, `trn`, `activity_id`, `attempt`, `city_id`, `county_id`, `parish_id`, `address`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `phone`, `postal_box`, `postal_code`, `remark`, `website`, `updated_date`, `updated_by`) VALUES
 (6, 'TRN002', 1, 0, 1, 1, 1, '888 Street One', 'M. Untel', 'Company No 2', '', 'Director name', 'TRN002', 'district1', 'director@hotmail.com', '8765432', '12345678', 'H3C0G3', 'H3C0G3', 'remark', 'website', '2019-12-04 19:53:23', 18),
-(8, 'TRN001', 1, 0, 0, 1, 1, '999 Street 9', 'Mr Number One', 'Company No 1', '', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '2019-12-23 00:32:45', 18),
+(8, 'TRN001', 1, 0, 0, 8, 1, '999 Street 9', 'Mr Number One', 'Company No 1', '', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '2020-02-21 05:24:01', 18),
 (9, 'TRN004', 2, 0, 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', '', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', '2019-12-23 16:00:12', 18),
 (10, '123456789', 3, 2, 1, 1, 1, '6 Wichester Road', 'Nicholas Jumpp', 'Bureau of Standards', 'Nicholas Jumpp', '', '123456789', '', 'jumppnicholas1@gmail.com', '', '1-876-788-9327', '', '', '', 'www.bsj.org.jm', '2020-02-17 13:51:17', 18);
 
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultation`
@@ -274,7 +274,8 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `remark`, `updated_date`, `updated_by`) VALUES
 (6, '5678', 8, 6, 'null', 1, 0, 4, 1, 13, '', '', NULL, '2019-12-03', NULL, 'Production of a manual for Exportation of coffee', '', '', '                                                                                                                                                                                                                                                                                                                                                                                ', '2019-12-10 14:47:28', 18),
 (10, 'CON001', 5, 8, 'null', 2, 0, 1, 1, 11, '', '', NULL, '2019-12-22', NULL, 'Consultation no 1', '', '', '                                                                                                                                                                                                                                                                                                ', '2019-12-23 00:33:28', 18),
-(11, '12345', 4, 8, '[\"30\"]', 4, 0, 1, 1, 11, '', '', NULL, '2019-12-24', NULL, 'Help for development', '', '', '                                                                    ', '2019-12-24 17:55:08', 18);
+(11, '12345', 4, 8, '[\"30\"]', 4, 0, 1, 1, 11, '', '', NULL, '2019-12-24', NULL, 'Help for development', '', '', '                                                                    ', '2019-12-24 17:55:08', 18),
+(12, 'CON999', 11, 6, '[\"29\"]', 1, 0, 2, 2, 12, 'c', 'a', '0000-00-00', '2020-02-21', '0000-00-00', 'Test', 'b', 'd', 'e     ', '2020-02-21 14:26:39', 18);
 
 -- --------------------------------------------------------
 
@@ -522,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `phase` (
 --
 
 INSERT INTO `phase` (`id`, `code`, `name`, `icon`, `icon_type`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(1, '1', 'Phase 1', 'vacance-gif-0301.gif', 'image/gif', '', 1, '2020-02-21 01:33:45', 18),
+(1, '1', 'Phase 1', 'icons8-beach-50.png', 'image/png', '', 1, '2020-02-21 02:02:03', 18),
 (2, '2', 'Phase 2', 'icons8-hotel-room-key-50.png', 'image/png', '', 1, '2020-02-21 01:43:21', 18),
 (3, '3', 'Phase 3', 'icons8-check-all-50.png', '', '', 1, '2020-02-21 01:34:53', 18),
 (4, '4', 'Phase 4', 'icons8-cafe-502.png', 'image/png', '<p>aaaa</p>', 1, '2020-02-21 01:40:31', 18);
@@ -1037,7 +1038,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `status`

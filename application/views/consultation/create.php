@@ -31,15 +31,15 @@
 
         <div class="box">
           <div class="box-header"></div>
-          <!-- /.box-header -->
           <form role="form" action="<?php base_url('consultation/create') ?>" method="post" enctype="multipart/form-data">
               <div class="box-body">
 
                 <?php echo validation_errors(); ?>
 
-                <!-- /row divide by 3-->
+
                 <div class="row">
-                  <div class="col-md-3 col-xs-3">
+
+                  <div class="col-md-2 col-xs-2">
                     <div class="form-group">
                       <label for="consultation_no">Consultation No <font color="red">*</font></label>
                       <input type="text" class="form-control" id="consultation_no" name="consultation_no" autocomplete="off"
@@ -48,13 +48,26 @@
                   </div>
 
 
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="description">Description <font color="red">*</font></label>
                       <input type="text" class="form-control" id="description" name="description" autocomplete="off"
                       value="<?php echo set_value('description'); ?>"/>
                     </div>
                   </div>
+
+                   <div class="col-md-3 col-xs-3">
+                  <div class="form-group">
+                    <label for="sector">Sector <font color="red">*</font></label>
+                    <select class="form-control select_group" id="sector" name="sector">
+                      <option value=""></option>
+                      <?php foreach ($sector as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('sector', $v['id']); ?>>
+                      <?php echo $v['name'] ?></option>
+                      <?php endforeach ?>
+                      </select>
+                  </div>
+                </div>
 
                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
@@ -70,11 +83,12 @@
                 
               </div> 
 
-              <!-- /row divide by 4-->
-              <div class="row">
 
-              <div class="col-md-6 col-xs-6">
-                <div class="form-group">
+
+             <div class="row">
+
+                 <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
                   <label for="client">Company Name <font color="red">*</font></label>
                   <select class="form-control select_group" id="client" name="client">
                         <option value=""></option>
@@ -86,6 +100,34 @@
                       </select>
                   </div>    
                 </div>
+
+                  <div class="col-md-2 col-xs-2">
+                    <div class="form-group">
+                      <label for="date_creation">Date creation</label></label>
+                      <input type="date" class="form-control" id="date_creation" name="date_creation" autocomplete="off"
+                      value="<?php echo date('Y-m-d'); ?>" >
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-xs-2">
+                    <div class="form-group">
+                      <label for="date_begin">Date begin</label></label>
+                      <input type="date" class="form-control" id="date_begin" name="date_begin" autocomplete="off">
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-xs-2">
+                    <div class="form-group">
+                      <label for="date_end">Date end</label></label>
+                      <input type="date" class="form-control" id="date_end" name="date_end" autocomplete="off">
+                    </div>
+                  </div>
+
+               </div>
+               
+
+
+               <div class="row">              
 
                 <div class="col-md-3 col-xs-3">
                     <div class="form-group">
@@ -110,36 +152,6 @@
                       </select>
                     </div>
                   </div>   
-
-              </div>
-
-
-
-                <!-- /row divide by 4-->
-                <div class="row">
-
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="date_creation">Date creation</label></label>
-                      <input type="date" class="form-control" id="date_creation" name="date_creation" autocomplete="off"
-                      value="<?php echo date('Y-m-d'); ?>" >
-                    </div>
-                  </div>
-
-                <div class="col-md-3 col-xs-3">
-                  <div class="form-group">
-                    <label for="sector">Sector <font color="red">*</font></label>
-                    <select class="form-control select_group" id="sector" name="sector">
-                      <option value=""></option>
-                      <?php foreach ($sector as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('sector', $v['id']); ?>>
-                      <?php echo $v['name'] ?></option>
-                      <?php endforeach ?>
-                      </select>
-                  </div>
-                </div>
-
-                
 
                 <div class="col-md-3 col-xs-3">
                     <div class="form-group">
@@ -166,10 +178,9 @@
                   </div>
 
                 </div>
-                <!-- /end row divide by 4-->
 
 
-               <!-- /row divide by 2-->
+
                 <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <div class="form-group">
@@ -186,7 +197,7 @@
                   </div>
                 </div>  
 
-                <!-- /row divide by 2-->
+
                 <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <div class="form-group">
@@ -205,8 +216,7 @@
 
                 <div class="form-group">
                   <label for="remark">Remark</label>
-                  <textarea type="text" class="form-control" id="remark" rows="3" name="remark" autocomplete="off">
-                    <?php echo set_value('remark'); ?></textarea>
+                  <textarea type="text" class="form-control" id="remark" rows="3" name="remark" autocomplete="off"><?php echo set_value('remark'); ?></textarea>
                 </div>
 
 

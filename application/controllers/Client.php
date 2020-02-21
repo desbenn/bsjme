@@ -23,6 +23,8 @@ class Client extends Admin_Controller
         if(!in_array('viewClient', $this->permission)) {redirect('dashboard', 'refresh');} 
 
         $this->data['consultant'] = $this->model_user->getActiveConsultant(); 
+        $this->data['activity'] = $this->model_activity->getActiveActivity(); 
+
 		$this->render_template('client/index', $this->data);
 	}
 
@@ -47,6 +49,8 @@ class Client extends Admin_Controller
             $consultant = '"'.$consultant.'"';
         }
 
+        $activity = $this->input->get('activity') ?? NULL;
+
 
         //--> If the Profile is a Client, we must read only the consultation of the client
         //    The client trn is the username given to the client to access the system
@@ -56,7 +60,7 @@ class Client extends Admin_Controller
            $trn = "'".$this->session->username."'";
            $data = $this->model_client->getClientByClient($trn);
         } else {
-            $data = $this->model_client->getClientByConsultant($consultant);
+            $data = $this->model_client->getClientByConsultant($consultant,$activity);
         }
 
 

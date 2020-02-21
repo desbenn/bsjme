@@ -32,15 +32,24 @@ class Model_client extends CI_Model
 
 	//--> Get the data for a specific consultant or for all
 
-	public function getClientByConsultant($consultant)
+	public function getClientByConsultant($consultant,$activity)
 	{
 
+		if ($activity == 'all') {
+			$activity_from = '0';
+			$activity_to = '999';
+		} else  {
+			$activity_from = $activity;
+			$activity_to = $activity;	
+			
+		}
 		if ($consultant == 'all') {
 			$sql = "SELECT DISTINCT client.id,activity_id,
 			               company_name,trn,client_name,activity.name AS 'activity_name'
 			FROM client
 			     LEFT JOIN consultation ON consultation.client_id = client.id
 			     JOIN activity ON client.activity_id = activity.id
+			WHERE activity_id BETWEEN $activity_from AND $activity_to     
 			ORDER by client.activity_id DESC,company_name";
 	    } else {
 
@@ -50,6 +59,7 @@ class Model_client extends CI_Model
 			        LEFT JOIN consultation ON consultation.client_id = client.id
 			        JOIN activity ON client.activity_id = activity.id
 		    WHERE consultation.consultant_id LIKE '%$consultant%'
+		          AND activity_id BETWEEN $activity_from AND $activity_to    
 			ORDER by client.activity_id DESC,company_name";
 	    }
 
