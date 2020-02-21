@@ -135,6 +135,7 @@ $autoload['language'] = array('english');
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array(
+	'model_activity',
     'model_answer',
 	'model_auth',
 	'model_category',

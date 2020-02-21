@@ -142,6 +142,8 @@ class Consultation extends Admin_Controller
                 'consultant_id' => json_encode($this->input->post('consultant')),
                 'consultation_no' => $this->input->post('consultation_no'),                
                 'date_creation' => $this->input->post('date_creation'),
+                'date_begin' => $this->input->post('date_begin'),
+                'date_end' => $this->input->post('date_end'),
                 'description' => $this->input->post('description'),
                 'exemption' => $this->input->post('exemption'),
                 'management_review_time' => $this->input->post('management_review_time'),               
@@ -236,6 +238,8 @@ class Consultation extends Admin_Controller
                 'consultant_id' => json_encode($this->input->post('consultant')),
                 'consultation_no' => $this->input->post('consultation_no'),                
                 'date_creation' => $this->input->post('date_creation'),
+                'date_begin' => $this->input->post('date_begin'),
+                'date_end' => $this->input->post('date_end'),
                 'description' => $this->input->post('description'),
                 'exemption' => $this->input->post('exemption'),
                 'management_review_time' => $this->input->post('management_review_time'),               
@@ -244,6 +248,7 @@ class Consultation extends Admin_Controller
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
                 'status_id' => $this->input->post('status'),
+                'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
             );
 

@@ -71,6 +71,7 @@ class Status extends Admin_Controller
 
 			if(in_array('updateStatus', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
+				$name='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['status_name'].'</a>';
 			}
 
 			if(in_array('deleteStatus', $this->permission)) {
@@ -83,7 +84,7 @@ class Status extends Admin_Controller
 			$result['data'][$key] = array(
 				$value['phase_code'],
 				$value['code'],
-				$value['status_name'],						
+				$name,				
 				$active,
 				$buttons
 			);

@@ -56,13 +56,12 @@ class Model_report extends CI_Model
 	{
 		$sql = "SELECT client.*,parish.name AS 'parish_name',
 			county.name AS 'county_name',city.name AS 'city_name',
-			CASE WHEN client.active = 1 THEN 'Active' 
-			     WHEN client.active = 2 THEN 'Inactive' 
-			     ELSE 'pending' END AS 'active'
+			activity.name AS 'activity_name'
 		FROM client
 			 LEFT JOIN parish ON client.parish_id = parish.id
 			 LEFT JOIN county ON client.county_id = county.id
 			 LEFT JOIN city ON client.city_id = city.id
+			 JOIN activity ON client.activity_id = activity.id
 		WHERE client.id = ?";
 		$query = $this->db->query($sql, array($client_id));
 		return $query->result();
@@ -446,6 +445,14 @@ class Model_report extends CI_Model
 			$sql = "SELECT id,name,code,
 					CASE WHEN active = 1 THEN 'Yes' else 'No' END AS 'active'
 					FROM inquiry_type ORDER BY name";
+			$query = $this->db->query($sql, array());
+			return $query->result();
+		}
+
+		elseif ($setting == 'activity') {
+			$sql = "SELECT id,name,'no code' AS 'code',
+					CASE WHEN active = 1 THEN 'Yes' else 'No' END AS 'active'
+					FROM activity ORDER BY name";
 			$query = $this->db->query($sql, array());
 			return $query->result();
 		}

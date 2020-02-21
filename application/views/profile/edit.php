@@ -102,6 +102,22 @@
                   </tr>
 
                   <tr>
+                    <td>Activity</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createActivity" <?php if($serialize_permission) {
+                      if(in_array('createActivity', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateActivity" <?php if($serialize_permission) {
+                      if(in_array('updateActivity', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewActivity" <?php if($serialize_permission) {
+                      if(in_array('viewActivity', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteActivity" <?php if($serialize_permission) {
+                      if(in_array('deleteActivity', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr> 
+
+                  <tr>
                     <td>Requirement</td>
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createRequirement" <?php if($serialize_permission) {
                       if(in_array('createRequirement', $serialize_permission)) { echo "checked"; }
@@ -115,7 +131,7 @@
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteRequirement" <?php if($serialize_permission) {
                       if(in_array('deleteRequirement', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
-                  </tr>                  
+                  </tr>                         
                                
                 </tbody> 
               </table>

@@ -23,6 +23,8 @@ class Client extends Admin_Controller
         if(!in_array('viewClient', $this->permission)) {redirect('dashboard', 'refresh');} 
 
         $this->data['consultant'] = $this->model_user->getActiveConsultant(); 
+        $this->data['activity'] = $this->model_activity->getActiveActivity(); 
+
 		$this->render_template('client/index', $this->data);
 	}
 
@@ -47,6 +49,8 @@ class Client extends Admin_Controller
             $consultant = '"'.$consultant.'"';
         }
 
+        $activity = $this->input->get('activity') ?? NULL;
+
 
         //--> If the Profile is a Client, we must read only the consultation of the client
         //    The client trn is the username given to the client to access the system
@@ -56,7 +60,7 @@ class Client extends Admin_Controller
            $trn = "'".$this->session->username."'";
            $data = $this->model_client->getClientByClient($trn);
         } else {
-            $data = $this->model_client->getClientByConsultant($consultant);
+            $data = $this->model_client->getClientByConsultant($consultant,$activity);
         }
 
 
@@ -64,18 +68,6 @@ class Client extends Admin_Controller
         {
 
             $company_name = $value['company_name'];
-
-            //--> Prepare the list of consultants to view in the datatable
-
-            $consultant = json_decode($value['consultant_id']);
-            $consultant_list = '';
-           // Get the name of each consultant
-            if (!$consultant == null) {
-                foreach($consultant as $k=>$v){
-                       $consultant_data = $this->model_user->getConsultantData($consultant[$k]);
-                       $consultant_list = $consultant_list.' '.$consultant_data['name'];
-                   }
-            }
 
             $buttons = '';
 
@@ -89,16 +81,19 @@ class Client extends Admin_Controller
             if(in_array('viewClient', $this->permission)) {
                 $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';}
 
-            switch ($value['active']) {
+            $activity = $value['activity_name'];      
+
+            switch ($value['activity_id']) {
                 case '1':
-                      $active = '<span class="label label-success">Active</span>';
+                      $activity = '<span class="label label-success">'.$value['activity_name'].'</span>';
                       break;
                 case '2':
-                      $active = '<span class="label label-warning">Inactive</span>';
+                      $activity = '<span class="label label-warning">'.$value['activity_name'].'</span>';
                       break;
                 case '3':
-                      $active = '<span class="label label-danger">Pending</span>';
+                      $activity = '<span class="label label-danger">'.$value['activity_name'].'</span>';
                       break;
+
             }
 
             //$active = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
@@ -107,9 +102,7 @@ class Client extends Admin_Controller
 				$company_name,
 				$value['trn'],
                 $value['client_name'],  
-                $value['consultation_no'],
-                $consultant_list,          
-				$active,
+                $activity,
 				$buttons
 			);
 
@@ -152,7 +145,8 @@ class Client extends Admin_Controller
     {
         if(!in_array('createClient', $this->permission)) {redirect('dashboard', 'refresh');}
 
-        $this->form_validation->set_rules('trn', 'trn', 'trim|required|is_unique[client.trn]');
+        $this->form_validation->set_rules('activity', 'Activity', 'trim|required');
+        $this->form_validation->set_rules('trn', 'TRN', 'trim|required|is_unique[client.trn]');
         $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
         $this->form_validation->set_rules('client_name', 'Client Name', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
@@ -165,7 +159,7 @@ class Client extends Admin_Controller
         if ($this->form_validation->run() == TRUE) {
             // True case, we create the new client
             $data = array(
-                'active' => $this->input->post('active'),
+                'activity_id' => $this->input->post('activity'),
                 'address' => $this->input->post('address'),
                 'city_id' => $this->input->post('city'),
                 'client_name' => $this->input->post('client_name'),
@@ -206,6 +200,7 @@ class Client extends Admin_Controller
 
         //--> We are in the preparation of the form and we prepare the drop-down list needed in the create form
 
+        $this->data['activity'] = $this->model_activity->getActiveActivity();
         $this->data['county'] = $this->model_county->getActiveCounty();
         $this->data['city'] = $this->model_city->getActiveCity();
         $this->data['parish'] = $this->model_parish->getActiveParish();
@@ -227,7 +222,8 @@ class Client extends Admin_Controller
 
         if(!$client_id) {redirect('dashboard', 'refresh');}
 
-        $this->form_validation->set_rules('trn', 'trn', 'trim|required');
+        $this->form_validation->set_rules('activity', 'Activity', 'trim|required');
+        $this->form_validation->set_rules('trn', 'TRN', 'trim|required');
         $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
         $this->form_validation->set_rules('client_name', 'Client Name', 'trim|required');
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
@@ -252,7 +248,7 @@ class Client extends Admin_Controller
                 }
 
             $data = array(
-                'active' => $this->input->post('active'),
+                'activity_id' => $this->input->post('activity'),
                 'address' => $this->input->post('address'),
                 'city_id' => $this->input->post('city'),
                 'company_name' => $this->input->post('company_name'),
@@ -271,6 +267,7 @@ class Client extends Admin_Controller
                 'postal_code' => $this->input->post('postal_code'),
                 'remark' => $this->input->post('remark'),
                 'website' => $this->input->post('website'),
+                'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
             );
 
@@ -289,6 +286,7 @@ class Client extends Admin_Controller
         //--> We are in edit of the form, preparation of the drop down list
         //    and reading of the client data
 
+        $this->data['activity'] = $this->model_activity->getActiveActivity();
         $this->data['county'] = $this->model_county->getActiveCounty();
         $this->data['city'] = $this->model_city->getActiveCity();
         $this->data['parish'] = $this->model_parish->getActiveParish();

@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Category extends Admin_Controller
+class Activity extends Admin_Controller
 {
 	public function __construct()
 	{
@@ -10,33 +10,33 @@ class Category extends Admin_Controller
 
 		$this->not_logged_in();
 
-		$this->data['page_title'] = 'Category';
+		$this->data['page_title'] = 'Activity';
 
 	}
 
 
-	//--> Redirects to the manage category page
+	//--> Redirects to the manage activity page
 
 	public function index()
 	{
 
-		if(!in_array('viewCategory', $this->permission)) {
+		if(!in_array('viewActivity', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 
-		$this->render_template('category/index', $this->data);
+		$this->render_template('activity/index', $this->data);
 	}
 
 
-	//--> It checks if it gets the category id and retrieves
-	//    the category information from the category model and
+	//--> It checks if it gets the activity id and retrieves
+	//    the activity information from the activity model and
 	//    returns the data into json format.
 	//    This function is invoked from the view page.
 
-	public function fetchCategoryDataById($id)
+	public function fetchActivityDataById($id)
 	{
 		if($id) {
-			$data = $this->model_category->getCategoryData($id);
+			$data = $this->model_activity->getActivityData($id);
 			echo json_encode($data);
 		}
 
@@ -44,25 +44,25 @@ class Category extends Admin_Controller
 	}
 
 
-	//--> Fetches the category value from the category table
+	//--> Fetches the activity value from the activity table
 	//    This function is called from the datatable ajax function
 
-	public function fetchCategoryData()
+	public function fetchActivityData()
 	{
 		$result = array('data' => array());
 
-		$data = $this->model_category->getCategoryData();
+		$data = $this->model_activity->getActivityData();
 
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
 
-			if(in_array('updateCategory', $this->permission)) {
+			if(in_array('updateActivity', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
 				$name='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['name'].'</a>';
 			}
 
-			if(in_array('deleteCategory', $this->permission)) {
+			if(in_array('deleteActivity', $this->permission)) {
 				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
 			}
 
@@ -80,28 +80,28 @@ class Category extends Admin_Controller
 	}
 
 
-	//--> It checks the category form validation
+	//--> It checks the activity form validation
 	//    and if the validation is true (valid) then it inserts the data into the database
 	//    and returns the json format operation messages
 
 	public function create()
 	{
-		if(!in_array('createCategory', $this->permission)) {
+		if(!in_array('createActivity', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 
 		$response = array();
 
-		$this->form_validation->set_rules('category_name', 'Name', 'trim|required');
+		$this->form_validation->set_rules('activity_name', 'Name', 'trim|required');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
         	$data = array(
-        		'name' => $this->input->post('category_name'),
+        		'name' => $this->input->post('activity_name'),
         		'active' => $this->input->post('active'),
         	);
 
-        	$create = $this->model_category->create($data);
+        	$create = $this->model_activity->create($data);
         	if($create == true) {
         		$response['success'] = true;
         		$response['messages'] = 'Successfully created';
@@ -122,14 +122,14 @@ class Category extends Admin_Controller
 	}
 
 
-	//--> It checks the category form validation
+	//--> It checks the activity form validation
 	//    and if the validation is true (valid) then it updates the data into the database
 	//    and returns the json format operation messages
 
 	public function update($id)
 	{
 
-		if(!in_array('updateCategory', $this->permission)) {
+		if(!in_array('updateActivity', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 
@@ -137,16 +137,16 @@ class Category extends Admin_Controller
 		$response = array();
 
 		if($id) {
-			$this->form_validation->set_rules('edit_category_name', 'Name', 'trim|required');
+			$this->form_validation->set_rules('edit_activity_name', 'Name', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
 	        if ($this->form_validation->run() == TRUE) {
 	        	$data = array(
-	        		'name' => $this->input->post('edit_category_name'),
+	        		'name' => $this->input->post('edit_activity_name'),
 	        		'active' => $this->input->post('edit_active'),
 	        	);
 
-	        	$update = $this->model_category->update($data, $id);
+	        	$update = $this->model_activity->update($data, $id);
 	        	if($update == true) {
 	        		$response['success'] = true;
 	        		$response['messages'] = 'Successfully updated';
@@ -172,25 +172,25 @@ class Category extends Admin_Controller
 	}
 
 
-	//--> It removes the category information from the database
+	//--> It removes the activity information from the database
 	//    and returns the json format operation messages
 
 	public function remove()
 	{
-		if(!in_array('deleteCategory', $this->permission)) {
+		if(!in_array('deleteActivity', $this->permission)) {
 			redirect('dashboard', 'refresh');}
 
-		$category_id = $this->input->post('category_id');
+		$activity_id = $this->input->post('activity_id');
 
         $response = '';
 		$response = array();
 
-		if($category_id) {
+		if($activity_id) {
 			//---> Validate if the information is used in post table
-			$total_post = $this->model_category->checkIntegrity($category_id);
+			$total_post = $this->model_activity->checkIntegrity($activity_id);
 			//---> If no post have this information, we can delete
             if ($total_post == 0) {
-				$delete = $this->model_category->remove($category_id);
+				$delete = $this->model_activity->remove($activity_id);
 				if($delete == true) {
 					$response['success'] = true;
 					$response['messages'] = 'Successfully deleted';}

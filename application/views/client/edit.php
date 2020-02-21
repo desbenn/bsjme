@@ -120,7 +120,7 @@
 							 </div>
 						 </div>
 
-						 <div class="col-md-5 col-xs-5">
+						 <div class="col-md-4 col-xs-4">
 							<div class="form-group">
 								<label for="company_name">Company Name <font color="red">*</font></label>
 								<input type="text" class="form-control" id="company_name" name="company_name" autocomplete="off"
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-3 col-xs-3">
+						<div class="col-md-4 col-xs-4">
 							<div class="form-group">
 								<label for="client_name">Client Name <font color="red">*</font></label>
 								<input type="text" class="form-control" id="client_name" name="client_name" autocomplete="off"
@@ -136,14 +136,18 @@
 							</div>
 						</div>
 
-						<div class="col-md-2 col-xs-2" align="left">
-		                    <div class="radio">
-		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='1') echo "checked='checked'"; ?> value="1" <?php echo $this->form_validation->set_radio('active', 1); ?> />Active</label><br>
-
-		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='2') echo "checked='checked'"; ?> value="2" <?php echo $this->form_validation->set_radio('active', 2); ?> />Inactive</label><br>
-		                      <label><input type="radio" name="active" id="active" class="" <?php if($client_data['active']=='3') echo "checked='checked'"; ?> value="3" <?php echo $this->form_validation->set_radio('active', 2); ?> />Pending</label>
-		                    </div>
-                  		</div>
+						<div class="col-md-2 col-xs-2">
+							<div class="form-group">
+								<label for="activity">Activity <font color="red">*</font></label>
+								<select class="form-control select_group" id="activity" name="activity">
+									<option value=""></option>
+									<?php foreach ($activity as $k => $v): ?>
+										<option value="<?php echo $v['id'] ?>"
+										<?php if(set_value('activity', isset($client_data['activity_id']) ? $client_data['activity_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+									<?php endforeach ?>
+								</select>
+							</div>
+						</div>
 
 					</div>
 

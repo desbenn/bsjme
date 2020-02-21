@@ -78,23 +78,15 @@ class Model_sub_clause extends CI_Model
 		}
 	}
 
-	//---> Validate if the sub_clause is used in table Item_sub_clause
+	//---> Validate if the sub_clause is used in table question
 
 	public function checkIntegrity($id)
 	{
-		
-		$num_rows = 0;
-		
-		/*$sql = "SELECT * FROM clause WHERE sub_clause_id = ?";
+				
+		$sql = "SELECT * FROM question WHERE sub_clause_id = ?";
 		$query = $this->db->query($sql, array($id));
 		return $query->num_rows();
 
-		$sql = "SELECT * FROM asset_sub_clause WHERE sub_clause_id = ?";
-		$query = $this->db->query($sql, array($id));
-		$num_rows = $num_rows + $query->num_rows();*/
-
-		return $num_rows;
-		
 	}
 
 }

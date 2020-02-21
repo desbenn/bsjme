@@ -28,11 +28,16 @@
             <div class="panel-heading bg-black">Client / Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px"> 
+                <ul class="chart-legend" style="height:170px"> 
+
+                <?php if(in_array('createActivity', $user_permission) || in_array('updateActivity', $user_permission) || in_array('viewActivity', $user_permission) || in_array('deleteActivity', $user_permission)): ?>
+                  <li id="activityNav">
+                    <a href="<?php echo base_url('activity/') ?>">Client Activity</a></li>
+                <?php endif; ?> 
 
                 <?php if(in_array('createRequirement', $user_permission) || in_array('updateRequirement', $user_permission) || in_array('viewRequirement', $user_permission) || in_array('deleteRequirement', $user_permission)): ?>
                   <li id="requirementNav">
-                    <a href="<?php echo base_url('requirement/') ?>">Requirement</a></li>
+                    <a href="<?php echo base_url('requirement/') ?>">Client Requirement</a></li>
                 <?php endif; ?> 
 
                 <?php if(in_array('createProgram', $user_permission) || in_array('updateProgram', $user_permission) || in_array('viewProgram', $user_permission) || in_array('deleteProgram', $user_permission)): ?>
@@ -78,7 +83,7 @@
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">                
+                <ul class="chart-legend" style="height:170px">                
 
                 <?php if(in_array('createStandard', $user_permission) || in_array('updateStandard', $user_permission) || in_array('viewStandard', $user_permission) || in_array('deleteStandard', $user_permission)): ?>
                   <li id="questionNav">
@@ -124,7 +129,7 @@
             <div class="panel-heading bg-black">Location</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">
+                <ul class="chart-legend" style="height:170px">
 
                 <?php if(in_array('createCounty', $user_permission) || in_array('updateCounty', $user_permission) || in_array('viewCounty', $user_permission) || in_array('deleteCounty', $user_permission)): ?>
                   <li id="countyNav">
@@ -155,7 +160,7 @@
             <div class="panel-heading bg-black">User</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">
+                <ul class="chart-legend" style="height:170px">
 
                 <?php if(in_array('viewMyUser', $user_permission)): ?>
                   <li><a href="<?php echo base_url('user/my_user/') ?>">My User</a></li>
@@ -188,7 +193,7 @@
             <div class="panel-heading bg-black">News</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">
+                <ul class="chart-legend" style="height:170px">
 
                   <?php if(in_array('createCategory', $user_permission) || in_array('updateCategory', $user_permission) || in_array('viewCategory', $user_permission) || in_array('deleteCategory', $user_permission)): ?>
                   <li id="categoryNav">
@@ -213,7 +218,7 @@
             <div class="panel-heading bg-black">System Maintenance</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:160px">                  
+                <ul class="chart-legend" style="height:170px">                  
 
                   <li><a href="<?php echo base_url('backup/database_backup') ?>">Backup Database</a></li>
                   <li><a href="<?php echo base_url('backup/zip_upload') ?>">Backup Upload (Documents and Posts)</a></li>    
