@@ -43,9 +43,11 @@ class Program extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
+            $program_name = $value['program_name'];
 
 			if(in_array('updateProgram', $this->permission)) {
                 $buttons .= '<a href="'.base_url('program/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                $program_name = '<a href="'.base_url('program/update/'.$value['id']).'">'.$value['program_name'].'</a>';
             }
 
             if(in_array('deleteProgram', $this->permission)) { 
@@ -53,7 +55,7 @@ class Program extends Admin_Controller
             }
 
 			$result['data'][$key] = array(	
-                $value['program_name'],		
+                $program_name,		
 				$value['standard_name'],
 				$value['clause_code'],                
 				$buttons

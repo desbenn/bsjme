@@ -41,14 +41,14 @@
 
                   <div class="col-md-2 col-xs-2">
                     <div class="form-group">
-                      <label for="consultation_no">Consultation No <font color="red">*</font></label>
+                      <label for="consultation_no">No <font color="red">*</font></label>
                       <input type="text" class="form-control" id="consultation_no" name="consultation_no" autocomplete="off"
                       value="<?php echo set_value('consultation_no'); ?>"/>
                     </div>
                   </div>
 
 
-                  <div class="col-md-4 col-xs-4">
+                  <div class="col-md-5 col-xs-5">
                     <div class="form-group">
                       <label for="description">Description <font color="red">*</font></label>
                       <input type="text" class="form-control" id="description" name="description" autocomplete="off"
@@ -56,22 +56,9 @@
                     </div>
                   </div>
 
-                   <div class="col-md-3 col-xs-3">
-                  <div class="form-group">
-                    <label for="sector">Sector <font color="red">*</font></label>
-                    <select class="form-control select_group" id="sector" name="sector">
-                      <option value=""></option>
-                      <?php foreach ($sector as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('sector', $v['id']); ?>>
-                      <?php echo $v['name'] ?></option>
-                      <?php endforeach ?>
-                      </select>
-                  </div>
-                </div>
-
-                  <div class="col-md-3 col-xs-3">
+                  <div class="col-md-5 col-xs-5">
                     <div class="form-group">
-                      <label for="consultant">Consultant</label>
+                      <label for="consultant">Consultant(s)</label>
                       <select class="form-control select_group" id="consultant" name="consultant[]" multiple="multiple">
                         <option value=""></option>
                         <?php foreach ($consultant as $k => $v): ?>
@@ -80,24 +67,30 @@
                       </select>
                     </div>
                   </div>
-                
+
               </div> 
 
 
 
              <div class="row">
 
+                 <!-- If the create come from the client edit, we have alrady the client id, in this case
+                      the list will be filled with the client/company and disabled.  If not it means it comes
+                      from the Add consultation and we don't know the client -->
+
                  <div class="col-md-6 col-xs-6">
                     <div class="form-group">
                   <label for="client">Company Name <font color="red">*</font></label>
-                  <select class="form-control select_group" id="client" name="client">
-                        <option value=""></option>
+                  <select class="form-control select_group" id="client_holder" name="client_holder" <?php if($fromClient!=null) echo 'disabled=disabled';?>>
+                        <option value="" hidden selected disabled>Select Client</option> 
                         <?php foreach ($client as $k => $v): ?>
-                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('client', $v['id']); ?>>
+                          <option value="<?php echo $v['id'] ?>" 
+                             <?php if(set_value('client', isset($fromClient) ? $fromClient : '') == $v['id']) { echo "selected='selected'"; } ?> >
                             <?php echo $v['company_name'] ?>/
                             <?php echo $v['address'] ?></option>
                         <?php endforeach ?>
                       </select>
+                      <input type="text" name="client" id="client" value="<?php echo $fromClient ?>" hidden>
                   </div>    
                 </div>
 
@@ -112,7 +105,8 @@
                   <div class="col-md-2 col-xs-2">
                     <div class="form-group">
                       <label for="date_begin">Date begin</label></label>
-                      <input type="date" class="form-control" id="date_begin" name="date_begin" autocomplete="off">
+                      <input type="date" class="form-control" id="date_begin" name="date_begin" autocomplete="off" 
+                       value="<?php echo date('Y-m-d'); ?>" >
                     </div>
                   </div>
 
@@ -127,9 +121,51 @@
                
 
 
-               <div class="row">              
+               <div class="row">   
 
-                <div class="col-md-3 col-xs-3">
+               <div class="col-md-4 col-xs-4">
+                  <div class="form-group">
+                    <label for="program">Program <font color="red">*</font></label>
+                    <select class="form-control select_group" id="program" name="program">
+                      <option value=""></option>
+                      <?php foreach ($program as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('program', $v['id']); ?>>
+                      <?php echo $v['program_name'] ?></option>
+                      <?php endforeach ?>
+                      </select>
+                  </div>
+                </div> 
+
+                <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="phase">Phase <font color="red">*</font></label>
+                      <select class="form-control select_group" id="phase" name="phase">
+                        <?php foreach ($phase as $k => $v): ?>
+                          <option value="<?php echo $v['id'] ?>" <?php echo set_select('phase', $v['id']); ?>>
+                          <?php echo $v['name'] ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="status">Status <font color="red">*</font></label>
+                      <select class="form-control select_group" id="status" name="status">
+                        <?php foreach ($status as $k => $v): ?>
+                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('status', $v['id']); ?>>
+                          <?php echo $v['status_name'] ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                  </div>    
+
+                </div>
+                
+
+                <div class="row">       
+
+                 <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="standard">Standard <font color="red">*</font></label>
                       <select class="form-control select_group" id="standard" name="standard">
@@ -144,38 +180,27 @@
                     </div>
                   </div>  
 
-                  <div class="col-md-3 col-xs-3">
+                  <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="clause">Clause</label>
                       <select class="form-control select_group" id="clause" name="clause">
                         <option value=""></option>                        
                       </select>
                     </div>
-                  </div>   
+                  </div> 
 
-                <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="phase">Phase <font color="red">*</font></label>
-                      <select class="form-control select_group" id="phase" name="phase">
-                        <?php foreach ($phase as $k => $v): ?>
-                          <option value="<?php echo $v['id'] ?>" <?php echo set_select('phase', $v['id']); ?>>
-                          <?php echo $v['name'] ?></option>
-                        <?php endforeach ?>
+                  <div class="col-md-4 col-xs-4">
+                  <div class="form-group">
+                    <label for="sector">Sector <font color="red">*</font></label>
+                    <select class="form-control select_group" id="sector" name="sector">
+                      <option value=""></option>
+                      <?php foreach ($sector as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('sector', $v['id']); ?>>
+                      <?php echo $v['name'] ?></option>
+                      <?php endforeach ?>
                       </select>
-                    </div>
                   </div>
-
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="status">Status <font color="red">*</font></label>
-                      <select class="form-control select_group" id="status" name="status">
-                        <?php foreach ($status as $k => $v): ?>
-                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('status', $v['id']); ?>>
-                          <?php echo $v['status_name'] ?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>
-                  </div>
+                </div>
 
                 </div>
 
@@ -238,6 +263,12 @@
 <!-----------------------------------------------------------  Javascript ------------------------------------------------------------------>
 
 <script type="text/javascript">
+
+var client_holder=document.getElementById('client_holder');
+client_holder.onchange=function()
+{
+  document.getElementById('client').value=client_holder.value;
+}  
 
 var base_url = "<?php echo base_url(); ?>";
 

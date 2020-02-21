@@ -39,7 +39,7 @@ class Model_program extends CI_Model
 
 	public function getActiveProgram()
 	{
-		$sql = "SELECT * FROM program WHERE active = ? ORDER BY name ASC";
+		$sql = "SELECT * FROM program WHERE active = ? ORDER BY program_name ASC";
 		$query = $this->db->query($sql, array(1));
 		return $query->result_array();
 	}

@@ -94,15 +94,15 @@
         <h4 class="modal-title">Delete Consultation</h4>
       </div>
 
-      <form role="form" action="<?php echo base_url('consultation/remove') ?>" method="post" id="removeForm">
+      <form role="form" action="<?php echo base_url('client/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
           <p>All the information about the consultation will be deleted.</p>
-          <p><font color="red">It will not be possible to recover the consultations, performance, inquiry and documents.</font></p>
-          <p>Change the status of the consultation (disabled) if you want to keep the information.</p>
+          <p><font color="red">It will not be possible to recover the answers to the questions.</font></p>
+          <p>Change the activity of the consultation (inactive) if you want to keep the information.</p>
           <p>Do you really want to delete?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
           <button type="submit" class="btn btn-primary">Delete</button>
         </div>
       </form>
@@ -172,7 +172,7 @@ function removeFunc(id)
       $.ajax({
         url: form.attr('action'),
         type: form.attr('method'),
-        data: { consultation_id:id },
+        data: { client_id:id },
         dataType: 'json',
         success:function(response) {
 

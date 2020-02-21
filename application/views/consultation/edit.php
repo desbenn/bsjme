@@ -233,7 +233,7 @@
             <div class="form-group">
               <label for="company">Client</label> 
 
-              <!-- you must have the permission to update the client or create a user -->   
+              <!-- you must have the permission to update the clien -->   
               <?php if(in_array('updateConsultation', $user_permission)): ?>      
                 <?php echo '<a href="'.base_url('client/update/'.$consultation_data['client_id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>'; ?>
               <?php endif; ?>
@@ -242,7 +242,7 @@
               <?php echo $consultation_data['client_name']; ?><br>
               <?php echo 'Mobile: '.$consultation_data['mobile']; ?><br>
               <?php echo 'Phone:  '.$consultation_data['phone']; ?><br>
-              <?php echo $consultation_data['email']; ?>
+              
             </div>
             <div class="form-group">
               <label for="address">Address</label><br>  
@@ -251,31 +251,43 @@
               <?php echo $consultation_data['postal_code']; ?>
             </div>
 
+            <a href="mailto:<?php echo $consultation_data['email']; ?>" class="btn btn-warning">Send Mail</a>
+
+
           </div>  <!-- /box-body -->   
    
         </div>  
         <!----------------------------------------------------end box 1 ------------------------------------------->
 
 
+
       <div class="row">
-        <div class="col-md-12 col-xs-12">
-           <?php if(in_array('updateConsultation', $user_permission)): ?>   <!-- you must have the permission to update to get the Save button -->   
-              <button type="submit" class="btn btn-primary">Save</button>
-           <?php endif; ?>   
-          <?php echo '<a href="'.base_url('report_consultation/REP0I/'.$consultation_data['id']).'" target="_blank"  class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
-          <a href="<?php echo base_url('consultation/') ?>" class="btn btn-warning">Close</a>
+          <div class="col-md-12 col-xs-12">
+              <!-- you must have the permission to give access to a client -->   
+              <?php if(in_array('updateConsultation', $user_permission)): ?>      
+                <?php echo '<a href="'.base_url('user/createUserClient/'.$consultation_data['client_id']).'" class="btn btn-primary">Give Access Client</a>'; ?> 
+              <?php endif; ?>
+            </div>
+       </div>
+       <br> 
+
+       <div class="row">
+        <div class="col-md-12 col-xs-12">           
+          <?php echo '<a href="'.base_url('report_consultation/REP0I/'.$consultation_data['id']).'" target="_blank"  class="btn btn-success">Print Consultation</a>'; ?>
         </div> 
       </div>
       <br>
+
       <div class="row">
           <div class="col-md-12 col-xs-12">
           <?php echo '<a href="'.base_url('Manual01/QPM01/'.$consultation_data['id']).'" target="_blank"  
-          class="btn btn-success">Print The Manual</a>'; ?>
+          class="btn btn-success">Print the Manual&nbsp;&nbsp;&nbsp;&nbsp;</a>'; ?>
           </div>
       </div>
       <br>
       <div class="row">           
         <div class="col-md-12 col-xs-12">
+            Consultation created on <?php echo $consultation_data['date_creation']; ?><br><br>
             Last update <?php echo $consultation_data['updated_date']; ?> by <?php echo $consultation_data['updated_by']; ?>
         </div>    
       </div>  <!-- /end row submit -->
@@ -307,42 +319,33 @@
                   </select>
                 </div>
               </div>
+
+               <div class="col-md-3 col-xs-3">
+                <div class="form-group">
+                  <label for="date_begin">Date begin <font color="red">*</font></label>
+                  <input type="date" class="form-control" id="date_begin" name="date_begin" autocomplete="off"
+                  value="<?php echo set_value('date_begin', isset($consultation_data['date_begin']) ? $consultation_data['date_begin'] : ''); ?>">
+                </div>
+              </div>   
+
               <div class="col-md-3 col-xs-3">
                 <div class="form-group">
-                <label for="standard">Standard <font color="red">*</font></label>
-                <select class="form-control select_group" id="standard" name="standard">
-                  <option value=""></option>
-                  <?php foreach ($standard as $k => $v): ?>
-                    <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('standard', isset($consultation_data['standard_id']) ? $consultation_data['standard_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-              </div>
-             </div>
-
-             <div class="col-md-3 col-xs-3">
-                <div class="form-group">
-                <label for="clause">Clause</label>
-                <select class="form-control select_group" id="clause" name="clause">
-                  <option value=""></option>
-                  <?php foreach ($clause as $k => $v): ?>
-                    <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('clause', isset($consultation_data['clause_id']) ? $consultation_data['clause_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-              </div>
-             </div>
+                  <label for="date_end">Date end <font color="red">*</font></label>
+                  <input type="date" class="form-control" id="date_end" name="date_end" autocomplete="off"
+                  value="<?php echo set_value('date_end', isset($consultation_data['date_end']) ? $consultation_data['date_end'] : ''); ?>">
+                </div>
+              </div>                
 
             </div>  <!-- / end row 1 -->
 
             
             <div class="row">  <!-- row 2 -->
 
-              <div class="col-md-3 col-xs-3">
+              <div class="col-md-2 col-xs-2">
                 <div class="form-group">
-                  <label for="consultation_no">Consultation No <font color="red">*</font></label>
+                  <label for="consultation_no">No <font color="red">*</font></label>
                   <input type="text" class="form-control" id="consultation_no" name="consultation_no" autocomplete="off"
-                  value="<?php echo set_value('consultation_no', isset($consultation_data['consultation_no']) ? $consultation_data['consultation_no'] : ''); ?>" readonly/>
+                  value="<?php echo set_value('consultation_no', isset($consultation_data['consultation_no']) ? $consultation_data['consultation_no'] : ''); ?>">
                 </div>
               </div>
 
@@ -354,11 +357,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3 col-xs-3">
+               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="consultant">Consultant</label>
+                  <label for="consultant">Consultant(s)</label>
                   <?php $consultant_data = json_decode($consultation_data['consultant_id']); ?>
-                  <select class="form-control select_group" id="consultant" name="consultant[]" multiple="multiple" disabled>
+                  <select class="form-control select_group" id="consultant" name="consultant[]" multiple="multiple">
                     <option value=""></option>
                     <?php foreach ($consultant as $k => $v): ?>
                        <option value="<?php echo $v['id'] ?>" 
@@ -366,37 +369,29 @@
                     <?php endforeach ?>
                   </select>
                 </div>
-              </div>
-
+              </div>   
              
-            </div>  <!-- /row 2 -->          
-            
+            </div>  <!-- end /row 2 -->    
 
-            
-            <div class="row"> <!-- row 3 -->  
 
-            <div class="col-md-3 col-xs-3">
+
+
+            <div class="row">  <!-- row 3 -->
+
+              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="date_creation">Date creation <font color="red">*</font></label></label>
-                  <input type="date" class="form-control" id="date_creation" name="date_creation" autocomplete="off"
-                  value="<?php echo set_value('date_creation', isset($consultation_data['date_creation']) ? $consultation_data['date_creation'] : ''); ?>" readonly/>
-                </div>
-              </div>       
-              
-              <div class="col-md-3 col-xs-3">
-                <div class="form-group">
-                  <label for="sector">Sector <font color="red">*</font></label>
-                  <select class="form-control select_group" id="sector" name="sector">
-                    <option value=""></option>
-                    <?php foreach ($sector as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>"<?php if(set_value('sector', isset($consultation_data['sector_id']) ? $consultation_data['sector_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                <label for="program">Program <font color="red">*</font></label>
+                <select class="form-control select_group" id="program" name="program">
+                  <option value=""></option>
+                  <?php foreach ($program as $k => $v): ?>
+                    <option value="<?php echo $v['id'] ?>"
+                    <?php if(set_value('program', isset($consultation_data['program_id']) ? $consultation_data['program_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['program_name'] ?></option>
                     <?php endforeach ?>
-                  </select>
-                </div>
-              </div>                  
+                </select>
+              </div>
+             </div>
 
-              <?php //if(in_array('updateConsultation', $user_permission)): ?>
-              <div class="col-md-3 col-xs-3">
+             <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="property">Phase <font color="red">*</font></label>
                   <select class="form-control select_group" id="phase" name="phase">
@@ -408,9 +403,8 @@
                     </select>
                 </div>
               </div>
-              <?php //endif; ?>
 
-              <div class="col-md-3 col-xs-3">
+              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="status">Status <font color="red">*</font></label>
                   <select class="form-control select_group" id="status" name="status">
@@ -423,10 +417,57 @@
                 </div>
               </div>
               
-            </div>  <!-- /end row 3 --> 
+            </div>  <!-- end /row 3 -->     
+            
+
+            
+            <div class="row"> <!-- row 4 -->  
+
+              
+             <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                <label for="standard">Standard <font color="red">*</font></label>
+                <select class="form-control select_group" id="standard" name="standard">
+                  <option value=""></option>
+                  <?php foreach ($standard as $k => $v): ?>
+                    <option value="<?php echo $v['id'] ?>"
+                    <?php if(set_value('standard', isset($consultation_data['standard_id']) ? $consultation_data['standard_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                    <?php endforeach ?>
+                </select>
+              </div>
+             </div>
+
+             <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                <label for="clause">Clause</label>
+                <select class="form-control select_group" id="clause" name="clause">
+                  <option value=""></option>
+                  <?php foreach ($clause as $k => $v): ?>
+                    <option value="<?php echo $v['id'] ?>"
+                    <?php if(set_value('clause', isset($consultation_data['clause_id']) ? $consultation_data['clause_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                    <?php endforeach ?>
+                </select>
+              </div>
+             </div>  
+
+              
+              <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                  <label for="sector">Sector <font color="red">*</font></label>
+                  <select class="form-control select_group" id="sector" name="sector">
+                    <option value=""></option>
+                    <?php foreach ($sector as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>"<?php if(set_value('sector', isset($consultation_data['sector_id']) ? $consultation_data['sector_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+              </div>        
+       
+              
+            </div>  <!-- /end row 4 --> 
 
 
-            <div class="row"> <!--  row 4 --> 
+            <div class="row"> <!--  row 5 --> 
 
               <div class="col-md-6 col-xs-6">
                 <div class="form-group">
@@ -442,10 +483,10 @@
                 </div>
               </div>
 
-            </div>   <!-- /end row 4 --> 
+            </div>   <!-- /end row 5 --> 
 
 
-            <div class="row"> <!-- /end row 5 --> 
+            <div class="row"> <!-- row 6 --> 
 
               <div class="col-md-6 col-xs-6">
                 <div class="form-group">
@@ -461,16 +502,22 @@
                 </div>
               </div>
 
-            </div>  <!-- /end row 5 -->    
+            </div>  <!-- /end row 6 -->    
 
             <div class="form-group">
               <label for="remark">Remark</label>
-              <textarea type="text" class="form-control" id="remark" name="remark" rows="3" autocomplete="off">
-                <?php echo set_value('remark', isset($consultation_data['remark']) ? $consultation_data['remark'] : ''); ?></textarea>
+              <textarea type="text" class="form-control" id="remark" name="remark" rows="3" autocomplete="off"><?php echo set_value('remark', isset($consultation_data['remark']) ? $consultation_data['remark'] : ''); ?></textarea>
             </div>
 
 
         </div> <!-- /end box body -->
+
+          <div class="box-footer">
+            <?php if(in_array('updateConsultation', $user_permission)): ?>   <!-- you must have the permission to update to get the Save button --> 
+              <button type="submit" class="btn btn-primary">Save</button>
+           <?php endif; ?>   
+            <a href="<?php echo base_url('consultation/') ?>" class="btn btn-warning">Close</a>
+          </div>
 
         </div> 
         <!----------------------------------------------------end  box 2 --------------------------------------------->
@@ -519,7 +566,7 @@
   <div id="question" class="tab-pane fade <?php echo (($active_tab === 'question') ? 'in active' : '') ?>">
     <div class="box">
       <div class="box-body" id="questionForm"> 
-        <table id="manageTable" class="table table-bordered table-striped">
+        <table width='100%' id="manageTable" class="table table-bordered table-striped">
           <thead>
             <tr> 
                 <th>Question Number</th>

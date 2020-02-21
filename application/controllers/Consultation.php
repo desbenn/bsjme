@@ -116,13 +116,14 @@ class Consultation extends Admin_Controller
    //    If the validation for each input field is valid then it inserts the data into the database
    //    and it sends the operation message into the session flashdata and display on the manage consultation page
 
-	public function create()
+	public function create($id=null)
 	{
 		if(!in_array('createConsultation', $this->permission)) {
             redirect('dashboard', 'refresh');
         }
 
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
+        $this->form_validation->set_rules('program', 'Program', 'trim|required');
         $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
         $this->form_validation->set_rules('consultation_no', 'Consultation No', 'trim|required');
 		$this->form_validation->set_rules('description', 'Description', 'trim|required');
@@ -148,6 +149,7 @@ class Consultation extends Admin_Controller
                 'exemption' => $this->input->post('exemption'),
                 'management_review_time' => $this->input->post('management_review_time'),               
                 'phase_id' => $this->input->post('phase'),
+                'program_id' => $this->input->post('program'),
                 'remark' => $this->input->post('remark'),
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
@@ -173,11 +175,14 @@ class Consultation extends Admin_Controller
         //    the drop-down list needed in the create form
 
         $this->data['standard'] = $this->model_dynamic_dependent->fetch_standard();  
+        $this->data['program'] = $this->model_program->getActiveProgram();
 		$this->data['phase'] = $this->model_phase->getActivePhase();
         $this->data['status'] = $this->model_status->getActiveStatus();
-        $this->data['client'] = $this->model_client->getActiveClientData();
+        $this->data['client'] = $this->model_client->getClientData();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
 		$this->data['sector'] = $this->model_sector->getActiveSector();
+        //This is for adding a consultation to the client, coming from the client edit
+        $this->data['fromClient'] =$id;
 
         if($this->agent->is_mobile())
         {
@@ -218,10 +223,10 @@ class Consultation extends Admin_Controller
         if(!$consultation_id) {redirect('dashboard', 'refresh');}
 
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
+        $this->form_validation->set_rules('program', 'Program', 'trim|required');
         $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
         $this->form_validation->set_rules('consultation_no', 'Consultation No', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        $this->form_validation->set_rules('date_creation', 'Date creation', 'trim|required');
         $this->form_validation->set_rules('sector', 'Sector', 'trim|required');
         $this->form_validation->set_rules('phase', 'Phase', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');  
@@ -237,13 +242,13 @@ class Consultation extends Admin_Controller
                 'client_id' => $this->input->post('client'), 
                 'consultant_id' => json_encode($this->input->post('consultant')),
                 'consultation_no' => $this->input->post('consultation_no'),                
-                'date_creation' => $this->input->post('date_creation'),
                 'date_begin' => $this->input->post('date_begin'),
                 'date_end' => $this->input->post('date_end'),
                 'description' => $this->input->post('description'),
                 'exemption' => $this->input->post('exemption'),
                 'management_review_time' => $this->input->post('management_review_time'),               
                 'phase_id' => $this->input->post('phase'),
+                'program_id' => $this->input->post('program'),
                 'remark' => $this->input->post('remark'),
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
@@ -269,10 +274,11 @@ class Consultation extends Admin_Controller
         //    and reading of the consultation data
 
         $this->data['standard'] = $this->model_standard->getActiveStandard();
+        $this->data['program'] = $this->model_program->getActiveProgram();
         $this->data['clause'] = $this->model_clause->getActiveClause();
         $this->data['phase'] = $this->model_phase->getActivePhase();
         $this->data['status'] = $this->model_status->getActiveStatus();
-        $this->data['client'] = $this->model_client->getActiveClientData();
+        $this->data['client'] = $this->model_client->getClientData();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
         $this->data['sector'] = $this->model_sector->getActiveSector(); 
         $this->data['document_type'] = $this->model_document_type->getActiveDocumentType(); 
@@ -295,8 +301,8 @@ class Consultation extends Admin_Controller
     //--> It removes the data from the database
     //    and it returns the response into the json format
 
-	public function remove()
-	{
+    public function remove()
+    {
         if(!in_array('deleteConsultation', $this->permission)) {
             redirect('dashboard', 'refresh');}
 
@@ -331,7 +337,8 @@ class Consultation extends Admin_Controller
 
         echo json_encode($response);
 
-	}
+    }
+
 
 
 

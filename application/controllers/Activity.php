@@ -56,6 +56,7 @@ class Activity extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
+			$name = $value['name'];
 
 			if(in_array('updateActivity', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';

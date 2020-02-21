@@ -412,7 +412,7 @@ manageTableRequirement = $('#manageTableRequirement').DataTable({
 					<div class="box-body">
 
 						<?php if(in_array('createConsultation', $user_permission)): ?>
-							<a href="<?php echo base_url('consultation/create') ?>" class="btn btn-primary">Add Consultation</a>
+							<a href="<?php echo base_url('consultation/create/'.$client_data['id']) ?>" class="btn btn-primary">Add Consultation</a>
 							<br /> <br />
 						<?php endif; ?>
 
@@ -554,9 +554,9 @@ function removeConsultation(id)
 					<table id="manageTableInquiry" class="table table-bordered table-striped" style="width:100%">
 						<thead>
 							<tr>
-								<th>Inquiry Type</th>
-								<th>Support Type</th>
 								<th>Request</th>
+								<th>Inquiry Type</th>
+								<th>Support Type</th>								
 								<th>Feedback</th>
 								<th>Answered by</th>
 								<th>Date</th>

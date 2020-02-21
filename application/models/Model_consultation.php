@@ -121,11 +121,22 @@ class Model_consultation extends CI_Model
 
 	public function remove($id)
 	{
+		//--> All the information attached to the client must be deleted
+
 		if($id) {
 
+			// Remove the tables attached to consultation
+			// THe document should be removed manually by the user before deleting the consultation
+
+		    // Remove the answer related to the consultation before deleting the consultation
+		    $this->db->where('consultation_id', $id);
+			$delete = $this->db->delete('answer');	
+			
+			// delete the consultation
 			$this->db->where('id', $id);
 			$delete = $this->db->delete('consultation');
-			return ($delete == true) ? true : false;
+		    return ($delete == true) ? true : false;
+
 		}
 	}
 
@@ -255,6 +266,8 @@ class Model_consultation extends CI_Model
 		return $query->result_array();
 	}
 
+
+
 	//---> Validate if the consultation have some documents attached
 	public function checkIntegrity($id)
 	{
@@ -264,9 +277,6 @@ class Model_consultation extends CI_Model
 
 	}
 
-	public function getQuestions()
-	{
 
-	}
 
 }

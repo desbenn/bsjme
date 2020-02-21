@@ -73,7 +73,7 @@ class Report extends Admin_Controller
 
 
 		$this->data['county'] = $this->model_county->getActiveCounty();
-		$this->data['client'] = $this->model_client->getActiveClientData();
+		$this->data['client'] = $this->model_client->getClientData();
 		$this->data['inquiry_type'] = $this->model_inquiry_type->getActiveInquiryType();
 		$this->data['consultation'] = $this->model_consultation->getActiveConsultationData();
 		$this->data['standard'] = $this->model_standard->getActiveStandard();

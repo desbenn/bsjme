@@ -38,11 +38,15 @@ class Model_report extends CI_Model
 
 		$sql = "SELECT consultation.*,standard.name AS 'standard_name',
 			status.name AS 'status_name', phase.name AS 'phase_name',			
-			sector.name AS 'sector_name',consultant_id
+			sector.name AS 'sector_name',consultant_id,
+			program.program_name AS 'program_name',
+			clause.name AS 'clause_name'
 		FROM consultation
+		    JOIN program ON consultation.program_id = program.id
 			JOIN standard ON consultation.standard_id = standard.id
 			JOIN status ON consultation.status_id = status.id
 			JOIN phase ON consultation.phase_id = phase.id
+			LEFT JOIN clause ON consultation.clause_id = clause.id
 			LEFT JOIN sector ON consultation.sector_id = sector.id
 		WHERE consultation.id = ?";
 		$query = $this->db->query($sql, array($consultation_id));
