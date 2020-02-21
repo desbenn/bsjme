@@ -156,7 +156,95 @@
                         </div>
                         <!-- Page showing the requirement questions to be filled out by the potential client -->
                         <div class="tab">
-
+                            <?php
+                            if(isset($requirement) && !empty($requirement))
+                            {
+                                $quest_no=0;
+                                ?>
+                                <p><span class="error">All fields are required.</span></p>
+                                <?php
+                                foreach($requirement as $k => $v)
+                                {
+                                    $quest_no++;
+                                    // echo $v['question']."<br>";
+                                    ?>
+                                    <label for="question"><?php echo $quest_no.") ".$v['question'];?></label>
+                                    <br>
+                                    <?php                                    
+                                    if($v['question_type_id'] == '1' || $v['question_type_id'] == '2') //question_type_id equalling 1 or 2 will use textarea
+                                    {
+                                        ?>
+                                        <textarea style="overflow:auto;resize:none" class="form-control" rows="1" name="<?php echo $v['id']?>"></textarea>
+                                        <br>
+                                        <?php
+                                    }
+                                    elseif($v['question_type_id'] == '3' || $v['question_type_id'] == '4')//question_type_id equalling 3 or 4 will use radio button
+                                    {
+                                        $options = json_decode($v['question_option'],true);
+                                        if(!empty($options))
+                                        {
+                                            foreach($options as $option)
+                                            {
+                                                ?>
+                                                <label for="response" class="radio-inline">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="form-check-input" name="<?php echo $v['id'];?>" value="<?php echo strtolower($option);?>"><?php echo $option;?>
+                                                </label>
+                                                <?php
+                                            } 
+                                            echo "<br>";
+                                        }                                                                              
+                                    }
+                                    elseif($v['question_type_id'] == '5')//question_type_id equalling 5 will use dropdown list
+                                    {
+                                        $options = json_decode($v['question_option'],true);
+                                        if(!empty($options))
+                                        {
+                                            ?>
+                                            <div class="form-group">    
+                                                <select name="<?php echo $v['id']?>" class="form-control">
+                                                    <option value=" ">Select an Option</option>
+                                                    <?php
+                                                    foreach($options as $option)
+                                                    {
+                                                        ?>
+                                                        <option value="<?php echo $option; ?>"><?php echo $option;?></option>
+                                                        <?php
+                                                    }  
+                                                    ?>
+                                                </select> 
+                                            </div>
+                                            <?php
+                                        }           
+                                    }
+                                    elseif($v['question_type_id'] == '6')//question_type_id equalling 6 will use checkbox
+                                    {
+                                        $options = json_decode($v['question_option'],true);
+                                        if(!empty($options))
+                                        {
+                                            ?>
+                                            <div class="checkbox">
+                                                <?php
+                                                foreach($options as $option)
+                                                {
+                                                    ?>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="checkbox" name="<?php echo $v['id']?>"value="<?php echo $option;?>"><?php echo $option;?></label>
+                                                    <?php                                                }
+                                                ?>
+                                            </div>
+                                            
+                                            <?php
+                                            echo "<br>";
+                                        }
+                                    }                                    
+                                }
+                            }
+                            else
+                            {
+                                ?>
+                                <h3 align="center">No questions available.</h3>
+                                <?php
+                            }
+                            ?>
                         </div>
                         <!-- Page asking what the client is specifically looking for -->
                         <div class="tab">
@@ -182,11 +270,6 @@
     <script>
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
-
-        // $(document).ready(function()
-        // {
-        //     $('[data-toggle="tooltip"]').tooltip();   
-        // });
         
         function showTab(n) 
         {
