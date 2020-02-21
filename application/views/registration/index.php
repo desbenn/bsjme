@@ -20,19 +20,7 @@
         /* Hide all steps by default: */
         .tab {
             display: none;
-        }
-        
-        #clientRegForm, #successfullSubmission {
-            background-color: #ffffff;
-            padding: 30px;
-            box-shadow: 10px 10px 5px grey;
-            max-width: 60%;
-            margin: auto;
-        }
-
-        .error {
-            color: #FF0000;
-            }
+        }     
 
         #btnNext{
             background-color: #51198a;
@@ -51,9 +39,10 @@
         <?php
             if($this->agent->is_mobile())
             {
+                //changes the size of the logo to fit device screen accordingly
                ?>
                <div class="row" align="center">
-                    <img width="90%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+                    <img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
                 </div>
                <?php
             }
@@ -61,29 +50,32 @@
             {
                 ?>
                 <div class="row" align="center">
-                    <img width="35%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+                    <img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
                 </div>
                 <?php
             }
-        ?>        
+        ?> 
+        <div id="messages"></div>
+
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">                    
                     
-                    <form role="form" action="<?php base_url('registration/register') ?>" method="post" enctype="multipart/form-data">
+                    <form role="form" action="<?php base_url('registration/register') ?>" id="clientRegForm" method="post" enctype="multipart/form-data">
+                        <?php echo validation_errors(); ?>
                         <!-- Page Showing only the demoogrpahic information to be collected -->
                         <div class="tab">
                             <div class="row">
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="trn">TRN #:<font color="red"> *</font></label>
-                                        <input type="number" class="form-control" name="trn" placeholder="123456789" value="">
+                                        <input type="number" class="form-control" name="trn" placeholder="123456789" value="<?php echo set_value('trn');?>">
                                     </div>
                                 </div> 
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyName">Company Name:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyName" placeholder="Bureau of Standards" value="">
+                                        <input type="text" class="form-control" name="companyName" placeholder="Bureau of Standards" value="<?php echo set_value('companyName');?>">
                                     </div> 
                                 </div>
                             </div> 
@@ -91,13 +83,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="clientName">Client Name:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="clientName" placeholder="John Doe" value="">
+                                        <input type="text" class="form-control" name="clientName" placeholder="John Doe" value="<?php echo set_value('clientName');?>">
                                     </div>
                                 </div> 
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyaddress">Address:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyAddress" placeholder="6 Winchester Road" value="">
+                                        <input type="text" class="form-control" name="companyAddress" placeholder="6 Winchester Road" value="<?php echo set_value('companyAddress');?>">
                                     </div> 
                                 </div>
                             </div>
@@ -129,13 +121,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCity">City/Town:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyCity" placeholder="Kingston 10" value="">
+                                        <input type="text" class="form-control" name="companyCity" placeholder="Kingston 10" value="<?php echo set_value('companyCity');?>">
                                     </div> 
                                 </div>
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyNumber">Contact:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyNumber" placeholder="1-xxx-xxx-xxxx" value="">
+                                        <input type="text" class="form-control" name="companyNumber" placeholder="1-xxx-xxx-xxxx" value="<?php echo set_value('companyNumber');?>">
                                     </div> 
                                 </div>
                             </div> 
@@ -143,13 +135,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyEmail">Email:<font color="red"> *</font></label>
-                                        <input type="email" class="form-control" name="companyEmail" placeholder="company@example.org" value="">
+                                        <input type="email" class="form-control" name="companyEmail" placeholder="company@example.org" value="<?php echo set_value('companyEmail');?>">
                                     </div> 
                                 </div>
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
-                                        <label for="companyWebsite">Website:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyWebsite" placeholder="https://www.bsj.org.jm/" value="">
+                                        <label for="companyWebsite">Website:</label>
+                                        <input type="text" class="form-control" name="companyWebsite" placeholder="https://www.bsj.org.jm/" value="<?php echo set_value('companyWebsite');?>">
                                     </div> 
                                 </div>
                             </div> 
@@ -248,19 +240,19 @@
                         <!-- Page asking what the client is specifically looking for -->
                         <div class="tab">
                                 <p><span class='error'>All fields are required:</span></p>
-                                <label for="standard">Target/Goal:</label>
-                                <select name="standard" class="form-control select_group">
-                                    <option value="">Select Standard</option>
+                                <label for="target">Target/Goal:</label>
+                                <select name="target" class="form-control select_group">
+                                    <option value=" ">Select Standard</option>
                                     <?php foreach ($standard as $k => $v): ?>
                                         <option value="<?php echo $v['id'] ?>" <?php echo set_select('standard', $v['id']); ?>><?php echo $v['name'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <br>
-                                <label for="objective">Briefly describe what your objective is.</label>
-                                <textarea style="overflow:auto;resize:none" class="form-control" rows="2" name="objective"></textarea>
+                                <label for="objective">Briefly describe what your objective is.<font color="red"> *</font></label>
+                                <textarea style="overflow:auto;resize:none" class="form-control" rows="2" name="objective" value="<?php echo set_value('objective');?>"></textarea>
                                 <br>
-                                <label for="committmentLetter">Please upload committment letter here.</label>
-                                <input type="file" class="form-control-file" name="committmentLetter"  value="">
+                                <label for="committmentLetter">Please upload committment letter here.<font color="red"> *</font></label>
+                                <input type="file" class="form-control-file" name="committmentLetter"  value="<?php echo set_value('committmentLetter');?>">
                                 <br>
                         </div>
                         <div class="row">

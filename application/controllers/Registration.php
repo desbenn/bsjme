@@ -14,12 +14,27 @@ class Registration extends Admin_Controller
 
 	public function register()
 	{
+		// $this->form_validation->set_rules('trn', 'TRN', 'trim|required');
+		// $this->form_validation->set_rules('companyName', 'Company Name', 'trim|required');
+		// $this->form_validation->set_rules('clientName', 'Client Name', 'trim|required');
+		// $this->form_validation->set_rules('companyCounty', 'County', 'trim|required');
+		// $this->form_validation->set_rules('companyParish', 'Parish', 'trim|required');
+		// $this->form_validation->set_rules('companyCity', 'City', 'trim|required');
+		// $this->form_validation->set_rules('companyNumber', 'Contact Number', 'trim|required');
+		// $this->form_validation->set_rules('companyEmail', 'Email', 'trim|required');
+		// $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+
+		// if($this->form_validation->run() == TRUE)
+		// {
+		// 	$data=array();
+		// 	echo "Success";
+		// }
+		
 		$data=array();
 		$data['county'] = $this->model_county->getActiveCounty();
 		$data['parish'] = $this->model_parish->getActiveParish();
 		$data['requirement']= $this->model_requirement->getRequirementData();
 		$data['standard']= $this->model_standard->getActiveStandard();
-		//var_dump($data['requirement']);
 		$this->load->view('registration/index', $data);
 	}
 	
