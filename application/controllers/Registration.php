@@ -18,6 +18,7 @@ class Registration extends Admin_Controller
 		$data['county'] = $this->model_county->getActiveCounty();
 		$data['parish'] = $this->model_parish->getActiveParish();
 		$data['requirement']= $this->model_requirement->getRequirementData();
+		$data['standard']= $this->model_standard->getActiveStandard();
 		//var_dump($data['requirement']);
 		$this->load->view('registration/index', $data);
 	}

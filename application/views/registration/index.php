@@ -166,7 +166,6 @@
                                 foreach($requirement as $k => $v)
                                 {
                                     $quest_no++;
-                                    // echo $v['question']."<br>";
                                     ?>
                                     <label for="question"><?php echo $quest_no.") ".$v['question'];?></label>
                                     <br>
@@ -248,7 +247,21 @@
                         </div>
                         <!-- Page asking what the client is specifically looking for -->
                         <div class="tab">
-
+                                <p><span class='error'>All fields are required:</span></p>
+                                <label for="standard">Target/Goal:</label>
+                                <select name="standard" class="form-control select_group">
+                                    <option value="">Select Standard</option>
+                                    <?php foreach ($standard as $k => $v): ?>
+                                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('standard', $v['id']); ?>><?php echo $v['name'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                                <br>
+                                <label for="objective">Briefly describe what your objective is.</label>
+                                <textarea style="overflow:auto;resize:none" class="form-control" rows="2" name="objective"></textarea>
+                                <br>
+                                <label for="committmentLetter">Please upload committment letter here.</label>
+                                <input type="file" class="form-control-file" name="committmentLetter"  value="">
+                                <br>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-xs-6">
