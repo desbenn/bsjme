@@ -26,8 +26,8 @@
             background-color: #51198a;
         }
 
-        #progressBar{
-            background-color: #51198a;
+        .requirement.invalid {
+            background-color: #ffdddd;
         }
     </style>
 
@@ -69,13 +69,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="trn">TRN #:<font color="red"> *</font></label>
-                                        <input type="number" class="form-control" name="trn" placeholder="123456789" value="<?php echo set_value('trn');?>">
+                                        <input type="number" class="requirement form-control" name="trn" placeholder="123456789" value="<?php echo set_value('trn');?>">
                                     </div>
                                 </div> 
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyName">Company Name:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyName" placeholder="Bureau of Standards" value="<?php echo set_value('companyName');?>">
+                                        <input type="text" class="requirement form-control" name="companyName" placeholder="Bureau of Standards" value="<?php echo set_value('companyName');?>">
                                     </div> 
                                 </div>
                             </div> 
@@ -83,13 +83,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="clientName">Client Name:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="clientName" placeholder="John Doe" value="<?php echo set_value('clientName');?>">
+                                        <input type="text" class="requirement form-control" name="clientName" placeholder="John Doe" value="<?php echo set_value('clientName');?>">
                                     </div>
                                 </div> 
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyaddress">Address:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyAddress" placeholder="6 Winchester Road" value="<?php echo set_value('companyAddress');?>">
+                                        <input type="text" class="requirement form-control" name="companyAddress" placeholder="6 Winchester Road" value="<?php echo set_value('companyAddress');?>">
                                     </div> 
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCounty">County:<font color="red"> *</font></label>
-                                        <select name="companyCounty" class="form-control select_group">
+                                        <select name="companyCounty" class="requirement form-control select_group">
                                             <option value="">Select County</option>
                                             <?php foreach ($county as $k => $v): ?>
                                                 <option value="<?php echo $v['id'] ?>" <?php echo set_select('county', $v['id']); ?>><?php echo $v['name'] ?></option>
@@ -108,7 +108,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyParish">Parish:<font color="red"> *</font></label>
-                                        <select name="companyParish" class="form-control select_group">
+                                        <select name="companyParish" class="requirement form-control select_group">
                                             <option value="">Select Parish</option>
                                             <?php foreach ($parish as $k => $v): ?>
                                             <option value="<?php echo $v['id'] ?>" <?php echo set_select('parish', $v['id']); ?>><?php echo $v['name'] ?></option>
@@ -121,13 +121,13 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCity">City/Town:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyCity" placeholder="Kingston 10" value="<?php echo set_value('companyCity');?>">
+                                        <input type="text" class="requirement form-control" name="companyCity" placeholder="Kingston 10" value="<?php echo set_value('companyCity');?>">
                                     </div> 
                                 </div>
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyNumber">Contact:<font color="red"> *</font></label>
-                                        <input type="text" class="form-control" name="companyNumber" placeholder="1-xxx-xxx-xxxx" value="<?php echo set_value('companyNumber');?>">
+                                        <input type="text" class="requirement form-control" name="companyNumber" placeholder="1-xxx-xxx-xxxx" value="<?php echo set_value('companyNumber');?>">
                                     </div> 
                                 </div>
                             </div> 
@@ -135,7 +135,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyEmail">Email:<font color="red"> *</font></label>
-                                        <input type="email" class="form-control" name="companyEmail" placeholder="company@example.org" value="<?php echo set_value('companyEmail');?>">
+                                        <input type="email" class="requirement form-control" name="companyEmail" placeholder="company@example.org" value="<?php echo set_value('companyEmail');?>">
                                     </div> 
                                 </div>
                                 <div class="col-md-6 col-xs-6">
@@ -165,7 +165,7 @@
                                     if($v['question_type_id'] == '1' || $v['question_type_id'] == '2') //question_type_id equalling 1 or 2 will use textarea
                                     {
                                         ?>
-                                        <textarea style="overflow:auto;resize:none" class="form-control" rows="1" name="<?php echo $v['id']?>"></textarea>
+                                        <textarea style="overflow:auto;resize:none" class="requirement form-control" rows="1" name="<?php echo $v['id']?>"></textarea>
                                         <br>
                                         <?php
                                     }
@@ -178,7 +178,7 @@
                                             {
                                                 ?>
                                                 <label for="response" class="radio-inline">
-                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="form-check-input" name="<?php echo $v['id'];?>" value="<?php echo strtolower($option);?>"><?php echo $option;?>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" class="requirement form-check-input" name="<?php echo $v['id'];?>" value="<?php echo strtolower($option);?>"><?php echo $option;?>
                                                 </label>
                                                 <?php
                                             } 
@@ -192,7 +192,7 @@
                                         {
                                             ?>
                                             <div class="form-group">    
-                                                <select name="<?php echo $v['id']?>" class="form-control">
+                                                <select name="<?php echo $v['id']?>" class="requirement form-control">
                                                     <option value=" ">Select an Option</option>
                                                     <?php
                                                     foreach($options as $option)
@@ -218,8 +218,9 @@
                                                 foreach($options as $option)
                                                 {
                                                     ?>
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="checkbox" name="<?php echo $v['id']?>"value="<?php echo $option;?>"><?php echo $option;?></label>
-                                                    <?php                                                }
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="checkbox" class="requirement" name="<?php echo $v['id']?>"value="<?php echo $option;?>"><?php echo $option;?></label>
+                                                    <?php                                                
+                                                }
                                                 ?>
                                             </div>
                                             
@@ -241,7 +242,7 @@
                         <div class="tab">
                                 <p><span class='error'>All fields are required:</span></p>
                                 <label for="target">Target/Goal:</label>
-                                <select name="target" class="form-control select_group">
+                                <select name="target" class="requirement form-control select_group">
                                     <option value=" ">Select Standard</option>
                                     <?php foreach ($standard as $k => $v): ?>
                                         <option value="<?php echo $v['id'] ?>" <?php echo set_select('standard', $v['id']); ?>><?php echo $v['name'] ?></option>
@@ -249,10 +250,10 @@
                                 </select>
                                 <br>
                                 <label for="objective">Briefly describe what your objective is.<font color="red"> *</font></label>
-                                <textarea style="overflow:auto;resize:none" class="form-control" rows="2" name="objective" value="<?php echo set_value('objective');?>"></textarea>
+                                <textarea style="overflow:auto;resize:none" class="requirement form-control" rows="2" name="objective" value="<?php echo set_value('objective');?>"></textarea>
                                 <br>
                                 <label for="committmentLetter">Please upload committment letter here.<font color="red"> *</font></label>
-                                <input type="file" class="form-control-file" name="committmentLetter"  value="<?php echo set_value('committmentLetter');?>">
+                                <input type="file" class="requirement form-control-file" name="committmentLetter"  value="<?php echo set_value('committmentLetter');?>">
                                 <br>
                         </div>
                         <div class="row">
@@ -298,7 +299,11 @@
         {
             // This function will figure out which tab to display
             var x = document.getElementsByClassName("tab");
-            
+            // Exit the function if any field in the current tab is invalid:
+            if (n == 1 && !validateForm())
+            {
+                return false;
+            }
             // Hide the current tab:
             x[currentTab].style.display = "none";
             // Increase or decrease the current tab by 1:
@@ -312,6 +317,46 @@
             // Otherwise, display the correct tab:
             showTab(currentTab);
         }
+
+        function validateForm() 
+        {
+            // This function deals with validation of the form fields
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].querySelectorAll(".requirement");
+            console.log(y);
+            // A loop that checks every input field in the current tab:
+            for (i = 0; i < y.length; i++) 
+            {
+                // If a field is empty...
+                if (y[i].value == "") 
+                {
+                    // add an "invalid" class to the field:
+                    if(y[i].classList.contains("invalid"))
+                    {
+                        
+                    }
+                    else
+                    {
+                        y[i].classList.add("invalid");
+
+                    }                    
+                    // and set the current valid status to false
+                    valid = false;
+                }
+            }
+            if(valid===true)
+            {
+                // A loop that checks every input field in the current tab:
+                for (i = 0; i < y.length; i++) 
+                {
+                    //removes the invalid class if it is no longer invalid
+                    y[i].classList.remove("invalid");
+                }
+            }
+            return valid; // return the valid status
+        }
+
     </script>
 </body>
 </html>
