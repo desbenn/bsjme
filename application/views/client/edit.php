@@ -260,39 +260,55 @@
 
 				<div class="row">
 
-						 <div class="col-md-3 col-xs-3">
-							<div class="form-group">
-								 <label for="contact_name">Contact Name</label>
-								<input type="text" class="form-control" id="contact_name" name="contact_name" autocomplete="off"
-							    value="<?php echo set_value('contact_name', isset($client_data['contact_name']) ? $client_data['contact_name'] : ''); ?>"/>
-							</div>
-						 </div>
-
-						<div class="col-md-3 col-xs-3">
-							<div class="form-group">
-								<label for="phone">Phone</label>
-								<input type="text" class="form-control" id="phone" name="phone" autocomplete="off"
-							    value="<?php echo set_value('phone', isset($client_data['phone']) ? $client_data['phone'] : ''); ?>"/>
-							</div>
+					 <div class="col-md-3 col-xs-3">
+						<div class="form-group">
+							 <label for="contact_name">Contact Name</label>
+							<input type="text" class="form-control" id="contact_name" name="contact_name" autocomplete="off"
+						    value="<?php echo set_value('contact_name', isset($client_data['contact_name']) ? $client_data['contact_name'] : ''); ?>"/>
 						</div>
+					 </div>
 
-						<div class="col-md-3 col-xs-3">
-							<div class="form-group">
-								<label for="mobile">Mobile</label>
-								<input type="text" class="form-control" id="mobile" name="mobile" autocomplete="off"
-						    	value="<?php echo set_value('mobile', isset($client_data['mobile']) ? $client_data['mobile'] : ''); ?>"/>
-							</div>
+					<div class="col-md-3 col-xs-3">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="text" class="form-control" id="phone" name="phone" autocomplete="off"
+						    value="<?php echo set_value('phone', isset($client_data['phone']) ? $client_data['phone'] : ''); ?>"/>
 						</div>
+					</div>
 
-						<div class="col-md-3 col-xs-3">
-							<div class="form-group">
-								 <label for="director_name">Director Name</label>
-								<input type="text" class="form-control" id="director_name" name="director_name" autocomplete="off"
-							    value="<?php echo set_value('director_name', isset($client_data['director_name']) ? $client_data['director_name'] : ''); ?>"/>
-							</div>
-						 </div>
+					<div class="col-md-3 col-xs-3">
+						<div class="form-group">
+							<label for="mobile">Mobile</label>
+							<input type="text" class="form-control" id="mobile" name="mobile" autocomplete="off"
+					    	value="<?php echo set_value('mobile', isset($client_data['mobile']) ? $client_data['mobile'] : ''); ?>"/>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-xs-3">
+						<div class="form-group">
+							 <label for="director_name">Director Name</label>
+							<input type="text" class="form-control" id="director_name" name="director_name" autocomplete="off"
+						    value="<?php echo set_value('director_name', isset($client_data['director_name']) ? $client_data['director_name'] : ''); ?>"/>
+						</div>
+					 </div>
 
 					</div>
+
+				<div class="row">
+					<div class="col-md-6 col-xs-6">
+						<div class="form-group">	
+							<label for="objective">Objective</label>
+								<textarea type="text" class="form-control" rows="2" id="objective" name="objective" autocomplete="off"><?php echo set_value('objective', isset($client_data['objective']) ? $client_data['objective'] : ''); ?></textarea>
+						</div>
+					</div>	
+					<div class="col-md-6 col-xs-6">
+						<div class="form-group">	
+							<label for="target">Target</label>
+								<textarea type="text" class="form-control" rows="2" id="target" name="target" autocomplete="off"><?php echo set_value('target', isset($client_data['target']) ? $client_data['target'] : ''); ?></textarea>
+						</div>
+					</div>				
+
+				</div>			
 
 
 				<div class="form-group">

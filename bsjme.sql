@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 21 fév. 2020 à 14:30
+-- Généré le :  lun. 24 fév. 2020 à 13:42
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -54,21 +54,14 @@ INSERT INTO `activity` (`id`, `name`, `active`) VALUES
 DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `question_id` int(11) NOT NULL,
-  `user_id` varchar(9) NOT NULL,
   `consultation_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `answer` text NOT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` varchar(9) NOT NULL,
+  `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `answer`
---
-
-INSERT INTO `answer` (`id`, `question_id`, `user_id`, `consultation_id`, `answer`, `updated_date`, `updated_by`) VALUES
-(15, 2, 'TRN001', 10, '[\"2\"]', '2020-02-17 13:57:53', 'TRN001');
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -154,11 +147,11 @@ CREATE TABLE IF NOT EXISTS `client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `trn` varchar(25) NOT NULL,
   `activity_id` tinyint(1) NOT NULL COMMENT '1=active  2=inactive  3=pending',
-  `attempt` int(11) DEFAULT '0',
   `city_id` int(11) DEFAULT NULL,
   `county_id` int(11) NOT NULL,
   `parish_id` int(11) DEFAULT NULL,
   `address` varchar(100) NOT NULL,
+  `attempt` int(11) DEFAULT '0',
   `client_name` varchar(100) NOT NULL,
   `company_name` varchar(100) NOT NULL,
   `contact_name` varchar(100) NOT NULL,
@@ -167,27 +160,28 @@ CREATE TABLE IF NOT EXISTS `client` (
   `district` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `mobile` varchar(100) DEFAULT NULL,
+  `objective` text,
   `phone` varchar(50) DEFAULT NULL,
   `postal_box` varchar(45) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
   `remark` text,
+  `target` text,
   `website` varchar(100) DEFAULT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`id`, `trn`, `activity_id`, `attempt`, `city_id`, `county_id`, `parish_id`, `address`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `phone`, `postal_box`, `postal_code`, `remark`, `website`, `updated_date`, `updated_by`) VALUES
-(6, 'TRN002', 1, 0, 1, 1, 1, '888 Street One', 'M. Untel', 'Company No 2', '', 'Director name', 'TRN002', 'district1', 'director@hotmail.com', '8765432', '12345678', 'H3C0G3', 'H3C0G3', 'remark', 'website', '2019-12-04 19:53:23', 18),
-(8, 'TRN001', 1, 0, 0, 8, 1, '999 Street 9', 'Mr Number One', 'Company No 1', '', 'M. Johnson', 'TRN001', '', 'johnson@hotmail.com', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '2020-02-21 05:24:01', 18),
-(9, 'TRN004', 2, 0, 0, 1, 1, '666 Union Street', 'Number Four', 'Company No 4', '', 'M. Director', 'TRN004', '', 'number4@hotmail.com', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', '2019-12-23 16:00:12', 18),
-(10, '123456789', 3, 2, 1, 1, 1, '6 Wichester Road', 'Nicholas Jumpp', 'Bureau of Standards', 'Nicholas Jumpp', '', '123456789', '', 'jumppnicholas1@gmail.com', '', '1-876-788-9327', '', '', '', 'www.bsj.org.jm', '2020-02-17 13:51:17', 18);
+INSERT INTO `client` (`id`, `trn`, `activity_id`, `city_id`, `county_id`, `parish_id`, `address`, `attempt`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `objective`, `phone`, `postal_box`, `postal_code`, `remark`, `target`, `website`, `updated_date`, `updated_by`) VALUES
+(14, 'TRN001', 1, 0, 2, 2, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Voyagine Inc', 'Carmen', 'Carmen Gagnon', 'TRN001', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-22 00:49:48', 18),
+(15, 'TRN002', 1, 1, 3, 1, '11000 Street tow', 0, 'M. Two', 'Company 2', 'Carmen', 'Carmen Gagnon', 'TRN002', '', 'voyagine@hotmail.com', '', '', '05149836594', '', '', '', '', '', '2020-02-22 22:35:15', 18),
+(16, 'TRN003', 3, 0, 2, 1, '178 street un', 0, 'M. Pending', 'Company in pending', 'Carmen', 'Carmen Gagnon', 'TRN003', '', 'voyagine@hotmail.com', '', '', '5149836594', '', '', '', '', '', '2020-02-22 15:40:01', 18);
 
 -- --------------------------------------------------------
 
@@ -202,19 +196,7 @@ CREATE TABLE IF NOT EXISTS `client_requirement` (
   `requirement_id` int(11) NOT NULL,
   `answer` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `client_requirement`
---
-
-INSERT INTO `client_requirement` (`id`, `client_id`, `requirement_id`, `answer`) VALUES
-(13, 10, 18, 'IT'),
-(14, 10, 19, 'less than 5'),
-(15, 10, 20, '0-2 '),
-(16, 10, 21, 'No'),
-(17, 10, 22, 'UI, UX'),
-(18, 10, 23, 'No');
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -260,22 +242,22 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `description` varchar(150) DEFAULT NULL,
   `exemption` text,
   `management_review_time` text,
+  `product` text,
+  `quality_policy` text,
   `remark` text,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultation`
 --
 
-INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `remark`, `updated_date`, `updated_by`) VALUES
-(6, '5678', 8, 6, 'null', 1, 0, 4, 1, 13, '', '', NULL, '2019-12-03', NULL, 'Production of a manual for Exportation of coffee', '', '', '                                                                                                                                                                                                                                                                                                                                                                                ', '2019-12-10 14:47:28', 18),
-(10, 'CON001', 5, 8, 'null', 2, 0, 1, 1, 11, '', '', NULL, '2019-12-22', NULL, 'Consultation no 1', '', '', '                                                                                                                                                                                                                                                                                                ', '2019-12-23 00:33:28', 18),
-(11, '12345', 4, 8, '[\"30\"]', 4, 0, 1, 1, 11, '', '', NULL, '2019-12-24', NULL, 'Help for development', '', '', '                                                                    ', '2019-12-24 17:55:08', 18),
-(12, 'CON999', 11, 6, '[\"29\"]', 1, 0, 2, 2, 12, 'c', 'a', '0000-00-00', '2020-02-21', '0000-00-00', 'Test', 'b', 'd', 'e     ', '2020-02-21 14:26:39', 18);
+INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `product`, `quality_policy`, `remark`, `updated_date`, `updated_by`) VALUES
+(18, 'CON001', 11, 14, '[\"29\"]', 1, 8, 4, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-02-22 15:37:18', 18),
+(19, 'CON002', 11, 15, '[\"30\"]', 1, 9, 2, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultaion 2', '', '', '', '', '', '2020-02-22 22:45:56', 18);
 
 -- --------------------------------------------------------
 
@@ -333,22 +315,13 @@ CREATE TABLE IF NOT EXISTS `document` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `intervention_no` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `document`
 --
 
 INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `document_type_id`, `document_class_id`, `doc_name`, `doc_size`, `doc_type`, `updated_date`, `updated_by`) VALUES
-(43, 6, 6, NULL, 7, 1, 'Sutton_Insurance_-_Wallet_ID_Card.pdf', 60, 'application/pdf', '2019-12-10 17:15:43', 18),
-(44, 6, 6, NULL, 5, 1, 'Sutton_Insurance_-_Accident_Benefit.pdf', 110, 'application/pdf', '2019-12-10 17:16:08', 18),
-(45, 6, 6, NULL, 2, 1, 'Jamaica.pdf', 570, 'application/pdf', '2019-12-10 18:18:58', 18),
-(50, 6, 6, NULL, 3, 1, 'montego_bay.jpg', 200, 'image/jpeg', '2019-12-11 14:55:09', 18),
-(51, 6, NULL, NULL, 1, 1, 'WBS_Orville.jpg', 1943, 'image/jpeg', '2019-12-12 20:50:41', 18),
-(59, 10, NULL, NULL, 1, 2, '19053-JAM_Notice_of_Assignment_-_Carmen_Gagnon.pdf', 36, 'application/pdf', '2020-02-19 20:44:02', 18),
-(60, 10, NULL, NULL, 3, 4, 'Sutton_Insurance_-_Accident_Benefit.pdf', 110, 'application/pdf', '2020-02-19 20:52:53', 18),
-(63, 8, 10, NULL, 3, 2, 'GAGNONT55M8O02.pdf', 274, 'application/pdf', '2020-02-20 00:28:49', 18),
-(64, 8, NULL, NULL, 0, 0, 'Arrangement_BSJ.docx', 27, 'application/vnd.openxmlformats', '2020-02-20 00:33:21', 18),
 (66, NULL, NULL, 7, 6, 1, 'icons8-bed-50.png', 1, 'image/png', '2020-02-20 15:36:31', 18);
 
 -- --------------------------------------------------------
@@ -425,15 +398,7 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
   `inquiry_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `inquiry`
---
-
-INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, `request`, `feedback`, `answered_by`, `inquiry_date`) VALUES
-(4, 6, 1, 1, 'rrrx', 'fffx', 'carx', '2019-12-24'),
-(5, 9, 1, 1, 'test', 'aaa', 'hh', '2019-12-24');
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -516,17 +481,18 @@ CREATE TABLE IF NOT EXISTS `phase` (
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `phase`
 --
 
 INSERT INTO `phase` (`id`, `code`, `name`, `icon`, `icon_type`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(1, '1', 'Phase 1', 'icons8-beach-50.png', 'image/png', '', 1, '2020-02-21 02:02:03', 18),
+(1, '1', 'Intro', 'icons8-beach-50.png', '', '', 1, '2020-02-22 22:48:05', 18),
 (2, '2', 'Phase 2', 'icons8-hotel-room-key-50.png', 'image/png', '', 1, '2020-02-21 01:43:21', 18),
 (3, '3', 'Phase 3', 'icons8-check-all-50.png', '', '', 1, '2020-02-21 01:34:53', 18),
-(4, '4', 'Phase 4', 'icons8-cafe-502.png', 'image/png', '<p>aaaa</p>', 1, '2020-02-21 01:40:31', 18);
+(4, '4', 'Phase 4', 'icons8-cafe-502.png', 'image/png', '<p>aaaa</p>', 1, '2020-02-21 01:40:31', 18),
+(5, 'STU', 'Study', 'about.png', '', '<p>Study of the situation</p>', 1, '2020-02-22 19:54:27', 18);
 
 -- --------------------------------------------------------
 
@@ -561,7 +527,7 @@ INSERT INTO `post` (`id`, `category_id`, `date_from`, `date_to`, `doc_type`, `po
 (1, 1, '2019-09-30', '2020-03-28', 'image/jpeg', 'Welcome to new clients!', 'Welcome-to-new-clients', '<p>Welcome to the database for clients.</p>', 'logo.jpg', 'Carmen Gagnon', 1, 1, '2019-09-30 13:39:40', 18),
 (4, 1, '2019-11-28', '2020-01-17', 'application/vnd.openxmlformats', 'Message for new members', 'Message-for-new-members', '<p>Here is the message</p>', 'Client_Servicing_Programme_-_WBS_Dictionary.docx', 'Carmen Gagnon', 1, 1, '2019-11-28 19:13:15', 18),
 (6, 1, '2019-12-02', '2019-12-27', 'image/gif', 'Visit in BSJ', 'Visit-in-BSJ', '<p>Free zone to write the post.</p>', 'vacance-gif-042.gif', 'Carmen Gagnon', 2, 1, '2019-12-02 20:37:26', 18),
-(7, 1, '2020-02-20', '2020-02-20', 'image/png', 'Here is the icon test', 'Here-is-the-icon-test', '<p>Bla bla bla&nbsp;</p>', 'icons8-around-the-globe-50.png', 'Carmen Gagnon', 1, 1, '2020-02-20 15:34:39', 18);
+(7, 1, '2020-02-20', '2020-02-20', 'image/png', 'Here is the icon test', 'Here-is-the-icon-test', '<p>Bla bla <strong>bla&nbsp;</strong></p>\r\n\r\n<p><strong>Here is my style</strong></p>\r\n\r\n<hr />\r\n<p>This is my <span class=\"marker\">post</span></p>', 'icons8-around-the-globe-50.png', 'Carmen Gagnon', 1, 1, '2020-02-23 00:00:27', 18);
 
 -- --------------------------------------------------------
 
@@ -600,24 +566,23 @@ CREATE TABLE IF NOT EXISTS `program` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `standard_id` int(11) NOT NULL,
   `clause_id` int(11) NOT NULL,
-  `program_name` varchar(100) NOT NULL,
+  `code` varchar(10) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
   `remark` text,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program`
 --
 
-INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `program_name`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(1, 2, 11, 'program name', 'test', 1, '2020-02-19 01:03:11', 18),
-(2, 1, 8, 'Program 2', 'tst remark', 1, '2020-02-19 00:56:03', 18),
-(3, 1, 10, 'test', 'aaa', 1, '2020-02-19 00:57:42', 18),
-(4, 2, 11, 'fsdfsd', 'test', 1, '2020-02-21 01:45:18', 18),
-(5, 2, 11, 'My new program', '', 1, '2020-02-20 20:24:01', 18);
+INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `code`, `name`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
+(8, 2, 11, 'P1', 'Programme 1', '', 1, '2020-02-22 05:25:20', 18),
+(9, 1, 10, 'P2', 'Programme 2', '', 1, '2020-02-22 05:26:18', 18),
+(11, 0, 0, '676', 'Program 3', 'rem', 1, '2020-02-23 19:08:29', 18);
 
 -- --------------------------------------------------------
 
@@ -630,27 +595,25 @@ CREATE TABLE IF NOT EXISTS `program_phase` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `program_id` int(11) NOT NULL,
   `phase_id` int(11) NOT NULL,
+  `sequence` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program_phase`
 --
 
-INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`) VALUES
-(7, 2, 1),
-(8, 2, 2),
-(9, 2, 3),
-(10, 3, 1),
-(11, 1, 1),
-(15, 5, 1),
-(16, 5, 2),
-(17, 5, 3),
-(18, 4, 1),
-(19, 4, 2),
-(20, 4, 4),
-(21, 4, 3);
+INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`, `sequence`) VALUES
+(29, 8, 1, 1),
+(30, 8, 2, 2),
+(31, 8, 3, 3),
+(32, 8, 4, 4),
+(33, 9, 1, 1),
+(34, 9, 2, 2),
+(45, 11, 1, 1),
+(46, 11, 3, 3),
+(47, 11, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -849,7 +812,7 @@ INSERT INTO `question` (`id`, `sub_clause_id`, `question_type_id`, `question`, `
 (178, 64, 3, 'Does the organization maintain documented information as evidence of management reviews?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (179, 64, 3, ' Does management review evaluate the need for changes to the quality management system, including the quality policy and quality objectives?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (180, 66, 1, 'Is the organization selecting opportunities for improvement and implementing necessary actions to meet customer requirements?', 1, '', 2, 1, '2019-12-18 03:07:48', 18),
-(181, 66, 1, 'Is the organization taking actions to prevent nonconformities, improve products and services, and improve the overall quality management system results?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
+(181, 66, 1, 'Is the organization taking actions to prevent nonconformities, improve products and services, and improve the overall quality management system results?', 1, '', 1, 1, '2020-02-22 20:05:15', 18),
 (182, 67, 1, 'In the presence of a nonconformity, does the organization\n• React to the nonconformity by taking actions to control and correct it, and dealing with its consequences\n• Evaluate the need for action to eliminate the cause                                                                                                                    • Implement any action needed\n• Review the effective of any corrective action?\n• Make change to the quality management system?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (183, 68, 3, 'Is documented information maintained to show the nature of the nonconformity and any subsequent actions taken, and the results of any corrective action taken?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (184, 68, 1, 'In the presence of a nonconformity, does the organization react to the nonconformity by taking actions to control and correct it, and dealing with its consequences?', 1, '', 2, 1, '2019-12-18 03:08:53', 18),
@@ -875,7 +838,7 @@ CREATE TABLE IF NOT EXISTS `question_option` (
   `option_desc` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `question_option`
@@ -883,7 +846,8 @@ CREATE TABLE IF NOT EXISTS `question_option` (
 
 INSERT INTO `question_option` (`id`, `question_id`, `option_desc`) VALUES
 (1, 2, 'yes'),
-(2, 2, 'no');
+(2, 2, 'no'),
+(3, 181, '');
 
 -- --------------------------------------------------------
 
@@ -1033,8 +997,8 @@ INSERT INTO `standard` (`id`, `code`, `name`, `active`) VALUES
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` varchar(10) DEFAULT NULL,
   `phase_id` int(11) NOT NULL,
+  `code` varchar(10) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
@@ -1044,31 +1008,31 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- Déchargement des données de la table `status`
 --
 
-INSERT INTO `status` (`id`, `code`, `phase_id`, `name`, `active`) VALUES
-(11, '11', 1, 'Assigned', 1),
-(12, '12', 1, 'Engaged', 1),
-(13, '13', 1, 'Update request for customer', 1),
-(14, '14', 1, 'Awaiting feedback from consultant', 1),
-(15, '15', 1, 'Feedback submitted', 1),
-(16, '16', 1, 'Changes implemented/Completed', 1),
-(21, '21', 2, 'Assigned', 1),
-(22, '22', 2, 'Engaged', 1),
-(23, '23', 2, 'Update request for customer', 1),
-(24, '24', 2, 'Awaiting feedback from consultant', 1),
-(25, '25', 2, 'Feedback submitted', 1),
-(26, '26', 2, 'Changes implemented/Completed', 1),
-(31, '31', 3, 'Assigned', 1),
-(32, '32', 3, 'Engaged', 1),
-(33, '33', 3, 'Update request for customer', 1),
-(34, '34', 3, 'Awaiting feedback from consultant', 1),
-(35, '35', 3, 'Feedback submitted', 1),
-(36, '36', 3, 'Changes implemented/Completed', 1),
-(41, '41', 4, 'Training & Development', 1),
-(42, '42', 4, 'Internal Audit', 1),
-(43, '43', 4, 'Management review', 1),
-(44, '44', 4, 'Pre certification', 1),
-(45, '45', 4, 'Clean up NC', 1),
-(46, '46', 4, 'Generate Manual', 1);
+INSERT INTO `status` (`id`, `phase_id`, `code`, `name`, `active`) VALUES
+(11, 1, '11', 'Assigned', 1),
+(12, 1, '12', 'Engaged', 1),
+(13, 1, '13', 'Update request for customer', 1),
+(14, 1, '14', 'Awaiting feedback from consultant', 1),
+(15, 1, '15', 'Feedback submitted', 1),
+(16, 1, '16', 'Changes implemented/Completed', 1),
+(21, 2, '21', 'Assigned', 1),
+(22, 2, '22', 'Engaged', 1),
+(23, 2, '23', 'Update request for customer', 1),
+(24, 2, '24', 'Awaiting feedback from consultant', 1),
+(25, 2, '25', 'Feedback submitted', 1),
+(26, 2, '26', 'Changes implemented/Completed', 1),
+(31, 3, '31', 'Assigned', 1),
+(32, 3, '32', 'Engaged', 1),
+(33, 3, '33', 'Update request for customer', 1),
+(34, 3, '34', 'Awaiting feedback from consultant', 1),
+(35, 3, '35', 'Feedback submitted', 1),
+(36, 3, '36', 'Changes implemented/Completed', 1),
+(41, 4, '41', 'Training & Development', 1),
+(42, 4, '42', 'Internal Audit', 1),
+(43, 4, '43', 'Management review', 1),
+(44, 4, '44', 'Pre certification', 1),
+(45, 4, '45', 'Clean up NC', 1),
+(46, 4, '46', 'Generate Manual', 1);
 
 -- --------------------------------------------------------
 
@@ -1205,7 +1169,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_by` int(11) NOT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -1221,7 +1185,8 @@ INSERT INTO `user` (`id`, `profile_id`, `username`, `password`, `email`, `name`,
 (30, 3, 'consultant2', '$2y$10$8EjzOfJ7W9mAyq9jNEz1POGLENZX9excWKpl505iDzXbyQzeK1SkS', 'consultant2@hotmail.com', 'Consultant No 2', '', NULL, 1, 18, '2019-12-18 20:08:33'),
 (31, 3, 'consultant3', '$2y$10$LNvKCbDAmYkBL93oQlZH1uC.k4Qje.xC8JFkOdSzzdvQaBM9ERUTK', 'consultant3@hotmail.com', 'Consultant No 3', '', NULL, 1, 18, '2019-12-18 20:09:11'),
 (37, 4, 'TRN002', '$2y$10$i/66TmRPUoWoqSXOf9L2P.g4415vjzSZbZSUwgSeDTabRZlIyVKXm', 'voyagine@hotmail.com', 'M. Untel', 'phone', NULL, 1, 23, '2019-12-23 17:54:46'),
-(38, 4, 'TRN003', '$2y$10$FnwBu5YX5GSpu5T0sXcNvulVbC7tBBglrCPteknl..B6eODAxoBIi', 'voyagine@hotmail.com', 'Client No 3', '05149836594', NULL, 1, 18, '2019-12-23 17:59:28');
+(38, 4, 'TRN003', '$2y$10$FnwBu5YX5GSpu5T0sXcNvulVbC7tBBglrCPteknl..B6eODAxoBIi', 'voyagine@hotmail.com', 'Client No 3', '05149836594', NULL, 1, 18, '2019-12-23 17:59:28'),
+(39, 4, '123456789', '$2y$10$4lo56xMDEH4eWFX0Geo4quY.oU6fJE3Ssuw1Zol33vnU5lNm7IYRW', 'jumppnicholas1@gmail.com', 'Nicholas Jumpp', '1-876-788-9327', NULL, 1, 18, '2020-02-21 17:12:14');
 
 --
 -- Contraintes pour les tables déchargées

@@ -14,7 +14,7 @@ class Model_manual extends CI_Model
 	{
 
 		$sql = "SELECT business_process,board_meeting_time_period,management_review_time,					
-			sector.name AS 'sector_name',company_name,client_id,
+			sector.name AS 'sector_name',company_name,client_id,quality_policy,product,
 			county.name AS 'county_name',parish.name AS 'parish_name',
 			city.name AS 'city_name',exemption
 		FROM consultation

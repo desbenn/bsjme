@@ -44,6 +44,31 @@ class Model_dynamic_dependent extends CI_Model
   }
   return $output;
  }
+
+
+
+ function fetch_program()
+ {
+  $this->db->order_by("name", "ASC");
+  $query = $this->db->get("program");
+  return $query->result();
+ }
+
+
+function fetch_program_phase($program_id)
+ {
+  $this->db->where('program_id', $program_id);
+  $this->db->order_by('sequence', 'ASC');
+  $query = $this->db->get('program');
+  $output = '<option value="">Select Phase</option>';
+  foreach($query->result() as $row)
+  {
+   $output .= '<option value="'.$row->id.'">'.$row->code.' -'.$row->name.'</option>';
+  }
+  return $output;
+ }
+
+
 }
 
 ?>

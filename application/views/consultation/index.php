@@ -94,7 +94,7 @@
         <h4 class="modal-title">Delete Consultation</h4>
       </div>
 
-      <form role="form" action="<?php echo base_url('client/remove') ?>" method="post" id="removeForm">
+      <form role="form" action="<?php echo base_url('consultation/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
           <p>All the information about the consultation will be deleted.</p>
           <p><font color="red">It will not be possible to recover the answers to the questions.</font></p>
@@ -172,7 +172,7 @@ function removeFunc(id)
       $.ajax({
         url: form.attr('action'),
         type: form.attr('method'),
-        data: { client_id:id },
+        data: { consultation_id:id },
         dataType: 'json',
         success:function(response) {
 
@@ -184,9 +184,6 @@ function removeFunc(id)
               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
             '</div>');
 
-            // hide the modal
-            $("#removeModal").modal('hide');
-
           } else {
 
             $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
@@ -194,6 +191,9 @@ function removeFunc(id)
               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
             '</div>');
           }
+
+           // hide the modal
+            $("#removeModal").modal('hide');
         }
       });
 

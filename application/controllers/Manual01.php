@@ -125,7 +125,7 @@ class Manual01 extends Admin_Controller
 	$pdf->writeHTML($html, true, 0, true, true);  
 
 	$pdf->Bookmark('Quality Policy Statement', 1, 0, '', '', array(0,0,0));
-	$html = '<h3>Quality Policy Statement:</h3>';
+	$html = '<br><h3>Quality Policy Statement:</h3><br>'.$rs->quality_policy;
 	$pdf->writeHTML($html, true, 0, true, true);
 
 	$pdf->Bookmark('Quality and Strategic Objectives', 1, 0, '', '', array(0,0,0));
@@ -190,6 +190,10 @@ class Manual01 extends Admin_Controller
 
 	$pdf->Bookmark('Product and service provision', 1, 0, '', '', array(0,0,0));
 	$html = '<span style="text-align:justify;"><h3>Product and service provision:</h3><b>'.$rs->company_name.'</b> retains all managerial and administrative rights and prerogatives.</span>';
+	$pdf->writeHTML($html, true, 0, true, true);
+
+	$pdf->Bookmark('Product offered', 1, 0, '', '', array(0,0,0));
+	$html = '<span style="text-align:justify;"><h3>Product offered:</h3><br>'.$rs->product.'</span>';
 	$pdf->writeHTML($html, true, 0, true, true);
 
 	$pdf->Bookmark('Control of products and services', 1, 0, '', '', array(0,0,0));

@@ -208,6 +208,23 @@
                    </div>
                 </div>
 
+                <div class="row">                  
+
+                   <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                       <label for="objective">Objective</label>
+                        <textarea type="text" class="form-control" rows="2" id="objective" name="objective" autocomplete="off"><?php echo set_value('objective'); ?></textarea>
+                    </div>                   
+                   </div>
+
+                   <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                       <label for="target">Target</label>
+                        <textarea type="text" class="form-control" rows="2" id="target" name="target" autocomplete="off"><?php echo set_value('target'); ?></textarea>
+                    </div>                   
+                   </div>
+
+                 </div>  
 
                 <div class="form-group">
                   <label for="remark">Remark</label>

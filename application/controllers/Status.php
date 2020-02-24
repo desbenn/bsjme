@@ -83,9 +83,9 @@ class Status extends Admin_Controller
 			$active = ($value['active'] == 1) ? '<span class="label label-success">'.'Active'.'</span>' : '<span class="label label-warning">'.'Inactive'.'</span>';
 
 			$result['data'][$key] = array(
-				$value['phase_code'],
-				$value['code'],
-				$name,				
+				$name,
+				$value['code'],		
+				$value['phase_name'],										
 				$active,
 				$buttons
 			);

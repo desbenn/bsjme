@@ -123,30 +123,29 @@
 
                <div class="row">   
 
-               <div class="col-md-4 col-xs-4">
-                  <div class="form-group">
-                    <label for="program">Program <font color="red">*</font></label>
-                    <select class="form-control select_group" id="program" name="program">
-                      <option value=""></option>
-                      <?php foreach ($program as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>" <?php echo set_select('program', $v['id']); ?>>
-                      <?php echo $v['program_name'] ?></option>
-                      <?php endforeach ?>
-                      </select>
-                  </div>
-                </div> 
+                <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="program">Program <font color="red">*</font></label>
+                      <select class="form-control select_group" id="program" name="program">
+                       <option value=""></option>
+                        <?php
+                          foreach($program as $row)
+                          {
+                           echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                          }
+                        ?>
+                       </select>
+                    </div>
+                  </div>  
 
                 <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="phase">Phase <font color="red">*</font></label>
+                      <label for="phase">Phase</label>
                       <select class="form-control select_group" id="phase" name="phase">
-                        <?php foreach ($phase as $k => $v): ?>
-                          <option value="<?php echo $v['id'] ?>" <?php echo set_select('phase', $v['id']); ?>>
-                          <?php echo $v['name'] ?></option>
-                        <?php endforeach ?>
+                        <option value=""></option>                        
                       </select>
                     </div>
-                  </div>
+                  </div> 
 
                   <div class="col-md-4 col-xs-4">
                     <div class="form-group">
@@ -207,37 +206,51 @@
 
 
                 <div class="row">
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="business_process">Business Process</label>
                       <textarea type="text" class="form-control" rows="3" id="business_process" name="business_process" autocomplete="off"><?php echo set_value('business_process'); ?></textarea>
                     </div>
                   </div>
 
-                  <div class="col-md-6 col-xs-6">
-                    <div class="form-group">
-                      <label for="exemption">Exemption</label>
-                      <textarea type="text" class="form-control" rows="3" id="exemption" name="exemption" autocomplete="off"><?php echo set_value('exemption'); ?></textarea>
-                    </div>
-                  </div>
-                </div>  
-
-
-                <div class="row">
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="board_meeting_time_period">Board meeting time period</label>
                       <textarea type="text" class="form-control" rows="3" id="board_meeting_time_period" name="board_meeting_time_period" autocomplete="off"><?php echo set_value('board_meeting_time_period'); ?></textarea>
                     </div>
                   </div>
 
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-4 col-xs-4">
                     <div class="form-group">
                       <label for="management_review_time">Management review time</label>
                       <textarea type="text" class="form-control" rows="3" id="management_review_time" name="management_review_time" autocomplete="off"><?php echo set_value('management_review_time'); ?></textarea>
                     </div>
                   </div>
-                </div>   
+
+                </div>  
+
+                  <div class="row">
+                  <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="product">Product offered</label>
+                      <textarea type="text" class="form-control" rows="3" id="product" name="product" autocomplete="off"><?php echo set_value('product'); ?></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="quality_policy">Quality Policy</label>
+                      <textarea type="text" class="form-control" rows="3" id="quality_policy" name="quality_policy" autocomplete="off"><?php echo set_value('quality_policy'); ?></textarea>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="exemption">Exemption</label>
+                      <textarea type="text" class="form-control" rows="3" id="exemption" name="exemption" autocomplete="off"><?php echo set_value('exemption'); ?></textarea>
+                    </div>
+                  </div>
+                </div>  
 
                 <div class="form-group">
                   <label for="remark">Remark</label>
@@ -323,6 +336,31 @@ var base_url = "<?php echo base_url(); ?>";
          $('#sub_clause').html('<option value="">Select Sub clause</option>');
         }
        });
+
+
+
+      //Change of the program, call the phase list
+
+        $('#program').change(function(){
+        var program_id = $('#program').val();
+        if(program_id != '')
+        {
+         $.ajax({
+          url: base_url + 'dynamic_dependent/fetch_program_phase',
+          method:"POST",
+          data:{program_id:program_id},
+          success:function(data)
+          {
+           $('#phase').html(data);
+          }
+         });
+        }
+        else
+        {
+         $('#phase').html('<option value="">Select Phase</option>');
+        }
+       });
+   
 
   });
 </script>

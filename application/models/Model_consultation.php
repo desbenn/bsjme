@@ -13,11 +13,12 @@ class Model_consultation extends CI_Model
 		if($id) {
 			$sql = "SELECT consultation.*,address,client_name,company_name,director_name,trn,
 			    district,email,mobile,phone,postal_code,website,directory,
-				parish.name AS 'parish_name',
+				parish.name AS 'parish_name',phase.name AS 'phase_name',
 				county.name AS 'county_name',					 
 				(SELECT name FROM user WHERE client.updated_by = user.id) AS 'updated_by'   
 			FROM consultation
 				JOIN client ON consultation.client_id = client.id
+				LEFT JOIN phase ON consultation.phase_id = phase.id
 				LEFT JOIN parish ON client.parish_id = parish.id
 				LEFT JOIN county ON client.county_id = county.id
 				LEFT JOIN city ON client.city_id = city.id
@@ -29,14 +30,15 @@ class Model_consultation extends CI_Model
 		$sql = "SELECT consultation.*,address,client_name,company_name,director_name,trn,
 			    district,email,mobile,phone,postal_code,website,directory,
 				parish.name AS 'parish_name',
-				county.name AS 'county_name',						 
+				county.name AS 'county_name',phase.name AS 'phase_name',						 
 				(SELECT name FROM user WHERE client.updated_by = user.id) AS 'updated_by'   
 			FROM consultation
 				JOIN client ON consultation.client_id = client.id
+				LEFT JOIN phase ON consultation.phase_id = phase.id
 				LEFT JOIN parish ON client.parish_id = parish.id
 				LEFT JOIN county ON client.county_id = county.id
 				LEFT JOIN city ON client.city_id = city.id
-			ORDER BY id DESC";
+			ORDER BY consultation.id DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

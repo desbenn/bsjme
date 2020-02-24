@@ -46,7 +46,7 @@
 
 <!-----------------------------------------------------------------------------------------------------> 
 <!--                                                                                                 --> 
-<!--                                        Q U E S T I O N                                          -->  
+<!--                                        P R O G R A M M E                                        -->  
 <!--                                                                                                 -->  
 <!----------------------------------------------------------------------------------------------------->        
 
@@ -60,6 +60,14 @@
                 <?php echo validation_errors(); ?>  
 
                  <div class="row">
+
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="code">Code <font color="red">*</font></label>
+                      <input type="text" class="form-control" id="code" name="code" autocomplete="off"
+                      value="<?php echo set_value('code', isset($program_data['program']['code']) ? $program_data['program']['code'] : ''); ?>">
+                    </div>
+                  </div>
 
                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
@@ -85,7 +93,7 @@
                     </div>
                   </div> 
 
-                  <div class="col-md-2 col-xs-2" align="left">
+                  <div class="col-md-3 col-xs-3" align="center">
                     <div class="radio">
                       <label><input type="radio" name="active" id="active" class="" <?php if($program_data['program']['active']=='1') echo "checked='checked'"; ?> value="1" <?php echo $this->form_validation->set_radio('active', 1); ?> />Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
                       <label><input type="radio" name="active" id="active" class="" <?php if($program_data['program']['active']=='2') echo "checked='checked'"; ?> value="2" <?php echo $this->form_validation->set_radio('active', 2); ?> />Inactive</label> 
@@ -100,8 +108,8 @@
 
                    <div class="col-md-6 col-xs-6">
                      <div class="form-group">
-                      <label for="program_name">Program name</label>
-                      <textarea type="text" class="form-control" rows="5" id="program_name" name="program_name" autocomplete="off"><?php echo set_value('program_name', isset($program_data['program']['program_name']) ? $program_data['program']['program_name'] : ''); ?></textarea>
+                      <label for="name">Program name <font color="red">*</font></label>
+                      <textarea type="text" class="form-control" rows="5" id="name" name="name" autocomplete="off"><?php echo set_value('name', isset($program_data['program']['name']) ? $program_data['program']['name'] : ''); ?></textarea>
                     </div>
                   </div>  
 
@@ -113,7 +121,8 @@
         <table class="table table-bordered" id="phase_info_table">
                   <thead>
                     <tr>
-                      <th style="width:50%">Phase</th>                     
+                      <th style="width:50%">Phase <font color="red">*</font></th> 
+                      <th style="width:10%">Sequence <font color="red">*</font></th>                       
                       <th style="width:10%"><button type="button" id="add_row" class="btn btn-default"><i class="fa fa-plus"></i></button></th>
                     </tr>
                   </thead>
@@ -132,7 +141,7 @@
                               <?php endforeach ?>
                             </select>
                           </td>
-                        
+                          <td><input type="number" name="sequence[]" id="sequence_<?php echo $x; ?>" class="form-control" required value="<?php echo $val['sequence'] ?>" autocomplete="off"></td>
                           <td><button type="button" class="btn btn-default" onclick="removeRow('<?php echo $x; ?>')"><i class="fa fa-close"></i></button></td>
                        </tr>
                        <?php $x++; ?>
@@ -148,7 +157,8 @@
                               <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
                             <?php endforeach ?>
                           </select>
-                        </td>                     
+                        </td>   
+                        <td><input type="number" name="sequence[]" id="sequence_<?php echo $x; ?>" class="form-control" required value="<?php echo $val['sequence'] ?>" autocomplete="off"></td>                  
                         <td><button type="button" class="btn btn-default" onclick="removeRow('1')"><i class="fa fa-close"></i></button></td>
                      </tr>
 
@@ -224,7 +234,8 @@ function removeRow(tr_id)
                              '<?php endforeach ?>' ;
 
                       html += '</select>'+
-                    '</td>'+                  
+                    '</td>'+   
+                    '<td><input type="number" name="sequence[]" id="sequence_'+row_id+'" class="form-control" </td>'+          
                     '<td><button type="button" class="btn btn-default" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-close"></i></button></td>'+
                     '</tr>';
 

@@ -43,11 +43,11 @@ class Program extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
-            $program_name = $value['program_name'];
+            $name = $value['name'];
 
 			if(in_array('updateProgram', $this->permission)) {
                 $buttons .= '<a href="'.base_url('program/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
-                $program_name = '<a href="'.base_url('program/update/'.$value['id']).'">'.$value['program_name'].'</a>';
+                $name = '<a href="'.base_url('program/update/'.$value['id']).'">'.$value['name'].'</a>';
             }
 
             if(in_array('deleteProgram', $this->permission)) { 
@@ -55,7 +55,8 @@ class Program extends Admin_Controller
             }
 
 			$result['data'][$key] = array(	
-                $program_name,		
+                $name,		
+                $value['code'],
 				$value['standard_name'],
 				$value['clause_code'],                
 				$buttons
@@ -69,7 +70,7 @@ class Program extends Admin_Controller
 	public function create()
 	{
 		if(!in_array('createProgram', $this->permission)) {redirect('dashboard', 'refresh');}
-        $this->form_validation->set_rules('program_name', 'Program name', 'trim|required');
+        $this->form_validation->set_rules('name', 'Program name', 'trim|required');
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
 
@@ -77,7 +78,8 @@ class Program extends Admin_Controller
 		
             $data = array(
                 'active' => $this->input->post('active'),
-                'program_name' => $this->input->post('program_name'),
+                'name' => $this->input->post('name'),
+                'code' => $this->input->post('code'),
                 'standard_id' => $this->input->post('standard'),
                 'clause_id' => $this->input->post('clause'),
                 'remark' => $this->input->post('remark'),
@@ -94,6 +96,7 @@ class Program extends Admin_Controller
                     $phase = array(
                         'program_id' => $program_id,
                         'phase_id' => $this->input->post('phase')[$x],
+                        'sequence' => $this->input->post('sequence')[$x],
                     );
 
                     $this->db->insert('program_phase', $phase);
@@ -126,14 +129,15 @@ class Program extends Admin_Controller
 
         if(!$program_id) {redirect('dashboard', 'refresh');}
 
-        $this->form_validation->set_rules('program_name', 'Program name', 'trim|required');
+        $this->form_validation->set_rules('name', 'Program name', 'trim|required');
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
 
                 $data = array(
                     'active' => $this->input->post('active'),                    
-                    'program_name' => $this->input->post('program_name'),
+                    'name' => $this->input->post('name'),
+                    'code' => $this->input->post('code'),
                     'standard_id' => $this->input->post('standard'),
                     'clause_id' => $this->input->post('clause'),
                     'remark' => $this->input->post('remark'),
@@ -156,7 +160,8 @@ class Program extends Admin_Controller
                 for($x = 0; $x < $count_phase; $x++) {
                     $phase = array(
                         'program_id' => $program_id,
-                        'phase_id' => $this->input->post('phase')[$x],            
+                        'phase_id' => $this->input->post('phase')[$x], 
+                        'sequence' => $this->input->post('sequence')[$x],          
                     );
                     $this->db->insert('program_phase', $phase);
                 }
@@ -200,23 +205,31 @@ class Program extends Admin_Controller
         $response = array();
 
         if($program_id) {
-            $delete = $this->model_program->remove($program_id);
-            if($delete == true) {
-                $response['success'] = true;
-                $response['messages'] = "Successfully removed"; 
-            }
+            //---> Validate if the information is used in consultation table
+            $total_rows = $this->model_program->checkIntegrity($program_id);
+            //---> If no consultation have this information, we can delete
+            if ($total_rows == 0) {
+                $delete = $this->model_program->remove($program_id);
+                if($delete == true) {
+                    $response['success'] = true;
+                    $response['messages'] = 'Successfully deleted';}
+                else {
+                    $response['success'] = false;
+                    $response['messages'] = 'Error in the database while deleting the information';}
+                }
+
             else {
+                //---> There is at least one consultation having this information
                 $response['success'] = false;
-                $response['messages'] = "Error in the database while removing the program information";
-            }
+                $response['messages'] = 'At least one client uses this information.  You cannot delete.';}
+
         }
         else {
             $response['success'] = false;
-            $response['messages'] = "Refresh the page again!!";
-        }
+            $response['messages'] = 'Refresh the page again';}
 
         echo json_encode($response);
-	}
+    }
 
 
 }

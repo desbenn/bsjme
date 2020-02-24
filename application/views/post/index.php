@@ -41,8 +41,8 @@
               <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th width="15%">Category</th>
                     <th width="30%">Title</th>
+                    <th width="15%">Category</th>                    
                     <th width="5%">Client Visibility</th>
                     <th width="10%">Date from</th>
                     <th width="10%">Date to</th>

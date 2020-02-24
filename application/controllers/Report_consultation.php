@@ -101,14 +101,20 @@ class Report_consultation extends Admin_Controller
 			$cell1 = array('data' => '<strong>Business Process:&nbsp;&nbsp;</strong>'.$rs->business_process, 'width' => '100%');
 			$this->table->add_row($cell1);
 
-			$cell1 = array('data' => '<strong>Exemption:&nbsp;&nbsp;</strong>'.$rs->exemption, 'width' => '100%');
-			$this->table->add_row($cell1);
-
 			$cell1 = array('data' => '<strong>Board meeting time period:&nbsp;&nbsp;</strong>'.$rs->board_meeting_time_period, 'width' => '100%');
 			$this->table->add_row($cell1);
 
 			$cell1 = array('data' => '<strong>Management review time:&nbsp;&nbsp;</strong>'.$rs->management_review_time, 'width' => '100%');
 			$this->table->add_row($cell1);
+
+			$cell1 = array('data' => '<strong>Product offered:&nbsp;&nbsp;</strong>'.$rs->product, 'width' => '100%');
+			$this->table->add_row($cell1);
+
+			$cell1 = array('data' => '<strong>Quality policy:&nbsp;&nbsp;</strong>'.$rs->quality_policy, 'width' => '100%');
+			$this->table->add_row($cell1);
+			
+			$cell1 = array('data' => '<strong>Exemption:&nbsp;&nbsp;</strong>'.$rs->exemption, 'width' => '100%');
+			$this->table->add_row($cell1);			
 
 			$cell1 = array('data' => '<strong>Remark:&nbsp;&nbsp;</strong>'.$rs->remark, 'width' => '100%');
 			$this->table->add_row($cell1);

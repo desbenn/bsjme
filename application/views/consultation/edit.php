@@ -41,7 +41,8 @@
     </div>
     <div class="f1-step active">
       <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-      <p >Phase 1</p>
+      <!-- method for display of the phase name from db   <p ><?php echo $consultation_data['phase_name']; ?></p> -->
+      <p>Phase 1</p>
     </div>
     <div class="f1-step">
       <div class="f1-step-icon"><i class="fa fa-commenting-o"></i></div>
@@ -385,7 +386,7 @@
                   <option value=""></option>
                   <?php foreach ($program as $k => $v): ?>
                     <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('program', isset($consultation_data['program_id']) ? $consultation_data['program_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['program_name'] ?></option>
+                    <?php if(set_value('program', isset($consultation_data['program_id']) ? $consultation_data['program_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
                     <?php endforeach ?>
                 </select>
               </div>
@@ -469,36 +470,52 @@
 
             <div class="row"> <!--  row 5 --> 
 
-              <div class="col-md-6 col-xs-6">
+              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="business_process">Business Process</label>
                   <textarea type="text" class="form-control" rows="3" id="business_process" name="business_process" autocomplete="off"><?php echo set_value('business_process', isset($consultation_data['business_process']) ? $consultation_data['business_process'] : ''); ?></textarea>
                 </div>
               </div>
 
-              <div class="col-md-6 col-xs-6">
-                <div class="form-group">
-                  <label for="exemption">Exemption</label>
-                  <textarea type="text" class="form-control" rows="3" id="exemption" name="exemption" autocomplete="off"><?php echo set_value('exemption', isset($consultation_data['exemption']) ? $consultation_data['exemption'] : ''); ?></textarea>
-                </div>
-              </div>
-
-            </div>   <!-- /end row 5 --> 
-
-
-            <div class="row"> <!-- row 6 --> 
-
-              <div class="col-md-6 col-xs-6">
+              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="board_meeting_time_period">Board meeting time period</label>
                   <textarea type="text" class="form-control" rows="3" id="board_meeting_time_period" name="board_meeting_time_period" autocomplete="off"><?php echo set_value('board_meeting_time_period', isset($consultation_data['board_meeting_time_period']) ? $consultation_data['board_meeting_time_period'] : ''); ?></textarea>
                 </div>
               </div>
 
-              <div class="col-md-6 col-xs-6">
+              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="management_review_time">Management review time</label>
                   <textarea type="text" class="form-control" rows="3" id="management_review_time" name="management_review_time" autocomplete="off"><?php echo set_value('management_review_time', isset($consultation_data['management_review_time']) ? $consultation_data['management_review_time'] : ''); ?></textarea>
+                </div>
+              </div>
+
+             
+
+            </div>   <!-- /end row 5 --> 
+
+
+            <div class="row"> <!-- row 6 --> 
+
+              <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                  <label for="product">Product offered</label>
+                  <textarea type="text" class="form-control" rows="3" id="product" name="product" autocomplete="off"><?php echo set_value('product', isset($consultation_data['product']) ? $consultation_data['product'] : ''); ?></textarea>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                  <label for="quality_policy">Quality policy</label>
+                  <textarea type="text" class="form-control" rows="3" id="quality_policy" name="quality_policy" autocomplete="off"><?php echo set_value('quality_policy', isset($consultation_data['quality_policy']) ? $consultation_data['quality_policy'] : ''); ?></textarea>
+                </div>
+              </div>
+
+               <div class="col-md-4 col-xs-4">
+                <div class="form-group">
+                  <label for="exemption">Exemption</label>
+                  <textarea type="text" class="form-control" rows="3" id="exemption" name="exemption" autocomplete="off"><?php echo set_value('exemption', isset($consultation_data['exemption']) ? $consultation_data['exemption'] : ''); ?></textarea>
                 </div>
               </div>
 

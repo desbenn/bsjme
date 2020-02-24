@@ -44,10 +44,10 @@
           <div class="table-responsive">
             <table id="manageTable" class="table table-bordered table-striped">
               <thead>
-              <tr>     
-                <th>Phase</th> 
-                <th>Code</th>
-                <th>Name</th>
+              <tr>   
+                <th>Name</th>  
+                <th>Code</th>     
+                <th>Phase</th>                            
                 <th>Active</th>
                 <?php if(in_array('updateStatus', $user_permission) || in_array('deleteStatus', $user_permission)): ?>
                   <th>Action</th>

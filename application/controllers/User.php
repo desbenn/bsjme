@@ -59,9 +59,11 @@ class User extends Admin_Controller
 			$profile_data = $this->model_profile->getProfileData($value['profile_id']);
 
 			$buttons = '';
+			$username = $value['username'];
 
 			if(in_array('updateUser', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
+				$username ='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['name'].'</a>';
 			}
 
 			if(in_array('deleteUser', $this->permission)) {
@@ -72,7 +74,7 @@ class User extends Admin_Controller
 
 
 			$result['data'][$key] = array(
-				$value['username'],
+				$username,
 				$value['email'],
 				$value['name'],
 				$value['phone'],

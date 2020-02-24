@@ -25,5 +25,13 @@ class Dynamic_dependent extends Admin_Controller
    echo $this->model_dynamic_dependent->fetch_sub_clause($this->input->post('clause_id'));
   }
  }
+
+
+ function fetch_program_phase()
+ {
+  if($this->input->post('program_id'))
+  {
+   echo $this->model_dynamic_dependent->fetch_program_phase($this->input->post('program_id'));
+  }
   
 }

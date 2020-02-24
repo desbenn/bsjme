@@ -91,7 +91,8 @@ class Consultation extends Admin_Controller
                 $consultation_no = '<a href="'.base_url('consultation/update/'.$value['id']).'">'.$value['consultation_no'].'</a>';}
 
             if(in_array('deleteConsultation', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-standard="#removeModal"><i class="fa fa-trash"></i></button>';}
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+            }
 
             if(in_array('viewConsultation', $this->permission)) {
                 $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';}
@@ -147,9 +148,11 @@ class Consultation extends Admin_Controller
                 'date_end' => $this->input->post('date_end'),
                 'description' => $this->input->post('description'),
                 'exemption' => $this->input->post('exemption'),
-                'management_review_time' => $this->input->post('management_review_time'),               
-                'phase_id' => $this->input->post('phase'),
+                'management_review_time' => $this->input->post('management_review_time'),   
+                'phase_id' => $this->input->post('phase'),            
+                'product' => $this->input->post('product'),
                 'program_id' => $this->input->post('program'),
+                'quality_policy' => $this->input->post('quality_policy'),
                 'remark' => $this->input->post('remark'),
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
@@ -175,8 +178,9 @@ class Consultation extends Admin_Controller
         //    the drop-down list needed in the create form
 
         $this->data['standard'] = $this->model_dynamic_dependent->fetch_standard();  
-        $this->data['program'] = $this->model_program->getActiveProgram();
-		$this->data['phase'] = $this->model_phase->getActivePhase();
+        $this->data['program'] = $this->model_dynamic_dependent->fetch_program();
+        //$this->data['phase'] = $this->model_dynamic_dependent->fetch_program_phase(); 
+		//$this->data['phase'] = $this->model_phase->getActivePhase();
         $this->data['status'] = $this->model_status->getActiveStatus();
         $this->data['client'] = $this->model_client->getClientData();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
@@ -248,7 +252,9 @@ class Consultation extends Admin_Controller
                 'exemption' => $this->input->post('exemption'),
                 'management_review_time' => $this->input->post('management_review_time'),               
                 'phase_id' => $this->input->post('phase'),
+                'product' => $this->input->post('product'),
                 'program_id' => $this->input->post('program'),
+                'quality_policy' => $this->input->post('quality_policy'),
                 'remark' => $this->input->post('remark'),
                 'sector_id' => $this->input->post('sector'),
                 'standard_id' => $this->input->post('standard'),
@@ -298,13 +304,14 @@ class Consultation extends Admin_Controller
 
 
 
-    //--> It removes the data from the database
-    //    and it returns the response into the json format
+    //-->  Removes the inquiry_type information from the database
+    //     and returns the json format operation messages
 
     public function remove()
     {
         if(!in_array('deleteConsultation', $this->permission)) {
-            redirect('dashboard', 'refresh');}
+            redirect('dashboard', 'refresh');
+        }
 
         $consultation_id = $this->input->post('consultation_id');
 
@@ -326,17 +333,19 @@ class Consultation extends Admin_Controller
                 }
 
             else {
-                //---> There is at least one document and we will ask to delete the document first
+                //---> There is at least one table having this information
                 $response['success'] = false;
-                $response['messages'] = 'At least one document is attached to this consultation.  Delete the document manually first.';}
+                $response['messages'] = 'There is at least one document attached to this consultation.  You must delete the documnts manually before deleting the consultation.';
+                }
 
         }
-        else {
+        else 
+        {
             $response['success'] = false;
-            $response['messages'] = 'Refresh the page again';}
+            $response['messages'] = 'Refresh the page again';
+        }
 
         echo json_encode($response);
-
     }
 
 
