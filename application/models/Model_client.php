@@ -236,5 +236,18 @@ class Model_client extends CI_Model
 
 	}
 
+	/**Client Requirement section. Which will have CRUD operations */
+	public function addClientRequirement($data)
+	{
+		$sql = "";
+		$insert = $this->db->insert('client_requirement', $data);
+		return ($insert == true) ? true : false;
+	}
+
+	public function retrieveClientRequirement($id)
+	{
+		
+	}
+
 
 }
