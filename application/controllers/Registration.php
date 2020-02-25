@@ -114,6 +114,7 @@ class Registration extends Admin_Controller
 						{
 							//--->  Upload the document
 							$data = array('upload_data' => $this->upload->data());
+							redirect('registration/successful', 'refresh');
 						}
 						else 
 						{
