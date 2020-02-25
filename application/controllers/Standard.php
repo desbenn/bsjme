@@ -217,7 +217,7 @@ class Standard extends Admin_Controller
 			else {
 				//---> There is at least one table having this information
 				$response['success'] = false;
-				$response['messages'] = 'At least one consultation uses this information.  You cannot delete.';}
+				$response['messages'] = 'This standard have a clause attached or a consultation use this information.  You cannot delete.';}
 
 		}
 		else {

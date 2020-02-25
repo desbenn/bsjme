@@ -176,7 +176,7 @@ class Program extends Admin_Controller
         }
         else {
             
-            $this->data['standard'] = $this->model_standard->getActiveStandard();   
+            $this->data['standard'] = $this->model_standard->getActiveStandard(); 
             $this->data['clause'] = $this->model_clause->getActiveClause();    
 			$this->data['phase'] = $this->model_phase->getActivePhase();			
             
@@ -221,7 +221,7 @@ class Program extends Admin_Controller
             else {
                 //---> There is at least one consultation having this information
                 $response['success'] = false;
-                $response['messages'] = 'At least one client uses this information.  You cannot delete.';}
+                $response['messages'] = 'At least one consultation have this information.  You cannot delete.';}
 
         }
         else {

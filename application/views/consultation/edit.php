@@ -12,6 +12,7 @@
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('consultation') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Consultation </li>
+      <li><img width="25" height="25" data-toggle="tooltip" data-placement="bottom" title="Some information about the consultation." src="<?php echo base_url('assets/images/question.png'); ?>" /></li>
     </ol>
   </section>
 
@@ -374,49 +375,48 @@
              
             </div>  <!-- end /row 2 -->    
 
-
-
-
             <div class="row">  <!-- row 3 -->
 
               <div class="col-md-4 col-xs-4">
-                <div class="form-group">
-                <label for="program">Program <font color="red">*</font></label>
-                <select class="form-control select_group" id="program" name="program">
-                  <option value=""></option>
-                  <?php foreach ($program as $k => $v): ?>
-                    <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('program', isset($consultation_data['program_id']) ? $consultation_data['program_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-              </div>
-             </div>
+                    <div class="form-group">
+                      <label for="program">Program <font color="red">*</font></label>
+                      <select class="form-control select_group" id="program" name="program">
+                       <option value="">Select Program</option>
+                        <?php
+                          foreach($program as $row)
+                          {
+                           echo '<option value="'.$row->id.'"';                           
+                           if(set_value('program', isset($consultation_data['program_id']) ? $consultation_data['program_id'] : '') == $row->id) { echo 'selected="selected"'; };
+                           echo '>'.$row->name; '</option>';
+                          }
+                        ?>
+                       </select>
+                    </div>
+                  </div>  
 
-             <div class="col-md-4 col-xs-4">
+               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="property">Phase <font color="red">*</font></label>
+                  <label for="phase">Phase <font color="red">*</font></label>
                   <select class="form-control select_group" id="phase" name="phase">
-                      <option value=""></option>
-                      <?php foreach ($phase as $k => $v): ?>
-                        <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('phase', isset($consultation_data['phase_id']) ? $consultation_data['phase_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
-                      <?php endforeach ?>
-                    </select>
+                    <option value="">Select Phase</option>
+                    <?php foreach ($phase as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>"<?php if(set_value('phase', isset($consultation_data['phase_id']) ? $consultation_data['phase_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                    <?php endforeach ?>
+                  </select>
                 </div>
-              </div>
+              </div>   
 
               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="status">Status <font color="red">*</font></label>
                   <select class="form-control select_group" id="status" name="status">
-                    <option value=""></option>
+                    <option value="">Select Status</option>
                     <?php foreach ($status as $k => $v): ?>
-                      <option value="<?php echo $v['id'] ?>"
-                      <?php if(set_value('status', isset($consultation_data['status_id']) ? $consultation_data['status_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['status_name'] ?></option>
+                      <option value="<?php echo $v['id'] ?>"<?php if(set_value('status', isset($consultation_data['status_id']) ? $consultation_data['status_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
                     <?php endforeach ?>
                   </select>
                 </div>
-              </div>
+              </div>    
               
             </div>  <!-- end /row 3 -->     
             
@@ -424,39 +424,41 @@
             
             <div class="row"> <!-- row 4 -->  
 
-              
              <div class="col-md-4 col-xs-4">
-                <div class="form-group">
-                <label for="standard">Standard <font color="red">*</font></label>
-                <select class="form-control select_group" id="standard" name="standard">
-                  <option value=""></option>
-                  <?php foreach ($standard as $k => $v): ?>
-                    <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('standard', isset($consultation_data['standard_id']) ? $consultation_data['standard_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
-              </div>
-             </div>
+                    <div class="form-group">
+                      <label for="standard">Standard <font color="red">*</font></label>
+                      <select class="form-control select_group" id="standard" name="standard">
+                       <option value="">Select Standard</option>
+                        <?php
+                          foreach($standard as $row)
+                          {
+                           echo '<option value="'.$row->id.'"';                           
+                           if(set_value('standard', isset($consultation_data['standard_id']) ? $consultation_data['standard_id'] : '') == $row->id) { echo 'selected="selected"'; };
+                           echo '>'.$row->name; '</option>';
+                          }
+                        ?>
+                       </select>
+                    </div>
+                  </div>  
 
              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                <label for="clause">Clause</label>
-                <select class="form-control select_group" id="clause" name="clause">
-                  <option value=""></option>
-                  <?php foreach ($clause as $k => $v): ?>
-                    <option value="<?php echo $v['id'] ?>"
-                    <?php if(set_value('clause', isset($consultation_data['clause_id']) ? $consultation_data['clause_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
+                  <label for="clause">Clause <font color="red">*</font></label>
+                  <select class="form-control select_group" id="clause" name="clause">
+                    <option value="">Select Clause</option>
+                    <?php foreach ($clause as $k => $v): ?>
+                      <option value="<?php echo $v['id'] ?>"<?php if(set_value('clause', isset($consultation_data['clause_id']) ? $consultation_data['clause_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
                     <?php endforeach ?>
-                </select>
-              </div>
-             </div>  
+                  </select>
+                </div>
+              </div>    
 
               
               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
                   <label for="sector">Sector <font color="red">*</font></label>
                   <select class="form-control select_group" id="sector" name="sector">
-                    <option value=""></option>
+                    <option value="">Select Sector</option>
                     <?php foreach ($sector as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>"<?php if(set_value('sector', isset($consultation_data['sector_id']) ? $consultation_data['sector_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
                     <?php endforeach ?>
@@ -556,6 +558,8 @@
 
   $(document).ready(function() {
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     $(".select_group").select2({width: '100%'});
     //$("#remark").wysihtml5();
 
@@ -563,7 +567,79 @@
     $("#manageConsultationNav").addClass('active');
 
 
-})
+//--> Change of the standard, call the clause list
+
+        $('#standard').change(function(){
+        var standard_id = $('#standard').val();
+        if(standard_id != '')
+        {
+         $.ajax({
+                url: base_url + 'dynamic_dependent/fetch_clause',
+                method:"POST",
+                data:{standard_id:standard_id},
+                success:function(data)
+                {
+                 $('#clause').html(data);
+                }
+               });
+        }
+        else
+        {
+         $('#clause').html('<option value="">Select Clause</option>');
+        }
+       });
+
+
+//--> Change of the program, call the phase list
+
+        $('#program').change(function(){
+        var program_id = $('#program').val();
+        if(program_id != '')
+        {
+         $.ajax({
+                url: base_url + 'dynamic_dependent/fetch_phase',
+                method:"POST",
+                data:{program_id:program_id},
+                success:function(data)
+                {
+                 $('#phase').html(data);
+                 $('#status').html('<option value="">Select Status</option>');
+                }
+               });
+        }
+        else
+        {
+         $('#phase').html('<option value="">Select Phase</option>');
+         $('#status').html('<option value="">Select Status</option>');
+        }
+       });
+
+
+
+//--> Change of the phase, call the status list
+
+        $('#phase').change(function(){
+        var phase_id = $('#phase').val();
+        if(phase_id != '')
+        {
+         $.ajax({
+              url: base_url + 'dynamic_dependent/fetch_status',
+              method:"POST",
+              data:{phase_id:phase_id},
+              success:function(data)
+              {
+               $('#status').html(data);
+              }
+             });
+        }
+        else
+        {
+         $('#status').html('<option value="">Select Status</option>');
+        }
+       });
+
+  });
+
 
 </script>
 
@@ -716,6 +792,7 @@
 
             <?php if(in_array('createDocument', $user_permission)): ?>
 
+                <!-- Drop-down list Type of document  -->  
                 <?php echo "<td width='25%'><div class='form_group'>" ?>
                 <?php echo "<label for='document_type'>Type of document" ?>
                 <?php echo "<select class='form-control select_group' id='document_type' name='document_type'>" ?>
@@ -726,6 +803,7 @@
                 <?php echo " </select></div>" ?>
                 <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
 
+                <!-- Drop-down list Classification of document   -->
                 <?php echo "<td width='20%'><div class='form_group'>" ?>
                 <?php echo "<label for='document_class'>Classification" ?>
                 <?php echo "<select class='form-control select_group' id='document_class' name='document_class'>" ?>
@@ -736,7 +814,11 @@
                 <?php echo " </select></div>" ?>
                 <?php echo "&nbsp;&nbsp;&nbsp;</label></td>" ?>
 
+
+                <!-- Input the name of the document -->
                 <?php echo "<td width='40%' align=left><input type='file' required='required' name='consultation_document' id='consultation_document' size='60'  /></td>" ?> 
+
+                <!-- Submit the document -->
                 <?php echo "<td width='15%'><input type='submit' name='submit' class='btn btn-primary' value='Add Document' /></td>" ?>
             <?php endif; ?>
             

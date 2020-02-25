@@ -6,6 +6,15 @@
   <title><?php echo $page_title; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+
+<!----------------------------------------------------------------------------------------------------->
+<!--                                                                                                 -->
+<!--                                        S T Y L E S H E E T                                      -->
+<!--                                                                                                 -->
+<!----------------------------------------------------------------------------------------------------->
+
+
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/bootstrap/dist/css/bootstrap.min.css') ?>">
   <!-- Font Awesome -->
@@ -50,13 +59,23 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+
+
+<!----------------------------------------------------------------------------------------------------->
+<!--                                                                                                 -->
+<!--                                        J A V A S C R I P T  t o o l s                           -->
+<!--                                                                                                 -->
+<!----------------------------------------------------------------------------------------------------->
+
   <!-- jQuery 3 -->
   <script src="<?php echo base_url('assets/bower_components/jquery/dist/jquery.min.js') ?>"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="<?php echo base_url('assets/bower_components/jquery-ui/jquery-ui.min.js') ?>"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip (seems not to work for the placement!)-->
   <script>
     $.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uitooltip', $.ui.tooltip);
   </script>
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url('assets/bower_components/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
@@ -105,7 +124,7 @@
 
 
 
-        <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>">
+<link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>">
 
   
 

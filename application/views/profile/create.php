@@ -32,7 +32,7 @@
            <div class="col-md-3 col-xs-3">
             <div class="form-profile" align="right">
               <input type="checkbox" name="protected" id="protected" class="minimal" value="1">
-              <label for="proctected">&nbsp;&nbsp;&nbsp;Profile Protected</label>
+              <label for="proctected" data-toggle="tooltip" data-placement="bottom" title="A protected profile must be kept because the system will depend on the current profile for certain functions.">&nbsp;&nbsp;&nbsp;Profile Protected</label>
           </div>  
         </div>
       </div>
@@ -569,6 +569,8 @@
       checkboxClass: 'icheckbox_minimal-blue',
       radioClass   : 'iradio_minimal-blue'
     });
+    
+    $('[data-toggle="tooltip"]').tooltip();   
   });
 </script>
 

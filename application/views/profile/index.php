@@ -60,6 +60,7 @@
               <thead>
               <tr>                
                   <th>Profile</th>
+                  <th>Profile ID</th>
                   <th>Protected</th>
                 <?php if(in_array('updateProfile', $user_permission) || in_array('deleteProfile', $user_permission)): ?>
                   <th>Action</th>

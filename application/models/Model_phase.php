@@ -32,7 +32,16 @@ class Model_phase extends CI_Model
 		return $query->result_array();
 	}
 
-
+    // get the status for the phase
+	public function getPhaseStatus($phase_id)
+	{
+		$sql = "SELECT *
+				FROM status 
+				WHERE phase_id = ?
+				ORDER BY name";
+		$query = $this->db->query($sql, array($phase_id));
+		return $query->result_array();
+	}
 	
 
 
@@ -80,6 +89,10 @@ class Model_phase extends CI_Model
 		$num_rows = $num_rows + $query->num_rows();
 
 		$sql = "SELECT * FROM status WHERE phase_id = ?";
+		$query = $this->db->query($sql, array($id));
+		$num_rows = $num_rows + $query->num_rows();
+
+		$sql = "SELECT * FROM sub_clause WHERE phase_id = ?";
 		$query = $this->db->query($sql, array($id));
 		$num_rows = $num_rows + $query->num_rows();
 

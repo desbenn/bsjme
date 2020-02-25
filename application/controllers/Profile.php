@@ -59,6 +59,7 @@ class profile extends Admin_Controller
 
 			$result['data'][$key] = array(			
 				$name,
+				$value['id'],
 				$protected,
 				$buttons
 			);

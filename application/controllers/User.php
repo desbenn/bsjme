@@ -78,7 +78,7 @@ class User extends Admin_Controller
 				$value['email'],
 				$value['name'],
 				$value['phone'],
-				$profile_data['name'],
+				$profile_data['name'].' ('.$value['profile_id'].')',
 				$active,
 				$buttons
 			);

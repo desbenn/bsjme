@@ -58,9 +58,17 @@ class Model_document_class extends CI_Model
 	//---> Validate if the document type is used in table inquiry
 	public function checkIntegrity($id)
 	{
+		$num_rows = 0;
+		
 		$sql = "SELECT * FROM document WHERE document_class_id = ?";
 		$query = $this->db->query($sql, array($id));
-		return $query->num_rows();
+		$num_rows = $num_rows + $query->num_rows();
+
+		$sql = "SELECT * FROM document_type WHERE document_class_id = ?";
+		$query = $this->db->query($sql, array($id));
+		$num_rows = $num_rows + $query->num_rows();
+
+		return $num_rows;
 
 	}
 

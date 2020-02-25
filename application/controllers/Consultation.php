@@ -12,6 +12,7 @@ class Consultation extends Admin_Controller
 
 		$this->data['page_title'] = 'Consultation';
         $this->data['active_tab'] = $this->input->get('tab') ?? 'consultation';
+        $this->log_module = 'consultation';
 
 	}
 
@@ -27,6 +28,22 @@ class Consultation extends Admin_Controller
         $this->data['consultant'] = $this->model_user->getActiveConsultant(); 
 		$this->render_template('consultation/index', $this->data);
 	}
+
+
+
+    //--> Redirects to the timeline
+
+    public function timeline($id)
+    {
+        if(!in_array('viewConsultation', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+        $timeline_data = $this->model_log->timeline_client($id); 
+        $this->data['timeline_data'] = $timeline_data;
+        $this->render_template('consultation/timeline', $this->data);
+    }
+
 
 
     //--> It fetches the consultation data from the consultation table
@@ -49,6 +66,13 @@ class Consultation extends Admin_Controller
         if ($consultant <> "all") {
             $consultant = '"'.$consultant.'"';
         }
+
+
+        //--> If the profile is a reader only, he can see all the consultations
+        //    but will have only access to the print of the consultation
+        if ($this->session->profile == 6) {
+            $consultant = 'all';
+        }
         
 
         //--> If the Profile is a Client, we must read only the consultation of the client
@@ -67,7 +91,7 @@ class Consultation extends Admin_Controller
             $phase_data = $this->model_phase->getPhaseData($value['phase_id']);
             $status_data = $this->model_status->getStatusData($value['status_id']);
             $client_data = $this->model_client->getClientDataById($value['client_id']);            
-            $sector_data = $this->model_sector->getSectorData($value['sector_id']);
+            $program_data = $this->model_program->getProgramData($value['program_id']);
 
             //--> Prepare the list of consultants to view in the datatable
 
@@ -86,7 +110,7 @@ class Consultation extends Admin_Controller
 
             $consultation_no = $value['consultation_no'];  
 
-            if(in_array('updateConsultation', $this->permission) || in_array('viewConsultation', $this->permission)) {
+            if(in_array('updateConsultation', $this->permission)) {
                 $buttons .= '<a href="'.base_url('consultation/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
                 $consultation_no = '<a href="'.base_url('consultation/update/'.$value['id']).'">'.$value['consultation_no'].'</a>';}
 
@@ -95,14 +119,16 @@ class Consultation extends Admin_Controller
             }
 
             if(in_array('viewConsultation', $this->permission)) {
-                $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';}
+                $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';
+                $buttons .= '<a href="'.base_url('consultation/timeline/'.$value['client_id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
+            }
 
 			$result['data'][$key] = array(
 				$consultation_no,
 				$value['description'],
                 $client_data['company_name'],
                 $consultant_list,
-                $sector_data['name'],
+                $program_data['name'],
                 $phase_data['code'],
 				$status_data['status_name'],
 				$buttons
@@ -161,15 +187,27 @@ class Consultation extends Admin_Controller
 
         	);
 
-        	$create = $this->model_consultation->create($data);
+        	$consultation_id = $this->model_consultation->create($data);
 
-        	if($create == false) {
-                $msg_error = 'Error occurred';
+        	if($consultation_id == false) {
+                $msg_error = 'Error occurred in the creation of the consultation';
                 $this->session->set_flashdata('error', $msg_error);
                 redirect('consultation/create', 'refresh');}
             else {
-                 //The create return the consultation_id created if it's successful
-                $consultation_id = $create;
+                 //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'create',
+                    'subject_id' => $consultation_id,
+                    'client_id' => $this->input->post('client'),
+                    'consultation_id' => $consultation_id,
+                    'attributes' => $data
+                ));
+
+                 //The create return the consultation_id if it's successful
+                 // and we can go to the edit pages to continue the treatment of the consultation
+             
                 redirect('consultation/update/'.$consultation_id, 'refresh');}
 
         }
@@ -179,9 +217,6 @@ class Consultation extends Admin_Controller
 
         $this->data['standard'] = $this->model_dynamic_dependent->fetch_standard();  
         $this->data['program'] = $this->model_dynamic_dependent->fetch_program();
-        //$this->data['phase'] = $this->model_dynamic_dependent->fetch_program_phase(); 
-		//$this->data['phase'] = $this->model_phase->getActivePhase();
-        $this->data['status'] = $this->model_status->getActiveStatus();
         $this->data['client'] = $this->model_client->getClientData();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
 		$this->data['sector'] = $this->model_sector->getActiveSector();
@@ -226,6 +261,9 @@ class Consultation extends Admin_Controller
 
         if(!$consultation_id) {redirect('dashboard', 'refresh');}
 
+        //--> Get old data to keep in the log
+        $old_data = $this->model_consultation->getConsultationData($consultation_id);
+
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
         $this->form_validation->set_rules('program', 'Program', 'trim|required');
         $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
@@ -268,6 +306,19 @@ class Consultation extends Admin_Controller
             if($update == true) {
                 //$msg_error = 'Successfully updated';
                 //$this->session->set_flashdata('success', $msg_error);
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'update',
+                    'subject_id' => $consultation_id,
+                    'client_id' => $this->input->post('client'),
+                    'consultation_id' => $consultation_id,
+                    'attributes' => array(
+                          'old' => $old_data,
+                          'new' => $data
+                     )
+                ));
                 redirect('consultation/update/'.$consultation_id."?tab=consultation", 'refresh');
             }
             else {
@@ -279,19 +330,24 @@ class Consultation extends Admin_Controller
         //--> We are in edit of the form, preparation of the drop down list
         //    and reading of the consultation data
 
-        $this->data['standard'] = $this->model_standard->getActiveStandard();
-        $this->data['program'] = $this->model_program->getActiveProgram();
-        $this->data['clause'] = $this->model_clause->getActiveClause();
-        $this->data['phase'] = $this->model_phase->getActivePhase();
-        $this->data['status'] = $this->model_status->getActiveStatus();
+        $consultation_data = $this->model_consultation->getConsultationData($consultation_id);
+        $this->data['consultation_data'] = $consultation_data;
+
+        // Here you must prepare the list of clause for the standard and the phase/status for the program
+
+        $this->data['standard'] = $this->model_dynamic_dependent->fetch_standard(); 
+        $this->data['clause'] = $this->model_standard->getStandardClause($consultation_data['standard_id']);  
+        $this->data['program'] = $this->model_dynamic_dependent->fetch_program();
+        $this->data['phase'] = $this->model_program->getProgramPhaseData($consultation_data['program_id']);
+        $this->data['status'] = $this->model_phase->getPhaseStatus($consultation_data['phase_id']);
+
         $this->data['client'] = $this->model_client->getClientData();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
         $this->data['sector'] = $this->model_sector->getActiveSector(); 
         $this->data['document_type'] = $this->model_document_type->getActiveDocumentType(); 
         $this->data['document_class'] = $this->model_document_class->getActiveDocumentClass(); 
 
-        $consultation_data = $this->model_consultation->getConsultationData($consultation_id);
-        $this->data['consultation_data'] = $consultation_data;
+        
         if($this->agent->is_mobile())
         {
             $this->render_template('mobile/consultation/edit', $this->data);
@@ -319,6 +375,8 @@ class Consultation extends Admin_Controller
         $response = array();
 
         if($consultation_id) {
+            //--> Get the old data before deleting
+            $old_data = $this->model_consultation->getConsultationData($consultation_id);
             //---> Validate if the information is used in other table
             $total_used = $this->model_consultation->checkIntegrity($consultation_id);
             //---> If not used, we can delete
@@ -326,7 +384,18 @@ class Consultation extends Admin_Controller
                 $delete = $this->model_consultation->remove($consultation_id);
                 if($delete == true) {
                     $response['success'] = true;
-                    $response['messages'] = 'Successfully deleted';}
+                    $response['messages'] = 'Successfully deleted';
+                    //--> Log Action
+                     $this->model_log->create(array(
+                        'user_id' => $this->session->user_id,
+                        'module' => $this->log_module,
+                        'action' => 'delete',
+                        'subject_id' => $consultation_id,
+                        'client_id' => null,
+                        'consultation_id' => $consultation_id,
+                        'attributes' => $old_data
+                    ));
+                }
                 else {
                     $response['success'] = false;
                     $response['messages'] = 'Error in the database while deleting the information';}
@@ -413,6 +482,8 @@ class Consultation extends Admin_Controller
     }
 
 
+    
+    
 
 //-----------------------------------------------------------------------------------------------------
 //--                                                                                                 --
@@ -496,9 +567,19 @@ class Consultation extends Admin_Controller
                 'updated_by' => $this->session->user_id,
             );
 
-            $create = $this->model_consultation->createDocument($data);
+            $document_id = $this->model_consultation->createDocument($data);
 
-            if($create == true) {
+            if($document_id == true) {
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => 'consultation.document',
+                    'action' => 'create',
+                    'subject_id' => $document_id,
+                    'client_id' => $this->session->client_id,
+                    'consultation_id' => $this->session->consultation_id,
+                    'attributes' => $data
+                ));
                 //--->  Upload the document
                 $data = array('upload_data' => $this->upload->data());
                 redirect('consultation/update/'.$this->session->consultation_id."?tab=document", 'refresh');
@@ -532,6 +613,16 @@ class Consultation extends Admin_Controller
             //--> Delete the document in the document table
             $delete = $this->model_consultation->removeDocument($document_id);
             if($delete == true) {
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => 'consultation.document',
+                    'action' => 'delete',
+                    'subject_id' => $document_id,
+                    'client_id' => $this->session->client_id,
+                    'consultation_id' => $this->session->consultation_id,
+                    'attributes' => $document_data
+                ));
                 $response['success'] = true;
                 $response['messages'] = 'Successfully deleted';
             }
@@ -672,14 +763,14 @@ class Consultation extends Admin_Controller
                 }
             }            
             $this->data['question_data'] = $result;
-            $this->render_template('response/edit', $this->data); 
+            $this->render_template('consultation/answer', $this->data); 
         }  
     }
 
-    public function fetchQuestionData($phase=null,$standard_id=null, $consultation_id=null)
+    public function fetchQuestionData($phase_id=null,$standard_id=null, $consultation_id=null)
     {
         $result = array('data' => array());
-        $data = $this->model_consultation->getConsultationQuestion($standard_id,$phase);
+        $data = $this->model_consultation->getConsultationQuestion($standard_id,$phase_id);
         foreach($data as $key => $value){
             $buttons = '';
             $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['question_id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';

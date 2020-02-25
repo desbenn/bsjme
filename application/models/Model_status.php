@@ -10,13 +10,13 @@ class Model_status extends CI_Model
 
 
 	//--> Get active information
-	public function getActiveStatus($phase_id = null)
+	public function getActiveStatus()
 	{
-		$sql = "SELECT status.id,status.code,status.name AS 'status_name',phase_id,
+		$sql = "SELECT DISTINCT status.id,status.code,status.name AS 'status_name',phase_id,
 						phase.name AS 'phase_name'
 		 FROM status
 		      JOIN phase ON status.phase_id = phase.id 
-		 WHERE status.active = ? AND phase_id = 1";
+		 WHERE status.active = ?";
 		$query = $this->db->query($sql, array(1));
 		return $query->result_array();
 	}
@@ -73,20 +73,16 @@ class Model_status extends CI_Model
 		}
 	}
 
-	//---> Validate if the status is used in table Item_status
+	//---> Validate if the status is used in other table
 
 	public function checkIntegrity($id)
 	{
 		
 		$num_rows = 0;
 		
-		/*$sql = "SELECT * FROM phase WHERE status_id = ?";
+		$sql = "SELECT * FROM consultation WHERE status_id = ?";
 		$query = $this->db->query($sql, array($id));
-		return $query->num_rows();
-
-		$sql = "SELECT * FROM asset_status WHERE status_id = ?";
-		$query = $this->db->query($sql, array($id));
-		$num_rows = $num_rows + $query->num_rows();*/
+		$num_rows = $num_rows + $query->num_rows();
 
 		return $num_rows;
 		

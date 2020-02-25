@@ -14,14 +14,16 @@ class Model_consultation extends CI_Model
 			$sql = "SELECT consultation.*,address,client_name,company_name,director_name,trn,
 			    district,email,mobile,phone,postal_code,website,directory,
 				parish.name AS 'parish_name',phase.name AS 'phase_name',
-				county.name AS 'county_name',					 
+				county.name AS 'county_name',program.name AS 'program_name',					 
 				(SELECT name FROM user WHERE client.updated_by = user.id) AS 'updated_by'   
 			FROM consultation
 				JOIN client ON consultation.client_id = client.id
+				LEFT JOIN program ON consultation.program_id = program.id
 				LEFT JOIN phase ON consultation.phase_id = phase.id
 				LEFT JOIN parish ON client.parish_id = parish.id
 				LEFT JOIN county ON client.county_id = county.id
 				LEFT JOIN city ON client.city_id = city.id
+
 			WHERE consultation.id = ?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
@@ -29,11 +31,12 @@ class Model_consultation extends CI_Model
 
 		$sql = "SELECT consultation.*,address,client_name,company_name,director_name,trn,
 			    district,email,mobile,phone,postal_code,website,directory,
-				parish.name AS 'parish_name',
+				parish.name AS 'parish_name',program.name AS 'program_name',
 				county.name AS 'county_name',phase.name AS 'phase_name',						 
 				(SELECT name FROM user WHERE client.updated_by = user.id) AS 'updated_by'   
 			FROM consultation
 				JOIN client ON consultation.client_id = client.id
+				LEFT JOIN program ON consultation.program_id = program.id
 				LEFT JOIN phase ON consultation.phase_id = phase.id
 				LEFT JOIN parish ON client.parish_id = parish.id
 				LEFT JOIN county ON client.county_id = county.id
@@ -150,7 +153,7 @@ class Model_consultation extends CI_Model
 		return $query->num_rows();
 	}
 
-	public function countTotalConsultationByCounty($year,$county_code)
+	public function countTotalConsultationByParish($year,$county_code)
 	{
 
 		$sql = "SELECT * 
@@ -168,7 +171,8 @@ class Model_consultation extends CI_Model
 	{
 		if($data) {
 			$insert = $this->db->insert('document', $data);
-			return ($insert == true) ? true : false;
+			$insert_id = $this->db->insert_id();
+			return ($insert == true) ? $insert_id : false;
 		}
 	}
 
@@ -218,7 +222,25 @@ class Model_consultation extends CI_Model
 
 	public function getConsultationQuestion($standard_id,$phase)
 	{
-		$sql=null;
+
+		//Nicholas ... here you have to think differently as we don't know how many
+		//             phase they will have for each program and at what phase the questions
+		//             should appear.  I will present the general question so that you
+		//             have an example to demonstrate.  They will need to be VERY clear
+		//             on the questions for each Program - Phase related to 
+		//             Standard - Clause and sub-clause.
+		$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				LEFT JOIN question_type ON question.question_type_id = question_type.id
+            WHERE clause.standard_id = 1 AND sub_clause.code BETWEEN '4.0.0' AND '4.9.9'";
+		$query = $this->db->query($sql, array());
+		return $query->result_array();	
+
+		/*$sql=null;
 		if($phase==1)
 		{
 			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
@@ -265,7 +287,7 @@ class Model_consultation extends CI_Model
 		}
 		if($sql==null){return null;}
 		$query = $this->db->query($sql);
-		return $query->result_array();
+		return $query->result_array();*/
 	}
 
 

@@ -8,7 +8,7 @@ class Model_dynamic_dependent extends CI_Model
 	}
 
 
- function fetch_standard()
+function fetch_standard()
  {
   $this->db->order_by("name", "ASC");
   $query = $this->db->get("standard");
@@ -55,19 +55,39 @@ class Model_dynamic_dependent extends CI_Model
  }
 
 
-function fetch_program_phase($program_id)
+
+
+function fetch_phase($program_id)
  {
+
+  $this->db->select('phase.id,code,name,sequence');
+  $this->db->from('program_phase');
+  $this->db->join('phase', 'program_phase.phase_id = phase.id');
   $this->db->where('program_id', $program_id);
   $this->db->order_by('sequence', 'ASC');
-  $query = $this->db->get('program');
+  $query = $this->db->get();
   $output = '<option value="">Select Phase</option>';
   foreach($query->result() as $row)
   {
-   $output .= '<option value="'.$row->id.'">'.$row->code.' -'.$row->name.'</option>';
+   $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
   }
   return $output;
  }
 
+
+
+ function fetch_status($phase_id)
+ {
+  $this->db->where('phase_id', $phase_id);
+  $this->db->order_by('name', 'ASC');
+  $query = $this->db->get('status');
+  $output = '<option value="">Select Status</option>';
+  foreach($query->result() as $row)
+  {
+   $output .= '<option value="'.$row->id.'">'.$row->name.'</option>';
+  }
+  return $output;
+ }
 
 }
 

@@ -8,7 +8,7 @@
   </section>
 
 
-  <!--------------------------------------------------- View -------------------------------------------------------------------------->
+  <!---------------------------------- View -------------------------------------------------------------------------->
 
   <section class="content">
 
@@ -61,14 +61,14 @@
               <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th width="5%">Consultation No</th>
-                  <th width="20%">Description</th>
+                  <th width="5%">No</th>
+                  <th width="18%">Description</th>
                   <th width="15%">Company Name</th>
                   <th width="10%">Consultant</th>
-                  <th width="10%">Sector</th>
+                  <th width="10%">Program</th>
                   <th width="10%">Phase</th>
                   <th width="10%">Status</th>
-                  <th width="15%">Action</th>
+                  <th width="17%">Action</th>
                 </tr>
                 </thead>
               </table>
