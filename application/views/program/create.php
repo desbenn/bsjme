@@ -43,6 +43,14 @@
 
                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
+                      <label for="code">Code <font color="red">*</font></label>
+                      <input type="text" class="form-control" id="code" name="code" autocomplete="off"
+                      value="<?php echo set_value('code'); ?>"/>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
                       <label for="standard">Standard</label>
                       <select class="form-control select_group" id="standard" name="standard">
                        <option value="">Select Standard</option>
@@ -65,7 +73,7 @@
                     </div>
                   </div>   
 
-                  <div class="col-md-2 col-xs-2" align="left">
+                  <div class="col-md-2 col-xs-2" align="center">
                     <div class="radio">
                         <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
@@ -80,8 +88,8 @@
                   		  
                   <div class="col-md-6 col-xs-6">
                      <div class="form-group">
-                      <label for="program_name">Program name</label>
-                      <textarea type="text" class="form-control" id="program_name" rows="5" name="program_name" autocomplete="off"><?php echo set_value('program_name'); ?></textarea>
+                      <label for="name">Program name <font color="red">*</font></label>
+                      <textarea type="text" class="form-control" id="name" rows="5" name="name" autocomplete="off"><?php echo set_value('name'); ?></textarea>
                     </div>
                   </div>  
 
@@ -91,7 +99,8 @@
                 <table class="table table-bordered" id="phase_info_table">
                   <thead>
                     <tr>
-                      <th style="width:50%">Phase</th>                     
+                      <th style="width:50%">Phase <font color="red">*</font></th>  
+                      <th style="width:10%">Sequence <font color="red">*</font></th>                   
                       <th style="width:10%"><button type="button" id="add_row" class="btn btn-default"><i class="fa fa-plus"></i></button></th>
                     </tr>
                   </thead>
@@ -105,7 +114,8 @@
                               <option value="<?php echo $v['id'] ?>"><?php echo $v['name'] ?></option>
                             <?php endforeach ?>
                           </select>
-                        </td>                  
+                        </td> 
+                        <td><input type="number" name="sequence[]" id="sequence_1" class="form-control" ></td>                 
                         <td><button type="button" class="btn btn-default" onclick="removeRow('1')"><i class="fa fa-close"></i></button></td>
                      </tr>
                    </tbody>
@@ -232,7 +242,7 @@ var base_url = "<?php echo base_url(); ?>";
 
                       html += '</select>'+
                     '</td>'+ 
-                 
+                    '<td><input type="number" name="sequence[]" id="sequence_'+row_id+'" class="form-control" </td>'+
                     '<td><button type="button" class="btn btn-default" onclick="removeRow(\''+row_id+'\')"><i class="fa fa-close"></i></button></td>'+
                     '</tr>';
 

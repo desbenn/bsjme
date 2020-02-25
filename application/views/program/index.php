@@ -61,6 +61,7 @@
                 <thead>
                 <tr> 
                     <th>Program</th>
+                    <th>Code</th>
                     <th>Standard</th>
                     <th>Clause</th>                    
                   <?php if(in_array('updateProgram', $user_permission) || in_array('deleteProgram', $user_permission)): ?>

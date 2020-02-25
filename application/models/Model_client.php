@@ -20,11 +20,10 @@ class Model_client extends CI_Model
 	}
 
 
-	public function getActiveClientData()
+	public function getClientData()
 	{
-		$sql = "SELECT * FROM client WHERE activity_id = ?
-		 ORDER BY company_name ASC";
-		$query = $this->db->query($sql, array(1));
+		$sql = "SELECT * FROM client ORDER BY company_name ASC";
+		$query = $this->db->query($sql, array());
 		return $query->result_array();
 
 	}
@@ -179,14 +178,23 @@ class Model_client extends CI_Model
 		    rmdir($path);
 
 			// Remove the tables attached to client
-			// consultation - performance - document - inquiry
+			// consultation - document - inquiry
 
+		    // Remove the answer related to the consultation before deleting the consultation
+		    $this->db->where("EXISTS(SELECT * FROM consultation WHERE client_id = $id)");
+			$delete = $this->db->delete('answer');	
+			// Delete the consultations
 			$this->db->where('client_id', $id);
 			$delete = $this->db->delete('consultation');
+			// Delete the document in document table
 			$this->db->where('client_id', $id);
 			$delete = $this->db->delete('document');
+			// Delete the inquiry
 			$this->db->where('client_id', $id);
 			$delete = $this->db->delete('inquiry');
+			// Delete the requirement related to the client
+			$this->db->where('client_id', $id);
+			$delete = $this->db->delete('client_requirement');
 
 			// delete the client
 			$this->db->where('id', $id);

@@ -72,8 +72,10 @@ class Report_client extends Admin_Controller
 			$cell2 = array('data' => '<strong>Activity:&nbsp;&nbsp;</strong>'.$rs->activity_name, 'width' => '25%');			
 			$this->table->add_row($cell1, $cell2);				
 
-			$cell1 = array('data' => '<strong>Remark:&nbsp;&nbsp;</strong>'.$rs->remark, 'width' => '100%');
-			$this->table->add_row($cell1);
+			$cell1 = array('data' => '<strong>Objective:&nbsp;&nbsp;</strong>'.$rs->objective, 'width' => '33%');
+			$cell2 = array('data' => '<strong>Target:&nbsp;&nbsp;</strong>'.$rs->target, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Remark:&nbsp;&nbsp;</strong>'.$rs->remark, 'width' => '34%');
+			$this->table->add_row($cell1, $cell2, $cell3);
 
 			$cell1 = array('data' => '');
 			$this->table->add_row($cell1);
@@ -106,7 +108,7 @@ class Report_client extends Admin_Controller
 			$cell1 = array('data' => '<strong>Director Name:&nbsp;&nbsp;</strong>'.$rs->director_name, 'width' => '33%');
 			$cell2 = array('data' => '<strong>Email'.':&nbsp;&nbsp;</strong>'.$rs->email, 'width' => '33%');
 			$cell3 = array('data' => '<strong>Website:&nbsp;&nbsp;</strong>'.$rs->website, 'width' => '34%');			
-			$this->table->add_row($cell1, $cell2, $cell3);			
+			$this->table->add_row($cell1, $cell2, $cell3);
 
 			endforeach;
 
@@ -149,10 +151,15 @@ class Report_client extends Admin_Controller
 			$this->table->add_row($cell1, $cell2, $cell3, $cell4);
 
 			$cell1 = array('data' => '', 'width' => '7%');
-			$cell2 = array('data' => '<strong>Target:&nbsp;&nbsp;</strong>'.$rs->standard_name, 'width' => '31%');
+			$cell2 = array('data' => '<strong>Program:&nbsp;&nbsp;</strong>'.$rs->program_name, 'width' => '31%');
 			$cell3 = array('data' => '<strong>Phase:&nbsp;&nbsp;</strong>'.$rs->phase_name, 'width' => '31%');
 			$cell4 = array('data' => '<strong>Status:&nbsp;&nbsp;</strong>'.$rs->status_name, 'width' => '31%');			
 			$this->table->add_row($cell1, $cell2, $cell3, $cell4);
+
+			$cell1 = array('data' => '', 'width' => '7%');
+			$cell2 = array('data' => '<strong>Standard:&nbsp;&nbsp;</strong>'.$rs->standard_name, 'width' => '31%');
+			$cell3 = array('data' => '<strong>Clause:&nbsp;&nbsp;</strong>'.$rs->clause_name, 'width' => '31%');
+			$this->table->add_row($cell1, $cell2, $cell3);
 
 			$cell1 = array('data' => '', 'width' => '7%');
 			$cell2 = array('data' => '<strong>Date begin:&nbsp;&nbsp;</strong>'.$rs->date_begin, 'width' => '31%');

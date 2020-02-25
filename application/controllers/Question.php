@@ -43,9 +43,12 @@ class Question extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
+            $question = $value['question'];
+
 
 			if(in_array('updateQuestion', $this->permission)) {
                 $buttons .= '<a href="'.base_url('question/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                $question = '<a href="'.base_url('question/update/'.$value['id']).'">'.$value['question'].'</a>';
             }
 
             if(in_array('deleteQuestion', $this->permission)) { 
@@ -56,7 +59,7 @@ class Question extends Admin_Controller
 				$value['standard_name'],
 				$value['clause_code'],
 				$value['sub_clause_code'].' - '.$value['sub_clause_name'],
-                $value['question'],
+                $question,
 				$value['question_type_name'],
 				$buttons
 			);

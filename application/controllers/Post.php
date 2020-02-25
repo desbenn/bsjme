@@ -41,9 +41,12 @@ class Post extends Admin_Controller
             $category_data = $this->model_category->getCategoryData($value['category_id']);
 
             $buttons = '';
+            $post_title = $value['post_title'];
 
             if(in_array('updatePost', $this->permission)) {
-                $buttons .= '<a href="'.base_url('post/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';}
+                $buttons .= '<a href="'.base_url('post/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                $post_title = '<a href="'.base_url('post/update/'.$value['id']).'">'.$value['post_title'].'</a>';
+            }
 
             if(in_array('deletePost', $this->permission)) {
                 $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';}
@@ -52,9 +55,9 @@ class Post extends Admin_Controller
 
             $client_visibility = ($value['client_visibility'] == 1) ? '<span class="label label-success">Visible</span>' : '<span class="label label-warning">Non Visible</span>';
             
-			$result['data'][$key] = array(
-			    $category_data['name'],
-				$value['post_title'],
+			$result['data'][$key] = array(			    
+				$post_title,
+                $category_data['name'],
                 $client_visibility,
 				$value['date_from'],
 				$value['date_to'],

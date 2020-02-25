@@ -40,9 +40,11 @@ class profile extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
+			$name = $value['name'];
 
 			if(in_array('updateProfile', $this->permission)) {
                 $buttons .= '<a href="'.base_url('profile/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+                $name = '<a href="'.base_url('profile/update/'.$value['id']).'">'.$value['name'].'</a>';
             }
 
             if(in_array('deleteProfile', $this->permission) and $value['protected'] <> 1) { 
@@ -56,7 +58,7 @@ class profile extends Admin_Controller
             }
 
 			$result['data'][$key] = array(			
-				$value['name'],
+				$name,
 				$protected,
 				$buttons
 			);

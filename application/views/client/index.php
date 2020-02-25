@@ -97,7 +97,7 @@
 
 <?php if(in_array('deleteClient', $user_permission)): ?>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="removeModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -107,10 +107,13 @@
 
       <form role="form" action="<?php echo base_url('client/remove') ?>" method="post" id="removeForm">
         <div class="modal-body">
+          <p>All the information about the client will be deleted.</p>
+          <p><font color="red">It will not be possible to recover the consultations, inquiries and documents.</font></p>
+          <p>Change the activity of the client (inactive) if you want to keep the information.</p>
           <p>Do you really want to delete?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
           <button type="submit" class="btn btn-primary">Delete</button>
         </div>
       </form>
@@ -119,6 +122,8 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
 <?php endif; ?>
 
 

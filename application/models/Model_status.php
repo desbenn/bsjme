@@ -28,7 +28,8 @@ class Model_status extends CI_Model
 	{
 		if($id) {
 			$sql = "SELECT status.id,status.code,status.name AS 'status_name',
-						phase_id,status.active,phase.code AS 'phase_code'						   
+						phase_id,status.active,phase.code AS 'phase_code',
+						phase.name AS 'phase_name'						   
 			        FROM status 
 			        JOIN phase ON status.phase_id = phase.id 
 			        WHERE status.id = ?";
@@ -37,7 +38,8 @@ class Model_status extends CI_Model
 		}
 
 		$sql = "SELECT status.id,status.code,status.name AS 'status_name',
-		               phase_id,status.active,phase.code AS 'phase_code'
+		               phase_id,status.active,phase.code AS 'phase_code',
+		               phase.name AS 'phase_name'
 			        FROM status 
 			        JOIN phase ON status.phase_id = phase.id 
 			        ORDER BY phase.code,status.code";

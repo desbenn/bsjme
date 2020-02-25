@@ -77,30 +77,28 @@ class Report_consultation extends Admin_Controller
                    }
             }       
 
-			$cell1 = array('data' => '<strong>'.$rs->consultation_no.'</strong>', 'width' => '25%');			
-			$this->table->add_row($cell1);
-
-			$cell1 = array('data' => '<strong>Description:&nbsp;&nbsp;</strong>'.$rs->description, 'width' => '100%');
-			$this->table->add_row($cell1);
-		
-			$cell1 = array('data' => '<strong>Consultant:&nbsp;&nbsp;</strong>'.$consultant_list, 'width' => '50%');
-			$this->table->add_row($cell1);
+			$cell1 = array('data' => '<strong>'.$rs->consultation_no.'</strong>'.' '.$rs->description, 'width' => '66%');			
+			$cell2 = array('data' => '<strong>Consultant:&nbsp;&nbsp;</strong>'.$consultant_list, 'width' => '34%');
+			$this->table->add_row($cell1, $cell2);
 
 			
+			$cell1 = array('data' => '<strong>Program:&nbsp;&nbsp;</strong>'.$rs->program_name, 'width' => '33%');
+			$cell2 = array('data' => '<strong>Phase:&nbsp;&nbsp;</strong>'.$rs->phase_name, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Status:&nbsp;&nbsp;</strong>'.$rs->status_name, 'width' => '34%');
+			$this->table->add_row($cell1, $cell2, $cell3);
+
 			$cell1 = array('data' => '<strong>Standard:&nbsp;&nbsp;</strong>'.$rs->standard_name, 'width' => '33%');
-			$cell2 = array('data' => '<strong>Status:&nbsp;&nbsp;</strong>'.$rs->status_name, 'width' => '33%');
-			$cell3 = array('data' => '<strong>Phase:&nbsp;&nbsp;</strong>'.$rs->phase_name, 'width' => '34%');
+			$cell2 = array('data' => '<strong>Clause:&nbsp;&nbsp;</strong>'.$rs->clause_name, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Sector:&nbsp;&nbsp;</strong>'.$rs->sector_name, 'width' => '34%');
 			$this->table->add_row($cell1, $cell2, $cell3);
 
 			
 			$cell1 = array('data' => '<strong>Date creation:&nbsp;&nbsp;</strong>'.$rs->date_creation, 'width' => '33%');
-			$cell2 = array('data' => '<strong>Sector:&nbsp;&nbsp;</strong>'.$rs->sector_name, 'width' => '33%');
-			$this->table->add_row($cell1,$cell2);
+			$cell2 = array('data' => '<strong>Date begin:&nbsp;&nbsp;</strong>'.$rs->date_begin, 'width' => '33%');
+			$cell3 = array('data' => '<strong>Date end:&nbsp;&nbsp;</strong>'.$rs->date_end, 'width' => '34%');
+			$this->table->add_row($cell1,$cell2, $cell3);
 
 			$cell1 = array('data' => '<strong>Business Process:&nbsp;&nbsp;</strong>'.$rs->business_process, 'width' => '100%');
-			$this->table->add_row($cell1);
-
-			$cell1 = array('data' => '<strong>Exemption:&nbsp;&nbsp;</strong>'.$rs->exemption, 'width' => '100%');
 			$this->table->add_row($cell1);
 
 			$cell1 = array('data' => '<strong>Board meeting time period:&nbsp;&nbsp;</strong>'.$rs->board_meeting_time_period, 'width' => '100%');
@@ -108,6 +106,15 @@ class Report_consultation extends Admin_Controller
 
 			$cell1 = array('data' => '<strong>Management review time:&nbsp;&nbsp;</strong>'.$rs->management_review_time, 'width' => '100%');
 			$this->table->add_row($cell1);
+
+			$cell1 = array('data' => '<strong>Product offered:&nbsp;&nbsp;</strong>'.$rs->product, 'width' => '100%');
+			$this->table->add_row($cell1);
+
+			$cell1 = array('data' => '<strong>Quality policy:&nbsp;&nbsp;</strong>'.$rs->quality_policy, 'width' => '100%');
+			$this->table->add_row($cell1);
+			
+			$cell1 = array('data' => '<strong>Exemption:&nbsp;&nbsp;</strong>'.$rs->exemption, 'width' => '100%');
+			$this->table->add_row($cell1);			
 
 			$cell1 = array('data' => '<strong>Remark:&nbsp;&nbsp;</strong>'.$rs->remark, 'width' => '100%');
 			$this->table->add_row($cell1);

@@ -34,22 +34,12 @@
                 <span>Consultations</span></a>
             </li>
         <?php endif; ?>
-        
+
 
         <?php if(in_array('viewReport', $user_permission)): ?>
           <li><a href="<?php echo base_url('report') ?>">
               <i class="glyphicon glyphicon-stats"></i> <span>Reports</span></a>
           </li>
-        <?php endif; ?>
-
-
-
-        <!-- IF we have a profile consultant(3) or client (4) we want My User to appear in the menu -->  
-
-        <?php if(in_array('viewMyUser', $user_permission) AND ($this->session->profile == 4 OR $this->session->profile == 3)): ?>
-              <li><a href="<?php echo base_url('user/my_user/') ?>"><i class="fa fa-book"></i>
-                  <span>My User</span></a>
-              </li>  
         <?php endif; ?>
 
 

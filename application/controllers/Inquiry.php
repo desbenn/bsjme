@@ -50,9 +50,11 @@ class Inquiry extends Admin_Controller
         	$inquiry_type_data = $this->model_inquiry_type->getInquiryTypeData($value['inquiry_type_id']);
 
             $buttons = '';
+            $request = $value['request'];
 
             if(in_array('updateInquiry', $this->permission)) {
                $buttons .= '<button type="button" class="btn btn-default" onclick="editInquiry('.$value['id'].')" data-toggle="modal" data-target="#editModalInquiry"><i class="fa fa-pencil"></i></button>';
+               $request='  <a data-target="#editModalInquiry" onclick="editInquiry('.$value['id'].')" data-toggle="modal" href="#editModalInquiry">'.$value['request'].'</a>';
             }
 
             if(in_array('deleteInquiry', $this->permission)) {
@@ -60,9 +62,9 @@ class Inquiry extends Admin_Controller
             }
 
             $result['data'][$key] = array(
+            	$request,
                 $inquiry_type_data['name'],
-                $support_type_data['name'],
-                $value['request'],
+                $support_type_data['name'],                
                 $value['feedback'],
                 $value['answered_by'],
 				$value['inquiry_date'],

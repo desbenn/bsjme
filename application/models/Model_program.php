@@ -11,10 +11,9 @@ class Model_program extends CI_Model
 	public function getProgramData($id = null)
 	{
 		if($id) {
-			$sql = "SELECT program.id,program_name,remark,			            
+			$sql = "SELECT program.*,		            
 			            clause.id AS 'clause_id',clause.code AS 'clause_code',clause.name AS 'clause_name',
-						standard.id AS 'standard_id',standard.name AS 'standard_name',
-						program.active
+						standard.id AS 'standard_id',standard.name AS 'standard_name'
 		 	FROM program
 			      LEFT JOIN clause ON program.clause_id = clause.id
 				  LEFT JOIN standard ON program.standard_id = standard.id
@@ -23,14 +22,13 @@ class Model_program extends CI_Model
 			return $query->row_array();
 		}
 
-		$sql = "SELECT program.id,program_name,remark,			            
+		$sql = "SELECT program.*,				            
 			            clause.id AS 'clause_id',clause.code AS 'clause_code',clause.name AS 'clause_name',
-						standard.id AS 'standard_id',standard.name AS 'standard_name',
-						program.active
+						standard.id AS 'standard_id',standard.name AS 'standard_name'
 		 	FROM program
 				  LEFT JOIN clause ON program.clause_id = clause.id
 				  LEFT JOIN standard ON program.standard_id = standard.id
-			ORDER BY standard.name,clause.code,program_name ASC";
+			ORDER BY standard.name,clause.code,program.name ASC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -52,10 +50,11 @@ class Model_program extends CI_Model
 			return false;
 		}
 
-		$sql = "SELECT program_phase.id,phase_id,program_id,name
+		$sql = "SELECT program_phase.id,phase_id,program_id,name,sequence
 				FROM program_phase 
 					 JOIN phase ON program_phase.phase_id = phase.id
-				WHERE program_id = ?";
+				WHERE program_id = ?
+				ORDER BY sequence";
 		$query = $this->db->query($sql, array($program_id));
 		return $query->result_array();
 	}
@@ -66,7 +65,7 @@ class Model_program extends CI_Model
 	{
 		if(!$id) {return false;}
 
-		$sql = "SELECT program_phase.id
+		$sql = "SELECT program_phase.id,sequence
 				FROM program_phase 
 				WHERE id = ?";
 		$query = $this->db->query($sql, array($id));
@@ -120,6 +119,17 @@ class Model_program extends CI_Model
 			return ($delete == true && $delete_phase) ? true : false;
 
 		}
+	}
+
+
+	//---> Validate if the program is used in table Consultation
+	public function checkIntegrity($id)
+	{
+
+		$sql = "SELECT * FROM consultation WHERE program_id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->num_rows();
+
 	}
 
 

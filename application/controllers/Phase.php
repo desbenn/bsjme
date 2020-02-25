@@ -62,6 +62,7 @@ class Phase extends Admin_Controller
 		foreach ($data as $key => $value) {
 
             $buttons = '';
+            $name = $value['name'];
 
             if(in_array('updatePhase', $this->permission)) {
                 $buttons .= '<a href="'.base_url('phase/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';

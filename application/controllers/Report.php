@@ -38,13 +38,13 @@ class Report extends Admin_Controller
 		else if($this->input->post('report') == 'REP02') {
 			$this->session->set_flashdata('printREP02', 'yes');
 			$this->session->set_flashdata('printdoc', 'yes');
+			$this->session->set_flashdata('standard', $this->input->post('standard'));
 		    $this->session->set_flashdata('phase', $this->input->post('phase'));
 		    $this->session->set_flashdata('status', $this->input->post('status'));
 		    $this->session->set_flashdata('sector', $this->input->post('sector'));
 		    $this->session->set_flashdata('consultant', $this->input->post('consultant'));
 		    $this->session->set_flashdata('date_creation_from', $this->input->post('date_creation_from'));
-		    $this->session->set_flashdata('date_creation_to', $this->input->post('date_creation_to'));
-		    $this->session->set_flashdata('standard', $this->input->post('standard'));
+		    $this->session->set_flashdata('date_creation_to', $this->input->post('date_creation_to'));		    
 		}
 
 		else if($this->input->post('report') == 'REP03') {
@@ -73,10 +73,11 @@ class Report extends Admin_Controller
 
 
 		$this->data['county'] = $this->model_county->getActiveCounty();
-		$this->data['client'] = $this->model_client->getActiveClientData();
+		$this->data['client'] = $this->model_client->getClientData();
 		$this->data['inquiry_type'] = $this->model_inquiry_type->getActiveInquiryType();
 		$this->data['consultation'] = $this->model_consultation->getActiveConsultationData();
 		$this->data['standard'] = $this->model_standard->getActiveStandard();
+		$this->data['program'] = $this->model_program->getActiveProgram();
 		$this->data['sector'] = $this->model_sector->getActiveSector();
 		$this->data['phase'] = $this->model_phase->getActivePhase();
 		$this->data['consultant'] = $this->model_user->getActiveConsultant();

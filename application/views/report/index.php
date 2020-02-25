@@ -160,7 +160,18 @@
               <div class="row">
                   <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="phase">Phase Consultation</label>
+                      <label for="program">Program</label>
+                      <select class="form-control select_group" id="program" name="program" >
+                        <option value="all">All Program</option>
+                        <?php foreach ($program as $k => $v): ?>
+                          <option value="<?php echo $v['id'] ?>"><?php echo $v['program'] ?></option>
+                        <?php endforeach ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-xs-4">
+                    <div class="form-group">
+                      <label for="phase">Phase</label>
                       <select class="form-control select_group" id="phase" name="phase" >
                         <option value="all">All Phase</option>
                         <?php foreach ($phase as $k => $v): ?>
@@ -171,7 +182,7 @@
                   </div>
                   <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="status">Status Consultation</label>
+                      <label for="status">Status</label>
                       <select class="form-control select_group" id="status" name="status" >
                         <option value="all">All Status</option>
                         <?php foreach ($status as $k => $v): ?>
@@ -180,6 +191,7 @@
                       </select>
                     </div>
                   </div>
+
                   
               </div>
 
@@ -187,13 +199,13 @@
               <div class="row">
                   <div class="col-md-2 col-xs-2">
                     <div class="form-group">
-                      <label for="date_creation_from">Consultation Begin between</label>
+                      <label for="date_creation_from">Consultation begin</label>
                       <input type="date" class="form-control" id="date_creation_from" name="date_creation_from" autocomplete="off"  />
                     </div>
                   </div>
                   <div class="col-md-2 col-xs-2">
                     <div class="form-group">
-                      <label for="date_creation_to">and</label>
+                      <label for="date_creation_to">end</label>
                       <input type="date" class="form-control" id="date_creation_to" name="date_creation_to" autocomplete="off"  />
                     </div>
                   </div>
@@ -321,12 +333,14 @@
     $("#generate").prop( 'disabled', true );
     $("#consultation").prop( 'disabled', true );
     $("#standard").prop( 'disabled', true );
-    $("#sector").prop( 'disabled', true );
+    $("#program").prop( 'disabled', true );
+    $("#phase").prop( 'disabled', true );
     $("#phase").prop( 'disabled', true );
     $("#consultant").prop( 'disabled', true );
     $("#parish").prop( 'disabled', true );
     $("#status").prop( 'disabled', true );
     $("#support_type").prop( 'disabled', true );
+    $("#sector").prop( 'disabled', true );
     $("#word").prop( 'disabled', true );
     $("#year").prop( 'disabled', true );
   }

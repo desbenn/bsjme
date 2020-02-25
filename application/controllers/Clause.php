@@ -68,9 +68,11 @@ class Clause extends Admin_Controller
 		foreach ($data as $key => $value) {
 
 			$buttons = '';
+			$name = $value['name'];
 
 			if(in_array('updateClause', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
+				$name='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['name'].'</a>';
 			}
 
 			if(in_array('deleteClause', $this->permission)) {
@@ -81,7 +83,7 @@ class Clause extends Admin_Controller
 			$active = ($value['active'] == 1) ? '<span class="label label-success">'.'Active'.'</span>' : '<span class="label label-warning">'.'Inactive'.'</span>';
 
 			$result['data'][$key] = array(
-				$value['name'],
+				$name,
 				$value['code'],
 				$value['standard_name'],				
 				$active,

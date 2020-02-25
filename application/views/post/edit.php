@@ -154,7 +154,7 @@
 
           <div class="form-group">
             <label for="post_text">Text <font color="red">*</font></label>
-            <textarea type="text" class="form-control" id="post_text" name="post_text" autocomplete="off">
+            <textarea type="text" class="ckeditor" id="post_text" name="post_text" autocomplete="off">
               <?php echo set_value('post_text', isset($post_data['post_text']) ? $post_data['post_text'] : ''); ?>
             </textarea>
           </div>
@@ -217,7 +217,7 @@
 
   $(document).ready(function() {
     $(".select_group").select2();
-    $("#post_text").wysihtml5();
+  //  $("#post_text").wysihtml5();
 
     $("#mainPostNav").addClass('active');
     $("#managePostNav").addClass('active');
