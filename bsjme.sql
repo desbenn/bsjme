@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 24 fév. 2020 à 13:42
+-- Généré le :  mar. 25 fév. 2020 à 21:05
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active 2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `activity`
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active 2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `category`
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `clause` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `clause`
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client`
@@ -181,7 +181,10 @@ CREATE TABLE IF NOT EXISTS `client` (
 INSERT INTO `client` (`id`, `trn`, `activity_id`, `city_id`, `county_id`, `parish_id`, `address`, `attempt`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `objective`, `phone`, `postal_box`, `postal_code`, `remark`, `target`, `website`, `updated_date`, `updated_by`) VALUES
 (14, 'TRN001', 1, 0, 2, 2, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Voyagine Inc', 'Carmen', 'Carmen Gagnon', 'TRN001', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-22 00:49:48', 18),
 (15, 'TRN002', 1, 1, 3, 1, '11000 Street tow', 0, 'M. Two', 'Company 2', 'Carmen', 'Carmen Gagnon', 'TRN002', '', 'voyagine@hotmail.com', '', '', '05149836594', '', '', '', '', '', '2020-02-22 22:35:15', 18),
-(16, 'TRN003', 3, 0, 2, 1, '178 street un', 0, 'M. Pending', 'Company in pending', 'Carmen', 'Carmen Gagnon', 'TRN003', '', 'voyagine@hotmail.com', '', '', '5149836594', '', '', '', '', '', '2020-02-22 15:40:01', 18);
+(16, 'TRN003', 3, 0, 2, 1, '178 street un', 0, 'M. Pending', 'Company in pending', 'Carmen', 'Carmen Gagnon', 'TRN003', '', 'voyagine@hotmail.com', '', '', '5149836594', '', '', '', '', '', '2020-02-25 18:50:21', 18),
+(18, 'TRN89', 1, 0, 1, 2, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Gagnon inc', 'Carmen', 'Carmen Gagnon', 'TRN89', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-25 20:28:42', 18),
+(19, 'TRN8989', 1, 0, 1, 1, '650 Jean-D\'Estrees apt 807', 0, 'ccc', 'Test', 'Carmen', 'Carmen Gagnon', 'TRN8989', '', 'voyagine@hotmail.com', '', 'test', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-26 01:30:32', 18),
+(20, 'TRN777777', 1, 0, 1, 8, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Timeline inc.', 'Carmen', 'Carmen Gagnon', 'TRN777777', 'district', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-26 01:38:31', 18);
 
 -- --------------------------------------------------------
 
@@ -249,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultation`
@@ -257,7 +260,14 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `product`, `quality_policy`, `remark`, `updated_date`, `updated_by`) VALUES
 (18, 'CON001', 11, 14, '[\"29\"]', 1, 8, 4, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-02-22 15:37:18', 18),
-(19, 'CON002', 11, 15, '[\"30\"]', 1, 9, 2, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultaion 2', '', '', '', '', '', '2020-02-22 22:45:56', 18);
+(19, 'CON002', 11, 15, '[\"30\"]', 1, 9, 2, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultaion 2', '', '', '', '', '', '2020-02-22 22:45:56', 18),
+(20, 'CON03', 4, 14, '[\"31\"]', 1, 9, 1, 1, 11, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 3', '', '', '', '', '', '2020-02-25 05:41:34', 18),
+(21, 'CON04', 0, 14, '[\"31\"]', 1, 9, 2, 1, 14, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 4', '', '', '', '', '', '2020-02-25 02:11:33', 18),
+(22, 'CON05', 11, 14, '[\"31\"]', 5, 11, 2, 2, 50, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 5', '', '', '', '', '', '2020-02-24 23:23:41', 18),
+(23, 'CON06', 11, 14, 'null', 1, 8, 4, 2, 11, 'b', 'a', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation 6', 'f', 'c', 'd', 'e', '', '2020-02-25 19:11:21', 18),
+(25, 'CON777', 5, 14, '[\"30\"]', 5, 11, 2, 1, 50, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation 777 for timeline test', '', '', '', '', '', '2020-02-26 01:02:42', 18),
+(26, 'CON78787', 0, 19, '[\"30\"]', 1, 8, 2, 2, 14, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'test timelie', '', '', '', '', '', '2020-02-26 01:37:04', 18),
+(27, 'CON76', 0, 20, '[\"31\"]', 1, 8, 4, 1, 11, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation for timeline', '', '', '', '', '', '2020-02-25 20:39:24', 18);
 
 -- --------------------------------------------------------
 
@@ -272,27 +282,16 @@ CREATE TABLE IF NOT EXISTS `county` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `county`
 --
 
 INSERT INTO `county` (`id`, `code`, `name`, `active`) VALUES
-(1, 1371, 'Hanover', 1),
-(2, 1370, 'Clarendon', 1),
-(3, 1372, 'Manchester', 1),
-(4, 1373, 'Saint Elizabeth', 1),
-(5, 1374, 'Saint James', 1),
-(6, 1375, 'Trelawny', 1),
-(7, 1376, 'Westmoreland', 1),
-(8, 1377, 'Kingston', 1),
-(9, 1378, 'Portland', 1),
-(10, 1379, 'Saint Ann', 1),
-(11, 1380, 'Saint Catherine', 1),
-(12, 1381, 'Saint Mary', 1),
-(13, 1382, 'Saint Andrew', 1),
-(14, 1383, 'Saint Thomas', 1);
+(1, 1, 'Cornwall', 1),
+(2, 2, 'Middlesex', 1),
+(3, 3, 'Surrey', 1);
 
 -- --------------------------------------------------------
 
@@ -315,14 +314,18 @@ CREATE TABLE IF NOT EXISTS `document` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `intervention_no` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `document`
 --
 
 INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `document_type_id`, `document_class_id`, `doc_name`, `doc_size`, `doc_type`, `updated_date`, `updated_by`) VALUES
-(66, NULL, NULL, 7, 6, 1, 'icons8-bed-50.png', 1, 'image/png', '2020-02-20 15:36:31', 18);
+(66, NULL, NULL, 7, 6, 1, 'icons8-bed-50.png', 1, 'image/png', '2020-02-20 15:36:31', 18),
+(70, 14, NULL, NULL, 2, 2, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 14:49:54', 18),
+(75, 19, NULL, NULL, 2, 2, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 20:30:26', 18),
+(76, 20, NULL, NULL, 3, 4, 'Client_Services_Network_Diagram.pdf', 178, 'application/pdf', '2020-02-25 20:38:49', 18),
+(77, 20, 27, NULL, 5, 4, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 20:39:37', 18);
 
 -- --------------------------------------------------------
 
@@ -337,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `document_class` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `document_class`
@@ -364,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `document_type` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `document_type`
@@ -398,7 +401,14 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
   `inquiry_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `inquiry`
+--
+
+INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, `request`, `feedback`, `answered_by`, `inquiry_date`) VALUES
+(8, 16, 2, 1, 'test', '', '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -413,14 +423,45 @@ CREATE TABLE IF NOT EXISTS `inquiry_type` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `inquiry_type`
 --
 
 INSERT INTO `inquiry_type` (`id`, `code`, `name`, `active`) VALUES
-(1, 'BEGINNER', 'Beginning the process', 1);
+(2, 'QUESTION', 'Specific question', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `log`
+--
+
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `module` varchar(100) NOT NULL,
+  `action` varchar(100) NOT NULL,
+  `client_id` int(11) DEFAULT NULL,
+  `consultation_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) NOT NULL,
+  `attributes` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `log`
+--
+
+INSERT INTO `log` (`id`, `user_id`, `timestamp`, `module`, `action`, `client_id`, `consultation_id`, `subject_id`, `attributes`) VALUES
+(26, 18, '2020-02-25 20:38:49', 'client.document', 'create', 20, NULL, 76, 'a:7:{s:9:\"client_id\";s:2:\"20\";s:8:\"doc_size\";d:177.86;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:35:\"Client_Services_Network_Diagram.pdf\";s:16:\"document_type_id\";s:1:\"3\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
+(27, 18, '2020-02-25 20:39:24', 'consultation', 'create', 20, 27, 27, 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"20\";s:13:\"consultant_id\";s:6:\"[\"31\"]\";s:15:\"consultation_no\";s:5:\"CON76\";s:13:\"date_creation\";s:10:\"2020-02-25\";s:10:\"date_begin\";s:10:\"2020-02-25\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:25:\"Consultation for timeline\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"1\";s:9:\"status_id\";s:2:\"11\";s:10:\"updated_by\";s:2:\"18\";}'),
+(28, 18, '2020-02-25 20:39:37', 'consultation.document', 'create', 20, 27, 77, 'a:8:{s:9:\"client_id\";s:2:\"20\";s:15:\"consultation_id\";s:2:\"27\";s:8:\"doc_size\";d:2321.46;s:8:\"doc_type\";s:10:\"image/jpeg\";s:8:\"doc_name\";s:19:\"20191212_124515.jpg\";s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
+(24, 18, '2020-02-25 20:38:22', 'client', 'create', 20, NULL, 20, 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"city_id\";s:0:\"\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:12:\"contact_name\";s:6:\"Carmen\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"8\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"TRN777777\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"18\";}'),
+(25, 18, '2020-02-25 20:38:31', 'client', 'update', 20, NULL, 20, 'a:2:{s:3:\"old\";a:6:{i:0;a:25:{s:2:\"id\";s:2:\"15\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"3\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:16:\"11000 Street tow\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:6:\"M. Two\";s:12:\"company_name\";s:9:\"Company 2\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-22 17:35:15\";s:10:\"updated_by\";s:2:\"18\";}i:1;a:25:{s:2:\"id\";s:2:\"16\";s:3:\"trn\";s:6:\"TRN003\";s:11:\"activity_id\";s:1:\"3\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"2\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:13:\"178 street un\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:10:\"M. Pending\";s:12:\"company_name\";s:18:\"Company in pending\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN003\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 13:50:21\";s:10:\"updated_by\";s:2:\"18\";}i:2;a:25:{s:2:\"id\";s:2:\"18\";s:3:\"trn\";s:5:\"TRN89\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:10:\"Gagnon inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:5:\"TRN89\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 15:28:42\";s:10:\"updated_by\";s:2:\"18\";}i:3;a:25:{s:2:\"id\";s:2:\"19\";s:3:\"trn\";s:7:\"TRN8989\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:3:\"ccc\";s:12:\"company_name\";s:4:\"Test\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:7:\"TRN8989\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:4:\"test\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 20:30:32\";s:10:\"updated_by\";s:2:\"18\";}i:4;a:25:{s:2:\"id\";s:2:\"20\";s:3:\"trn\";s:9:\"TRN777777\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 15:38:22\";s:10:\"updated_by\";s:2:\"18\";}i:5;a:25:{s:2:\"id\";s:2:\"14\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"2\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-21 19:49:48\";s:10:\"updated_by\";s:2:\"18\";}}s:3:\"new\";a:23:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"city_id\";s:0:\"\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"contact_name\";s:6:\"Carmen\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:8:\"district\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"8\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"TRN777777\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 20:38:31\";s:10:\"updated_by\";s:2:\"18\";}}');
 
 -- --------------------------------------------------------
 
@@ -453,15 +494,27 @@ CREATE TABLE IF NOT EXISTS `parish` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `parish`
 --
 
 INSERT INTO `parish` (`id`, `code`, `name`, `active`) VALUES
-(1, 0, 'Kingston', 1),
-(2, 2, 'Westmoreland', 1);
+(1, 1371, 'Hanover', 1),
+(2, 1370, 'Clarendon', 1),
+(3, 1372, 'Manchester', 1),
+(4, 1373, 'Saint Elizabeth', 1),
+(5, 1374, 'Saint James', 1),
+(6, 1375, 'Trelawny', 1),
+(7, 1376, 'Westmoreland', 1),
+(8, 1377, 'Kingston', 1),
+(9, 1378, 'Portland', 1),
+(10, 1379, 'Saint Ann', 1),
+(11, 1380, 'Saint Catherine', 1),
+(12, 1381, 'Saint Mary', 1),
+(13, 1382, 'Saint Andrew', 1),
+(14, 1383, 'Saint Thomas', 1);
 
 -- --------------------------------------------------------
 
@@ -481,18 +534,20 @@ CREATE TABLE IF NOT EXISTS `phase` (
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `phase`
 --
 
 INSERT INTO `phase` (`id`, `code`, `name`, `icon`, `icon_type`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(1, '1', 'Intro', 'icons8-beach-50.png', '', '', 1, '2020-02-22 22:48:05', 18),
+(1, '1', 'Phase 1', 'icons8-beach-50.png', '', '', 1, '2020-02-25 00:40:21', 18),
 (2, '2', 'Phase 2', 'icons8-hotel-room-key-50.png', 'image/png', '', 1, '2020-02-21 01:43:21', 18),
 (3, '3', 'Phase 3', 'icons8-check-all-50.png', '', '', 1, '2020-02-21 01:34:53', 18),
 (4, '4', 'Phase 4', 'icons8-cafe-502.png', 'image/png', '<p>aaaa</p>', 1, '2020-02-21 01:40:31', 18),
-(5, 'STU', 'Study', 'about.png', '', '<p>Study of the situation</p>', 1, '2020-02-22 19:54:27', 18);
+(5, 'ANALYSIS', 'Analysis', 'about.png', '', '<p>Analysis of the situation</p>', 1, '2020-02-25 00:41:45', 18),
+(6, 'INTRO', 'Introduction', 'arrow_down_16.png', 'image/png', '<p>Introduction of the problem</p>', 1, '2020-02-25 00:41:16', 18),
+(7, 'END', 'End', 'bag2_32.png', 'image/png', '<p>Deliver the solution</p>', 1, '2020-02-24 19:42:20', 18);
 
 -- --------------------------------------------------------
 
@@ -542,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `permission` text NOT NULL,
   `protected` tinyint(4) DEFAULT NULL COMMENT '1=Protected ',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `profile`
@@ -553,7 +608,8 @@ INSERT INTO `profile` (`id`, `name`, `permission`, `protected`) VALUES
 (2, 'Coordinator', 'a:87:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:18:\"createConsultation\";i:5;s:18:\"updateConsultation\";i:6;s:16:\"viewConsultation\";i:7;s:18:\"deleteConsultation\";i:8;s:11:\"createPhase\";i:9;s:11:\"updatePhase\";i:10;s:9:\"viewPhase\";i:11;s:11:\"deletePhase\";i:12;s:12:\"createStatus\";i:13;s:12:\"updateStatus\";i:14;s:10:\"viewStatus\";i:15;s:12:\"deleteStatus\";i:16;s:12:\"createSector\";i:17;s:12:\"updateSector\";i:18;s:10:\"viewSector\";i:19;s:12:\"deleteSector\";i:20;s:14:\"createDocument\";i:21;s:14:\"updateDocument\";i:22;s:12:\"viewDocument\";i:23;s:14:\"deleteDocument\";i:24;s:18:\"createDocumentType\";i:25;s:18:\"updateDocumentType\";i:26;s:16:\"viewDocumentType\";i:27;s:18:\"deleteDocumentType\";i:28;s:14:\"createStandard\";i:29;s:14:\"updateStandard\";i:30;s:12:\"viewStandard\";i:31;s:14:\"deleteStandard\";i:32;s:12:\"createClause\";i:33;s:12:\"updateClause\";i:34;s:10:\"viewClause\";i:35;s:12:\"deleteClause\";i:36;s:15:\"createSubClause\";i:37;s:15:\"updateSubClause\";i:38;s:13:\"viewSubClause\";i:39;s:15:\"deleteSubClause\";i:40;s:14:\"createQuestion\";i:41;s:14:\"updateQuestion\";i:42;s:12:\"viewQuestion\";i:43;s:14:\"deleteQuestion\";i:44;s:12:\"createManual\";i:45;s:12:\"updateManual\";i:46;s:10:\"viewManual\";i:47;s:12:\"deleteManual\";i:48;s:12:\"createCounty\";i:49;s:12:\"updateCounty\";i:50;s:10:\"viewCounty\";i:51;s:12:\"deleteCounty\";i:52;s:12:\"createParish\";i:53;s:12:\"updateParish\";i:54;s:10:\"viewParish\";i:55;s:12:\"deleteParish\";i:56;s:10:\"createCity\";i:57;s:10:\"updateCity\";i:58;s:8:\"viewCity\";i:59;s:10:\"deleteCity\";i:60;s:10:\"createPost\";i:61;s:10:\"updatePost\";i:62;s:8:\"viewPost\";i:63;s:10:\"deletePost\";i:64;s:14:\"createCategory\";i:65;s:14:\"updateCategory\";i:66;s:12:\"viewCategory\";i:67;s:14:\"deleteCategory\";i:68;s:13:\"createInquiry\";i:69;s:13:\"updateInquiry\";i:70;s:11:\"viewInquiry\";i:71;s:13:\"deleteInquiry\";i:72;s:17:\"createInquiryType\";i:73;s:17:\"updateInquiryType\";i:74;s:15:\"viewInquiryType\";i:75;s:17:\"deleteInquiryType\";i:76;s:17:\"createSupportType\";i:77;s:17:\"updateSupportType\";i:78;s:15:\"viewSupportType\";i:79;s:17:\"deleteSupportType\";i:80;s:13:\"viewDashboard\";i:81;s:8:\"viewNews\";i:82;s:10:\"viewReport\";i:83;s:17:\"viewDocumentation\";i:84;s:10:\"viewMyUser\";i:85;s:20:\"viewSearchConsultant\";i:86;s:13:\"updateSetting\";}', 1),
 (3, 'Consultant', 'a:13:{i:0;s:10:\"viewClient\";i:1;s:16:\"viewConsultation\";i:2;s:12:\"viewDocument\";i:3;s:8:\"viewPost\";i:4;s:13:\"createInquiry\";i:5;s:13:\"updateInquiry\";i:6;s:11:\"viewInquiry\";i:7;s:13:\"deleteInquiry\";i:8;s:13:\"viewDashboard\";i:9;s:8:\"viewNews\";i:10;s:10:\"viewReport\";i:11;s:17:\"viewDocumentation\";i:12;s:10:\"viewMyUser\";}', 1),
 (4, 'Client', 'a:11:{i:0;s:12:\"updateClient\";i:1;s:10:\"viewClient\";i:2;s:18:\"createConsultation\";i:3;s:16:\"viewConsultation\";i:4;s:13:\"updateAnswers\";i:5;s:10:\"viewManual\";i:6;s:8:\"viewPost\";i:7;s:13:\"viewDashboard\";i:8;s:8:\"viewNews\";i:9;s:17:\"viewDocumentation\";i:10;s:10:\"viewMyUser\";}', 1),
-(5, 'Admin', 'a:120:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:19:\"createPendingClient\";i:5;s:19:\"updatePendingClient\";i:6;s:17:\"viewPendingClient\";i:7;s:19:\"deletePendingClient\";i:8;s:14:\"createActivity\";i:9;s:14:\"updateActivity\";i:10;s:12:\"viewActivity\";i:11;s:14:\"deleteActivity\";i:12;s:17:\"createRequirement\";i:13;s:17:\"updateRequirement\";i:14;s:15:\"viewRequirement\";i:15;s:17:\"deleteRequirement\";i:16;s:18:\"createConsultation\";i:17;s:18:\"updateConsultation\";i:18;s:16:\"viewConsultation\";i:19;s:18:\"deleteConsultation\";i:20;s:13:\"createProgram\";i:21;s:13:\"updateProgram\";i:22;s:11:\"viewProgram\";i:23;s:13:\"deleteProgram\";i:24;s:11:\"createPhase\";i:25;s:11:\"updatePhase\";i:26;s:9:\"viewPhase\";i:27;s:11:\"deletePhase\";i:28;s:12:\"createStatus\";i:29;s:12:\"updateStatus\";i:30;s:10:\"viewStatus\";i:31;s:12:\"deleteStatus\";i:32;s:12:\"createSector\";i:33;s:12:\"updateSector\";i:34;s:10:\"viewSector\";i:35;s:12:\"deleteSector\";i:36;s:14:\"createStandard\";i:37;s:14:\"updateStandard\";i:38;s:12:\"viewStandard\";i:39;s:14:\"deleteStandard\";i:40;s:12:\"createClause\";i:41;s:12:\"updateClause\";i:42;s:10:\"viewClause\";i:43;s:12:\"deleteClause\";i:44;s:15:\"createSubClause\";i:45;s:15:\"updateSubClause\";i:46;s:13:\"viewSubClause\";i:47;s:15:\"deleteSubClause\";i:48;s:14:\"createQuestion\";i:49;s:14:\"updateQuestion\";i:50;s:12:\"viewQuestion\";i:51;s:14:\"deleteQuestion\";i:52;s:13:\"createAnswers\";i:53;s:13:\"updateAnswers\";i:54;s:11:\"viewAnswers\";i:55;s:13:\"deleteAnswers\";i:56;s:12:\"createManual\";i:57;s:12:\"updateManual\";i:58;s:10:\"viewManual\";i:59;s:12:\"deleteManual\";i:60;s:14:\"createDocument\";i:61;s:14:\"updateDocument\";i:62;s:12:\"viewDocument\";i:63;s:14:\"deleteDocument\";i:64;s:18:\"createDocumentType\";i:65;s:18:\"updateDocumentType\";i:66;s:16:\"viewDocumentType\";i:67;s:18:\"deleteDocumentType\";i:68;s:19:\"createDocumentClass\";i:69;s:19:\"updateDocumentClass\";i:70;s:17:\"viewDocumentClass\";i:71;s:19:\"deleteDocumentClass\";i:72;s:12:\"createCounty\";i:73;s:12:\"updateCounty\";i:74;s:10:\"viewCounty\";i:75;s:12:\"deleteCounty\";i:76;s:12:\"createParish\";i:77;s:12:\"updateParish\";i:78;s:10:\"viewParish\";i:79;s:12:\"deleteParish\";i:80;s:10:\"createCity\";i:81;s:10:\"updateCity\";i:82;s:8:\"viewCity\";i:83;s:10:\"deleteCity\";i:84;s:13:\"createInquiry\";i:85;s:13:\"updateInquiry\";i:86;s:11:\"viewInquiry\";i:87;s:13:\"deleteInquiry\";i:88;s:17:\"createInquiryType\";i:89;s:17:\"updateInquiryType\";i:90;s:15:\"viewInquiryType\";i:91;s:17:\"deleteInquiryType\";i:92;s:17:\"createSupportType\";i:93;s:17:\"updateSupportType\";i:94;s:15:\"viewSupportType\";i:95;s:17:\"deleteSupportType\";i:96;s:10:\"createPost\";i:97;s:10:\"updatePost\";i:98;s:8:\"viewPost\";i:99;s:10:\"deletePost\";i:100;s:14:\"createCategory\";i:101;s:14:\"updateCategory\";i:102;s:12:\"viewCategory\";i:103;s:14:\"deleteCategory\";i:104;s:13:\"viewDashboard\";i:105;s:8:\"viewNews\";i:106;s:10:\"viewReport\";i:107;s:17:\"viewDocumentation\";i:108;s:10:\"viewMyUser\";i:109;s:20:\"viewSearchConsultant\";i:110;s:10:\"createUser\";i:111;s:10:\"updateUser\";i:112;s:8:\"viewUser\";i:113;s:10:\"deleteUser\";i:114;s:13:\"createProfile\";i:115;s:13:\"updateProfile\";i:116;s:11:\"viewProfile\";i:117;s:13:\"deleteProfile\";i:118;s:12:\"updateSystem\";i:119;s:13:\"updateSetting\";}', 1);
+(5, 'Admin', 'a:120:{i:0;s:12:\"createClient\";i:1;s:12:\"updateClient\";i:2;s:10:\"viewClient\";i:3;s:12:\"deleteClient\";i:4;s:19:\"createPendingClient\";i:5;s:19:\"updatePendingClient\";i:6;s:17:\"viewPendingClient\";i:7;s:19:\"deletePendingClient\";i:8;s:14:\"createActivity\";i:9;s:14:\"updateActivity\";i:10;s:12:\"viewActivity\";i:11;s:14:\"deleteActivity\";i:12;s:17:\"createRequirement\";i:13;s:17:\"updateRequirement\";i:14;s:15:\"viewRequirement\";i:15;s:17:\"deleteRequirement\";i:16;s:18:\"createConsultation\";i:17;s:18:\"updateConsultation\";i:18;s:16:\"viewConsultation\";i:19;s:18:\"deleteConsultation\";i:20;s:13:\"createProgram\";i:21;s:13:\"updateProgram\";i:22;s:11:\"viewProgram\";i:23;s:13:\"deleteProgram\";i:24;s:11:\"createPhase\";i:25;s:11:\"updatePhase\";i:26;s:9:\"viewPhase\";i:27;s:11:\"deletePhase\";i:28;s:12:\"createStatus\";i:29;s:12:\"updateStatus\";i:30;s:10:\"viewStatus\";i:31;s:12:\"deleteStatus\";i:32;s:12:\"createSector\";i:33;s:12:\"updateSector\";i:34;s:10:\"viewSector\";i:35;s:12:\"deleteSector\";i:36;s:14:\"createStandard\";i:37;s:14:\"updateStandard\";i:38;s:12:\"viewStandard\";i:39;s:14:\"deleteStandard\";i:40;s:12:\"createClause\";i:41;s:12:\"updateClause\";i:42;s:10:\"viewClause\";i:43;s:12:\"deleteClause\";i:44;s:15:\"createSubClause\";i:45;s:15:\"updateSubClause\";i:46;s:13:\"viewSubClause\";i:47;s:15:\"deleteSubClause\";i:48;s:14:\"createQuestion\";i:49;s:14:\"updateQuestion\";i:50;s:12:\"viewQuestion\";i:51;s:14:\"deleteQuestion\";i:52;s:13:\"createAnswers\";i:53;s:13:\"updateAnswers\";i:54;s:11:\"viewAnswers\";i:55;s:13:\"deleteAnswers\";i:56;s:12:\"createManual\";i:57;s:12:\"updateManual\";i:58;s:10:\"viewManual\";i:59;s:12:\"deleteManual\";i:60;s:14:\"createDocument\";i:61;s:14:\"updateDocument\";i:62;s:12:\"viewDocument\";i:63;s:14:\"deleteDocument\";i:64;s:18:\"createDocumentType\";i:65;s:18:\"updateDocumentType\";i:66;s:16:\"viewDocumentType\";i:67;s:18:\"deleteDocumentType\";i:68;s:19:\"createDocumentClass\";i:69;s:19:\"updateDocumentClass\";i:70;s:17:\"viewDocumentClass\";i:71;s:19:\"deleteDocumentClass\";i:72;s:12:\"createCounty\";i:73;s:12:\"updateCounty\";i:74;s:10:\"viewCounty\";i:75;s:12:\"deleteCounty\";i:76;s:12:\"createParish\";i:77;s:12:\"updateParish\";i:78;s:10:\"viewParish\";i:79;s:12:\"deleteParish\";i:80;s:10:\"createCity\";i:81;s:10:\"updateCity\";i:82;s:8:\"viewCity\";i:83;s:10:\"deleteCity\";i:84;s:13:\"createInquiry\";i:85;s:13:\"updateInquiry\";i:86;s:11:\"viewInquiry\";i:87;s:13:\"deleteInquiry\";i:88;s:17:\"createInquiryType\";i:89;s:17:\"updateInquiryType\";i:90;s:15:\"viewInquiryType\";i:91;s:17:\"deleteInquiryType\";i:92;s:17:\"createSupportType\";i:93;s:17:\"updateSupportType\";i:94;s:15:\"viewSupportType\";i:95;s:17:\"deleteSupportType\";i:96;s:10:\"createPost\";i:97;s:10:\"updatePost\";i:98;s:8:\"viewPost\";i:99;s:10:\"deletePost\";i:100;s:14:\"createCategory\";i:101;s:14:\"updateCategory\";i:102;s:12:\"viewCategory\";i:103;s:14:\"deleteCategory\";i:104;s:13:\"viewDashboard\";i:105;s:8:\"viewNews\";i:106;s:10:\"viewReport\";i:107;s:17:\"viewDocumentation\";i:108;s:10:\"viewMyUser\";i:109;s:20:\"viewSearchConsultant\";i:110;s:10:\"createUser\";i:111;s:10:\"updateUser\";i:112;s:8:\"viewUser\";i:113;s:10:\"deleteUser\";i:114;s:13:\"createProfile\";i:115;s:13:\"updateProfile\";i:116;s:11:\"viewProfile\";i:117;s:13:\"deleteProfile\";i:118;s:12:\"updateSystem\";i:119;s:13:\"updateSetting\";}', 1),
+(6, 'Reader', 'a:9:{i:0;s:10:\"viewClient\";i:1;s:17:\"viewPendingClient\";i:2;s:16:\"viewConsultation\";i:3;s:8:\"viewPost\";i:4;s:13:\"viewDashboard\";i:5;s:8:\"viewNews\";i:6;s:10:\"viewReport\";i:7;s:17:\"viewDocumentation\";i:8;s:10:\"viewMyUser\";}', 1);
 
 -- --------------------------------------------------------
 
@@ -580,9 +636,9 @@ CREATE TABLE IF NOT EXISTS `program` (
 --
 
 INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `code`, `name`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(8, 2, 11, 'P1', 'Programme 1', '', 1, '2020-02-22 05:25:20', 18),
-(9, 1, 10, 'P2', 'Programme 2', '', 1, '2020-02-22 05:26:18', 18),
-(11, 0, 0, '676', 'Program 3', 'rem', 1, '2020-02-23 19:08:29', 18);
+(8, 2, 11, 'P1', 'Program 1', '', 1, '2020-02-25 00:39:03', 18),
+(9, 1, 10, 'P2', 'Program 2', '', 1, '2020-02-25 00:39:12', 18),
+(11, 0, 0, 'P3', 'Program 3', 'rem', 1, '2020-02-25 00:46:37', 18);
 
 -- --------------------------------------------------------
 
@@ -598,22 +654,22 @@ CREATE TABLE IF NOT EXISTS `program_phase` (
   `sequence` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program_phase`
 --
 
 INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`, `sequence`) VALUES
-(29, 8, 1, 1),
-(30, 8, 2, 2),
-(31, 8, 3, 3),
-(32, 8, 4, 4),
-(33, 9, 1, 1),
-(34, 9, 2, 2),
-(45, 11, 1, 1),
-(46, 11, 3, 3),
-(47, 11, 2, 2);
+(48, 8, 1, 1),
+(49, 8, 2, 2),
+(50, 8, 3, 3),
+(51, 8, 4, 4),
+(52, 9, 1, 1),
+(53, 9, 2, 2),
+(60, 11, 6, 1),
+(61, 11, 5, 2),
+(62, 11, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -952,7 +1008,7 @@ CREATE TABLE IF NOT EXISTS `sector` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sector`
@@ -977,7 +1033,7 @@ CREATE TABLE IF NOT EXISTS `standard` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `standard`
@@ -1002,7 +1058,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `status`
@@ -1032,7 +1088,11 @@ INSERT INTO `status` (`id`, `phase_id`, `code`, `name`, `active`) VALUES
 (43, 4, '43', 'Management review', 1),
 (44, 4, '44', 'Pre certification', 1),
 (45, 4, '45', 'Clean up NC', 1),
-(46, 4, '46', 'Generate Manual', 1);
+(46, 4, '46', 'Generate Manual', 1),
+(48, 6, 'CLI', 'Client Problem', 1),
+(49, 7, 'MANUAL', 'Deliver the manual', 1),
+(50, 5, 'EXAM', 'Examination of the problem', 1),
+(51, 5, 'MARK', 'Marketing study', 1);
 
 -- --------------------------------------------------------
 
@@ -1147,7 +1207,7 @@ CREATE TABLE IF NOT EXISTS `support_type` (
 --
 
 INSERT INTO `support_type` (`id`, `code`, `name`, `active`) VALUES
-(1, 'RENS', 'Renseignements', 1);
+(1, 'INFO', 'Information', 1);
 
 -- --------------------------------------------------------
 
@@ -1169,7 +1229,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updated_by` int(11) NOT NULL,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -1186,7 +1246,8 @@ INSERT INTO `user` (`id`, `profile_id`, `username`, `password`, `email`, `name`,
 (31, 3, 'consultant3', '$2y$10$LNvKCbDAmYkBL93oQlZH1uC.k4Qje.xC8JFkOdSzzdvQaBM9ERUTK', 'consultant3@hotmail.com', 'Consultant No 3', '', NULL, 1, 18, '2019-12-18 20:09:11'),
 (37, 4, 'TRN002', '$2y$10$i/66TmRPUoWoqSXOf9L2P.g4415vjzSZbZSUwgSeDTabRZlIyVKXm', 'voyagine@hotmail.com', 'M. Untel', 'phone', NULL, 1, 23, '2019-12-23 17:54:46'),
 (38, 4, 'TRN003', '$2y$10$FnwBu5YX5GSpu5T0sXcNvulVbC7tBBglrCPteknl..B6eODAxoBIi', 'voyagine@hotmail.com', 'Client No 3', '05149836594', NULL, 1, 18, '2019-12-23 17:59:28'),
-(39, 4, '123456789', '$2y$10$4lo56xMDEH4eWFX0Geo4quY.oU6fJE3Ssuw1Zol33vnU5lNm7IYRW', 'jumppnicholas1@gmail.com', 'Nicholas Jumpp', '1-876-788-9327', NULL, 1, 18, '2020-02-21 17:12:14');
+(39, 4, '123456789', '$2y$10$4lo56xMDEH4eWFX0Geo4quY.oU6fJE3Ssuw1Zol33vnU5lNm7IYRW', 'jumppnicholas1@gmail.com', 'Nicholas Jumpp', '1-876-788-9327', NULL, 1, 18, '2020-02-21 17:12:14'),
+(41, 6, 'reader', '$2y$10$CWCkyvlwQNZqYhX/yzLsouJGPeM7GqWJy/4J5T.PYQlWGUr5Dqpy.', 'reader@hotmail.com', 'M. Reader', '5149836594', NULL, 1, 18, '2020-02-25 15:13:49');
 
 --
 -- Contraintes pour les tables déchargées
