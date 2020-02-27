@@ -144,6 +144,7 @@ $autoload['model'] = array(
 	'model_client',
 	'model_consultation',
 	'model_county',
+	'model_customize_registration',
 	'model_document_class',
 	'model_document_type',
 	'model_dynamic_dependent',

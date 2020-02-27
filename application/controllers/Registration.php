@@ -145,6 +145,44 @@ class Registration extends Admin_Controller
 	 {
 		 $this->load->view('registration/successful');
 	 }
+
+	 public function customization()
+	 {
+		$this->data['page_title'] = 'Registration Customization';   
+		$this->form_validation->set_rules('title', 'Title', 'trim|required');
+		$this->form_validation->set_rules('body', 'Body', 'trim|required');
+		$this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+		
+		if($this->form_validation->run() == TRUE)
+		{
+			$data = array(
+				'title' => $this->input->post('title'), 
+				'body' => $this->input->post('body')
+			);
+			$success;
+			if(empty($this->model_customize_registration->getCustomizationData()))
+			{
+				$success=$this->model_customize_registration->create($data);
+			}
+			else
+			{
+				$success=$this->model_customize_registration->update($data);
+			}
+			if($success == true)
+            {
+                $this->session->set_flashdata('success', 'Successfully Updated!');
+                redirect('registration/customization', 'refresh');
+            }
+            else
+            {
+                $this->session->set_flashdata('errors', 'Error occurred!!');
+                redirect('registration/customization', 'refresh');
+            }
+		}
+
+		$this->data['customization'] = $this->model_customize_registration->getCustomizationData();
+		$this->render_template('registration/edit', $this->data);
+	 }
 	
 }
 

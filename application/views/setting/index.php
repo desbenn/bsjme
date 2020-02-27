@@ -221,7 +221,8 @@
                 <ul class="chart-legend" style="height:170px">                  
 
                   <li><a href="<?php echo base_url('backup/database_backup') ?>">Backup Database</a></li>
-                  <li><a href="<?php echo base_url('backup/zip_upload') ?>">Backup Upload (Documents and Posts)</a></li>    
+                  <li><a href="<?php echo base_url('backup/zip_upload') ?>">Backup Upload (Documents and Posts)</a></li>   
+                  <li><a href="<?php echo base_url('registration/customization') ?>">Customization (Registration)</a></li>    
                   <li><a href="<?php echo base_url('documentation/system_documentation/') ?>"><i class="fa fa-book"></i> <span>System Documentation</span></a></li>
                   <li><a href="<?php echo base_url('documentation/database_schema/') ?>"><i class="fa fa-book"></i> <span>Database Schema</span></a></li>
 				  <li><?php echo 'CodeIgniter Version '.CI_VERSION; ?></li>
