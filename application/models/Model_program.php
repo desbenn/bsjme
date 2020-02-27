@@ -47,7 +47,7 @@ class Model_program extends CI_Model
 	public function getProgramPhaseData($program_id)
 	{
 
-		$sql = "SELECT phase_id AS 'id',program_id,name,sequence
+		$sql = "SELECT phase.id AS 'id',phase_id,program_id,name,sequence
 				FROM program_phase 
 					 JOIN phase ON program_phase.phase_id = phase.id
 				WHERE program_id = ?
@@ -126,10 +126,6 @@ class Model_program extends CI_Model
 		$num_rows = 0;
 		
 		$sql = "SELECT * FROM consultation WHERE program_id = ?";
-		$query = $this->db->query($sql, array($id));
-		$num_rows = $num_rows + $query->num_rows();
-
-		$sql = "SELECT * FROM program_phase WHERE program_id = ?";
 		$query = $this->db->query($sql, array($id));
 		$num_rows = $num_rows + $query->num_rows();
 

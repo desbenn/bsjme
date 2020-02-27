@@ -12,7 +12,7 @@ class Consultation extends Admin_Controller
 
 		$this->data['page_title'] = 'Consultation';
         $this->data['active_tab'] = $this->input->get('tab') ?? 'consultation';
-        $this->log_module = 'consultation';
+        $this->log_module = 'Consultation';
 
 	}
 
@@ -39,7 +39,7 @@ class Consultation extends Admin_Controller
             redirect('dashboard', 'refresh');
         }
 
-        $timeline_data = $this->model_log->timeline_client($id); 
+        $timeline_data = $this->model_log->timeline_consultation($id); 
         $this->data['timeline_data'] = $timeline_data;
         $this->render_template('consultation/timeline', $this->data);
     }
@@ -118,9 +118,9 @@ class Consultation extends Admin_Controller
                 $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
             }
 
-            if(in_array('viewConsultation', $this->permission)) {
+            if(in_array('viewConsultation', $this->permission)) {                
+                $buttons .= '<a href="'.base_url('consultation/timeline/'.$value['id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
                 $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';
-                $buttons .= '<a href="'.base_url('consultation/timeline/'.$value['client_id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
             }
 
 			$result['data'][$key] = array(
@@ -198,10 +198,11 @@ class Consultation extends Admin_Controller
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
                     'module' => $this->log_module,
-                    'action' => 'create',
+                    'action' => 'Create',
                     'subject_id' => $consultation_id,
                     'client_id' => $this->input->post('client'),
                     'consultation_id' => $consultation_id,
+                    'remark' => 'Create Consultation '.$this->input->post('consultation_no'),
                     'attributes' => $data
                 ));
 
@@ -263,6 +264,7 @@ class Consultation extends Admin_Controller
 
         //--> Get old data to keep in the log
         $old_data = $this->model_consultation->getConsultationData($consultation_id);
+        $old_phase = $old_data['phase_id'];
 
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
         $this->form_validation->set_rules('program', 'Program', 'trim|required');
@@ -307,13 +309,20 @@ class Consultation extends Admin_Controller
                 //$msg_error = 'Successfully updated';
                 //$this->session->set_flashdata('success', $msg_error);
                 //--> Log Action
-                 $this->model_log->create(array(
+                $remark = 'Update Consultation '.$this->input->post('consultation_no');
+                if ($old_phase <> $this->input->post('phase')) 
+                     {
+                       $phase_data = $this->model_phase->getPhaseData($this->input->post('phase'));
+                       $remark .= ' and Move from phase '.$old_data['phase_name'].' to phase '.$phase_data['name'];
+                     }
+                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
                     'module' => $this->log_module,
-                    'action' => 'update',
+                    'action' => 'Update',
                     'subject_id' => $consultation_id,
                     'client_id' => $this->input->post('client'),
                     'consultation_id' => $consultation_id,
+                    'remark' => $remark,
                     'attributes' => array(
                           'old' => $old_data,
                           'new' => $data
@@ -389,9 +398,10 @@ class Consultation extends Admin_Controller
                      $this->model_log->create(array(
                         'user_id' => $this->session->user_id,
                         'module' => $this->log_module,
-                        'action' => 'delete',
+                        'action' => 'Delete',
                         'subject_id' => $consultation_id,
-                        'client_id' => null,
+                        'client_id' => $old_data['client_id'],
+                        'remark' => 'Delete Consulation '.$old_data['consultation_no'],
                         'consultation_id' => $consultation_id,
                         'attributes' => $old_data
                     ));
@@ -573,11 +583,12 @@ class Consultation extends Admin_Controller
                 //--> Log Action
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
-                    'module' => 'consultation.document',
-                    'action' => 'create',
+                    'module' => 'Consultation Document',
+                    'action' => 'Upload',
                     'subject_id' => $document_id,
                     'client_id' => $this->session->client_id,
                     'consultation_id' => $this->session->consultation_id,
+                    'remark' => 'Upload of document '.$this->upload->data('file_name'),
                     'attributes' => $data
                 ));
                 //--->  Upload the document
@@ -616,11 +627,12 @@ class Consultation extends Admin_Controller
                 //--> Log Action
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
-                    'module' => 'consultation.document',
-                    'action' => 'delete',
+                    'module' => 'Consultation Document',
+                    'action' => 'Delete',
                     'subject_id' => $document_id,
                     'client_id' => $this->session->client_id,
                     'consultation_id' => $this->session->consultation_id,
+                    'remark' => 'Delete of document '.$document_data['doc_name'],
                     'attributes' => $document_data
                 ));
                 $response['success'] = true;

@@ -12,7 +12,7 @@ class Client extends Admin_Controller
 
 		$this->data['page_title'] = 'Client';
         $this->data['active_tab'] = $this->input->get('tab') ?? 'client';
-        $this->log_module = 'client';
+        $this->log_module = 'Client';
 
 	}
 
@@ -28,6 +28,20 @@ class Client extends Admin_Controller
 
 		$this->render_template('client/index', $this->data);
 	}
+
+    //--> Redirects to the timeline
+
+    public function timeline($id)
+    {
+        if(!in_array('viewClient', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+        $timeline_data = $this->model_log->timeline_client($id); 
+        $this->data['timeline_data'] = $timeline_data;
+        $this->render_template('client/timeline', $this->data);
+    }
+
 
 
     //-->  It Fetches the client data from the client table
@@ -82,13 +96,17 @@ class Client extends Admin_Controller
 
             if(in_array('updateClient', $this->permission)) {
                 $buttons .= '<a href="'.base_url('client/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
-                $company_name = '<a href="'.base_url('client/update/'.$value['id']).'">'.$value['company_name'].'</a>';}
+                $company_name = '<a href="'.base_url('client/update/'.$value['id']).'">'.$value['company_name'].'</a>';
+            }
 
             if(in_array('deleteClient', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';}
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+            }
 
             if(in_array('viewClient', $this->permission)) {
-                $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';}
+                $buttons .= '<a href="'.base_url('client/timeline/'.$value['id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
+                $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';                
+            }
 
             $activity = $value['activity_name'];      
 
@@ -203,10 +221,11 @@ class Client extends Admin_Controller
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
                     'module' => $this->log_module,
-                    'action' => 'create',
+                    'action' => 'Create',
                     'subject_id' => $client_id,
                     'client_id' => $client_id,
                     'consultation_id' => null,
+                    'remark' => 'Create Client '.$this->input->post('trn'),
                     'attributes' => $data
                 ));
                 //---> Create the directory for deposit of documents-->
@@ -261,13 +280,12 @@ class Client extends Admin_Controller
 
             //--> The directory where the documents are uploaded is the
             //    same as client register id.  If the user change the
-            //    client register id, we must rename the directory
+            //    trn, we must rename the directory
 
             if ($this->input->post('directory') !=  $this->input->post('trn'))
                 {$old_path = "./upload/documents/".$this->input->post('directory');
                  $new_path = "./upload/documents/".$this->input->post('trn');
                  rename($old_path, $new_path);
-                 //??? rename also the username of the user client
                 }
 
             $data = array(
@@ -306,10 +324,11 @@ class Client extends Admin_Controller
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
                     'module' => $this->log_module,
-                    'action' => 'update',
+                    'action' => 'Update',
                     'subject_id' => $client_id,
                     'client_id' => $client_id,
                     'consultation_id' => null,
+                    'remark' => 'Update Client '.$this->input->post('trn'),
                     'attributes' => array(
                           'old' => $old_data,
                           'new' => $data
@@ -362,8 +381,11 @@ class Client extends Admin_Controller
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
                     'module' => $this->log_module,
-                    'action' => 'delete',
+                    'action' => 'Delete',
                     'subject_id' => $client_id,
+                    'client_id' => $client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Delete Client '.$client_id,
                     'attributes' => $old_data
                 ));
             }
@@ -473,11 +495,12 @@ class Client extends Admin_Controller
                 //--> Log Action
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
-                    'module' => 'client.document',
-                    'action' => 'create',
+                    'module' => 'Client Document',
+                    'action' => 'Upload',
                     'subject_id' => $document_id,
                     'client_id' => $this->session->client_id,
                     'consultation_id' => null,
+                    'remark' => 'Upload of document '.$this->upload->data('file_name'),
                     'attributes' => $data
                 ));
                 //--->  Upload the document
@@ -516,11 +539,12 @@ class Client extends Admin_Controller
                 //--> Log Action
                  $this->model_log->create(array(
                     'user_id' => $this->session->user_id,
-                    'module' => 'client.document',
-                    'action' => 'delete',
+                    'module' => 'Client Document',
+                    'action' => 'Delete',
                     'subject_id' => $document_id,
                     'client_id' => $this->session->client_id,
                     'consultation_id' => null,
+                    'remark' => 'Delete of document '.$document_data['doc_name'],
                     'attributes' => $document_data
                 ));
                 $response['success'] = true;

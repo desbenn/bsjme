@@ -225,10 +225,12 @@ class Model_consultation extends CI_Model
 
 		//Nicholas ... here you have to think differently as we don't know how many
 		//             phase they will have for each program and at what phase the questions
-		//             should appear.  I will present the general question so that you
-		//             have an example to demonstrate.  They will need to be VERY clear
-		//             on the questions for each Program - Phase related to 
-		//             Standard - Clause and sub-clause.
+		//             should appear.  
+
+		/*   Here is an example on getting the question related to the program
+		    You must get the questions for a specific standard and a clause ...
+		    But first, they will need to be clear about the process and the actions to execute
+		    for each program, phase and standard ...
 		$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
 			question_type.code AS 'question_type_code'  
 			FROM question 
@@ -236,9 +238,24 @@ class Model_consultation extends CI_Model
 				JOIN clause ON sub_clause.clause_id = clause.id 
 				JOIN standard ON clause.standard_id = standard.id 
 				LEFT JOIN question_type ON question.question_type_id = question_type.id
-            WHERE clause.standard_id = 1 AND sub_clause.code BETWEEN '4.0.0' AND '4.9.9'";
+				JOIN program ON program.standard_id = standard.id AND program.clause_id = clause.id
+				
+            WHERE program.standard_id = 5 AND program.clause_id = 13";
 		$query = $this->db->query($sql, array());
-		return $query->result_array();	
+		return $query->result_array();	*/
+		
+		// Unless they know exactly what they want, I suggest to bring the general questions
+		// for demonstration of the system...
+		$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+			question_type.code AS 'question_type_code'  
+			FROM question 
+				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+				JOIN clause ON sub_clause.clause_id = clause.id 
+				JOIN standard ON clause.standard_id = standard.id 
+				LEFT JOIN question_type ON question.question_type_id = question_type.id
+		WHERE clause.standard_id = 1 AND sub_clause.code BETWEEN '4.0.0' AND '4.9.9'";
+		$query = $this->db->query($sql, array());
+		return $query->result_array();
 
 		/*$sql=null;
 		if($phase==1)

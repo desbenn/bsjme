@@ -73,11 +73,11 @@
             <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Company Name</th>
-                  <th>TRN</th>
-                  <th>Client Name</th>
-                  <th>Activity</th>
-                  <th>Action</th>
+                  <th width="30%">Company Name</th>
+                  <th width="10%">TRN</th>
+                  <th width="30%">Client Name</th>
+                  <th width="10%">Activity</th>
+                  <th width="20%">Action</th>
                 </tr>
                 </thead>
               </table>

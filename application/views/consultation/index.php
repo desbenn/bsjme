@@ -52,34 +52,34 @@
               <?php endif; ?>    
           </div>
 
-           <br /> <br />
+     <br /> <br />
 
         <div class="box">
           <div class="box-header"></div>
             <div class="box-body">
-            <div class="table-responsive">
-              <table id="manageTable" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th width="5%">No</th>
-                  <th width="18%">Description</th>
-                  <th width="15%">Company Name</th>
-                  <th width="10%">Consultant</th>
-                  <th width="10%">Program</th>
-                  <th width="10%">Phase</th>
-                  <th width="10%">Status</th>
-                  <th width="17%">Action</th>
-                </tr>
+              <div class="table-responsive">
+                <table id="manageTable" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th width="5%">No</th>
+                    <th width="16%">Description</th>
+                    <th width="20%">Company Name</th>
+                    <th width="10%">Consultant</th>
+                    <th width="10%">Program</th>
+                    <th width="10%">Phase</th>
+                    <th width="10%">Status</th>
+                    <th width="18%">Action</th>
+                  </tr>
                 </thead>
               </table>
-            </div>            
-          </div>          <!-- /.box-body -->
-        </div>        <!-- /.box -->
-      </div>      <!-- col-md-12 -->
-    </div>    <!-- /.row -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-  </section>  <!-- /.content -->
-</div> <!-- /.content-wrapper -->
 
 
   <!--------------------------------------------------- Delete -------------------------------------------------------------------------->
