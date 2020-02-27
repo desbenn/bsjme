@@ -42,7 +42,7 @@
                 //changes the size of the logo to fit device screen accordingly
                ?>
                <div class="row" align="center">
-                    <img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+               <a href="https://www.bsj.org.jm/"><<img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">/a>
                 </div>
                <?php
             }
@@ -50,7 +50,7 @@
             {
                 ?>
                 <div class="row" align="center">
-                    <img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+                    <a href="https://www.bsj.org.jm/"><img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo"></a>
                 </div>
                 <?php
             }
@@ -121,7 +121,12 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCity">City/Town:<font color="red"> *</font></label>
-                                        <input type="text" class="requirement form-control" name="companyCity" placeholder="Kingston 10" value="<?php echo set_value('companyCity');?>">
+                                        <select name="companyCounty" class="requirement form-control select_group">
+                                            <option value="">Select City</option>
+                                            <?php foreach ($city as $k => $v): ?>
+                                                <option value="<?php echo $v['id'] ?>" <?php echo set_select('city', $v['id']); ?>><?php echo $v['name'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </div> 
                                 </div>
                                 <div class="col-md-6 col-xs-6">
@@ -241,11 +246,11 @@
                         <!-- Page asking what the client is specifically looking for -->
                         <div class="tab">
                                 <p><span class='error'>All fields are required:</span></p>
-                                <label for="target">Target/Goal:</label>
+                                <label for="target">Program</label>
                                 <select name="target" class="requirement form-control select_group">
-                                    <option value=" ">Select Standard</option>
-                                    <?php foreach ($standard as $k => $v): ?>
-                                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('standard', $v['id']); ?>><?php echo $v['name'] ?></option>
+                                    <option value=" ">Select Program</option>
+                                    <?php foreach ($program as $k => $v): ?>
+                                        <option value="<?php echo $v['name'] ?>" <?php echo set_select('program', $v['id']); ?>><?php echo $v['name'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <br>

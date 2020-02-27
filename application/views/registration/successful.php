@@ -42,7 +42,7 @@
                 //changes the size of the logo to fit device screen accordingly
                ?>
                <div class="row" align="center">
-                    <img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+                    <a href="https://www.bsj.org.jm/"><<img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">/a>
                 </div>
                <?php
             }
@@ -50,7 +50,7 @@
             {
                 ?>
                 <div class="row" align="center">
-                    <img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">
+                    <a href="https://www.bsj.org.jm/"><img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo"></a>
                 </div>
                 <?php
             }
