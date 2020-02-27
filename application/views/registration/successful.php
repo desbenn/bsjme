@@ -59,9 +59,10 @@
 
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">                    
-                    
-                           
+                <div class="modal-body" align="center">                
+                    <h2>Thank you for your interest!</h2>
+                    <p>Your information has been successfully submitted. 
+                    Contact will be made with your organization via email/phone within 3-5 business days.</p>
                 </div>
             </div>
         </div>        

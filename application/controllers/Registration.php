@@ -139,6 +139,11 @@ class Registration extends Admin_Controller
 		$data['standard']= $this->model_standard->getActiveStandard();
 		$this->load->view('registration/index', $data);
 	}
+
+	 public function successful()
+	 {
+		 $this->load->view('registration/successful');
+	 }
 	
 }
 
