@@ -33,7 +33,7 @@
 
 </head>
 
-<body style="background-image:url(<?php echo base_url('assets/images/background.jpg'); ?>)">
+<body style="background-color:rgb(245, 242, 235);">
     <br><br><br>
     <div class="fluid-container">
         <?php
@@ -60,9 +60,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body" align="center">                
-                    <h2>Thank you for your interest!</h2>
-                    <p>Your information has been successfully submitted. 
-                    Contact will be made with your organization via email/phone within 3-5 business days.</p>
+                    <h2><?php echo $message[0]['title'];?></h2>
+                    <p><?php echo $message[0]['body'];?></p>
                 </div>
             </div>
         </div>        

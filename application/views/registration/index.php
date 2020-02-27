@@ -69,7 +69,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="trn">TRN #:<font color="red"> *</font></label>
-                                        <input type="number" class="requirement form-control" name="trn" placeholder="123456789" value="<?php echo set_value('trn');?>">
+                                        <input type="number" class="requirement form-control" name="trn" placeholder="123456789" value="<?php echo set_value('trn');?>" max="9">
                                     </div>
                                 </div> 
                                 <div class="col-md-6 col-xs-6">
@@ -121,7 +121,7 @@
                                 <div class="col-md-6 col-xs-6">
                                     <div class="form-group">
                                         <label for="companyCity">City/Town:<font color="red"> *</font></label>
-                                        <select name="companyCounty" class="requirement form-control select_group">
+                                        <select name="companyCity" class="requirement form-control select_group">
                                             <option value="">Select City</option>
                                             <?php foreach ($city as $k => $v): ?>
                                                 <option value="<?php echo $v['id'] ?>" <?php echo set_select('city', $v['id']); ?>><?php echo $v['name'] ?></option>

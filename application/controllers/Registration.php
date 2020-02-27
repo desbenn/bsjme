@@ -143,7 +143,9 @@ class Registration extends Admin_Controller
 
 	 public function successful()
 	 {
-		 $this->load->view('registration/successful');
+		 $data=array();
+		 $data['message'] = $this->model_customize_registration->getCustomizationData();
+		 $this->load->view('registration/successful', $data);
 	 }
 
 	 public function customization()
