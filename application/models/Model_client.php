@@ -213,12 +213,12 @@ class Model_client extends CI_Model
 	}
 
 	
-
 	public function createDocument($data)
 	{
 		if($data) {
 			$insert = $this->db->insert('document', $data);
-			return ($insert == true) ? true : false;
+			$insert_id = $this->db->insert_id();
+			return ($insert == true) ? $insert_id : false;
 		}
 	}
 

@@ -68,7 +68,7 @@
                     <div class="form-group">
                       <label for="clause">Clause</label>
                       <select class="form-control select_group" id="clause" name="clause">
-                        <option value="">Select Clause</option>                        
+                        <option value=""></option>                        
                       </select>
                     </div>
                   </div>   
@@ -187,28 +187,6 @@ var base_url = "<?php echo base_url(); ?>";
         }
        });
 
-
-        //Change of the clause, call the sub-clause list
-
-       $('#clause').change(function(){
-        var clause_id = $('#clause').val();
-        if(clause_id != '')
-        {
-         $.ajax({
-          url: base_url + 'dynamic_dependent/fetch_sub_clause',
-          method:"POST",
-          data:{clause_id:clause_id},
-          success:function(data)
-          {
-           $('#sub_clause').html(data);
-          }
-         });
-        }
-        else
-        {
-         $('#sub_clause').html('<option value="">Select Sub-clause</option>');
-        }
-       });
  
 });
     

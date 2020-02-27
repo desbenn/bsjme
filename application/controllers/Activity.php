@@ -201,9 +201,9 @@ class Activity extends Admin_Controller
 				}
 
 			else {
-				//---> There is at least one consultation having this information
+				//---> There is at least one client having this information
 				$response['success'] = false;
-				$response['messages'] = 'At least one post uses this information.  You cannot delete.';}
+				$response['messages'] = 'At least one client uses this information.  You cannot delete.';}
 
 		}
 		else {

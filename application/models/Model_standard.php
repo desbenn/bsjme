@@ -30,6 +30,18 @@ class Model_standard extends CI_Model
 		return $query->result_array();
 	}
 
+	// get the clause for the standard
+
+	public function getStandardClause($standard_id)
+	{
+		$sql = "SELECT *
+				FROM clause 
+				WHERE standard_id = ?
+				ORDER BY name";
+		$query = $this->db->query($sql, array($standard_id));
+		return $query->result_array();
+	}
+
 	public function create($data)
 	{
 		if($data) {
@@ -59,9 +71,17 @@ class Model_standard extends CI_Model
 	//---> Validate if the mineral type is used in table Consultation
 	public function checkIntegrity($id)
 	{
+		$num_rows = 0;
+		
 		$sql = "SELECT * FROM consultation WHERE standard_id = ?";
 		$query = $this->db->query($sql, array($id));
-		return $query->num_rows();
+		$num_rows = $num_rows + $query->num_rows();
+
+		$sql = "SELECT * FROM clause WHERE standard_id = ?";
+		$query = $this->db->query($sql, array($id));
+		$num_rows = $num_rows + $query->num_rows();
+
+		return $num_rows;
 
 	}
 

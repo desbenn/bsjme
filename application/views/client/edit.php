@@ -6,6 +6,8 @@
 		<ol class="breadcrumb">
 			<li><a href="<?php echo base_url('client') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li class="active">Client</li>
+			<li><img width="25" height="25" data-toggle="tooltip" data-placement="bottom" title="Some information about the client." 
+				src="<?php echo base_url('assets/images/question.png'); ?>" /></li>
 		</ol>
 	</section>
 
@@ -28,6 +30,7 @@
         <li class="<?php echo (($active_tab === 'inquiry') ? 'active' : '') ?>"><a data-toggle="tab" href="#inquiry">Inquiry</a></li>
         <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Document</a></li>
       </ul>
+
 
 
 
@@ -140,7 +143,6 @@
 							<div class="form-group">
 								<label for="activity">Activity <font color="red">*</font></label>
 								<select class="form-control select_group" id="activity" name="activity">
-									<option value=""></option>
 									<?php foreach ($activity as $k => $v): ?>
 										<option value="<?php echo $v['id'] ?>"
 										<?php if(set_value('activity', isset($client_data['activity_id']) ? $client_data['activity_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
@@ -175,7 +177,7 @@
 							<div class="form-group">
 								<label for="county">County <font color="red">*</font></label>
 								<select class="form-control select_group" id="county" name="county">
-									<option value=""></option>
+									<option value="">Select County</option>
 									<?php foreach ($county as $k => $v): ?>
 										<option value="<?php echo $v['id'] ?>"
 										<?php if(set_value('county', isset($client_data['county_id']) ? $client_data['county_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
@@ -188,7 +190,7 @@
 							<div class="form-group">
 								<label for="parish">Parish <font color="red">*</font></label>
 								<select class="form-control select_group" id="parish" name="parish">
-									<option value=""></option>
+									<option value="">Select Parish</option>
 									<?php foreach ($parish as $k => $v): ?>
 										<option value="<?php echo $v['id'] ?>"
 										<?php if(set_value('parish', isset($client_data['parish_id']) ? $client_data['parish_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
@@ -201,7 +203,7 @@
 						<div class="form-group">
 							<label for="city">City</label>
 							<select class="form-control select_group" id="city" name="city">
-								<option value=""></option>
+								<option value="">Select City</option>
 								<?php foreach ($city as $k => $v): ?>
 										<option value="<?php echo $v['id'] ?>"
 										<?php if(set_value('city', isset($client_data['city_id']) ? $client_data['city_id'] : '') == $v['id']) { echo "selected='selected'"; } ?> ><?php echo $v['name'] ?></option>
@@ -350,9 +352,10 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
 		$(".select_group").select2({width: '100%'});
 		$("#mainClientNav").addClass('active');
-		$("#manageClientNav").addClass('active');
+		$("#manageClientNav").addClass('active');	
 
 	});
 </script>

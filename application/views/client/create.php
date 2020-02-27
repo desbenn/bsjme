@@ -7,6 +7,7 @@
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('client') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Client</li>
+      <li><img width="25" height="25" data-toggle="tooltip" data-placement="bottom" title="Some information about the client." src="<?php echo base_url('assets/images/question.png'); ?>" /></li>        
     </ol>
   </section>
 
@@ -70,7 +71,6 @@
                   <div class="form-group">
                     <label for="activity">Activity <font color="red">*</font></label>
                     <select class="form-control select_group" id="activity" name="activity">
-                      <option value=""></option>
                       <?php foreach ($activity as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>" <?php echo set_select('activity', $v['id']); ?>><?php echo $v['name'] ?></option>
                       <?php endforeach ?>
@@ -93,7 +93,7 @@
                   <div class="form-group">
                     <label for="county">County <font color="red">*</font></label>
                     <select class="form-control select_group" id="county" name="county">
-                      <option value=""></option>
+                      <option value="">Select County</option>
                       <?php foreach ($county as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>" <?php echo set_select('county', $v['id']); ?>><?php echo $v['name'] ?></option>
                       <?php endforeach ?>
@@ -105,7 +105,7 @@
                   <div class="form-group">
                     <label for="parish">Parish <font color="red">*</font></label>
                     <select class="form-control select_group" id="parish" name="parish">
-                      <option value=""></option>
+                      <option value="">Select Parish</option>
                       <?php foreach ($parish as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>" <?php echo set_select('parish', $v['id']); ?>><?php echo $v['name'] ?></option>
                       <?php endforeach ?>
@@ -117,7 +117,7 @@
                   <div class="form-group">
                     <label for="city">City</label>
                     <select class="form-control select_group" id="city" name="city">
-                      <option value=""></option>
+                      <option value="">Select City</option>
                       <?php foreach ($city as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>" <?php echo set_select('city', $v['id']); ?>><?php echo $v['name'] ?></option>
                       <?php endforeach ?>
@@ -254,6 +254,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    $('[data-toggle="tooltip"]').tooltip();
     $(".select_group").select2({width: '100%'});
     //$("#remark").wysihtml5();
 

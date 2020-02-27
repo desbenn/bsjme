@@ -12,6 +12,7 @@ class Client extends Admin_Controller
 
 		$this->data['page_title'] = 'Client';
         $this->data['active_tab'] = $this->input->get('tab') ?? 'client';
+        $this->log_module = 'Client';
 
 	}
 
@@ -28,6 +29,20 @@ class Client extends Admin_Controller
 		$this->render_template('client/index', $this->data);
 	}
 
+    //--> Redirects to the timeline
+
+    public function timeline($id)
+    {
+        if(!in_array('viewClient', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+        $timeline_data = $this->model_log->timeline_client($id); 
+        $this->data['timeline_data'] = $timeline_data;
+        $this->render_template('client/timeline', $this->data);
+    }
+
+
 
     //-->  It Fetches the client data from the client table
     //     this function is called from the datatable ajax function
@@ -36,7 +51,7 @@ class Client extends Admin_Controller
 	{
 		$result = array('data' => array());
 
-        //--> For the Profile Consultant, we read only the consultation where they are consultant
+        //--> For the Profile Consultant (3), we read only the consultation where they are consultant
 
         if ($this->session->profile == 3) {
             $consultant = $this->session->user_id;
@@ -50,6 +65,14 @@ class Client extends Admin_Controller
         }
 
         $activity = $this->input->get('activity') ?? NULL;
+
+
+
+        //--> If the profile is a reader only, he can see all the clients
+        //    but will have only access to the print of the client
+        if ($this->session->profile == 6) {
+            $consultant = 'all';
+        }
 
 
         //--> If the Profile is a Client, we must read only the consultation of the client
@@ -71,15 +94,19 @@ class Client extends Admin_Controller
 
             $buttons = '';
 
-            if(in_array('updateClient', $this->permission) || in_array('viewClient', $this->permission)) {
+            if(in_array('updateClient', $this->permission)) {
                 $buttons .= '<a href="'.base_url('client/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
-                $company_name = '<a href="'.base_url('client/update/'.$value['id']).'">'.$value['company_name'].'</a>';}
+                $company_name = '<a href="'.base_url('client/update/'.$value['id']).'">'.$value['company_name'].'</a>';
+            }
 
             if(in_array('deleteClient', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';}
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeFunc('.$value['id'].')" data-toggle="modal" data-target="#removeModal"><i class="fa fa-trash"></i></button>';
+            }
 
             if(in_array('viewClient', $this->permission)) {
-                $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';}
+                $buttons .= '<a href="'.base_url('client/timeline/'.$value['id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
+                $buttons .= '<a href="'.base_url('report_client/REP0C/'.$value['id']).'"target="_blank" class="btn btn-default"><i class="fa fa-print"></i></a>';                
+            }
 
             $activity = $value['activity_name'];      
 
@@ -164,8 +191,7 @@ class Client extends Admin_Controller
                 'city_id' => $this->input->post('city'),
                 'client_name' => $this->input->post('client_name'),
                 'company_name' => $this->input->post('company_name'),
-                'contact_name' => $this->input->post('contact_name'),
-                'trn' => $this->input->post('trn'),
+                'contact_name' => $this->input->post('contact_name'),                
                 'county_id' => $this->input->post('county'),
                 'director_name' => $this->input->post('director_name'),
                 'directory' => $this->input->post('trn'),
@@ -179,23 +205,34 @@ class Client extends Admin_Controller
                 'postal_code' => $this->input->post('postal_code'),
                 'remark' => $this->input->post('remark'),
                 'target' => $this->input->post('target'),
+                'trn' => $this->input->post('trn'),
                 'website' => $this->input->post('website'),
                 'updated_by' => $this->session->user_id,
             );
 
-            $create = $this->model_client->create($data);
+            $client_id = $this->model_client->create($data);
 
-            if($create == false) {
+            if($client_id == false) {
                 $msg_error = 'Error occurred';
                 $this->session->set_flashdata('error', $msg_error);
                 redirect('client/create', 'refresh');}
             else {
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'Create',
+                    'subject_id' => $client_id,
+                    'client_id' => $client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Create Client '.$this->input->post('trn'),
+                    'attributes' => $data
+                ));
                 //---> Create the directory for deposit of documents-->
                 $path = "./upload/documents/".$this->input->post('trn');
                 //---> Create the folder if it does not exists
                 if(!is_dir($path))  {mkdir($path,0755,TRUE);}
                 //The create return the client_id created if it's successful
-                $client_id = $create;
                 redirect('client/update/'.$client_id, 'refresh');}
 
         }
@@ -224,6 +261,9 @@ class Client extends Admin_Controller
 
         if(!$client_id) {redirect('dashboard', 'refresh');}
 
+        //--> Get old data to keep in the log
+        $old_data = $this->model_client->getClientData($client_id);
+
         $this->form_validation->set_rules('activity', 'Activity', 'trim|required');
         $this->form_validation->set_rules('trn', 'TRN', 'trim|required');
         $this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
@@ -240,13 +280,12 @@ class Client extends Admin_Controller
 
             //--> The directory where the documents are uploaded is the
             //    same as client register id.  If the user change the
-            //    client register id, we must rename the directory
+            //    trn, we must rename the directory
 
             if ($this->input->post('directory') !=  $this->input->post('trn'))
                 {$old_path = "./upload/documents/".$this->input->post('directory');
                  $new_path = "./upload/documents/".$this->input->post('trn');
                  rename($old_path, $new_path);
-                 //??? rename also the username of the user client
                 }
 
             $data = array(
@@ -255,8 +294,7 @@ class Client extends Admin_Controller
                 'city_id' => $this->input->post('city'),
                 'company_name' => $this->input->post('company_name'),
                 'client_name' => $this->input->post('client_name'),
-                'contact_name' => $this->input->post('contact_name'),
-                'trn' => $this->input->post('trn'),
+                'contact_name' => $this->input->post('contact_name'),                
                 'county_id' => $this->input->post('county'),
                 'director_name' => $this->input->post('director_name'),
                 'directory' => $this->input->post('trn'),
@@ -270,6 +308,7 @@ class Client extends Admin_Controller
                 'postal_code' => $this->input->post('postal_code'),
                 'remark' => $this->input->post('remark'),
                 'target' => $this->input->post('target'),
+                'trn' => $this->input->post('trn'),
                 'website' => $this->input->post('website'),
                 'updated_date' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->user_id,
@@ -280,6 +319,21 @@ class Client extends Admin_Controller
             if($update == true) {
                 $msg_error = 'Successfully updated';
                 $this->session->set_flashdata('success', $msg_error);
+
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'Update',
+                    'subject_id' => $client_id,
+                    'client_id' => $client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Update Client '.$this->input->post('trn'),
+                    'attributes' => array(
+                          'old' => $old_data,
+                          'new' => $data
+                     )
+                ));
                 redirect('client/', 'refresh');}
             else {
                 $msg_error = 'Error occurred';
@@ -317,10 +371,23 @@ class Client extends Admin_Controller
         $response = array();
 
         if($client_id) {
+            //--> Get the old data before deleting
+            $old_data = $this->model_client->getClientData($client_id);
             $delete = $this->model_client->remove($client_id);
             if($delete == true) {
                 $response['success'] = true;
                 $response['messages'] = 'Successfully deleted';
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'Delete',
+                    'subject_id' => $client_id,
+                    'client_id' => $client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Delete Client '.$client_id,
+                    'attributes' => $old_data
+                ));
             }
             else {
                 $response['success'] = false;
@@ -422,9 +489,20 @@ class Client extends Admin_Controller
                 'updated_by' => $this->session->user_id,
             );
 
-            $create = $this->model_client->createDocument($data);
+            $document_id = $this->model_client->createDocument($data);
 
-            if($create == true) {
+            if($document_id == true) {
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => 'Client Document',
+                    'action' => 'Upload',
+                    'subject_id' => $document_id,
+                    'client_id' => $this->session->client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Upload of document '.$this->upload->data('file_name'),
+                    'attributes' => $data
+                ));
                 //--->  Upload the document
                 $data = array('upload_data' => $this->upload->data());
                 redirect('client/update/'.$this->session->client_id."?tab=document", 'refresh');
@@ -458,6 +536,17 @@ class Client extends Admin_Controller
             //--> Delete the document in the document table
             $delete = $this->model_client->removeDocument($document_id);
             if($delete == true) {
+                //--> Log Action
+                 $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => 'Client Document',
+                    'action' => 'Delete',
+                    'subject_id' => $document_id,
+                    'client_id' => $this->session->client_id,
+                    'consultation_id' => null,
+                    'remark' => 'Delete of document '.$document_data['doc_name'],
+                    'attributes' => $document_data
+                ));
                 $response['success'] = true;
                 $response['messages'] = 'Successfully deleted';
             }

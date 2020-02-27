@@ -4,6 +4,7 @@
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('consultation') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Consultation</li>
+      <li><img width="25" height="25" data-toggle="tooltip" data-placement="bottom" title="Some information about the consultation." src="<?php echo base_url('assets/images/question.png'); ?>" /></li>
     </ol>
   </section>
 
@@ -127,7 +128,7 @@
                     <div class="form-group">
                       <label for="program">Program <font color="red">*</font></label>
                       <select class="form-control select_group" id="program" name="program">
-                       <option value=""></option>
+                       <option value="">Select Program</option>
                         <?php
                           foreach($program as $row)
                           {
@@ -149,15 +150,12 @@
 
                   <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="status">Status <font color="red">*</font></label>
+                      <label for="status">Status</label>
                       <select class="form-control select_group" id="status" name="status">
-                        <?php foreach ($status as $k => $v): ?>
-                        <option value="<?php echo $v['id'] ?>" <?php echo set_select('status', $v['id']); ?>>
-                          <?php echo $v['status_name'] ?></option>
-                        <?php endforeach ?>
+                        <option value=""></option>                        
                       </select>
                     </div>
-                  </div>    
+                  </div>  
 
                 </div>
                 
@@ -168,7 +166,7 @@
                     <div class="form-group">
                       <label for="standard">Standard <font color="red">*</font></label>
                       <select class="form-control select_group" id="standard" name="standard">
-                       <option value=""></option>
+                       <option value="">Select Standard</option>
                         <?php
                           foreach($standard as $row)
                           {
@@ -186,13 +184,13 @@
                         <option value=""></option>                        
                       </select>
                     </div>
-                  </div> 
+                  </div>   
 
                   <div class="col-md-4 col-xs-4">
                   <div class="form-group">
                     <label for="sector">Sector <font color="red">*</font></label>
                     <select class="form-control select_group" id="sector" name="sector">
-                      <option value=""></option>
+                      <option value="">Select Sector</option>
                       <?php foreach ($sector as $k => $v): ?>
                       <option value="<?php echo $v['id'] ?>" <?php echo set_select('sector', $v['id']); ?>>
                       <?php echo $v['name'] ?></option>
@@ -277,6 +275,8 @@
 
 <script type="text/javascript">
 
+  $('[data-toggle="tooltip"]').tooltip();
+
 var client_holder=document.getElementById('client_holder');
 client_holder.onchange=function()
 {
@@ -313,54 +313,79 @@ var base_url = "<?php echo base_url(); ?>";
     });
 
 
-     //Change of the standard, call the clause list
+//--> Change of the standard, call the clause list
 
-        $('#standard').change(function(){
+        $('#standard').change(function() {
         var standard_id = $('#standard').val();
         if(standard_id != '')
         {
          $.ajax({
-          url: base_url + 'dynamic_dependent/fetch_clause',
-          method:"POST",
-          data:{standard_id:standard_id},
-          success:function(data)
-          {
-           $('#clause').html(data);
-           $('#sub_clause').html('<option value="">Select Sub-clause</option>');
-          }
-         });
+                url: base_url + 'dynamic_dependent/fetch_clause',
+                method:"POST",
+                data:{standard_id:standard_id},
+                success:function(data)
+                {
+                 $('#clause').html(data);
+                }
+               });
         }
         else
         {
          $('#clause').html('<option value="">Select Clause</option>');
-         $('#sub_clause').html('<option value="">Select Sub clause</option>');
         }
        });
 
 
 
-      //Change of the program, call the phase list
+//--> Change of the program, call the phase list
 
         $('#program').change(function(){
         var program_id = $('#program').val();
         if(program_id != '')
         {
          $.ajax({
-          url: base_url + 'dynamic_dependent/fetch_program_phase',
-          method:"POST",
-          data:{program_id:program_id},
-          success:function(data)
-          {
-           $('#phase').html(data);
-          }
-         });
+                url: base_url + 'dynamic_dependent/fetch_phase',
+                method:"POST",
+                data:{program_id:program_id},
+                success:function(data)
+                {
+                 $('#phase').html(data);
+                 $('#status').html('<option value="">Select Status</option>');
+                }
+               });
         }
         else
         {
          $('#phase').html('<option value="">Select Phase</option>');
+         $('#status').html('<option value="">Select Status</option>');
         }
        });
-   
+
+
+
+//--> Change of the phase, call the status list
+
+        $('#phase').change(function(){
+        var phase_id = $('#phase').val();
+        if(phase_id != '')
+        {
+         $.ajax({
+              url: base_url + 'dynamic_dependent/fetch_status',
+              method:"POST",
+              data:{phase_id:phase_id},
+              success:function(data)
+              {
+               $('#status').html(data);
+              }
+             });
+        }
+        else
+        {
+         $('#status').html('<option value="">Select Status</option>');
+        }
+       });
 
   });
+
+
 </script>

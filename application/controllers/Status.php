@@ -225,7 +225,7 @@ class Status extends Admin_Controller
 			else {
 				//---> There is at least one license having this information
 				$response['success'] = false;
-				$response['messages'] = 'At least one item uses this information.  You cannot delete.';}
+				$response['messages'] = 'At least one consultation uses this information.  You cannot delete.';}
 
 		}
 		else {

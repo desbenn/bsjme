@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 25 fév. 2020 à 21:05
+-- Généré le :  jeu. 27 fév. 2020 à 15:31
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.2.4
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `clause` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `clause`
@@ -134,7 +134,8 @@ INSERT INTO `clause` (`id`, `standard_id`, `code`, `name`, `active`) VALUES
 (8, 1, '8', 'clause 8', 1),
 (9, 1, '9', 'clause 9', 1),
 (10, 1, '10', 'clause 10', 1),
-(11, 2, '22', 'Clause 22', 1);
+(11, 2, '22', 'Clause 22', 1),
+(13, 5, 'N1', 'Qualification for Registration of Company', 1);
 
 -- --------------------------------------------------------
 
@@ -172,19 +173,16 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client`
 --
 
 INSERT INTO `client` (`id`, `trn`, `activity_id`, `city_id`, `county_id`, `parish_id`, `address`, `attempt`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `objective`, `phone`, `postal_box`, `postal_code`, `remark`, `target`, `website`, `updated_date`, `updated_by`) VALUES
-(14, 'TRN001', 1, 0, 2, 2, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Voyagine Inc', 'Carmen', 'Carmen Gagnon', 'TRN001', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-22 00:49:48', 18),
-(15, 'TRN002', 1, 1, 3, 1, '11000 Street tow', 0, 'M. Two', 'Company 2', 'Carmen', 'Carmen Gagnon', 'TRN002', '', 'voyagine@hotmail.com', '', '', '05149836594', '', '', '', '', '', '2020-02-22 22:35:15', 18),
-(16, 'TRN003', 3, 0, 2, 1, '178 street un', 0, 'M. Pending', 'Company in pending', 'Carmen', 'Carmen Gagnon', 'TRN003', '', 'voyagine@hotmail.com', '', '', '5149836594', '', '', '', '', '', '2020-02-25 18:50:21', 18),
-(18, 'TRN89', 1, 0, 1, 2, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Gagnon inc', 'Carmen', 'Carmen Gagnon', 'TRN89', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-25 20:28:42', 18),
-(19, 'TRN8989', 1, 0, 1, 1, '650 Jean-D\'Estrees apt 807', 0, 'ccc', 'Test', 'Carmen', 'Carmen Gagnon', 'TRN8989', '', 'voyagine@hotmail.com', '', 'test', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-26 01:30:32', 18),
-(20, 'TRN777777', 1, 0, 1, 8, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Timeline inc.', 'Carmen', 'Carmen Gagnon', 'TRN777777', 'district', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-26 01:38:31', 18);
+(24, 'TRN001', 1, 0, 1, 8, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Voyagine Inc', 'Carmen', 'Carmen Gagnon', 'TRN001', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-27 00:57:20', 18),
+(25, 'TRN002', 1, 0, 1, 2, '11700 Racette', 0, 'M. Just', 'Hotel Association', 'Muriel', 'Muriel', 'TRN002', '', 'voyagine@hotmail.com', '', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', '', '2020-02-27 18:51:16', 18),
+(26, 'TRN50', 3, 1, 1, 1, '67 Home Street', 0, 'M. Untel', 'Jewel int.', '', '', 'TRN50', '', 'jewel@gmail.com', '4567899', '', '', '', '', '', '', '', '2020-02-27 13:42:29', 18);
 
 -- --------------------------------------------------------
 
@@ -252,22 +250,15 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `consultation`
 --
 
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `product`, `quality_policy`, `remark`, `updated_date`, `updated_by`) VALUES
-(18, 'CON001', 11, 14, '[\"29\"]', 1, 8, 4, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-02-22 15:37:18', 18),
-(19, 'CON002', 11, 15, '[\"30\"]', 1, 9, 2, 2, 11, '', '', '2020-02-22', '2020-02-22', '0000-00-00', 'Consultaion 2', '', '', '', '', '', '2020-02-22 22:45:56', 18),
-(20, 'CON03', 4, 14, '[\"31\"]', 1, 9, 1, 1, 11, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 3', '', '', '', '', '', '2020-02-25 05:41:34', 18),
-(21, 'CON04', 0, 14, '[\"31\"]', 1, 9, 2, 1, 14, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 4', '', '', '', '', '', '2020-02-25 02:11:33', 18),
-(22, 'CON05', 11, 14, '[\"31\"]', 5, 11, 2, 2, 50, '', '', '2020-02-24', '2020-02-24', '0000-00-00', 'Consultation 5', '', '', '', '', '', '2020-02-24 23:23:41', 18),
-(23, 'CON06', 11, 14, 'null', 1, 8, 4, 2, 11, 'b', 'a', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation 6', 'f', 'c', 'd', 'e', '', '2020-02-25 19:11:21', 18),
-(25, 'CON777', 5, 14, '[\"30\"]', 5, 11, 2, 1, 50, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation 777 for timeline test', '', '', '', '', '', '2020-02-26 01:02:42', 18),
-(26, 'CON78787', 0, 19, '[\"30\"]', 1, 8, 2, 2, 14, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'test timelie', '', '', '', '', '', '2020-02-26 01:37:04', 18),
-(27, 'CON76', 0, 20, '[\"31\"]', 1, 8, 4, 1, 11, '', '', '2020-02-25', '2020-02-25', '0000-00-00', 'Consultation for timeline', '', '', '', '', '', '2020-02-25 20:39:24', 18);
+(31, 'CON01', 11, 24, '[\"29\"]', 1, 8, 4, 2, 11, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-02-27 00:57:59', 18),
+(32, 'CON02', 13, 25, '[\"30\"]', 6, 13, 1, 5, 48, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 2', '', '', '', '', '', '2020-02-27 20:07:29', 18);
 
 -- --------------------------------------------------------
 
@@ -314,18 +305,18 @@ CREATE TABLE IF NOT EXISTS `document` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `intervention_no` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `document`
 --
 
 INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `document_type_id`, `document_class_id`, `doc_name`, `doc_size`, `doc_type`, `updated_date`, `updated_by`) VALUES
-(66, NULL, NULL, 7, 6, 1, 'icons8-bed-50.png', 1, 'image/png', '2020-02-20 15:36:31', 18),
-(70, 14, NULL, NULL, 2, 2, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 14:49:54', 18),
-(75, 19, NULL, NULL, 2, 2, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 20:30:26', 18),
-(76, 20, NULL, NULL, 3, 4, 'Client_Services_Network_Diagram.pdf', 178, 'application/pdf', '2020-02-25 20:38:49', 18),
-(77, 20, 27, NULL, 5, 4, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 20:39:37', 18);
+(83, 24, NULL, NULL, 2, 4, 'Client_Services_Network_Diagram.pdf', 178, 'application/pdf', '2020-02-27 00:57:34', 18),
+(85, 24, 31, NULL, 5, 1, 'WBS_Orville.jpg', 1943, 'image/jpeg', '2020-02-27 00:58:34', 18),
+(86, 25, NULL, NULL, 2, 2, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-27 12:39:44', 18),
+(87, 25, 32, NULL, 3, 4, 'Client_Services_wbs.pdf', 91, 'application/pdf', '2020-02-27 12:40:38', 18),
+(88, 25, 32, NULL, 5, 1, 'Quality_Procedures_Manual_for_ISO_9001.pdf', 444, 'application/pdf', '2020-02-27 12:42:17', 18);
 
 -- --------------------------------------------------------
 
@@ -403,13 +394,6 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
   KEY `client_id` (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `inquiry`
---
-
-INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, `request`, `feedback`, `answered_by`, `inquiry_date`) VALUES
-(8, 16, 2, 1, 'test', '', '', '0000-00-00');
-
 -- --------------------------------------------------------
 
 --
@@ -448,20 +432,34 @@ CREATE TABLE IF NOT EXISTS `log` (
   `client_id` int(11) DEFAULT NULL,
   `consultation_id` int(11) DEFAULT NULL,
   `subject_id` int(11) NOT NULL,
+  `remark` text,
   `attributes` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `log`
 --
 
-INSERT INTO `log` (`id`, `user_id`, `timestamp`, `module`, `action`, `client_id`, `consultation_id`, `subject_id`, `attributes`) VALUES
-(26, 18, '2020-02-25 20:38:49', 'client.document', 'create', 20, NULL, 76, 'a:7:{s:9:\"client_id\";s:2:\"20\";s:8:\"doc_size\";d:177.86;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:35:\"Client_Services_Network_Diagram.pdf\";s:16:\"document_type_id\";s:1:\"3\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
-(27, 18, '2020-02-25 20:39:24', 'consultation', 'create', 20, 27, 27, 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"20\";s:13:\"consultant_id\";s:6:\"[\"31\"]\";s:15:\"consultation_no\";s:5:\"CON76\";s:13:\"date_creation\";s:10:\"2020-02-25\";s:10:\"date_begin\";s:10:\"2020-02-25\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:25:\"Consultation for timeline\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"1\";s:9:\"status_id\";s:2:\"11\";s:10:\"updated_by\";s:2:\"18\";}'),
-(28, 18, '2020-02-25 20:39:37', 'consultation.document', 'create', 20, 27, 77, 'a:8:{s:9:\"client_id\";s:2:\"20\";s:15:\"consultation_id\";s:2:\"27\";s:8:\"doc_size\";d:2321.46;s:8:\"doc_type\";s:10:\"image/jpeg\";s:8:\"doc_name\";s:19:\"20191212_124515.jpg\";s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
-(24, 18, '2020-02-25 20:38:22', 'client', 'create', 20, NULL, 20, 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"city_id\";s:0:\"\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:12:\"contact_name\";s:6:\"Carmen\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"8\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"TRN777777\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"18\";}'),
-(25, 18, '2020-02-25 20:38:31', 'client', 'update', 20, NULL, 20, 'a:2:{s:3:\"old\";a:6:{i:0;a:25:{s:2:\"id\";s:2:\"15\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"3\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:16:\"11000 Street tow\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:6:\"M. Two\";s:12:\"company_name\";s:9:\"Company 2\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-22 17:35:15\";s:10:\"updated_by\";s:2:\"18\";}i:1;a:25:{s:2:\"id\";s:2:\"16\";s:3:\"trn\";s:6:\"TRN003\";s:11:\"activity_id\";s:1:\"3\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"2\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:13:\"178 street un\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:10:\"M. Pending\";s:12:\"company_name\";s:18:\"Company in pending\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN003\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 13:50:21\";s:10:\"updated_by\";s:2:\"18\";}i:2;a:25:{s:2:\"id\";s:2:\"18\";s:3:\"trn\";s:5:\"TRN89\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:10:\"Gagnon inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:5:\"TRN89\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 15:28:42\";s:10:\"updated_by\";s:2:\"18\";}i:3;a:25:{s:2:\"id\";s:2:\"19\";s:3:\"trn\";s:7:\"TRN8989\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:3:\"ccc\";s:12:\"company_name\";s:4:\"Test\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:7:\"TRN8989\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:4:\"test\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 20:30:32\";s:10:\"updated_by\";s:2:\"18\";}i:4;a:25:{s:2:\"id\";s:2:\"20\";s:3:\"trn\";s:9:\"TRN777777\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 15:38:22\";s:10:\"updated_by\";s:2:\"18\";}i:5;a:25:{s:2:\"id\";s:2:\"14\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"2\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-21 19:49:48\";s:10:\"updated_by\";s:2:\"18\";}}s:3:\"new\";a:23:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"city_id\";s:0:\"\";s:12:\"company_name\";s:13:\"Timeline inc.\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"contact_name\";s:6:\"Carmen\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:9:\"TRN777777\";s:8:\"district\";s:8:\"district\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"8\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"TRN777777\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-25 20:38:31\";s:10:\"updated_by\";s:2:\"18\";}}');
+INSERT INTO `log` (`id`, `user_id`, `timestamp`, `module`, `action`, `client_id`, `consultation_id`, `subject_id`, `remark`, `attributes`) VALUES
+(78, 18, '2020-02-27 13:55:29', 'Consultation', 'Update', 25, 32, 32, 'Update Consultation CON02 and Move from phase End to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:1:\"0\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"phase_id\";s:1:\"7\";s:10:\"program_id\";s:2:\"11\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"49\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 12:40:56\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:3:\"End\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"11\";s:12:\"updated_date\";s:19:\"2020-02-27 13:55:29\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(77, 18, '2020-02-27 13:51:16', 'Client', 'Update', 25, NULL, 25, 'Update Client TRN002', 'a:2:{s:3:\"old\";a:3:{i:0;a:25:{s:2:\"id\";s:2:\"25\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Association Hotel\";s:12:\"contact_name\";s:6:\"Muriel\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 07:39:24\";s:10:\"updated_by\";s:2:\"18\";}i:1;a:25:{s:2:\"id\";s:2:\"26\";s:3:\"trn\";s:5:\"TRN50\";s:11:\"activity_id\";s:1:\"3\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:14:\"67 Home Street\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 08:42:29\";s:10:\"updated_by\";s:2:\"18\";}i:2;a:25:{s:2:\"id\";s:2:\"24\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-26 19:57:20\";s:10:\"updated_by\";s:2:\"18\";}}s:3:\"new\";a:23:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"city_id\";s:0:\"\";s:12:\"company_name\";s:17:\"Hotel Association\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"contact_name\";s:6:\"Muriel\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"2\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:6:\"TRN002\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 13:51:16\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(63, 18, '2020-02-27 00:57:20', 'Client', 'Create', 24, NULL, 24, 'Create Client 24', 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"city_id\";s:0:\"\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"8\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:6:\"TRN001\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"18\";}'),
+(76, 18, '2020-02-27 13:42:29', 'Client', 'Create', 26, NULL, 26, 'Create Client TRN50', 'a:22:{s:11:\"activity_id\";s:1:\"3\";s:7:\"address\";s:14:\"67 Home Street\";s:7:\"city_id\";s:1:\"1\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:12:\"contact_name\";s:0:\"\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"1\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:5:\"TRN50\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"18\";}'),
+(75, 18, '2020-02-27 12:42:17', 'Consultation Document', 'Upload', 25, 32, 88, 'Upload of document Quality_Procedures_Manual_for_ISO_9001.pdf', 'a:8:{s:9:\"client_id\";s:2:\"25\";s:15:\"consultation_id\";s:2:\"32\";s:8:\"doc_size\";d:443.69;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:42:\"Quality_Procedures_Manual_for_ISO_9001.pdf\";s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"1\";s:10:\"updated_by\";s:2:\"18\";}'),
+(73, 18, '2020-02-27 12:40:38', 'Consultation Document', 'Upload', 25, 32, 87, 'Upload of document Client_Services_wbs.pdf', 'a:8:{s:9:\"client_id\";s:2:\"25\";s:15:\"consultation_id\";s:2:\"32\";s:8:\"doc_size\";d:90.71;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:23:\"Client_Services_wbs.pdf\";s:16:\"document_type_id\";s:1:\"3\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
+(74, 18, '2020-02-27 12:40:56', 'Consultation', 'Update', 25, 32, 32, 'Update Consultation CON02 and Move from phase Analysis to phase End', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:1:\"0\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"phase_id\";s:1:\"5\";s:10:\"program_id\";s:2:\"11\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"50\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 12:40:27\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Association Hotel\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:8:\"Analysis\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:9:\"Program 3\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"7\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"11\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"49\";s:12:\"updated_date\";s:19:\"2020-02-27 12:40:56\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(68, 18, '2020-02-27 00:58:38', 'Consultation Document', 'Delete', 24, 31, 84, 'Delete of document Client_Services_wbs.pdf', 'a:12:{s:2:\"id\";s:2:\"84\";s:9:\"client_id\";s:2:\"24\";s:15:\"consultation_id\";s:2:\"31\";s:7:\"post_id\";N;s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"4\";s:8:\"doc_name\";s:23:\"Client_Services_wbs.pdf\";s:8:\"doc_size\";s:2:\"91\";s:8:\"doc_type\";s:15:\"application/pdf\";s:12:\"updated_date\";s:19:\"2020-02-26 19:58:15\";s:10:\"updated_by\";s:2:\"18\";s:9:\"directory\";s:6:\"TRN001\";}'),
+(69, 18, '2020-02-27 12:39:24', 'Client', 'Create', 25, NULL, 25, 'Create Client TRN002', 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"city_id\";s:0:\"\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Association Hotel\";s:12:\"contact_name\";s:6:\"Muriel\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"2\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:6:\"TRN002\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"18\";}'),
+(70, 18, '2020-02-27 12:39:44', 'Client Document', 'Upload', 25, NULL, 86, 'Upload of document 20191212_124515.jpg', 'a:7:{s:9:\"client_id\";s:2:\"25\";s:8:\"doc_size\";d:2321.46;s:8:\"doc_type\";s:10:\"image/jpeg\";s:8:\"doc_name\";s:19:\"20191212_124515.jpg\";s:16:\"document_type_id\";s:1:\"2\";s:17:\"document_class_id\";s:1:\"2\";s:10:\"updated_by\";s:2:\"18\";}'),
+(71, 18, '2020-02-27 12:40:15', 'Consultation', 'Create', 25, 32, 32, 'Create Consultation CON02', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"11\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:10:\"updated_by\";s:2:\"18\";}'),
+(72, 18, '2020-02-27 12:40:27', 'Consultation', 'Update', 25, 32, 32, 'Update Consultation CON02 and Move from phase Introduction to phase Analysis', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:1:\"0\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"11\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 07:40:15\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Association Hotel\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:9:\"Program 3\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"5\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"11\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"50\";s:12:\"updated_date\";s:19:\"2020-02-27 12:40:27\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(64, 18, '2020-02-27 00:57:34', 'Client Document', 'Upload', 24, NULL, 83, 'Upload of document Client_Services_Network_Diagram.pdf', 'a:7:{s:9:\"client_id\";s:2:\"24\";s:8:\"doc_size\";d:177.86;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:35:\"Client_Services_Network_Diagram.pdf\";s:16:\"document_type_id\";s:1:\"2\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
+(65, 18, '2020-02-27 00:57:59', 'Consultation', 'Create', 24, 31, 31, 'Create Consultation CON01', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"24\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON01\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 1\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"11\";s:10:\"updated_by\";s:2:\"18\";}'),
+(66, 18, '2020-02-27 00:58:15', 'Consultation Document', 'Upload', 24, 31, 84, 'Upload of document Client_Services_wbs.pdf', 'a:8:{s:9:\"client_id\";s:2:\"24\";s:15:\"consultation_id\";s:2:\"31\";s:8:\"doc_size\";d:90.71;s:8:\"doc_type\";s:15:\"application/pdf\";s:8:\"doc_name\";s:23:\"Client_Services_wbs.pdf\";s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"4\";s:10:\"updated_by\";s:2:\"18\";}'),
+(67, 18, '2020-02-27 00:58:34', 'Consultation Document', 'Upload', 24, 31, 85, 'Upload of document WBS_Orville.jpg', 'a:8:{s:9:\"client_id\";s:2:\"24\";s:15:\"consultation_id\";s:2:\"31\";s:8:\"doc_size\";d:1943.11;s:8:\"doc_type\";s:10:\"image/jpeg\";s:8:\"doc_name\";s:15:\"WBS_Orville.jpg\";s:16:\"document_type_id\";s:1:\"5\";s:17:\"document_class_id\";s:1:\"1\";s:10:\"updated_by\";s:2:\"18\";}'),
+(79, 18, '2020-02-27 14:02:08', 'Consultation', 'Update', 25, 32, 32, 'Update Consultation CON02 and Move from phase Phase 1 to phase Introduction', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:1:\"8\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"11\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 13:55:29\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:9:\"Program 1\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:12:\"updated_date\";s:19:\"2020-02-27 14:02:08\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(80, 18, '2020-02-27 15:07:29', 'Consultation', 'Update', 25, 32, 32, 'Update Consultation CON02', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 14:02:08\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"1\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:12:\"updated_date\";s:19:\"2020-02-27 15:07:29\";s:10:\"updated_by\";s:2:\"18\";}}');
 
 -- --------------------------------------------------------
 
@@ -629,16 +627,16 @@ CREATE TABLE IF NOT EXISTS `program` (
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program`
 --
 
 INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `code`, `name`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
-(8, 2, 11, 'P1', 'Program 1', '', 1, '2020-02-25 00:39:03', 18),
+(8, 2, 11, 'P1', 'Program 1', '', 1, '2020-02-27 18:54:43', 18),
 (9, 1, 10, 'P2', 'Program 2', '', 1, '2020-02-25 00:39:12', 18),
-(11, 0, 0, 'P3', 'Program 3', 'rem', 1, '2020-02-25 00:46:37', 18);
+(13, 5, 13, 'Program 3', 'Needs Analysis', '', 1, '2020-02-27 19:03:02', 18);
 
 -- --------------------------------------------------------
 
@@ -654,22 +652,22 @@ CREATE TABLE IF NOT EXISTS `program_phase` (
   `sequence` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `program_phase`
 --
 
 INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`, `sequence`) VALUES
-(48, 8, 1, 1),
-(49, 8, 2, 2),
-(50, 8, 3, 3),
-(51, 8, 4, 4),
 (52, 9, 1, 1),
 (53, 9, 2, 2),
-(60, 11, 6, 1),
-(61, 11, 5, 2),
-(62, 11, 7, 3);
+(77, 8, 1, 1),
+(78, 8, 2, 2),
+(79, 8, 3, 3),
+(80, 8, 4, 4),
+(84, 13, 6, 1),
+(85, 13, 5, 2),
+(86, 13, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -690,7 +688,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `question`
@@ -879,7 +877,10 @@ INSERT INTO `question` (`id`, `sub_clause_id`, `question_type_id`, `question`, `
 (189, 69, 1, 'Are the outputs of analysis and evaluation, and the outputs from the management review process used to identify the areas of underperformances?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (190, 69, 1, 'Are specialized tools and methodologies used for investigation of the causes of underperformance?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
 (191, 69, 1, 'How does the organization demonstrate that the effectiveness of the quality management system is being\ncontinually improved?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(192, 70, 2, 'This is a test question', 1, '', 1, 1, '2019-12-18 01:20:57', 18);
+(192, 70, 2, 'This is a test question', 1, '', 1, 1, '2019-12-18 01:20:57', 18),
+(193, 71, 1, 'Is your company in Jamaica?', 1, '', 1, 1, '2020-02-27 19:18:34', 18),
+(194, 71, 1, 'Where will you give the services?', 1, '', 1, 1, '2020-02-27 19:19:09', 18),
+(195, 72, 1, 'How much money can you invest?', 1, '', 1, 1, '2020-02-27 19:19:33', 18);
 
 -- --------------------------------------------------------
 
@@ -894,7 +895,7 @@ CREATE TABLE IF NOT EXISTS `question_option` (
   `option_desc` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `question_option`
@@ -903,7 +904,10 @@ CREATE TABLE IF NOT EXISTS `question_option` (
 INSERT INTO `question_option` (`id`, `question_id`, `option_desc`) VALUES
 (1, 2, 'yes'),
 (2, 2, 'no'),
-(3, 181, '');
+(3, 181, ''),
+(4, 193, ''),
+(5, 194, ''),
+(6, 195, '');
 
 -- --------------------------------------------------------
 
@@ -1033,7 +1037,7 @@ CREATE TABLE IF NOT EXISTS `standard` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `standard`
@@ -1042,7 +1046,8 @@ CREATE TABLE IF NOT EXISTS `standard` (
 INSERT INTO `standard` (`id`, `code`, `name`, `active`) VALUES
 (1, 'ISO9001', 'ISO 9001', 1),
 (2, '2', 'Certification 2', 1),
-(3, 'STA1', 'Standard 1', 1);
+(3, 'STA1', 'Standard 1', 1),
+(5, 'NEEDS', 'Registration of Company', 1);
 
 -- --------------------------------------------------------
 
@@ -1109,7 +1114,7 @@ CREATE TABLE IF NOT EXISTS `sub_clause` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sub_clause`
@@ -1185,7 +1190,9 @@ INSERT INTO `sub_clause` (`id`, `clause_id`, `phase_id`, `code`, `name`, `active
 (67, 10, 4, '10.2.1', 'Nonconformity and corrective action ', 1),
 (68, 10, 4, '10.2.2', 'Nonconformity and corrective action ', 1),
 (69, 10, 4, '10.3', 'Continual improvement', 1),
-(70, 11, 1, '80.1', 'Here is the sub-clause for Standard 1', 1);
+(70, 11, 1, '80.1', 'Here is the sub-clause for Standard 1', 1),
+(71, 13, 6, 'N.1.1', 'Situation of the client', 1),
+(72, 13, 6, 'N.1.2', 'Investiment', 1);
 
 -- --------------------------------------------------------
 
@@ -1241,7 +1248,7 @@ INSERT INTO `user` (`id`, `profile_id`, `username`, `password`, `email`, `name`,
 (24, 5, 'bsjme', '$2y$10$LAzMxF3v4LDX3RNP8.RDo.9J5MPz2oilCkdByFkG6hMAAWY.mqpDm', 'bsjme@gmail.com', 'bsjme', '', NULL, 1, 18, '2019-12-09 23:43:02'),
 (27, 4, 'TRN001', '$2y$10$x30jjSYdV.B4SjcLS9O/Qut6muG0aOW9gClWCRhBCqc8KOqOz9ObS', 'client@hotmail.com', 'Client security', '5149836594', NULL, 1, 18, '2019-12-22 00:57:53'),
 (28, 2, 'coordinator', '$2y$10$juoiwO/60oN5Ubwn.57WTeEuweYiMX8RtaaoUUDqq7qBUB7b2Oaim', 'coordinator@hotmail.com', 'Coordinator', '', NULL, 1, 18, '2019-12-18 20:04:18'),
-(29, 3, 'consultant1', '$2y$10$/YPuhMPCEryZe2Hc/CcnFegKcTu4nldja.WL0QnZhvx9gKyGNmCRK', 'consultant1@hotmail.com', 'Consultant No 1', '123456789', NULL, 1, 18, '2019-12-18 20:07:50'),
+(29, 3, 'consultant1', '$2y$10$/YPuhMPCEryZe2Hc/CcnFegKcTu4nldja.WL0QnZhvx9gKyGNmCRK', 'consultant1@hotmail.com', 'Consultant 1', '123456789', NULL, 1, 18, '2019-12-18 20:07:50'),
 (30, 3, 'consultant2', '$2y$10$8EjzOfJ7W9mAyq9jNEz1POGLENZX9excWKpl505iDzXbyQzeK1SkS', 'consultant2@hotmail.com', 'Consultant No 2', '', NULL, 1, 18, '2019-12-18 20:08:33'),
 (31, 3, 'consultant3', '$2y$10$LNvKCbDAmYkBL93oQlZH1uC.k4Qje.xC8JFkOdSzzdvQaBM9ERUTK', 'consultant3@hotmail.com', 'Consultant No 3', '', NULL, 1, 18, '2019-12-18 20:09:11'),
 (37, 4, 'TRN002', '$2y$10$i/66TmRPUoWoqSXOf9L2P.g4415vjzSZbZSUwgSeDTabRZlIyVKXm', 'voyagine@hotmail.com', 'M. Untel', 'phone', NULL, 1, 23, '2019-12-23 17:54:46'),
