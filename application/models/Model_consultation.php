@@ -153,14 +153,14 @@ class Model_consultation extends CI_Model
 		return $query->num_rows();
 	}
 
-	public function countTotalConsultationByParish($year,$county_code)
+	public function countTotalConsultationByParish($year,$parish_code)
 	{
 
 		$sql = "SELECT * 
 		FROM consultation
 			LEFT JOIN client ON consultation.client_id = client.id
-			LEFT JOIN county ON client.county_id = county.id
-		WHERE county.code = $county_code
+			LEFT JOIN parish ON client.parish_id = parish.id
+		WHERE parish.code = $parish_code
 		      AND $year = year(date_creation)";
 		$query = $this->db->query($sql, array());
 		return $query->num_rows();

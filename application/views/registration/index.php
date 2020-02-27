@@ -33,7 +33,7 @@
 
 </head>
 
-<body style="background-image:url(<?php echo base_url('assets/images/background.jpg'); ?>)">
+<body style="background-color:rgb(245, 242, 235);">
     <br><br><br>
     <div class="fluid-container">
         <?php
@@ -42,7 +42,7 @@
                 //changes the size of the logo to fit device screen accordingly
                ?>
                <div class="row" align="center">
-               <a href="https://www.bsj.org.jm/"><<img width="80%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo">/a>
+               <a href="https://www.bsj.org.jm/"><img width="80%" src="<?php echo base_url('assets/images/logo.png'); ?>" alt="logo"></a>
                 </div>
                <?php
             }
@@ -50,7 +50,7 @@
             {
                 ?>
                 <div class="row" align="center">
-                    <a href="https://www.bsj.org.jm/"><img width="25%" src="<?php echo base_url('assets/images/bsjLogo.jpg'); ?>" alt="logo"></a>
+                    <a href="https://www.bsj.org.jm/"><img width="25%" src="<?php echo base_url('assets/images/logo.png'); ?>" alt="logo"></a>
                 </div>
                 <?php
             }
