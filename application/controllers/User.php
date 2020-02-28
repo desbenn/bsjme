@@ -63,7 +63,7 @@ class User extends Admin_Controller
 
 			if(in_array('updateUser', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editFunc('.$value['id'].')" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil"></i></button>';
-				$username ='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['name'].'</a>';
+				$username ='  <a data-target="#editModal" onclick="editFunc('.$value['id'].')" data-toggle="modal" href="#editModal">'.$value['username'].'</a>';
 			}
 
 			if(in_array('deleteUser', $this->permission)) {
