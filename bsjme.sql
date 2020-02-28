@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 27, 2020 at 09:34 PM
+-- Generation Time: Feb 28, 2020 at 05:32 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `client`
@@ -187,7 +187,8 @@ INSERT INTO `client` (`id`, `trn`, `activity_id`, `city_id`, `county_id`, `paris
 (20, 'TRN777777', 1, 0, 1, 8, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Timeline inc.', 'Carmen', 'Carmen Gagnon', 'TRN777777', 'district', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-26 01:38:31', 18),
 (21, '987654321', 3, 0, 3, 8, '1a Bucchan Avenue', 1, 'Nicholas Jumpp', 'Real Decoy', 'Nicholas Jumpp', NULL, '987654321', NULL, 'nicholasjumpp1@gmail.com', NULL, 'To be certified in an ICT standard', '1-876-788-9327', NULL, NULL, NULL, '1', 'https://github.com/lejumpp/bsjme/tree/master', '2020-02-27 13:40:46', 0),
 (23, '789456123', 3, 0, 3, 8, '64 Harbour Street', 1, 'Marc Risden', 'TTECH', 'Marc Risden', NULL, '789456123', NULL, 'nicholasjumpp1@gmail.com', NULL, 'Expanding my business', '1-999-999-9999', NULL, NULL, NULL, '2', 'https://github.com/', '2020-02-27 14:45:09', 0),
-(24, '321654987', 3, 1, 2, 3, 'Papine', 1, 'David White', 'UTECH', 'David White', NULL, '321654987', NULL, 'dwhite@utech.edu.jm', NULL, 'ddd', '1-876-784-6324', NULL, NULL, NULL, 'Program 2', 'https://www.udemy.com/', '2020-02-27 21:08:10', 0);
+(24, '321654987', 3, 1, 2, 3, 'Papine', 1, 'David White', 'UTECH', 'David White', NULL, '321654987', NULL, 'dwhite@utech.edu.jm', NULL, 'ddd', '1-876-784-6324', NULL, NULL, NULL, 'Program 2', 'https://www.udemy.com/', '2020-02-27 21:08:10', 0),
+(39, '1283400345', 1, 1, 3, 8, '6 winchesrter road', 1, 'john doe', 'Bureau Of Standards', 'john doe', '', '1283400345', '', 'njumpp@bsj.org.jm', '', 'standards', '1-876-788-9327', '', '', '', 'Program 2', 'https;//sdgfdhgdh', '2020-02-28 19:52:05', 23);
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `client_requirement` (
   `requirement_id` int(11) NOT NULL,
   `answer` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `client_requirement`
@@ -225,7 +226,13 @@ INSERT INTO `client_requirement` (`id`, `client_id`, `requirement_id`, `answer`)
 (44, 24, 20, '2-5'),
 (45, 24, 21, 'ddd'),
 (46, 24, 22, 'ddd'),
-(47, 24, 23, 'ddd');
+(47, 24, 23, 'ddd'),
+(48, 39, 18, 'standards'),
+(49, 39, 19, '21-50'),
+(50, 39, 20, '5-10'),
+(51, 39, 21, 'no'),
+(52, 39, 22, 'no'),
+(53, 39, 23, 'no');
 
 -- --------------------------------------------------------
 
@@ -340,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `intervention_no` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `document`
@@ -354,7 +361,8 @@ INSERT INTO `document` (`id`, `client_id`, `consultation_id`, `post_id`, `docume
 (77, 20, 27, NULL, 5, 4, '20191212_124515.jpg', 2321, 'image/jpeg', '2020-02-25 20:39:37', 18),
 (78, 21, NULL, NULL, 6, 1, 'bsjme_db.pdf', 58, 'application/pdf', '2020-02-27 13:40:46', 21),
 (80, 23, NULL, NULL, 6, 1, 'r2e2-docs-latest.pdf', 1694, 'application/pdf', '2020-02-27 14:45:09', 23),
-(81, 24, NULL, NULL, 6, 1, 'bsjme_db.pdf', 58, 'application/pdf', '2020-02-27 21:08:10', 24);
+(81, 24, NULL, NULL, 6, 1, 'bsjme_db.pdf', 58, 'application/pdf', '2020-02-27 21:08:10', 24),
+(82, 39, NULL, NULL, 6, 1, 'r2e2-docs-latest.pdf', 1694, 'application/pdf', '2020-02-28 14:47:38', 39);
 
 -- --------------------------------------------------------
 
