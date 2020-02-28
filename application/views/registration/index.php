@@ -55,12 +55,28 @@
                 <?php
             }
         ?> 
-        <div id="messages"></div>
-
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">                    
                     
+                <div id="messages">
+                </div>
+                <?php if($this->session->flashdata('success')): ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <?php echo $this->session->flashdata('success'); ?>
+                </div>
+                <?php elseif($this->session->flashdata('error')): ?>
+                <div class="alert alert-error alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <?php echo $this->session->flashdata('error'); ?>
+                </div>
+                <?php elseif($this->session->flashdata('warning')): ?>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <?php echo $this->session->flashdata('warning'); ?>
+                </div>
+                <?php endif; ?>
                     <form role="form" action="<?php base_url('registration/register') ?>" id="clientRegForm" method="post" enctype="multipart/form-data">
                         <?php echo validation_errors(); ?>
                         <!-- Page Showing only the demoogrpahic information to be collected -->

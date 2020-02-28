@@ -51,6 +51,7 @@ class Registration extends Admin_Controller
 				$msg_error = 'Error occurred';
 				$this->session->set_flashdata('error', $msg_error);
 				//page to be redirected to 
+				redirect('registration/register');
 			}
 			else
 			{
@@ -74,8 +75,10 @@ class Registration extends Admin_Controller
 						else
 						{
 							$successful=false;
-							break;
-
+							$msg_error = 'Error occurred';
+							$this->session->set_flashdata('error', $msg_error);
+							//page to be redirected to 
+							redirect('registration/register');
 						}
 					}								
 				}
@@ -95,7 +98,7 @@ class Registration extends Admin_Controller
 					$this->load->library('upload', $config);
 					if(!$this->upload->do_upload('committmentLetter'))
 					{
-						echo "Error occured <br>";
+						
 					}
 					else
 					{
@@ -120,6 +123,7 @@ class Registration extends Admin_Controller
 						{
 							$msg_error = 'Error occurred';
 							$this->session->set_flashdata('error', $msg_error);
+							redirect('registration/register');
 						}
 					}
 				}
@@ -127,7 +131,8 @@ class Registration extends Admin_Controller
 				{
 					$msg_error = 'Error occurred';
 					$this->session->set_flashdata('error', $msg_error);
-					//page to be redirected to
+					//page to be redirected to					
+					redirect('registration/register');
 				}
 			}				 
 		}
