@@ -7,6 +7,7 @@ class Registration extends Admin_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->log_module = 'Registration';
 	}
 
 
@@ -55,6 +56,18 @@ class Registration extends Admin_Controller
 			}
 			else
 			{
+				//---> Log the action that the pending client has been successfully saved
+				//--> Log Action
+				$this->model_log->create(array(
+					'user_id' => $created_client,
+					'module' => $this->log_module,
+					'action' => 'Registration',
+					'subject_id' => $created_client,
+					'client_id' => $created_client,
+					'consultation_id' => null,
+					'remark' => 'Create Client '.$created_client,
+					'attributes' => $client_data
+				));
 				$response_array=[];
 				$question_array=[];
 				$client_requirement_data=[];
