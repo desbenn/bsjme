@@ -4,20 +4,19 @@
     <section class="content-header">
       <h3></h3>
         <ol class="breadcrumb">
-          <li><a href="<?php echo base_url('documentation/presentation/') ?>"><i class="fa fa-folder"></i> BSJME</a></li>
           <li><a href="<?php echo base_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
           <li class="active">Dashboard</li>
         </ol>
     </section>
-
-
-
 <!-----------------------------------------------------------  Main ------------------------------------------------------------------>
 
   <form role="form" action="<?php base_url('dashboard') ?>" method="post" enctype="multipart/form-data">
     <section class="content" >
 
-
+    <?php
+    if($this->session->profile !='4')
+    {
+    ?>
     <div class="row">
 
       <div class="col-lg-2 col-xs-2">
@@ -52,7 +51,7 @@
         <div class="small-box bg-aqua">
           <div class="inner">
             <h2><?php echo $total_consultation ?></h2>
-            <p>Consultations <?php echo $select_year ?></p>
+            <p>Consultations</p>
           </div>
           <div class="icon">
             <i class="ion ion-compose"></i>
@@ -60,6 +59,9 @@
           <a href="<?php echo base_url('consultation/') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
+      <?php
+      }
+      ?>
       
 
       <div class="col-lg-2 col-xs-2">
@@ -106,7 +108,10 @@
   
 
 
-
+<?php
+if($this->session->profile !='4')
+{
+?>
 <svg baseprofile="tiny" fill="#d4af37" height="397" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" version="1.2" viewbox="0 0 1000 397" width="1000" xmlns="http://www.w3.org/2000/svg">
 
  <a xlink:title="Clarendon (<?php echo $total_consultation_parish_1370 ?>)" stroke="#ffffff"  stroke-width="2" fill="#d4af37"; >  
@@ -199,6 +204,9 @@ onmouseover="this.style['fill'] = '#c1c1c1'"  onmouseout="this.style['fill'] = '
  <circle cx="453.4" cy="29.1" id="2">
  </circle>
 </svg>
+<?php
+}
+?>
 
 
 

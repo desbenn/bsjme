@@ -41,14 +41,7 @@ class Auth extends Admin_Controller
 			);
 
 			$this->session->set_userdata($logged_in_sess);
-			if($login['profile_id']==4){
-				redirect('post/view', 'refresh');
-			}
-			else{
-				redirect('dashboard', 'refresh');
-			}
-      		
-
+			redirect('dashboard', 'refresh');
 
        		}
        		else {
