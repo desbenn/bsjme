@@ -77,6 +77,10 @@
         </div>
       </div>   
 
+        <?php
+        if($this->session->profile !='4')
+        {
+        ?>
        <div class="col-md_4 col-xs-4" align="right">
         <div class="form-group">
           <label for="year">Year</label>
@@ -100,6 +104,9 @@
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
           </div>
         </div>   
+        <?php
+        }
+        ?>
 
     </div>        <!-- /.row -->
 
