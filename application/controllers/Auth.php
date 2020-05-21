@@ -30,7 +30,6 @@ class Auth extends Admin_Controller
 
        	if($username_exists == TRUE) {
        		$login = $this->model_auth->login($this->input->post('username'), $this->input->post('password'));
-
        		if($login) {
 
        			$logged_in_sess = array(
@@ -42,8 +41,7 @@ class Auth extends Admin_Controller
 			);
 
 			$this->session->set_userdata($logged_in_sess);
-      redirect('dashboard', 'refresh');
-
+			redirect('dashboard', 'refresh');
 
        		}
        		else {
