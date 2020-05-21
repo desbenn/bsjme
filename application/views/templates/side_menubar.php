@@ -26,12 +26,12 @@
 
 
         <?php if(in_array('createClient', $user_permission) || in_array('updateClient', $user_permission) || in_array('viewClient', $user_permission) || in_array('deleteClient', $user_permission)): ?>              
-            <li id="manageClientNav"><a href="<?php echo base_url('Client') ?>"><i class="fa fa-user"></i>Clients</a></li>
+            <li id="manageClientNav"><a href="<?php echo base_url('Client') ?>"><i class="fa fa-user"></i><?php if($this->session->profile !='4'):?>Clients<?php endif; ?><?php if($this->session->profile =='4'):?>Client<?php endif; ?></a></li>
         <?php endif; ?>
 
         <?php if(in_array('createConsultation', $user_permission) || in_array('updateConsultation', $user_permission) || in_array('viewConsultation', $user_permission) || in_array('deleteConsultation', $user_permission)): ?>                
             <li><a href="<?php echo base_url('Consultation') ?>"><i class="fa fa-forumbee"></i>
-                <span>Consultations</span></a>
+                <span><?php if($this->session->profile !='4'):?>Consultations<?php endif; ?><?php if($this->session->profile =='4'):?>Consultation<?php endif; ?></span></a>
             </li>
         <?php endif; ?>
 
