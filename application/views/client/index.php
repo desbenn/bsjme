@@ -1,9 +1,9 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Clients</h1>
+    <h1><?php if($this->session->profile !='4'):?>Clients<?php endif; ?><?php if($this->session->profile =='4'):?>Client<?php endif; ?></h1>
     <ol class="breadcrumb">
       <li><a href="<?php echo base_url('dashboard') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Clients</li>
+      <li class="active"><?php if($this->session->profile !='4'):?>Clients<?php endif; ?><?php if($this->session->profile =='4'):?>Client<?php endif; ?></li>
     </ol>
   </section>
 
@@ -36,6 +36,10 @@
                 <?php endif; ?>
               </div>
 
+               <?php
+               if($this->session->profile !='4')
+               {
+               ?>
                <div class="col-md-4 col-xs-4 form-inline clearfix" align="right">
                   <div class="form-group">
                     <label for="activity">Activity&nbsp;&nbsp;&nbsp;</label>
@@ -47,6 +51,9 @@
                       </select>
                   </div>
                 </div>
+                <?php
+               }
+                ?>
 
              <!-- If the user can search for a specific consultant, the drop-down list will appear -->
              <?php if(in_array('viewSearchConsultant', $user_permission)): ?>
