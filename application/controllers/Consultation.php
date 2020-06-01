@@ -267,13 +267,13 @@ class Consultation extends Admin_Controller
         $old_phase = $old_data['phase_id'];
 
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
-        $this->form_validation->set_rules('program', 'Program', 'trim|required');
-        $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
+        //$this->form_validation->set_rules('program', 'Program', 'trim|required');
+        //$this->form_validation->set_rules('standard', 'Standard', 'trim|required');
         $this->form_validation->set_rules('consultation_no', 'Consultation No', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        $this->form_validation->set_rules('sector', 'Sector', 'trim|required');
-        $this->form_validation->set_rules('phase', 'Phase', 'trim|required');
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');  
+        //$this->form_validation->set_rules('sector', 'Sector', 'trim|required');
+        //$this->form_validation->set_rules('phase', 'Phase', 'trim|required');
+        //$this->form_validation->set_rules('status', 'Status', 'trim|required');  
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
         //--->  Validation of the form
