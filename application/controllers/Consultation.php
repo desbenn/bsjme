@@ -11,7 +11,7 @@ class Consultation extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Consultation';
-        $this->data['active_tab'] = $this->input->get('tab') ?? 'consultation';
+        $this->data['active_tab'] = $this->input->get('tab') ?: 'consultation';
         $this->log_module = 'Consultation';
 
 	}
@@ -60,7 +60,7 @@ class Consultation extends Admin_Controller
             $consultant = $this->session->user_id;
         } 
         else {
-            $consultant = $this->input->get('consultant') ?? NULL; 
+            $consultant = $this->input->get('consultant') ?: NULL; 
         }
 
         if ($consultant <> "all") {

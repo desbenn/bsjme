@@ -11,7 +11,7 @@ class Client extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Client';
-        $this->data['active_tab'] = $this->input->get('tab') ?? 'client';
+        $this->data['active_tab'] =  $this->input->get('tab') ?: 'client';
         $this->log_module = 'Client';
 
 	}
@@ -57,14 +57,14 @@ class Client extends Admin_Controller
             $consultant = $this->session->user_id;
         } 
         else {
-            $consultant = $this->input->get('consultant') ?? NULL; 
+            $consultant = $this->input->get('consultant') ?: NULL; 
         }
 
         if ($consultant <> "all") {
             $consultant = '"'.$consultant.'"';
         }
 
-        $activity = $this->input->get('activity') ?? NULL;
+        $activity = $this->input->get('activity') ?: NULL;
 
 
 
