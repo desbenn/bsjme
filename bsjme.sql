@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 01, 2020 at 07:09 PM
+-- Generation Time: Jul 20, 2020 at 02:29 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `intervention_no` (`consultation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `document`
@@ -402,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `inquiry` (
 --
 
 INSERT INTO `inquiry` (`id`, `client_id`, `inquiry_type_id`, `support_type_id`, `request`, `feedback`, `answered_by`, `inquiry_date`) VALUES
-(1, 25, 2, 1, 'Could you please clarify the needs analysis', 'Sure no proble. fix so and so ', '', '0000-00-00');
+(1, 25, 2, 1, 'Could you please clarify the needs analysis', 'Sure no proble. fix so and so ', '', '2020-07-29');
 
 -- --------------------------------------------------------
 
