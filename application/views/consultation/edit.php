@@ -135,7 +135,9 @@
 
 
       <ul class="nav nav-tabs">
+        <?php if($this->session->profile !='4'): ?>
         <li class="<?php echo (($active_tab === 'consultation') ? 'active' : '') ?>"><a data-toggle="tab" href="#consultation">Consultation</a></li>
+        <?php endif; ?>
         <li class="<?php echo (($active_tab === 'question') ? 'active' : '') ?>"><a data-toggle="tab" href="#question">Questions</a></li>
         <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Documents</a></li>    
         
