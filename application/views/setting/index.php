@@ -121,35 +121,27 @@
           </div>
         </div>
 
-
-        <!-- < Part on location -->
+        <!-- < Part of Technical Advice -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
-            <div class="panel-heading bg-black">Location</div>
+            <div class="panel-heading bg-black">Technical Advice</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:170px">
+                <ul class="chart-legend" style="height:170px">                
 
-                <?php if(in_array('createCounty', $user_permission) || in_array('updateCounty', $user_permission) || in_array('viewCounty', $user_permission) || in_array('deleteCounty', $user_permission)): ?>
-                  <li id="countyNav">
-                    <a href="<?php echo base_url('county/') ?>">County</a></li>
-                <?php endif; ?>
-
-                <?php if(in_array('createParish', $user_permission) || in_array('updateParish', $user_permission) || in_array('viewParish', $user_permission) || in_array('deleteParish', $user_permission)): ?>
-                  <li id="parishNav">
-                    <a href="<?php echo base_url('parish/') ?>">Parish</a></li>
-                <?php endif; ?>
-
-                <?php if(in_array('createCity', $user_permission) || in_array('updateCity', $user_permission) || in_array('viewCity', $user_permission) || in_array('deleteCity', $user_permission)): ?>
-                  <li id="cityNav">
-                    <a href="<?php echo base_url('city/') ?>">City</a></li>
-                <?php endif; ?>
-
-              </ul>
+                <!-- <?php if(in_array('createStandard', $user_permission) || in_array('updateStandard', $user_permission) || in_array('viewStandard', $user_permission) || in_array('deleteStandard', $user_permission)): ?>
+                  <li id="questionNav">
+                    <a href="<?php echo base_url('standard/') ?>">Standard</a></li>
+                <?php endif; ?> -->
+               
+                </ul>
             </div>
           </div>
         </div>
+
+
+        
 
 
 
@@ -179,6 +171,35 @@
                         <?php endif; ?>
                     </li>
                   <?php endif; ?>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- < Part on location -->
+
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">Location</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:170px">
+
+                <?php if(in_array('createCounty', $user_permission) || in_array('updateCounty', $user_permission) || in_array('viewCounty', $user_permission) || in_array('deleteCounty', $user_permission)): ?>
+                  <li id="countyNav">
+                    <a href="<?php echo base_url('county/') ?>">County</a></li>
+                <?php endif; ?>
+
+                <?php if(in_array('createParish', $user_permission) || in_array('updateParish', $user_permission) || in_array('viewParish', $user_permission) || in_array('deleteParish', $user_permission)): ?>
+                  <li id="parishNav">
+                    <a href="<?php echo base_url('parish/') ?>">Parish</a></li>
+                <?php endif; ?>
+
+                <?php if(in_array('createCity', $user_permission) || in_array('updateCity', $user_permission) || in_array('viewCity', $user_permission) || in_array('deleteCity', $user_permission)): ?>
+                  <li id="cityNav">
+                    <a href="<?php echo base_url('city/') ?>">City</a></li>
+                <?php endif; ?>
 
               </ul>
             </div>

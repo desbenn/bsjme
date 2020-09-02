@@ -160,8 +160,66 @@
             </ul>
           </div></div></div>
 
+          <!-- < Part on Technical Advice -->
 
-          <!-- < Part on QMS -->
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">Technical Advice</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:240px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  <tr>
+                    <td>Technical Advice</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createTechnicalAdvice" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateTechnicalAdivce" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewTechnicalAdvice" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteTechnicalAdvice" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Needs Assessment</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createNeedsAssessment" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateNeedsAssessment" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewNeedsAssessment" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteNeedsAssessment" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Client Work Plan</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createWorkPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateWorkPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewWorkPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteWorkPlan" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Internal Cost Plan</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createInternalCostPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateInternalCostPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewInternalCostPlan" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteInternalCostPlan" class="minimal"></td>
+                  </tr>
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>
+       </div>
+       
+
+       
+
+        <div class="row">
+
+        <!-- < Part on QMS -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -223,12 +281,8 @@
               </table>
             </ul>
           </div></div></div>
-       </div>
-       
 
-       <!-- < Part on Document -->
-
-        <div class="row">
+          <!-- < Part on Document -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -328,9 +382,17 @@
               </table>
             </ul>
           </div></div></div>
+   </div>   <!-- < /row -->
+      
+
+   
 
 
-          <!-- < Part on Inquiry -->
+        
+
+        <div class="row">
+
+        <!-- < Part on Inquiry -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -376,22 +438,14 @@
             </ul>
           </div></div></div>
 
-   </div>   <!-- < /row -->
-      
-
-   
-
-
-        <!-- < Part on News -->
-
-        <div class="row">
+          <!-- < Part on News -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading bg-black">News</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:280px">
+                <ul class="chart-legend" style="height:240px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -424,8 +478,64 @@
             </ul>
           </div></div></div>
 
+          <!-- < Part on Admin -->
 
-         <!-- < Part on Menu -->
+        <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">System Admin</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:240px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                  <tr>
+                    <td>User</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createUser" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateUser" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewUser" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteUser" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>Profile</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createProfile" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateProfile" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewProfile" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteProfile" class="minimal"></td>
+                  </tr>
+                  <tr>
+                    <td>System Maintenance</td>
+                    <td>-</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSystem" class="minimal"></td>
+                    <td> - </td>
+                    <td> - </td>
+                  </tr>
+                  <tr>
+                    <td>Settings</td>
+                    <td>-</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSetting" class="minimal"></td>
+                    <td> - </td>
+                    <td> - </td>
+                  </tr>                 
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>
+
+          </div>    <!-- /row -->
+
+
+          <div class="row">
+          <!-- < Part on Menu -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -491,62 +601,9 @@
               </table>
             </ul>
           </div></div></div>
+          </div> <!--end of row-->
 
-
-          <!-- < Part on Admin -->
-
-        <div class="col-md-4">
-          <div class="panel panel-primary">
-            <div class="panel-heading bg-black">System Admin</div>
-              <div class="panel-body">
-
-                <ul class="chart-legend" style="height:280px">
-
-                <table class="table table-responsive">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Create</th>
-                      <th>Update</th>
-                      <th>View</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                <tbody>
-                  <tr>
-                    <td>User</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createUser" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateUser" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewUser" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteUser" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>Profile</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="createProfile" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateProfile" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="viewProfile" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteProfile" class="minimal"></td>
-                  </tr>
-                  <tr>
-                    <td>System Maintenance</td>
-                    <td>-</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSystem" class="minimal"></td>
-                    <td> - </td>
-                    <td> - </td>
-                  </tr>
-                  <tr>
-                    <td>Settings</td>
-                    <td>-</td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateSetting" class="minimal"></td>
-                    <td> - </td>
-                    <td> - </td>
-                  </tr>                 
-                </tbody> 
-              </table>
-            </ul>
-          </div></div></div>
-
-        </div>    <!-- /row -->
+        
 
 
        <?php endif; ?> <!-- user permission info -->
