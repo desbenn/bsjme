@@ -138,6 +138,7 @@ $autoload['model'] = array(
 	'model_activity',
     'model_answer',
 	'model_auth',
+	'model_billing',
 	'model_category',
 	'model_city',
 	'model_clause',
