@@ -56,7 +56,7 @@
             <div class="panel-heading bg-black">Client</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -146,7 +146,7 @@
             <div class="panel-heading bg-black">Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -249,7 +249,7 @@
             <div class="panel-heading bg-black">Teechnical Advice</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -324,6 +324,22 @@
                     } ?>></td>
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteInternalCostPlan" <?php if($serialize_permission) {
                       if(in_array('deleteInternalCostPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
+                    <td>Billing</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createBilling" <?php if($serialize_permission) {
+                      if(in_array('createBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateBilling" <?php if($serialize_permission) {
+                      if(in_array('updateBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewBilling" <?php if($serialize_permission) {
+                      if(in_array('viewBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteBilling" <?php if($serialize_permission) {
+                      if(in_array('deleteBilling', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
                   </tr>
                 </tbody> 

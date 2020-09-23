@@ -130,10 +130,10 @@
 
                 <ul class="chart-legend" style="height:170px">                
 
-                <!-- <?php if(in_array('createStandard', $user_permission) || in_array('updateStandard', $user_permission) || in_array('viewStandard', $user_permission) || in_array('deleteStandard', $user_permission)): ?>
-                  <li id="questionNav">
-                    <a href="<?php echo base_url('standard/') ?>">Standard</a></li>
-                <?php endif; ?> -->
+                <?php if(in_array('createBilling', $user_permission) || in_array('updateBilling', $user_permission) || in_array('viewBilling', $user_permission) || in_array('deleteBilling', $user_permission)): ?>
+                  <li id="billingNav">
+                    <a href="<?php echo base_url('billing/') ?>">Billing</a></li>
+                <?php endif; ?>
                
                 </ul>
             </div>

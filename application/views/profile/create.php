@@ -48,7 +48,7 @@
             <div class="panel-heading bg-black">Client</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -107,7 +107,7 @@
             <div class="panel-heading bg-black">Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -167,7 +167,7 @@
             <div class="panel-heading bg-black">Technical Advice</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -207,6 +207,14 @@
                     <td><input type="checkbox" name="permission[]" id="permission" value="updateInternalCostPlan" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewInternalCostPlan" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteInternalCostPlan" class="minimal"></td>
+                  </tr>
+
+                  <tr>
+                    <td>Billing</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="createBilling" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateBilling" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="viewBilling" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="deleteBilling" class="minimal"></td>
                   </tr>
                 </tbody> 
               </table>
