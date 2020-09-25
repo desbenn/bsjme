@@ -75,6 +75,7 @@ class Technical_advice extends Admin_Controller
             $data = $this->model_technical_advice->getTechnicalAdviceByConsultant($consultant,$activity);
         }    
         
+        var_dump($data);
         foreach ($data as $key => $value) 
         {
             //Retrieve client information such as client name/ business name
@@ -83,6 +84,8 @@ class Technical_advice extends Admin_Controller
             //--> Prepare the list of consultants to view in the datatable
 
             $consultant = json_decode($value['consultant_id']);
+            var_dump($value['consultant_id']);
+            var_dump($consultant);
             
             $consultant_list = '';
            //--> Get the name of each consultant
@@ -94,8 +97,7 @@ class Technical_advice extends Admin_Controller
                     $consultant_list = $consultant_list.' '.$consultant_data['name'];
                 }
             }                   
-
-            //$technical_advice_no = $value['id'];  
+ 
 
             $buttons = '';
 
@@ -138,6 +140,70 @@ class Technical_advice extends Admin_Controller
             );
 		} // /foreach
 		echo json_encode($result);
+    }
+
+    public function create($id=null)
+    {
+        if(!in_array('createTechnicalAdvice', $this->permission)) 
+        {
+            redirect('dashboard', 'refresh');
+        }
+        $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
+        $this->form_validation->set_rules('activity', 'Activity', 'trim|required');
+        $this->form_validation->set_rules('date_created', 'Creation Date', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+        
+        if($this->form_validation->run() == TRUE)
+        {
+            // true case, we create the new technical advice
+            $data = array(
+                'client_id' => $this->input->post('client'), 
+                'consultant_id' => json_encode($this->input->post('consultant')), 
+                'activity' => $this->input->post('activity'), 
+                'date_created' => $this->input->post('date_created'), 
+                'date_begin' => $this->input->post('date_begin'), 
+                'date_ended' => $this->input->post('date_end'), 
+                'work_scope' => $this->input->post('work_scope'), 
+                'updated_by' => $this->session->user_id,
+            );
+            $technical_advice_id=$this->model_technical_advice->create($data);
+            if($technical_advice_id == false)
+            {
+                $msg_error = 'Error occurred in the creation of the technical advice';
+                $this->session->set_flashdata('error', $msg_error);
+                redirect('technical_advice/create', 'refresh');
+            }
+            else
+            {
+                //--> Log Action
+                $this->model_log->create(array(
+                    'user_id' => $this->session->user_id,
+                    'module' => $this->log_module,
+                    'action' => 'Create',
+                    'subject_id' => $technical_advice_id,
+                    'client_id' => $this->input->post('client'),
+                    'consultation_id' => null,
+                    'ta_id' => $technical_advice_id,
+                    'remark' => 'Create Technical Advice '.$technical_advice_id,
+                    'attributes' => $data
+                ));
+
+                 //The create return the consultation_id if it's successful
+                 // and we can go to the edit pages to continue the treatment of the consultation
+             
+                redirect('technical_advice/', 'refresh');
+            }
+        }
+
+        //--> We are in the preparation of the form and we prepare
+        //    the drop-down list needed in the create form
+        $this->data['client'] = $this->model_client->getClientData();
+        $this->data['activity'] = $this->model_activity->getActiveActivity();
+        $this->data['consultant'] = $this->model_user->getActiveConsultant();
+        //This is for adding a technical advice to the client, coming from the client edit
+        $this->data['fromClient'] =$id;
+
+        $this->render_template('technical_advice/create', $this->data);
     }
     
     public function remove()

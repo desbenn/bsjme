@@ -46,8 +46,6 @@ class Model_technical_advice extends CI_Model
 		return $query->result_array();
 	}
 
-
-
 	//--> Get the data for a specific client
 
 	public function getTechnicalAdviceByClient($trn)
@@ -69,9 +67,9 @@ class Model_technical_advice extends CI_Model
 	public function create($data)
 	{
 		//---> The id is returned to the controller so that the update form
-		//     of consultation can be opened to continue encoding the datas
+		//     of technical advice can be opened to continue encoding the datas
 		if($data) {
-			$insert = $this->db->insert('consultation', $data);
+			$insert = $this->db->insert('technical_advice', $data);
 			$insert_id = $this->db->insert_id();
 			return ($insert == true) ? $insert_id : false;
 		}
