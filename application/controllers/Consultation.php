@@ -201,6 +201,7 @@ class Consultation extends Admin_Controller
                     'subject_id' => $consultation_id,
                     'client_id' => $this->input->post('client'),
                     'consultation_id' => $consultation_id,
+                    'ta_id' => null,
                     'remark' => 'Create Consultation '.$this->input->post('consultation_no'),
                     'attributes' => $data
                 ));

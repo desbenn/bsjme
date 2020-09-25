@@ -225,6 +225,7 @@ class Client extends Admin_Controller
                     'subject_id' => $client_id,
                     'client_id' => $client_id,
                     'consultation_id' => null,
+                    'ta_id' => null,
                     'remark' => 'Create Client '.$this->input->post('trn'),
                     'attributes' => $data
                 ));
