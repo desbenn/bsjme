@@ -12,7 +12,7 @@ class Technical_advice extends Admin_Controller
 
 		$this->data['page_title'] = 'Technical Advice';
         //$this->data['active_tab'] =  $this->input->get('tab') ?: 'technicalAdvice';
-        // $this->log_module = '';
+        $this->log_module = 'Technical Advice';
 
 	}
 
@@ -139,6 +139,50 @@ class Technical_advice extends Admin_Controller
 		echo json_encode($result);
     }
     
+    public function remove()
+    {
+        if(!in_array('deleteTechnicalAdvice', $this->permission)) {
+            redirect('dashboard', 'refresh');
+        }
+
+        $ta_id = $this->input->post('ta_id');
+
+        $response = '';
+        $response = array();
+
+        if($ta_id) {
+            //--> Get the old data before deleting
+            //$old_data = $this->model_technical_advice->getTechnicalAdviceData($ta_id);
+            $delete = $this->model_technical_advice->remove($ta_id);
+            if($delete == true) {
+                $response['success'] = true;
+                $response['messages'] = 'Successfully deleted';
+                //--> Log Action
+                //  $this->model_log->create(array(
+                //     'user_id' => $this->session->user_id,
+                //     'module' => $this->log_module,
+                //     'action' => 'Delete',
+                //     'subject_id' => $ta_id,
+                //     'client_id' => null,
+                //     'consultation_id' => null,
+                //     'ta_id' => $ta_id,
+                //     'remark' => 'Delete Technical Advice '.$client_id,
+                //     'attributes' => $old_data
+                // ));
+            }
+            else {
+                $response['success'] = false;
+                $response['messages'] = 'Error in the database while deleting the information';
+            }
+        }
+        else {
+            $response['success'] = false;
+            $response['messages'] = 'Refresh the page again';
+        }
+
+        echo json_encode($response);
+    }
+
 }
 
 ?>

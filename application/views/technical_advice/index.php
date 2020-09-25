@@ -182,48 +182,50 @@ $(document).ready(function(){
 
 
 // remove functions
-// function removeFunc(id)
-// {
-//   if(id) {
-//     $("#removeForm").on('submit', function() {
+function removeFunc(id)
+{
+    if(id) {
+    $("#removeForm").on('submit', function() {
+      var form = $(this);
 
-//       var form = $(this);
+      // remove the text-danger
+      $(".text-danger").remove();
 
-//       // remove the text-danger
-//       $(".text-danger").remove();
+      $.ajax({
+        url: form.attr('action'),
+        type: form.attr('method'),
+        data: { ta_id:id },
+        dataType: 'json',
+        success:function(response){
 
-//       $.ajax({
-//         url: form.attr('action'),
-//         type: form.attr('method'),
-//         data: { ta_id:id },
-//         dataType: 'json',
-//         success:function(response) {
+          manageTable.ajax.reload(null, false);
 
-//           manageTable.ajax.reload(null, false);
+          if(response.success === true) 
+          {
+            $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+              '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
+            '</div>');
 
-//           if(response.success === true) {
-//             $("#messages").html('<div class="alert alert-success alert-dismissible" role="alert">'+
-//               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-//               '<strong> <span class="glyphicon glyphicon-ok-sign"></span> </strong>'+response.messages+
-//             '</div>');
+            // hide the modal
+            $("#removeModal").modal('hide');
 
-//             // hide the modal
-//             $("#removeModal").modal('hide');
+          } 
+          else 
+          {
 
-//           } else {
+            $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+              '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
+            '</div>');
+          }
+        }
+      });
 
-//             $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
-//               '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-//               '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
-//             '</div>');
-//           }
-//         }
-//       });
-
-//       return false;
-//     });
-//   }
-// }
+      return false;
+    });
+  }
+}
 
 
 </script>

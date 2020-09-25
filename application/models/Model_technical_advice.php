@@ -141,17 +141,10 @@ class Model_technical_advice extends CI_Model
 		//--> All the information attached to the client must be deleted
 
 		if($id) {
-
-			// Remove the tables attached to consultation
-			// THe document should be removed manually by the user before deleting the consultation
-
-		    // Remove the answer related to the consultation before deleting the consultation
-		    $this->db->where('consultation_id', $id);
-			$delete = $this->db->delete('answer');	
 			
 			// delete the consultation
 			$this->db->where('id', $id);
-			$delete = $this->db->delete('consultation');
+			$delete = $this->db->delete('technical_advice');
 		    return ($delete == true) ? true : false;
 
 		}
