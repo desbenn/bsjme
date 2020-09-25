@@ -75,7 +75,6 @@ class Technical_advice extends Admin_Controller
             $data = $this->model_technical_advice->getTechnicalAdviceByConsultant($consultant,$activity);
         }    
         
-        var_dump($data);
         foreach ($data as $key => $value) 
         {
             //Retrieve client information such as client name/ business name
@@ -84,17 +83,20 @@ class Technical_advice extends Admin_Controller
             //--> Prepare the list of consultants to view in the datatable
 
             $consultant = json_decode($value['consultant_id']);
-            var_dump($value['consultant_id']);
-            var_dump($consultant);
             
             $consultant_list = '';
            //--> Get the name of each consultant
             if (!$consultant == null) 
             {
+                $count=0;
                 foreach($consultant as $k=>$v)
                 {
                     $consultant_data = $this->model_user->getConsultantData($consultant[$k]);
-                    $consultant_list = $consultant_list.' '.$consultant_data['name'];
+                    if($count>0)
+                    { $consultant_list = $consultant_list.' | '.$consultant_data['name'];}
+                    else
+                    {$consultant_list = $consultant_list.' '.$consultant_data['name'];}
+                    $count++;
                 }
             }                   
  

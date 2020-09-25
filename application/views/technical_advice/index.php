@@ -32,7 +32,7 @@
         <div class="row">
               <div class="col-md-4 col-xs-4 form-inline clearfix">
                 <?php if(in_array('createTechnicalAdvice', $user_permission)): ?>
-                  <a href="<?php echo base_url('technical_advice/create') ?>" class="btn btn-primary">Create Technical Advice</a>
+                  <a href="<?php echo base_url('technical_advice/create') ?>" class="btn btn-primary">Add Technical Advice</a>
                 <?php endif; ?>
               </div>
 
@@ -99,7 +99,6 @@
 </div><!-- /.content-wrapper -->
 
 
-
 <!-----------------------------------------------------------  Delete ------------------------------------------------------------------>
 
 <?php if(in_array('deleteTechnicalAdvice', $user_permission)): ?>
@@ -142,6 +141,7 @@
 var manageTable;
 var base_url = "<?php echo base_url(); ?>";
 
+//load info from the database using an AJAX request
 $(document).ready(function(){
 
   //$("#mainTechnicalAdviceNav").addClass('active');

@@ -21,22 +21,21 @@ class Model_technical_advice extends CI_Model
 		}
 		if ($consultant == 'all') {
 			$sql = "SELECT DISTINCT technical_advice.id AS 'id',
-            client.id AS 'client_id', user.id AS 'consultant_id', technical_advice.activity as 'activity_id',
+            client.id AS 'client_id', technical_advice.consultant_id AS 'consultant_id', technical_advice.activity as 'activity_id',
             activity.name AS 'activity_name', date_created
 			FROM technical_advice
                  LEFT JOIN client ON technical_advice.client_id = client.id
-			     LEFT JOIN user ON technical_advice.consultant_id = user.id
 			     JOIN activity ON technical_advice.activity= activity.id
 			WHERE activity BETWEEN $activity_from AND $activity_to     
 			ORDER by client.activity_id DESC,company_name";
 	    } else {
 
             $sql = "SELECT DISTINCT technical_advice.id AS 'id',
-            client.id AS 'client_id', user.id AS 'consultant_id', technical_advice.activity as 'activity_id',
+            client.id AS 'client_id', technical_advice.consultant_id AS 'consultant_id', technical_advice.activity as 'activity_id',
             activity.name AS 'activity_name', date_created
 			FROM technical_advice
                  LEFT JOIN client ON technical_advice.client_id = client.id
-			     LEFT JOIN user ON technical_advice.consultant_id = user.id
+			     --LEFT JOIN user ON technical_advice.consultant_id = user.id
 			     JOIN activity ON technical_advice.activity= activity.id
 			WHERE user.id LIKE '%$consultant%' AND activity BETWEEN $activity_from AND $activity_to     
 			ORDER by client.activity_id DESC,company_name";
