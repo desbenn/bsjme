@@ -36,8 +36,8 @@
         <?php endif; ?>
 
         <?php if(in_array('createTechnicalAdvice', $user_permission) || in_array('updateTechnicalAdivce', $user_permission) || in_array('viewTechnicalAdvice', $user_permission) || in_array('deleteTechnicalAdvice', $user_permission)): ?>                
-            <li><a href="<?php echo base_url('TechnicalAdivce') ?>"><i class="fa fa-comments"></i>
-                <span><?php if($this->session->profile !='4'):?>Technical Advice(s)<?php endif; ?><?php if($this->session->profile =='4'):?>Technical Advice<?php endif; ?></span></a>
+            <li><a href="<?php echo base_url('Technical_advice') ?>"><i class="fa fa-comments"></i>
+                <span>Technical Advice(s)</span></a>
             </li>
         <?php endif; ?>
 

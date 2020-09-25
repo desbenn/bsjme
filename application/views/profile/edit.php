@@ -268,8 +268,8 @@
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createTechnicalAdvice" <?php if($serialize_permission) {
                       if(in_array('createTechnicalAdvice', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateTechnicalAdivce" <?php if($serialize_permission) {
-                      if(in_array('updateTechnicalAdivce', $serialize_permission)) { echo "checked"; }
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateTechnicalAdvice" <?php if($serialize_permission) {
+                      if(in_array('updateTechnicalAdvice', $serialize_permission)) { echo "checked"; }
                     } ?>></td>
                     <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewTechnicalAdvice" <?php if($serialize_permission) {
                       if(in_array('viewTechnicalAdvice', $serialize_permission)) { echo "checked"; }

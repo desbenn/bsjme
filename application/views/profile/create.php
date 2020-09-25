@@ -183,7 +183,7 @@
                   <tr>
                     <td>Technical Advice</td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="createTechnicalAdvice" class="minimal"></td>
-                    <td><input type="checkbox" name="permission[]" id="permission" value="updateTechnicalAdivce" class="minimal"></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" value="updateTechnicalAdvice" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="viewTechnicalAdvice" class="minimal"></td>
                     <td><input type="checkbox" name="permission[]" id="permission" value="deleteTechnicalAdvice" class="minimal"></td>
                   </tr>

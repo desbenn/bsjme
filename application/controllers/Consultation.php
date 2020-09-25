@@ -134,7 +134,6 @@ class Consultation extends Admin_Controller
 				$buttons
 			);
 		} // /foreach
-
 		echo json_encode($result);
 	}
 
