@@ -77,6 +77,7 @@ class Technical_advice extends Admin_Controller
         
         foreach ($data as $key => $value) 
         {
+            //Retrieve client information such as client name/ business name
             $client_data = $this->model_client->getClientDataById($value['client_id']);   
                      
             //--> Prepare the list of consultants to view in the datatable
