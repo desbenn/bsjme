@@ -80,10 +80,10 @@
             <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th width="30%">Company Name</th>
-                  <th width="20%">Consultant</th>
-                  <th width="10%">Activity</th>
-                  <th width="20%">Date Created</th>
+                  <th width="25%">Company Name</th>
+                  <th width="35%">Consultant</th>
+                  <th width="5%">Activity</th>
+                  <th width="10%">Date Created</th>
                   <th width="20%">Action</th>
                 </tr>
                 </thead>
