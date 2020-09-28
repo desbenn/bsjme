@@ -47,13 +47,10 @@ class Model_technical_advice extends CI_Model
 	{
 
 		$sql = "SELECT technical_advice.*,technical_advice.id AS 'id',company_name,
-						user.name AS 'consultant_name',sector.name AS 'sector_name'
-		FROM consultation
-		        LEFT JOIN client ON consultation.client_id = client.id
-				LEFT JOIN user ON consultation.consultant_id = user.id
-				LEFT JOIN sector ON consultation.sector_id = sector.id
-		WHERE client.trn = $trn		
-		ORDER by company_name";
+				FROM technical_advice
+		        LEFT JOIN client ON technical_advice.client_id = client.id
+				LEFT JOIN user ON technical_advice.consultant_id = user.id
+		WHERE client.trn = $trn";
 		
 		$query = $this->db->query($sql);
 		return $query->result_array();
