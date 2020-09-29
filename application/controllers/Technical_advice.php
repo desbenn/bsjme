@@ -11,7 +11,7 @@ class Technical_advice extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Technical Advice';
-        //$this->data['active_tab'] =  $this->input->get('tab') ?: 'technicalAdvice';
+        $this->data['active_tab'] =  $this->input->get('tab') ?: 'technicalAdvice';
         $this->log_module = 'Technical Advice';
 
 	}
@@ -114,8 +114,8 @@ class Technical_advice extends Admin_Controller
 
             if(in_array('viewTechnicalAdvice', $this->permission)) 
             {                
-                $buttons .= '<a href="'.base_url('technical_advice/timeline/'.$value['id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
-                $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';
+                // $buttons .= '<a href="'.base_url('technical_advice/timeline/'.$value['id']).'" class="btn btn-default"><i class="fa fa-clock-o"></i></a>';
+                // $buttons .= '<a href="'.base_url('report_consultation/REP0I/'.$value['id']).'" target="_blank"  class="btn btn-default"><i class="fa fa-print"></i></a>';
             }
 
             $activity = '';            
@@ -250,6 +250,65 @@ class Technical_advice extends Admin_Controller
         }
 
         echo json_encode($response);
+    }
+
+    public function update($technical_advice_id)
+    {
+        //--> the profile having viewConsultation can see the information but cannot update
+        
+        if(!in_array('updateTechnicalAdvice', $this->permission) AND !in_array('viewTechnicalAdvice', $this->permission)) 
+        {
+            redirect('dashboard', 'refresh');
+        }
+        
+        if(!$technical_advice_id) {redirect('dashboard', 'refresh');}   
+
+        $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
+        $this->form_validation->set_rules('activity', 'Activity', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
+
+        //--->  Validation of the form
+        if ($this->form_validation->run() == TRUE) 
+        {
+            //true case 
+            $data = array(
+                'client_id' => $this->input->post('client'), 
+                'consultant_id' => json_encode($this->input->post('consultant')), 
+                'activity' => $this->input->post('activity'), 
+                'date_created' => $this->input->post('date_created'), 
+                'date_begin' => $this->input->post('date_begin'), 
+                'date_ended' => $this->input->post('date_end'), 
+                'work_scope' => $this->input->post('work_scope'), 
+                'updated_by' => $this->session->user_id,
+            );
+            $update = $this->model_technical_advice->update($data, $technical_advice_id);
+            if($update == true)
+            {
+                $msg_error = 'Successfully updated';
+                $this->session->set_flashdata('success', $msg_error);
+                //--> Log Action to be placed here
+                redirect('technical_advice/update/'.$technical_advice_id."?tab=technicalAdvice", 'refresh');
+            }
+            else
+            {
+                $msg_error = 'Error occurred';
+                $this->session->set_flashdata('error', $msg_error);
+                redirect('technical_advice/update/'.$technical_advice_id."?tab=technicalAdvice", 'refresh');
+            }
+        }
+        //--> We are in edit of the form, preparation of the drop down list
+        //    and reading of the technical advice data
+        $technical_advice_data = $this->model_technical_advice->getTechnicalAdviceData($technical_advice_id);
+        $this->data['technical_advice_data'] = $technical_advice_data;
+
+        //  Here the data for consultant , activity and consultant is loadded
+        $this->data['client'] = $this->model_client->getClientData();
+        $this->data['activity'] = $this->model_activity->getActiveActivity();
+        $this->data['consultant'] = $this->model_user->getActiveConsultant();
+
+        
+
+        $this->render_template('technical_advice/edit', $this->data);
     }
 
 }

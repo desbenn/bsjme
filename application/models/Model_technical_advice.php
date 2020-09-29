@@ -6,8 +6,36 @@ class Model_technical_advice extends CI_Model
 	{
 		parent::__construct();
 	}
-	//--> Get the data for a specific consultant or for all
+	
 
+	public function getTechnicalAdviceData($id=null)
+	{
+		if($id){
+			$sql = "SELECT technical_advice.*, `address`, client_name, company_name, district, email, mobile, phone, postal_code, website, directory,
+			parish.name AS 'parish_name', county.name AS 'county_name',(SELECT name FROM user WHERE client.updated_by = user.id) as 'updated_by'
+			FROM technical_advice
+			JOIN client on technical_advice.client_id= client.id
+			LEFT JOIN parish ON client.parish_id = parish.id
+			LEFT JOIN county ON client.county_id = county.id
+			LEFT JOIN city ON client.city_id = city.id
+			where technical_advice.id = ?";
+			$query = $this->db->query($sql, array($id));
+			return $query->row_array();
+		}
+		$sql = "SELECT technical_advice.*, address, client_name, company_name, district, email, mobile, phone, postal_code, website, directory,
+		parish.name AS 'parish_name', county.name AS 'county_name',(SELECT name FROM user WHERE client.updated_by = user.id) as 'updated_by'
+		FROM technical_advice
+		JOIN client on technical_advice.client_id= client.id
+		LEFT JOIN parish ON client.parish_id = parish.id
+		LEFT JOIN county ON client.county_id = county.id
+		LEFT JOIN city ON client.city_id = city.id
+		ORDER BY technical_advice.id DES";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+
+	}
+	
+	//--> Get the data for a specific consultant or for all
 	public function getTechnicalAdviceByConsultant($consultant,$activity)
 	{
 
@@ -46,7 +74,7 @@ class Model_technical_advice extends CI_Model
 	public function getTechnicalAdviceByClient($trn)
 	{
 
-		$sql = "SELECT technical_advice.*,technical_advice.id AS 'id',company_name,
+		$sql = "SELECT technical_advice.*,company_name,
 				FROM technical_advice
 		        LEFT JOIN client ON technical_advice.client_id = client.id
 				LEFT JOIN user ON technical_advice.consultant_id = user.id
@@ -55,6 +83,8 @@ class Model_technical_advice extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+
+
 
 	public function create($data)
 	{
@@ -78,6 +108,16 @@ class Model_technical_advice extends CI_Model
 			$delete = $this->db->delete('technical_advice');
 		    return ($delete == true) ? true : false;
 
+		}
+	}
+
+	public function update($data,$id)
+	{
+		if($data && $id)
+		{
+			$this->db->where('id',$id);
+			$update = $this->db->update('technical_advice', $data);
+			return ($update == true) ? true : false;
 		}
 	}
 
