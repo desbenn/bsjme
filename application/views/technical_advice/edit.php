@@ -552,7 +552,12 @@ $(document).ready(function() {
 
 // $cost = $('[id=cost');
 $item_name = $('[id="item_name"]');
-$.ajax({
+var budget_type= document.getElementById('budget_type');
+budget_type.onchange=function(){
+  var x = document.getElementById("budget_type").value;
+  $item_name.empty();
+  if(x=="0"){
+    $.ajax({
     url: base_url+'billing/fetchBillingInfo',
     dataType: "JSON",
     success: function (data) 
@@ -560,7 +565,9 @@ $.ajax({
       $item_name.html('<option value=""></option>');
       //iterate over the data and append a select option
       $.each(data, function (key, val) {
-        $item_name.append('<option value="' + val.id + '">' + val.name + '</option>');
+        if(val.type=="0"){
+          $item_name.append('<option value="' + val.id + '">' + val.name + '</option>');
+        } 
       });
 
     },
@@ -568,13 +575,49 @@ $.ajax({
     // if there is an error append a 'none available' option
     $item_name.html('<option id="-1">none available</option>');
     }
-});
+  });
+  }
+  else if(x=="1"){
+    $.ajax({
+    url: base_url+'billing/fetchBillingInfo',
+    dataType: "JSON",
+    success: function (data) 
+    { 
+      $item_name.html('<option value=""></option>');
+      //iterate over the data and append a select option
+      $.each(data, function (key, val) {
+        if(val.type=="1"){
+          $item_name.append('<option value="' + val.id + '">' + val.name + '</option>');
+        } 
+      });
 
-var budget_type= document.getElementById('budget_type');
-budget_type.onchange=function(){
-  var x = document.getElementById("budget_type").value;
-  console.log(x);
-}
+    },
+    error: function () {
+    // if there is an error append a 'none available' option
+    $item_name.html('<option id="-1">none available</option>');
+    }
+  });
+  }
+};
+// $.ajax({
+//     url: base_url+'billing/fetchBillingInfo',
+//     dataType: "JSON",
+//     success: function (data) 
+//     { 
+//       $item_name.html('<option value=""></option>');
+//       //iterate over the data and append a select option
+//       $.each(data, function (key, val) {
+//         $item_name.append('<option value="' + val.id + '">' + val.name + '</option>');
+//       });
+
+//     },
+//     error: function () {
+//     // if there is an error append a 'none available' option
+//     $item_name.html('<option id="-1">none available</option>');
+//     }
+// });
+
+
 
 
 // $("#inquiryClientNav").addClass('active');
