@@ -221,4 +221,10 @@ class Billing extends Admin_Controller
 		echo json_encode($response);
 	}
 
+	public function fetchBillingInfo()
+	{
+		$data=$this->model_billing->getBillingData();
+		echo json_encode($data);
+	}
+
 }

@@ -24,21 +24,21 @@ class Internal_cost_plan extends Admin_Controller
 	}
 
 
-	//--> It retrieve the specific inquiry information via a inquiry id
+	//--> It retrieve the specific internal cost plan information via a internal cost plan id
 	//    and returns the data in json format
 
-	public function fetchInquiryDataById($id)
+	public function fetchInternalCostPlanDataById($id)
 	{
 		if($id) {
-			$data = $this->model_inquiry->getInquiryData($id);
+			$data = $this->model_internal_cost_plan->getInternalCostPlanData($id);
 			echo json_encode($data);
 		}
 	}
 
 
-	//--> It Fetches the inquiry data from the inquiry table
+	//--> It Fetches the internal cost plan data from the internal cost plan table
 
-    public function fetchInquiryClient($id)
+    public function fetchInternalCostPlanClient($id)
     {
         $result = array('data' => array());
 
@@ -83,26 +83,26 @@ class Internal_cost_plan extends Admin_Controller
 
 	public function create()
 	{
-		if(!in_array('createInquiry', $this->permission)) {redirect('dashboard', 'refresh');}
+		if(!in_array('createInternalCostPlan', $this->permission)) {redirect('dashboard', 'refresh');}
 
 		$response = array();
 
-		$this->form_validation->set_rules('inquiry_type', 'Inquiry Type', 'trim|required');
-		$this->form_validation->set_rules('support_type', 'Support Type', 'trim|required');
+		$this->form_validation->set_rules('budget_type', 'Budget Type', 'trim|required');
+		$this->form_validation->set_rules('item_name', 'Item', 'trim|required');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
         	$data = array(
+                'ta_id' => $this->session->client_id,
         		'client_id' => $this->session->client_id,
-        		'inquiry_type_id' => $this->input->post('inquiry_type'),
-        		'support_type_id' => $this->input->post('support_type'),
-        		'request' => $this->input->post('request'),
-        		'feedback' => $this->input->post('feedback'),
-        		'inquiry_date' => $this->input->post('inquiry_date'),
-        		'answered_by' => $this->input->post('answered_by'),
+        		'billing_item_id' => $this->input->post('budget_type'),
+        		'p_amount' => $this->input->post('p_amount'),
+        		'a_amount' => $this->input->post('a_amount'),
+        		'date_updated' => $this->input->post('date_updated'),
+        		'updated_by' => $this->input->post('created_by'),
         	);
 
-        	$create = $this->model_inquiry->create($data);
+        	$create = $this->model_internal_cost_plan->create($data);
 
         	if($create == true)
         		{$response['success'] = true;

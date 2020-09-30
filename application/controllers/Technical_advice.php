@@ -11,7 +11,7 @@ class Technical_advice extends Admin_Controller
 		$this->not_logged_in();
 
 		$this->data['page_title'] = 'Technical Advice';
-        $this->data['active_tab'] =  $this->input->get('tab') ?: 'technicalAdvice';
+        $this->data['active_tab'] =  $this->input->get('tab') ?: 'technical_advice';
         $this->log_module = 'Technical Advice';
 
 	}
@@ -287,13 +287,13 @@ class Technical_advice extends Admin_Controller
                 $msg_error = 'Successfully updated';
                 $this->session->set_flashdata('success', $msg_error);
                 //--> Log Action to be placed here
-                redirect('technical_advice/update/'.$technical_advice_id."?tab=technicalAdvice", 'refresh');
+                redirect('technical_advice/update/'.$technical_advice_id."?tab=technical_advice", 'refresh');
             }
             else
             {
                 $msg_error = 'Error occurred';
                 $this->session->set_flashdata('error', $msg_error);
-                redirect('technical_advice/update/'.$technical_advice_id."?tab=technicalAdvice", 'refresh');
+                redirect('technical_advice/update/'.$technical_advice_id."?tab=technical_advice", 'refresh');
             }
         }
         //--> We are in edit of the form, preparation of the drop down list
@@ -305,8 +305,6 @@ class Technical_advice extends Admin_Controller
         $this->data['client'] = $this->model_client->getClientData();
         $this->data['activity'] = $this->model_activity->getActiveActivity();
         $this->data['consultant'] = $this->model_user->getActiveConsultant();
-
-        
 
         $this->render_template('technical_advice/edit', $this->data);
     }
