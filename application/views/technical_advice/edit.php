@@ -547,15 +547,13 @@ var base_url = "<?php echo base_url(); ?>";
 
 $(document).ready(function() {
 
-//---> creation of the drop-down list budget names
-// $budget_type = $('[id="budget_type"]');
-
-// $cost = $('[id=cost');
+$item_cost=$('[id="cost"]');
 $item_name = $('[id="item_name"]');
 var budget_type= document.getElementById('budget_type');
 budget_type.onchange=function(){
   var x = document.getElementById("budget_type").value;
   $item_name.empty();
+  $item_cost.attr("value","");
   if(x=="0"){
     $.ajax({
     url: base_url+'billing/fetchBillingInfo',
@@ -599,25 +597,25 @@ budget_type.onchange=function(){
   });
   }
 };
-// $.ajax({
-//     url: base_url+'billing/fetchBillingInfo',
-//     dataType: "JSON",
-//     success: function (data) 
-//     { 
-//       $item_name.html('<option value=""></option>');
-//       //iterate over the data and append a select option
-//       $.each(data, function (key, val) {
-//         $item_name.append('<option value="' + val.id + '">' + val.name + '</option>');
-//       });
 
-//     },
-//     error: function () {
-//     // if there is an error append a 'none available' option
-//     $item_name.html('<option id="-1">none available</option>');
-//     }
-// });
+var item=document.getElementById('item_name');
+item.onchange=function(){
+  $item_cost.empty();
+  $.ajax({
+    url: base_url+'billing/fetchBillingInfo/'+item.value,
+    dataType: "JSON",
+    success: function (data) 
+    { 
+      $item_cost.attr("value",data.cost);
+    },
+    error: function () {
+    // if there is an error append a 'none available' option
+    
+    }
+});
 
 
+};
 
 
 // $("#inquiryClientNav").addClass('active');
