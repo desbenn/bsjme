@@ -151,6 +151,7 @@ $autoload['model'] = array(
 	'model_dynamic_dependent',
 	'model_inquiry',
 	'model_inquiry_type',
+	'model_internal_cost_plan',
 	'model_log',
 	'model_parish',
 	'model_manual',
