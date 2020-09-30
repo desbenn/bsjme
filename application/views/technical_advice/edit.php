@@ -402,13 +402,13 @@ $(document).ready(function() {
       <div class="row">
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
-            <label for="created_by">Created by</label>
-            <input type="text" class="form-control" id="created_by" name="created_by" autocomplete="off" READONLY>
+            <label for="created_by">Created by<font color="red"> *</font></label>
+            <input type="text" class="form-control" id="created_by" name="created_by" value="<?php  echo $technical_advice_data['updated_by']; ?>" autocomplete="off" READONLY>
           </div>
         </div>
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
-            <label for="date_updated">Date</label>
+            <label for="date_updated">Date<font color="red"> *</font></label>
             <input type="date" class="form-control" id="date_updated" name="date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
           </div>
         </div>
@@ -482,13 +482,13 @@ $(document).ready(function() {
       <div class="row">
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
-            <label for="edit_answered_by">Updated by</label>
+            <label for="edit_answered_by">Updated by<font color="red"> *</font></label>
             <input type="text" class="form-control" id="edit_answered_by" name="edit_answered_by" autocomplete="off">
           </div>
         </div>
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
-            <label for="edit_inquiry_date">Date</label>
+            <label for="edit_inquiry_date">Date<font color="red"> *</font></label>
             <input type="date" class="form-control" id="edit_inquiry_date" name="edit_inquiry_date" autocomplete="off">
           </div>
         </div>
