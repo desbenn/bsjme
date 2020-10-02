@@ -76,21 +76,23 @@
 <!-- Creation of a temporary session to keep the directory and information necessary for the manipulation
               of upload of documents -->
 
-    <?php $this->session->unset_userdata('directory');?>
-        <?php if(empty($this->session->userdata('directory'))) {
-                $directory = array('directory' => '/upload/documents/'.$technical_advice_data['directory'].'/');
-                $this->session->set_userdata($directory);
-                } ?>
+<?php $this->session->unset_userdata('directory');?>
+<?php if(empty($this->session->userdata('directory'))) {
+  $directory = array('directory' => '/upload/documents/'.$technical_advice_data['directory'].'/');
+  $this->session->set_userdata($directory);
+} ?>
 
-          <!-- <?php $this->session->unset_userdata('technical_advice_id');?>
-          <?php if(empty($this->session->userdata('technical_advice_id'))) {
-                $consultation_id = array('technical_advice_id' => $technical_advice_data['id']);
-                $this->session->set_userdata($technical_advice_id);} ?> -->
+<?php $this->session->unset_userdata('technical_advice_id');?>
+<?php if(empty($this->session->userdata('technical_advice_id'))) {
+  $technical_advice_id = array('technical_advice_id' => $technical_advice_data['id']);
+  $this->session->set_userdata($technical_advice_id);} ?>
 
-          <?php $this->session->unset_userdata('client_id');?>
-          <?php if(empty($this->session->userdata('client_id'))) {
-                $client_id = array('client_id' => $technical_advice_data['client_id']);
-                $this->session->set_userdata($client_id);} ?>
+<?php $this->session->unset_userdata('client_id');?>
+<?php if(empty($this->session->userdata('client_id'))) {
+      $client_id = array('client_id' => $technical_advice_data['client_id']);
+      $this->session->set_userdata($client_id);} ?>
+
+
 
 
 
@@ -399,20 +401,14 @@ $(document).ready(function() {
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-            <label for="created_by">Created by<font color="red"> *</font></label>
-            <input type="text" class="form-control" id="created_by" name="created_by" value="<?php  echo $technical_advice_data['updated_by']; ?>" autocomplete="off" READONLY>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
+      
+        
           <div class="form-group">
             <label for="date_updated">Date<font color="red"> *</font></label>
             <input type="date" class="form-control" id="date_updated" name="date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
           </div>
-        </div>
-      </div>
+        
+    
 
     </div>
 
@@ -622,7 +618,7 @@ item.onchange=function(){
 
 // initialize the datatable
 manageTableInternalCostPlan = $('#manageTableInternalCostPlan').DataTable({
-    'ajax': base_url+'inquiry/fetchInquiryClient/23',
+    'ajax': base_url+'internal_cost_plan/fetchInternalCostPlanDataById/'+<?php echo $technical_advice_data['id'] ?>,
     'order': [[0, 'desc']]
 });
 

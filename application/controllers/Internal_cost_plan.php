@@ -29,11 +29,37 @@ class Internal_cost_plan extends Admin_Controller
 
 	public function fetchInternalCostPlanDataById($id)
 	{
-		if($id) {
-			$data = $this->model_internal_cost_plan->getInternalCostPlanData($id);
-			echo json_encode($data);
+		$result = array('data' => array());
+		$data = $this->model_internal_cost_plan->getInternalCostPlanDataByTaId($id);
+		foreach($data as $key => $value){
+			$buttons = '';
+			if(in_array('updateInternalCostPlan', $this->permission)) {
+				$buttons .= '<button type="button" class="btn btn-default" onclick="editInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#editModalInquiry"><i class="fa fa-pencil"></i></button>';
+			}
+			if(in_array('deleteInternalCostPlan', $this->permission)) {
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#removeModalInquiry"><i class="fa fa-trash"></i></button>';
+			}
+			$budget_type='';
+			if($value['budget_type']==0){
+				$budget_type="Revenue";
+			}else{
+				$budget_type="Expense";
+			}
+			$result['data'][$key]=array(
+				$budget_type,
+				$value['item_name'],
+				$value['p_amount'],
+				$value['a_amount'],
+				$value['updated'],
+				$value['date_updated'],
+				$buttons
+			);
 		}
+		
+		// var_dump($data);
+		echo json_encode($result);
 	}
+
 
 
 	//--> It Fetches the internal cost plan data from the internal cost plan table
@@ -93,17 +119,15 @@ class Internal_cost_plan extends Admin_Controller
 
         if ($this->form_validation->run() == TRUE) {
         	$data = array(
-                'ta_id' => $this->session->client_id,
+                'ta_id' => $this->session->technical_advice_id,
         		'client_id' => $this->session->client_id,
-        		'billing_item_id' => $this->input->post('budget_type'),
+        		'billing_item_id' => $this->input->post('item_name'),
         		'p_amount' => $this->input->post('p_amount'),
         		'a_amount' => $this->input->post('a_amount'),
         		'date_updated' => $this->input->post('date_updated'),
-        		'updated_by' => $this->input->post('created_by'),
+        		'updated_by' => $this->session->user_id,
         	);
-
         	$create = $this->model_internal_cost_plan->create($data);
-
         	if($create == true)
         		{$response['success'] = true;
         		$response['messages'] = 'Successfully created';}

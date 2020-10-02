@@ -12,7 +12,7 @@ class Model_technical_advice extends CI_Model
 	{
 		if($id){
 			$sql = "SELECT technical_advice.*, `address`, client_name, company_name, district, email, mobile, phone, postal_code, website, directory,
-			parish.name AS 'parish_name', county.name AS 'county_name',(SELECT name FROM user WHERE client.updated_by = user.id) as 'updated_by'
+			parish.name AS 'parish_name', county.name AS 'county_name',(SELECT name FROM user WHERE technical_advice.updated_by = user.id) as 'updated_by'
 			FROM technical_advice
 			JOIN client on technical_advice.client_id= client.id
 			LEFT JOIN parish ON client.parish_id = parish.id
