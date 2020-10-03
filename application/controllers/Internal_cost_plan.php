@@ -34,10 +34,10 @@ class Internal_cost_plan extends Admin_Controller
 		foreach($data as $key => $value){
 			$buttons = '';
 			if(in_array('updateInternalCostPlan', $this->permission)) {
-				$buttons .= '<button type="button" class="btn btn-default" onclick="editInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#editModalInquiry"><i class="fa fa-pencil"></i></button>';
+				$buttons .= '<button type="button" class="btn btn-default" onclick="editInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#editModalInternalCostPlan"><i class="fa fa-pencil"></i></button>';
 			}
 			if(in_array('deleteInternalCostPlan', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#removeModalInquiry"><i class="fa fa-trash"></i></button>';
+                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#removeModalInternalCostPlan"><i class="fa fa-trash"></i></button>';
 			}
 			$budget_type='';
 			if($value['budget_type']==0){
@@ -60,46 +60,53 @@ class Internal_cost_plan extends Admin_Controller
 		echo json_encode($result);
 	}
 
+	public function fetchInternalCostPlanItemById($id)
+	{
+		if($id) {
+			$data = $this->model_internal_cost_plan->getInternalCostPlanItem($id);
+			echo json_encode($data);
+		}
+	}
 
 
-	//--> It Fetches the internal cost plan data from the internal cost plan table
+	// //--> It Fetches the internal cost plan data from the internal cost plan table
 
-    public function fetchInternalCostPlanClient($id)
-    {
-        $result = array('data' => array());
+    // public function fetchInternalCostPlanClient($id)
+    // {
+    //     $result = array('data' => array());
 
-        $data = $this->model_inquiry->getInquiryClient($id);
+    //     $data = $this->model_inquiry->getInquiryClient($id);
 
-        foreach ($data as $key => $value) {
+    //     foreach ($data as $key => $value) {
 
-        	$support_type_data = $this->model_support_type->getSupportTypeData($value['support_type_id']);
-        	$inquiry_type_data = $this->model_inquiry_type->getInquiryTypeData($value['inquiry_type_id']);
+    //     	$support_type_data = $this->model_support_type->getSupportTypeData($value['support_type_id']);
+    //     	$inquiry_type_data = $this->model_inquiry_type->getInquiryTypeData($value['inquiry_type_id']);
 
-            $buttons = '';
-            $request = $value['request'];
+    //         $buttons = '';
+    //         $request = $value['request'];
 
-            if(in_array('updateInquiry', $this->permission)) {
-               $buttons .= '<button type="button" class="btn btn-default" onclick="editInquiry('.$value['id'].')" data-toggle="modal" data-target="#editModalInquiry"><i class="fa fa-pencil"></i></button>';
-               $request='  <a data-target="#editModalInquiry" onclick="editInquiry('.$value['id'].')" data-toggle="modal" href="#editModalInquiry">'.$value['request'].'</a>';
-            }
+    //         if(in_array('updateInquiry', $this->permission)) {
+    //            $buttons .= '<button type="button" class="btn btn-default" onclick="editInquiry('.$value['id'].')" data-toggle="modal" data-target="#editModalInquiry"><i class="fa fa-pencil"></i></button>';
+    //            $request='  <a data-target="#editModalInquiry" onclick="editInquiry('.$value['id'].')" data-toggle="modal" href="#editModalInquiry">'.$value['request'].'</a>';
+    //         }
 
-            if(in_array('deleteInquiry', $this->permission)) {
-                $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInquiry('.$value['id'].')" data-toggle="modal" data-target="#removeModalInquiry"><i class="fa fa-trash"></i></button>';
-            }
+    //         if(in_array('deleteInquiry', $this->permission)) {
+    //             $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInquiry('.$value['id'].')" data-toggle="modal" data-target="#removeModalInquiry"><i class="fa fa-trash"></i></button>';
+    //         }
 
-            $result['data'][$key] = array(
-            	$request,
-                $inquiry_type_data['name'],
-                $support_type_data['name'],                
-                $value['feedback'],
-                $value['answered_by'],
-				$value['inquiry_date'],
-                $buttons
-            );
-        } // /foreach
+    //         $result['data'][$key] = array(
+    //         	$request,
+    //             $inquiry_type_data['name'],
+    //             $support_type_data['name'],                
+    //             $value['feedback'],
+    //             $value['answered_by'],
+	// 			$value['inquiry_date'],
+    //             $buttons
+    //         );
+    //     } // /foreach
 
-        echo json_encode($result);
-    }
+    //     echo json_encode($result);
+    // }
 
 
 
@@ -153,28 +160,29 @@ class Internal_cost_plan extends Admin_Controller
 
 	public function update($id)
 	{
-		if(!in_array('updateInquiry', $this->permission)) {redirect('dashboard', 'refresh');}
+		if(!in_array('updateInternalCostPlan', $this->permission)) {redirect('dashboard', 'refresh');}
 
 		$response = array();
 
 		if($id) {
 
-			$this->form_validation->set_rules('edit_inquiry_type', 'Inquiry Type', 'trim|required');
-			$this->form_validation->set_rules('edit_support_type', 'Support Type', 'trim|required');
+			$this->form_validation->set_rules('edit_budget_type', 'Budget Type', 'trim|required');
+			$this->form_validation->set_rules('edit_item_name', 'Item', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
 	        if ($this->form_validation->run() == TRUE) {
 
 				$data = array(
-	        		'inquiry_type_id' => $this->input->post('edit_inquiry_type'),
-	        		'support_type_id' => $this->input->post('edit_support_type'),
-	        		'request' => $this->input->post('edit_request'),
-	        		'feedback' => $this->input->post('edit_feedback'),
-	        		'inquiry_date' => $this->input->post('edit_inquiry_date'),
-	        		'answered_by' => $this->input->post('edit_answered_by'),
+	        		'ta_id' => $this->session->technical_advice_id,
+					'client_id' => $this->session->client_id,
+					'billing_item_id' => $this->input->post('edit_item_name'),
+					'p_amount' => $this->input->post('edit_p_amount'),
+					'a_amount' => $this->input->post('edit_a_amount'),
+					'date_updated' => $this->input->post('edit_date_updated'),
+					'updated_by' => $this->session->user_id,
 				);
 
-		        $update = $this->model_inquiry->update($data, $id);
+		        $update = $this->model_internal_cost_plan->update($data, $id);
 
 	        	if($update == true)
 	        		{$response['success'] = true;
@@ -201,17 +209,17 @@ class Internal_cost_plan extends Admin_Controller
 
 	public function remove()
 	{
-		if(!in_array('deleteInquiry', $this->permission)) {
+		if(!in_array('deleteInternalCostPlan', $this->permission)) {
 			redirect('dashboard', 'refresh');
 		}
 
-		$inquiry_id = $this->input->post('inquiry_id');
+		$icp_id = $this->input->post('icp_id');
 
 		$response = '';
 		$response = array();
 
-		if($inquiry_id) {
-			$delete = $this->model_inquiry->remove($inquiry_id);
+		if($icp_id) {
+			$delete = $this->model_internal_cost_plan->remove($icp_id);
 			if($delete == true) {
 				$response['success'] = true;
 				$response['messages'] = 'Successfully deleted';}

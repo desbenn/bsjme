@@ -20,11 +20,37 @@ class Model_internal_cost_plan extends CI_Model
 		
 	}
 
+	public function getInternalCostPlanItem($id = null)
+	{
+		if($id) {
+			$sql = "SELECT * FROM internal_cost_plan where id = ?";
+			$query = $this->db->query($sql, array($id));
+			return $query->row_array();
+		}
+
+		$sql = "SELECT * FROM internal_cost_plan";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+
     public function create($data)
 	{
 		if($data) {
 			$insert = $this->db->insert('internal_cost_plan', $data);
 			return ($insert == true) ? true : false;
+		}
+	}
+
+	public function remove($id)
+	{
+
+		if($id) {
+			
+			// delete the internal cost plan item
+			$this->db->where('id', $id);
+			$delete = $this->db->delete('internal_cost_plan');
+		    return ($delete == true) ? true : false;
+
 		}
 	}
 

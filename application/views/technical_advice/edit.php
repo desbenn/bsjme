@@ -399,14 +399,12 @@ $(document).ready(function() {
             <input type="number" class="form-control" id="a_amount" name="a_amount" autocomplete="off">
           </div>
         </div>
+      </div>  
+    
+      <div class="form-group">
+        <label for="date_updated">Date<font color="red"> *</font></label>
+        <input type="date" class="form-control" id="date_updated" name="date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
       </div>
-
-      
-        
-          <div class="form-group">
-            <label for="date_updated">Date<font color="red"> *</font></label>
-            <input type="date" class="form-control" id="date_updated" name="date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
-          </div>
         
     
 
@@ -430,65 +428,58 @@ $(document).ready(function() {
 <!-- Edit Inquiry ------------------------------------------------------------------------------------->
 
 <?php if(in_array('updateInternalCostPlan', $user_permission)): ?>
-<div class="modal fade" tabindex="-1" role="dialog" id="editModalInquiry">
+<div class="modal fade" tabindex="-1" role="dialog" id="editModalInternalCostPlan">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Edit Inquiry</h4>
+    <h4 class="modal-title">Edit Revenue/Expense Item</h4>
   </div>
 
-  <form role="form" action="<?php echo base_url('inquiry/update') ?>" method="post" id="editFormInquiry">
+  <form role="form" action="<?php echo base_url('internal_cost_plan/update') ?>" method="post" id="editInternalCostPlan">
 
     <div class="modal-body">
       <div id="messages"></div>
-
       <div class="form-group">
         <label>Budget Type (Revenue/Expense)<font color="red"> *</font></label>
-          <select name="edit_inquiry_type" id="budget_type" class="form-control select2" style="width: 100%;">
+          <select name="edit_budget_type" id="budget_type" class="form-control select2" style="width: 100%;">
+          <option value=""></option>
+          <option value="0">Revenue</option>
+          <option value="1">Expense</option>
           </select>
       </div>
 
       <div class="form-group">
         <label>Item<font color="red"> *</font></label>
-          <select name="edit_support_type" id="item_name" class="form-control select2" style="width: 100%;">
+          <select name="edit_item_name" id="item_name" class="form-control select2" style="width: 100%;">
           </select>
       </div>
 
       <div class="form-group">
-        <label for="edit_request">Cost $JMD</label>
-        <input type="number" class="form-control" id="edit_request" name="edit_request" autocomplete="off"></input>
+      <label for="cost">Cost $JMD</label>
+            <input type="number" class="form-control" id="cost" name="cost" autocomplete="off" READONLY>
       </div>
 
       <div class="row">
         <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <label for="edit_feedback">Planned Estimate ($JMD)</label>
-                <input type="number" class="form-control" id="edit_feedback" name="edit_feedback" autocomplete="off"></input>
-            </div>
+          <div class="form-group">
+            <label for="edit_p_amount">Planned Estimate ($JMD)</label>
+            <input type="number" class="form-control" id="p_amount" name="edit_p_amount" autocomplete="off">
+          </div>
         </div>
         <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <label for="edit_feedback">Actual Spent ($JMD)</label>
-                <input type="number" class="form-control" id="edit_feedback" name="edit_feedback" autocomplete="off"></input>
-            </div>
-        </div>        
+          <div class="form-group">
+          <label for="edit_a_amount">Actual Spent ($JMD)</label>
+            <input type="number" class="form-control" id="a_amount" name="edit_a_amount" autocomplete="off">
+          </div>
+        </div>
+      </div>  
+    
+      <div class="form-group">
+        <label for="edit_date_updated">Date<font color="red"> *</font></label>
+        <input type="date" class="form-control" id="date_updated" name="edit_date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
       </div>
       
-      <div class="row">
-        <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-            <label for="edit_answered_by">Updated by<font color="red"> *</font></label>
-            <input type="text" class="form-control" id="edit_answered_by" name="edit_answered_by" autocomplete="off">
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-            <label for="edit_inquiry_date">Date<font color="red"> *</font></label>
-            <input type="date" class="form-control" id="edit_inquiry_date" name="edit_inquiry_date" autocomplete="off">
-          </div>
-        </div>
-      </div>
 
     </div>
 
@@ -508,7 +499,7 @@ $(document).ready(function() {
 
 <?php if(in_array('deleteInternalCostPlan', $user_permission)): ?>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="removeModalInquiry">
+<div class="modal fade" tabindex="-1" role="dialog" id="removeModalInternalCostPlan">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
   <div class="modal-header">
@@ -516,7 +507,7 @@ $(document).ready(function() {
     <h4 class="modal-title">Delete Inquiry</h4>
   </div>
 
-  <form role="form" action="<?php echo base_url('inquiry/remove') ?>" method="post" id="removeFormInquiry">
+  <form role="form" action="<?php echo base_url('internal_cost_plan/remove') ?>" method="post" id="removeFormInternalCostPlan">
     <div class="modal-body">
       <p>Do you really want to delete?</p>
     </div>
@@ -683,11 +674,11 @@ function editInquiry(id)
 
 {
 $.ajax({
-url: base_url + 'inquiry/fetchInquiryDataById/'+id,
+url: base_url + 'internal_cost_plan/fetchInternalCostPlanItemById/'+id,
 type: 'post',
 dataType: 'json',
 success:function(response) {
-     $('[name="edit_inquiry_type"]').val(response.inquiry_type_id);
+     $('[name="edit_budget_type"]').val(response.inquiry_type_id);
      $('[name="edit_support_type"]').val(response.support_type_id);
      $("#edit_request").val(response.request);
      $("#edit_feedback").val(response.feedback);
@@ -698,7 +689,7 @@ success:function(response) {
 
 
      // submit the update form
-     $("#editFormInquiry").unbind('submit').bind('submit', function() {
+     $("#editInternalCostPlan").unbind('submit').bind('submit', function() {
         var form = $(this);
 
     // remove the text-danger
@@ -716,9 +707,9 @@ success:function(response) {
         if(response.success === true) {
 
           // hide the modal
-          $("#editModalInquiry").modal('hide');
+          $("#editModalInternalCostPlan").modal('hide');
           // reset the form
-          $("#editFormInquiry .form-group").removeClass('has-error').removeClass('has-success');
+          $("#editInternalCostPlan .form-group").removeClass('has-error').removeClass('has-success');
 
         } else {
 
@@ -753,10 +744,10 @@ success:function(response) {
 
 //---> Delete functions
 
-function removeInquiry(id)
+function removeInternalCostPlan(id)
 {
 if(id) {
-$("#removeFormInquiry").on('submit', function() {
+$("#removeFormInternalCostPlan").on('submit', function() {
 
   var form = $(this);
 
@@ -766,7 +757,7 @@ $("#removeFormInquiry").on('submit', function() {
   $.ajax({
     url: form.attr('action'),
     type: form.attr('method'),
-    data: { inquiry_id:id },
+    data: { icp_id:id },
     dataType: 'json',
     success:function(response) {
 
@@ -774,7 +765,7 @@ $("#removeFormInquiry").on('submit', function() {
 
       if(response.success === true) {
        // hide the modal
-        $("#removeModalInquiry").modal('hide');
+        $("#removeModalInternalCostPlan").modal('hide');
       } else {
         $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
           '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+

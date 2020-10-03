@@ -103,7 +103,7 @@ class Model_technical_advice extends CI_Model
 
 		if($id) {
 			
-			// delete the consultation
+			// delete the technical advice
 			$this->db->where('id', $id);
 			$delete = $this->db->delete('technical_advice');
 		    return ($delete == true) ? true : false;
