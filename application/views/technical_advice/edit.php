@@ -457,7 +457,7 @@ $(document).ready(function() {
 
       <div class="form-group">
       <label for="cost">Cost $JMD</label>
-            <input type="number" class="form-control" id="cost" name="cost" autocomplete="off" READONLY>
+            <input type="number" class="form-control" id="cost" name="edit_cost" autocomplete="off" READONLY>
       </div>
 
       <div class="row">
@@ -670,7 +670,7 @@ return false;
 
 //---> Edit function
 
-function editInquiry(id)
+function editInternalCostPlan(id)
 
 {
 $.ajax({
@@ -678,12 +678,11 @@ url: base_url + 'internal_cost_plan/fetchInternalCostPlanItemById/'+id,
 type: 'post',
 dataType: 'json',
 success:function(response) {
-     $('[name="edit_budget_type"]').val(response.inquiry_type_id);
-     $('[name="edit_support_type"]').val(response.support_type_id);
-     $("#edit_request").val(response.request);
-     $("#edit_feedback").val(response.feedback);
-     $("#edit_answered_by").val(response.answered_by);
-     $("#edit_inquiry_date").val(response.inquiry_date);
+     $('[name="edit_budget_type"]').val(response.budget_type);
+     $('[name="edit_item_name"]').val(response.billing_item_name);
+     $('[name="edit_cost"]').val(response.billing_item_cost);
+     $('[name="edit_p_amount"]').val(response.p_amount);
+     $('[name="edit_a_amount"]').val(response.a_amount);
 
 
 

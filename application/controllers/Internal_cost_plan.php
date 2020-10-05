@@ -32,6 +32,7 @@ class Internal_cost_plan extends Admin_Controller
 		$result = array('data' => array());
 		$data = $this->model_internal_cost_plan->getInternalCostPlanDataByTaId($id);
 		foreach($data as $key => $value){
+			// $billing_item_data = $this->model_billing->getBillingData();
 			$buttons = '';
 			if(in_array('updateInternalCostPlan', $this->permission)) {
 				$buttons .= '<button type="button" class="btn btn-default" onclick="editInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#editModalInternalCostPlan"><i class="fa fa-pencil"></i></button>';
@@ -63,8 +64,22 @@ class Internal_cost_plan extends Admin_Controller
 	public function fetchInternalCostPlanItemById($id)
 	{
 		if($id) {
-			$data = $this->model_internal_cost_plan->getInternalCostPlanItem($id);
-			echo json_encode($data);
+			$result = array('data' => array());
+			$internal_cost_plan_item = $this->model_internal_cost_plan->getInternalCostPlanItem($id);
+			
+			//this is to get the information for the specific billing item
+			$billing_item_data = $this->model_billing->getBillingData($internal_cost_plan_item['billing_item_id']);
+			$result=array(
+				'intenral_cost_plan_item'=>$internal_cost_plan_item['id'],
+				'billing_item_id'=>$billing_item_data['id'],
+				'billing_item_name'=>$billing_item_data['name'],
+				'budget_type'=>$billing_item_data['type'],
+				'billing_item_cost'=>$billing_item_data['cost'],
+				'p_amount'=>$internal_cost_plan_item['p_amount'],
+				'a_amount'=>$internal_cost_plan_item['a_amount']
+				
+			);
+			echo json_encode($result);
 		}
 	}
 
