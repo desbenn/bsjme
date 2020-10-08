@@ -35,7 +35,7 @@ class Internal_cost_plan extends Admin_Controller
 			// $billing_item_data = $this->model_billing->getBillingData();
 			$buttons = '';
 			if(in_array('updateInternalCostPlan', $this->permission)) {
-				$buttons .= '<button type="button" class="btn btn-default" onclick="editInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#editModalInternalCostPlan"><i class="fa fa-pencil"></i></button>';
+				$buttons .= '<a href="'.base_url('internal_cost_plan/update/'.$value['id']).'" class="btn btn-default"><i class="fa fa-pencil"></i></a>';
 			}
 			if(in_array('deleteInternalCostPlan', $this->permission)) {
                 $buttons .= ' <button type="button" class="btn btn-default" onclick="removeInternalCostPlan('.$value['id'].')" data-toggle="modal" data-target="#removeModalInternalCostPlan"><i class="fa fa-trash"></i></button>';
@@ -177,46 +177,41 @@ class Internal_cost_plan extends Admin_Controller
 	{
 		if(!in_array('updateInternalCostPlan', $this->permission)) {redirect('dashboard', 'refresh');}
 
-		$response = array();
+        if(!$id) {redirect('dashboard', 'refresh');}
+		$this->form_validation->set_rules('edit_billing_item', 'Item', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
-		if($id) {
+		if ($this->form_validation->run() == TRUE) 
+		{
 
-			$this->form_validation->set_rules('edit_budget_type', 'Budget Type', 'trim|required');
-			$this->form_validation->set_rules('edit_item_name', 'Item', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
-
-	        if ($this->form_validation->run() == TRUE) {
-
-				$data = array(
-	        		'ta_id' => $this->session->technical_advice_id,
+                $data = array(
+					'ta_id' => $this->session->technical_advice_id,
 					'client_id' => $this->session->client_id,
-					'billing_item_id' => $this->input->post('edit_item_name'),
+					'billing_item_id' => $this->input->post('edit_billing_item'),
 					'p_amount' => $this->input->post('edit_p_amount'),
 					'a_amount' => $this->input->post('edit_a_amount'),
-					'date_updated' => $this->input->post('edit_date_updated'),
+					'date_updated' => date('Y-m-d'),
 					'updated_by' => $this->session->user_id,
-				);
+				);          
 
-		        $update = $this->model_internal_cost_plan->update($data, $id);
+			$update = $this->model_internal_cost_plan->update($data,$id);
+			if($update==true){
+				$this->session->set_flashdata('success', 'Successfully updated');
+                redirect('technical_advice/update/'.$this->session->technical_advice_id, 'refresh');
+			}
+			else{
+				$this->session->set_flashdata('errors', 'Error occurred!!');
+                redirect('technical_advice/update/'.$this->session->technical_advice_id, 'refresh');
+			}            
+		}		
+		else 
+		{          		
+			$this->data['billing_item'] = $this->model_billing->getBillingData();
+			$this->data['icp_item_data']=$this->model_internal_cost_plan->getInternalCostPlanItem($id);           
 
-	        	if($update == true)
-	        		{$response['success'] = true;
-	        		$response['messages'] = 'Successfully updated';}
-	        	else
-	        		{$response['success'] = false;
-	        		$response['messages'] = 'Error in the database while updating the information';}
-	        	}  //end form validation is true
-	        else   //form validation is false
-	        	{$response['successa'] = false;
-	        	foreach ($_POST as $key => $value) {$response['messages'][$key] = form_error($key);}
-	            }
-		}  //else no id
-		else {
-			$response['successb'] = false;
-    		$response['messages'] = 'Error please refresh the page again';
-		}
-
-		echo json_encode($response);
+            
+            $this->render_template('internal_cost_plan/edit', $this->data); 
+        }   
 	}
 
 

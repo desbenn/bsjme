@@ -54,5 +54,14 @@ class Model_internal_cost_plan extends CI_Model
 		}
 	}
 
+	public function update($data, $id)
+	{
+		if($data && $id) {
+			$this->db->where('id', $id);
+			$update = $this->db->update('internal_cost_plan', $data);
+			return ($update == true) ? true : false;
+		}
+    }
+
 	
 }

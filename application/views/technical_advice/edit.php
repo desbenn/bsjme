@@ -423,78 +423,6 @@ $(document).ready(function() {
 <?php endif; ?>
 
 
-
-
-<!-- Edit Inquiry ------------------------------------------------------------------------------------->
-
-<?php if(in_array('updateInternalCostPlan', $user_permission)): ?>
-<div class="modal fade" tabindex="-1" role="dialog" id="editModalInternalCostPlan">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Edit Revenue/Expense Item</h4>
-  </div>
-
-  <form role="form" action="<?php echo base_url('internal_cost_plan/update') ?>" method="post" id="editInternalCostPlan">
-
-    <div class="modal-body">
-      <div id="messages"></div>
-      <div class="form-group">
-        <label>Budget Type (Revenue/Expense)<font color="red"> *</font></label>
-          <select name="edit_budget_type" id="budget_type" class="form-control select2" style="width: 100%;">
-          <option value=""></option>
-          <option value="0">Revenue</option>
-          <option value="1">Expense</option>
-          </select>
-      </div>
-
-      <div class="form-group">
-        <label>Item<font color="red"> *</font></label>
-          <select name="edit_item_name" id="item_name" class="form-control select2" style="width: 100%;">
-          </select>
-      </div>
-
-      <div class="form-group">
-      <label for="cost">Cost $JMD</label>
-            <input type="number" class="form-control" id="cost" name="edit_cost" autocomplete="off" READONLY>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-            <label for="edit_p_amount">Planned Estimate ($JMD)</label>
-            <input type="number" class="form-control" id="p_amount" name="edit_p_amount" autocomplete="off">
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-          <label for="edit_a_amount">Actual Spent ($JMD)</label>
-            <input type="number" class="form-control" id="a_amount" name="edit_a_amount" autocomplete="off">
-          </div>
-        </div>
-      </div>  
-    
-      <div class="form-group">
-        <label for="edit_date_updated">Date<font color="red"> *</font></label>
-        <input type="date" class="form-control" id="date_updated" name="edit_date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
-      </div>
-      
-
-    </div>
-
-    <div class="modal-footer">
-      <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-
-  </form>
-</div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<?php endif; ?>
-
-
 <!-- Delete Inquiry --------------------------------------------------------------------------------->
 
 <?php if(in_array('deleteInternalCostPlan', $user_permission)): ?>
@@ -601,7 +529,6 @@ item.onchange=function(){
     }
 });
 
-
 };
 
 
@@ -668,78 +595,7 @@ return false;
 
 });
 
-//---> Edit function
 
-function editInternalCostPlan(id)
-
-{
-$.ajax({
-url: base_url + 'internal_cost_plan/fetchInternalCostPlanItemById/'+id,
-type: 'post',
-dataType: 'json',
-success:function(response) {
-     $('[name="edit_budget_type"]').val(response.budget_type);
-     $('[name="edit_item_name"]').val(response.billing_item_name);
-     $('[name="edit_cost"]').val(response.billing_item_cost);
-     $('[name="edit_p_amount"]').val(response.p_amount);
-     $('[name="edit_a_amount"]').val(response.a_amount);
-
-
-
-
-     // submit the update form
-     $("#editInternalCostPlan").unbind('submit').bind('submit', function() {
-        var form = $(this);
-
-    // remove the text-danger
-    $(".text-danger").remove();
-
-    $.ajax({
-      url: form.attr('action') + '/' + id,
-      type: form.attr('method'),
-      data: form.serialize(), // converting the form data into array and sending it to server
-      dataType: 'json',
-      success:function(response) {
-
-        manageTableInternalCostPlan.ajax.reload(null, false);
-
-        if(response.success === true) {
-
-          // hide the modal
-          $("#editModalInternalCostPlan").modal('hide');
-          // reset the form
-          $("#editInternalCostPlan .form-group").removeClass('has-error').removeClass('has-success');
-
-        } else {
-
-          if(response.messages instanceof Object) {
-            $.each(response.messages, function(index, value) {
-              var id = $("#"+index);
-
-              id.closest('.form-group')
-              .removeClass('has-error')
-              .removeClass('has-success')
-              .addClass(value.length > 0 ? 'has-error' : 'has-success');
-
-              id.after(value);
-
-            });
-          } else {
-            $("#messages").html('<div class="alert alert-warning alert-dismissible" role="alert">'+
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-              '<strong> <span class="glyphicon glyphicon-exclamation-sign"></span> </strong>'+response.messages+
-            '</div>');
-          }
-        }
-      }
-    });
-
-    return false;
-  });
-
-}
-});
-}
 
 //---> Delete functions
 
