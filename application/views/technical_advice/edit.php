@@ -325,7 +325,10 @@ $(document).ready(function() {
                 <?php if(in_array('createInternalCostPlan', $user_permission)): ?>
                   <button class="btn btn-primary" data-toggle="modal" data-target="#createModalInternalCostPlan">
                   Add Revenue/Expense Item</button>
-                  <br /> <br />
+                <?php endif; ?>
+                <?php if(in_array('viewInternalCostPlan', $user_permission)): ?>
+                  <?php echo '<a href="'.base_url('report09/report09/'.$technical_advice_data['id']).'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
+                <br /> <br />
                 <?php endif; ?>
 
                 <table id="manageTableInternalCostPlan" class="table table-bordered table-striped" style="width:100%">
@@ -451,7 +454,7 @@ $(document).ready(function() {
 
 
 <!------------------------------------->
-<!-- Javascript part of Inquiry    --->
+<!-- Javascript part of Internal Cost Plan    --->
 <!------------------------------------->
 
 <script type="text/javascript">
