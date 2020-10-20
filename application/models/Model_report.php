@@ -563,12 +563,15 @@ class Model_report extends CI_Model
 
 	public function getReport09($id)
 	{
-		$sql = "SELECT internal_cost_plan.*,billing_item.type as 'budget_type', billing_item.name as 'item_name', billing_item.description as 'description', billing_item.cost as 'item_cost',(SELECT name FROM user where internal_cost_plan.updated_by=user.id) as 'updated'  
-			FROM internal_cost_plan
-			LEFT JOIN billing_item on internal_cost_plan.billing_item_id = billing_item.id
-			where ta_id = ?";
-			$query = $this->db->query($sql, array($id));
-			return $query->result();
+		$sql = "SELECT internal_cost_plan.*,billing_item.type as 'budget_type', billing_item.name as 'item_name', 
+		billing_item.description as 'description', billing_item.cost as 'item_cost',(SELECT name FROM user where internal_cost_plan.updated_by=user.id) as 'updated',
+		client.client_name as 'client_name', client.company_name as 'company_name'
+		FROM internal_cost_plan 
+		JOIN billing_item on internal_cost_plan.billing_item_id = billing_item.id 
+		JOIN client on internal_cost_plan.client_id = client.id 
+		where ta_id = ?";
+		$query = $this->db->query($sql, array($id));
+		return $query->result();
 
 	}
 

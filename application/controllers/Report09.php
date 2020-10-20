@@ -9,7 +9,7 @@ class Report09 extends Admin_Controller
 		
 		parent::__construct();
 
-		$this->data['page_title'] = 'Report';
+		$this->data['page_title'] = 'Cost Plan';
 		
 	}
 
@@ -57,39 +57,113 @@ class Report09 extends Admin_Controller
               );
 
 	$this->table->set_template($template);
-
-	$this->table->set_heading('<th width="10%" height="28"><strong>Revenue/Expense</strong></th>', 
-                              '<th width="20%" height="28"><strong>Billing Item</strong></th>', 
-							  '<th width="25%" height="28"><strong>Description</strong></th>',		
-							  '<th width="15%" height="28"><strong>Item Cost $JMD</strong></th>',
-							  '<th width="15%" height="28"><strong>Planned Estimate $JMD</strong></th>',							  		
-		                  	  '<th width="15%" height="28"><strong>Actual Amount $JMD</strong></th>');
 	
 	// Call to the database
-	$report = $this->model_report->getReport09($technical_advice_id);
-
-	if ($report == null) {
+	$ICP_Report = $this->model_report->getReport09($technical_advice_id);
+	$client_id=null;
+	if($ICP_Report == null){
 		// If not data found, we indicate in the report first line
-		$this->table->add_row('No data found');        
+		$this->table->add_row('No data found');  
 	}
-	else {
-        // var_dump($report);
-		foreach ($report as $rs):
-            
-            if($rs->id =="0")
-            {
-                $cell1 = array('data' => "Revenue", 'width' => '10%');
-            }
-            else{
-                $cell1 = array('data' => "Expense", 'width' => '10%');
-            }			
-			$cell2 = array('data' => $rs->item_name, 'width' => '20%');
-			$cell3 = array('data' => $rs->description, 'width' => '25%');
-			$cell4 = array('data' => $rs->item_cost, 'width' => '15%');			
-            $cell5 = array('data' => $rs->p_amount, 'width' => '15%');		
-            $cell6 = array('data' => $rs->a_amount, 'width' => '20%');
-			$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5, $cell6);
+	else{
+		$estimate_income=0;
+		$actual_income=0;
+		$estimate_expense=0;
+		$actual_expense=0;
+		$net_estimate=0;
+		$net_actual=0;
+		//get the client information to display on report
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Client Information</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
+		$this->table->add_row($cell1);
+		$client_id = $ICP_Report[0]->client_id;
+		$REP0C = $this->model_report->getReportClient($client_id);
+		foreach($REP0C as $rs):
+			$cell1 = array('data' => '<strong>Company Name:&nbsp;&nbsp;</strong>'.$rs->company_name, 'width' => '50%');
+			$cell2 = array('data' => '<strong>Client Name:&nbsp;&nbsp;</strong>'.$rs->client_name, 'width' => '50%');
+			$this->table->add_row($cell1, $cell2);
+			$cell1 = array('data' => '<strong>Date Created:&nbsp;&nbsp;</strong>'.date('Y-m-d (H:i:s)'), 'width' => '50%');
+			$this->table->add_row($cell1);
 		endforeach;
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Internal Cost Plan</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Item Name</strong>', 'width' => '20%');
+		$cell2 = array('data' => '<strong>Description</strong>', 'width' => '35%');
+		$cell3 = array('data' => '<strong>Item Cost</strong>', 'width' => '15%');
+		$cell4 = array('data' => '<strong>Planned Estimate ($JMD)</strong>', 'width' => '15%');
+		$cell5 = array('data' => '<strong>Actual Amount ($JMD)</strong>', 'width' => '15%');
+		$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+		
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Revenues</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
+		$this->table->add_row($cell1);
+
+		foreach($ICP_Report as $rs):
+
+			if($rs->budget_type=="0")//Check if item is a revenue item
+			{
+				$estimate_income += $rs->p_amount;
+				$actual_income += $rs->a_amount;
+				$cell1 = array('data' => $rs->item_name, 'width' => '20%');
+				$cell2 = array('data' => $rs->description, 'width' => '35%');
+				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');			
+				$cell4 = array('data' => $rs->p_amount, 'width' => '15%');
+				$cell5 = array('data' => $rs->a_amount, 'width' => '15%');
+				$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+			}
+
+		endforeach;
+
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Total Income</strong>', 'height' => '20', 'width' => '70%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell2 = array('data' => '<strong>'.$estimate_income.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell3 = array('data' => '<strong>'.$actual_income.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+
+		$this->table->add_row($cell1, $cell2, $cell3);
+
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Expenses</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
+		$this->table->add_row($cell1);
+		foreach($ICP_Report as $rs):
+
+			if($rs->budget_type=="1")//Check if item is a revenue item
+			{
+				$estimate_expense += $rs->p_amount;
+				$actual_expense += $rs->a_amount;
+				$cell1 = array('data' => $rs->item_name, 'width' => '20%');
+				$cell2 = array('data' => $rs->description, 'width' => '35%');
+				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');			
+				$cell4 = array('data' => $rs->p_amount, 'width' => '15%');
+				$cell5 = array('data' => $rs->a_amount, 'width' => '15%');
+				$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+			}
+
+		endforeach;
+
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Total Expenses</strong>', 'height' => '20', 'width' => '70%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell2 = array('data' => '<strong>'.$estimate_expense.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell3 = array('data' => '<strong>'.$actual_expense.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+
+		$this->table->add_row($cell1, $cell2, $cell3);
+
+		$net_estimate=$estimate_income-$estimate_expense;
+		$net_actual=$actual_income-$actual_expense;
+		$cell1 = array('data' => '');
+		$this->table->add_row($cell1);
+		$cell1 = array('data' => '<strong>Net Income</strong>', 'height' => '20', 'width' => '70%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell2 = array('data' => '<strong>'.$net_estimate.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+		$cell3 = array('data' => '<strong>'.$net_actual.'</strong>', 'height' => '20', 'width' => '15%', 'bgcolor' => 'rgb(235,235,235)');
+
+		$this->table->add_row($cell1, $cell2, $cell3);
+		
 	}
 	
 
