@@ -121,8 +121,6 @@ class Model_technical_advice extends CI_Model
 		}
 	}
 
-	
-
 
 
 }
