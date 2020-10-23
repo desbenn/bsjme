@@ -561,7 +561,8 @@ class Model_report extends CI_Model
 			return $query->result();
 	}
 
-	public function getReport09($id)
+	//--> Report to generate the different items for an internal cost plan for a specific technical advice
+	public function getReportInternalCostPlan($id)
 	{
 		$sql = "SELECT internal_cost_plan.*,billing_item.type as 'budget_type', billing_item.name as 'item_name', 
 		billing_item.description as 'description', billing_item.cost as 'item_cost',(SELECT name FROM user where internal_cost_plan.updated_by=user.id) as 'updated',

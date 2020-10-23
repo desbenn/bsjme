@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Report09 extends Admin_Controller 
+class Report_Internal_Cost_Plan extends Admin_Controller 
 {	 
 	public function __construct()
 	{
@@ -14,7 +14,7 @@ class Report09 extends Admin_Controller
 	}
 
 
-	public function report09($technical_advice_id) {	
+	public function report_internal_cost_plan($technical_advice_id) {	
 
 	// Orientation (Landscape or Portrait, format, character, keepmargin, )
 	// Orientation is not working here but works in AddPage('L')
@@ -59,7 +59,7 @@ class Report09 extends Admin_Controller
 	$this->table->set_template($template);
 	
 	// Call to the database
-	$ICP_Report = $this->model_report->getReport09($technical_advice_id);
+	$ICP_Report = $this->model_report->getReportInternalCostPlan($technical_advice_id);
 	$client_id=null;
 	if($ICP_Report == null){
 		// If not data found, we indicate in the report first line
@@ -181,7 +181,7 @@ class Report09 extends Admin_Controller
 
 	// Close and output PDF document
 	// (I - Inline, D - Download, F - File)
-	$pdf->Output('report09.pdf', 'I');	
+	$pdf->Output('report_internal_cost_plan.pdf', 'I');	
 	
 	
 }	

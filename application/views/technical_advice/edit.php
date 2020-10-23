@@ -326,7 +326,7 @@ $(document).ready(function() {
                   Add Revenue/Expense Item</button>
                 <?php endif; ?>
                 <?php if(in_array('viewInternalCostPlan', $user_permission)): ?>
-                  <?php echo '<a href="'.base_url('report09/report09/'.$technical_advice_data['id']).'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
+                  <?php echo '<a href="'.base_url('report_internal_cost_plan/report_internal_cost_plan/'.$technical_advice_data['id']).'" target="_blank" class="btn btn-success"><i class="fa fa-print"></i></a>'; ?>
                 <br /> <br />
                 <?php endif; ?>
 
