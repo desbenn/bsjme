@@ -158,21 +158,6 @@
                 <?php endif; ?>
                 </div>
         </div>
-        <br> 
-
-        <div class="row">
-            <div class="col-md-12 col-xs-12">           
-            <?php echo '<a href="'.base_url('report_consultation/REP0I/'.$technical_advice_data['id']).'" target="_blank"  class="btn btn-success">Print Consultation</a>'; ?>
-            </div> 
-        </div>
-        <br>
-
-        <div class="row">
-            <div class="col-md-12 col-xs-12">
-            <?php echo '<a href="'.base_url('Manual01/QPM01/'.$technical_advice_data['id']).'" target="_blank"  
-            class="btn btn-success">Print the Manual&nbsp;&nbsp;&nbsp;&nbsp;</a>'; ?>
-            </div>
-        </div>
         <br>
         <div class="row">           
             <div class="col-md-12 col-xs-12">
