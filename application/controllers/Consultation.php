@@ -85,7 +85,8 @@ class Consultation extends Admin_Controller
         } else {
             $data = $this->model_consultation->getConsultationByConsultant($consultant);
         }        
-
+        
+        // var_dump($data);
 		foreach ($data as $key => $value) {
 
             $phase_data = $this->model_phase->getPhaseData($value['phase_id']);
@@ -93,6 +94,7 @@ class Consultation extends Admin_Controller
             $client_data = $this->model_client->getClientDataById($value['client_id']);            
             $program_data = $this->model_program->getProgramData($value['program_id']);
 
+            // var_dump($value['program_id']);
             //--> Prepare the list of consultants to view in the datatable
 
             $consultant = json_decode($value['consultant_id']);
@@ -149,14 +151,14 @@ class Consultation extends Admin_Controller
         }
 
         $this->form_validation->set_rules('client', 'Client/Company', 'trim|required');
-       // $this->form_validation->set_rules('program', 'Program', 'trim|required');
-        //$this->form_validation->set_rules('standard', 'Standard', 'trim|required');
+        $this->form_validation->set_rules('program', 'Program', 'trim|required');
+        $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
         $this->form_validation->set_rules('consultation_no', 'Consultation No', 'trim|required');
 		$this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('date_creation', 'Date creation', 'trim|required');
-        //$this->form_validation->set_rules('sector', 'Sector', 'trim|required');
-        //$this->form_validation->set_rules('phase', 'Phase', 'trim|required');
-        //$this->form_validation->set_rules('status', 'Status', 'trim|required');  
+        $this->form_validation->set_rules('sector', 'Sector', 'trim|required');
+        $this->form_validation->set_rules('phase', 'Phase', 'trim|required');
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');  
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
