@@ -381,7 +381,7 @@
 
               <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="program">Program</label>
+                      <label for="program">Program<font color="red"> *</font></label>
                       <select class="form-control select_group" id="program" name="program">
                        <option value="">Select Program</option>
                         <?php
@@ -398,7 +398,7 @@
 
                <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="phase">Phase</label>
+                  <label for="phase">Phase<font color="red"> *</font></label>
                   <select class="form-control select_group" id="phase" name="phase">
                     <option value="">Select Phase</option>
                     <?php foreach ($phase as $k => $v): ?>
@@ -410,7 +410,7 @@
 
               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="status">Status</label>
+                  <label for="status">Status<font color="red"> *</font></label>
                   <select class="form-control select_group" id="status" name="status">
                     <option value="">Select Status</option>
                     <?php foreach ($status as $k => $v): ?>
@@ -428,7 +428,7 @@
 
              <div class="col-md-4 col-xs-4">
                     <div class="form-group">
-                      <label for="standard">Standard</label>
+                      <label for="standard">Standard<font color="red"> *</font></label>
                       <select class="form-control select_group" id="standard" name="standard">
                        <option value="">Select Standard</option>
                         <?php
@@ -445,7 +445,7 @@
 
              <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="clause">Clause</label>
+                  <label for="clause">Clause<font color="red"> *</font></label>
                   <select class="form-control select_group" id="clause" name="clause">
                     <option value="">Select Clause</option>
                     <?php foreach ($clause as $k => $v): ?>
@@ -458,7 +458,7 @@
               
               <div class="col-md-4 col-xs-4">
                 <div class="form-group">
-                  <label for="sector">Sector</label>
+                  <label for="sector">Sector<font color="red"> *</font></label>
                   <select class="form-control select_group" id="sector" name="sector">
                     <option value="">Select Sector</option>
                     <?php foreach ($sector as $k => $v): ?>
