@@ -98,6 +98,7 @@ class Question extends Admin_Controller
             );  
             
             $question_id = $this->model_question->create($data);
+            
             if($question_id) {
                 // print_r($question_id);die;
 
