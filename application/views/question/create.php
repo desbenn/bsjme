@@ -86,10 +86,7 @@
                   </thead>
 
                    <tbody>
-                     <tr id="row_1">
-                        <td><input type="text" name="option[]" id="option_1" class="form-control" ></td>                
-                        <td><button type="button" class="btn btn-default" onclick="removeRow('1')"><i class="fa fa-close"></i></button></td>
-                     </tr>
+                  
                    </tbody>
                 </table>
 

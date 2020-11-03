@@ -100,20 +100,18 @@ class Question extends Admin_Controller
             $question_id = $this->model_question->create($data);
             
             if($question_id) {
-                // print_r($question_id);die;
 
+                if (!empty($this->input->post('option'))) {
+                    $count_option = count($this->input->post('option'));
+                    for($x = 0; $x < $count_option; $x++) {
+                        $option = array(
+                            'question_id' => $question_id,
+                            'ques_option' => $this->input->post('option')[$x],
+                        );
 
-                // if (!empty($this->input->post('option'))) {
-                //     $count_option = count($this->input->post('option'));
-                //     for($x = 0; $x < $count_option; $x++) {
-                //         $option = array(
-                //             'question_id' => $question_id,
-                //             'option_desc' => $this->input->post('option')[$x],
-                //         );
-
-                //         $this->db->insert('question_option', $option);
-                //     }
-                // }    
+                        $this->db->insert('question_option', $option);
+                    }
+                }    
 
                 $this->session->set_flashdata('success', 'Successfully created');
                 redirect('question/', 'refresh');
