@@ -26,6 +26,14 @@ class Dynamic_dependent extends Admin_Controller
     }
  }
 
+ function fetch_program()
+ {
+  if($this->input->post('standard_id'))
+  {
+   echo $this->model_dynamic_dependent->fetch_program($this->input->post('program_id'));
+  }
+ }
+
  function fetch_phase()
  {
   if($this->input->post('program_id'))
@@ -43,6 +51,7 @@ class Dynamic_dependent extends Admin_Controller
      echo $this->model_dynamic_dependent->fetch_status($this->input->post('phase_id'));
     }  
   }
+
 
 
 }

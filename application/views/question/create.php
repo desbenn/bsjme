@@ -38,58 +38,12 @@
 
                 <?php echo validation_errors(); ?>
 
-                <div class="row">
-
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="standard">Standard</label>
-                      <select class="form-control select_group" id="standard" name="standard">
-                       <option value="">Select Standard</option>
-                        <?php
-                          foreach($standard as $row)
-                          {
-                           echo '<option value="'.$row->id.'">'.$row->name.'</option>';
-                          }
-                        ?>
-                       </select>
-                    </div>
-                  </div>  
-
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="clause">Clause</label>
-                      <select class="form-control select_group" id="clause" name="clause">
-                        <option value="">Select Clause</option>                        
-                      </select>
-                    </div>
-                  </div>   
-          
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
-                      <label for="sub_clause">Sub Clause</label>
-                      <select class="form-control select_group" id="sub_clause" name="sub_clause">
-                        <option value="">Select Sub-clause</option>                         
-                      </select>
-                    </div>
-                  </div> 
-
-                  <div class="col-md-2 col-xs-2" align="left">
-                    <div class="radio">
-                        <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
-                    </div>
-                  </div>                  
-                 
-                </div>
-
-
-
                  <div class="row">			 
                   		  
-                  <div class="col-md-6 col-xs-6">
+                  <div class="col-md-4 col-xs-4">
                      <div class="form-group">
-                      <label for="question">Question</label>
-                      <textarea type="text" class="form-control" id="question" rows="5" name="question" autocomplete="off"><?php echo set_value('question'); ?></textarea>
+                      <label for="question">Question <font color="red">*</font></label>
+                      <textarea type="text" class="form-control" id="question" rows="3" name="question" autocomplete="off"><?php echo set_value('question'); ?></textarea>
                     </div>
                   </div>  
 
@@ -105,28 +59,28 @@
                     </div>
                   </div>
 
-                  <div class="col-md-1 col-xs-1" align="left">
+                  <div class="col-md-2 col-xs-2" align="center">
+                    <div class="radio">
+                        <label><input type="radio" name="active" id="active" value="1" checked="checked" >Active&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                        <br>
+                        <label><input type="radio" name="active" id="active" value="2" >Inactive</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-xs-2" align="left">
                     <div class="radio">
                         <label><input type="radio" name="upload_document" id="upload_document" value="1" checked="checked" >Upload&nbsp;&nbsp;&nbsp;&nbsp;</label>
                         <br>
                         <label><input type="radio" name="upload_document" id="upload_document" value="2" >No Upload</label>
                     </div>
-                  </div> 
-
-                   <div class="col-md-2 col-xs-2" align="left">
-                    <div class="radio">
-                        <label><input type="radio" name="choice" id="choice" value="1" checked="checked" >One choice&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                        <br>
-                        <label><input type="radio" name="choice" id="choice" value="2" >Multiple choice</label>
-                    </div>
-                  </div> 			  
+                  </div>  			  
                   
                 </div>   
 
                 <table class="table table-bordered" id="option_info_table">
                   <thead>
                     <tr>
-                      <th style="width:30%">Option</th>                     
+                      <th style="width:30%">Question Options</th>                     
                       <th style="width:10%"><button type="button" id="add_row" class="btn btn-default"><i class="fa fa-plus"></i></button></th>
                     </tr>
                   </thead>
@@ -142,15 +96,85 @@
                 <br /> 
                 
 
-                <div class="row">  
-        
+                <div class="row">          
                   <div class="col-md-12 col-xs-12">
                      <div class="form-group">
                       <label for="remark">Remark</label>
-                      <textarea type="text" class="form-control" id="remark" rows="5" name="remark" autocomplete="off"><?php echo set_value('remark'); ?></textarea>
+                      <textarea type="text" class="form-control" id="remark" rows="2" name="remark" autocomplete="off"><?php echo set_value('remark'); ?></textarea>
                     </div>
                   </div>  
                 </div>  
+
+                <div class="row">
+
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="standard">Standard <font color="red">*</font></label>
+                      <select class="form-control select_group" id="standard" name="standard">
+                       <option value="">Select Standard</option>
+                        <?php
+                          foreach($standard as $row)
+                          {
+                           echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                          }
+                        ?>
+                       </select>
+                    </div>
+                  </div>  
+                  
+                  <div class="col-md-1 col-xs-1">
+                  </div>
+
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="clause">Clause</label>
+                      <select class="form-control select_group" id="clause" name="clause">
+                        <option value="">Select Clause</option>                        
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-1 col-xs-1">
+                  </div>
+          
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="sub_clause">Sub Clause</label>
+                      <select class="form-control select_group" id="sub_clause" name="sub_clause">
+                        <option value="">Select Sub-clause</option>                         
+                      </select>
+                    </div>
+                  </div> 
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="program">Program <font color="red">*</font></label>
+                      <select class="form-control select_group" id="program" name="program">
+                        <option value="">Select Program</option>    
+                        <?php
+                          foreach($program as $row)
+                          {
+                           echo '<option value="'.$row->id.'">'.$row->name.'</option>';
+                          }
+                        ?>                    
+                      </select>
+                    </div>
+                  </div> 
+
+                  <div class="col-md-1 col-xs-1">
+                  </div>
+
+                  <div class="col-md-3 col-xs-3">
+                    <div class="form-group">
+                      <label for="phase">Phase <font color="red">*</font></label>
+                      <select class="form-control select_group" id="phase" name="phase">
+                        <option value="">Select Phase</option>                        
+                      </select>
+                    </div>
+                  </div> 
+                </div>
 
               </div>
 
@@ -182,8 +206,29 @@ var base_url = "<?php echo base_url(); ?>";
     $("#mainQuestionNav").addClass('active');
     $("#addQuestionNav").addClass('active');
 
+     //--> Change of the program, call the phase list
 
-        //Change of the standard, call the clause list
+     $('#program').change(function(){
+        var program_id = $('#program').val();
+        if(program_id != '')
+        {
+         $.ajax({
+                url: base_url + 'dynamic_dependent/fetch_phase',
+                method:"POST",
+                data:{program_id:program_id},
+                success:function(data)
+                {
+                 $('#phase').html(data);
+                }
+               });
+        }
+        else
+        {
+         $('#phase').html('<option value="">Select Phase</option>');
+        }
+       });
+
+        // Change of the standard, call the clause list
 
         $('#standard').change(function(){
         var standard_id = $('#standard').val();
