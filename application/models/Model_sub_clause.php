@@ -28,12 +28,10 @@ class Model_sub_clause extends CI_Model
 		if($id) {
 			$sql = "SELECT sub_clause.id,sub_clause.code,sub_clause.name,clause_id,sub_clause.active,
 						   clause.code AS 'clause_code',standard.name as 'standard_name',
-						   phase_id,phase.name AS 'phase_name',clause.name AS 'clause_name',
-						   phase.id as 'phase_id'
+						   clause.name AS 'clause_name'
 			        FROM sub_clause 
 			        	 JOIN clause ON sub_clause.clause_id = clause.id 
 			        	 JOIN standard ON clause.standard_id = standard.id
-			        	 JOIN phase ON sub_clause.phase_id = phase.id
 			        WHERE sub_clause.id = ?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();
@@ -41,12 +39,10 @@ class Model_sub_clause extends CI_Model
 
 		$sql = "SELECT sub_clause.id,sub_clause.code,sub_clause.name,clause_id,sub_clause.active,
 						   clause.code AS 'clause_code',standard.name as 'standard_name',
-						   phase_id,phase.name AS 'phase_name',clause.name AS 'clause_name',
-						   phase.id as 'phase_id'
+						   clause.name AS 'clause_name'
 			        FROM sub_clause 
 			        	 JOIN clause ON sub_clause.clause_id = clause.id 
 			        	 JOIN standard ON clause.standard_id = standard.id
-			        	 JOIN phase ON sub_clause.phase_id = phase.id
 			        ORDER BY sub_clause.name";
 		$query = $this->db->query($sql);
 		return $query->result_array();

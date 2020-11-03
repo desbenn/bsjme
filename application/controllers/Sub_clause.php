@@ -87,7 +87,6 @@ class Sub_clause extends Admin_Controller
 				$value['code'],				
 				$value['standard_name'],
 				$value['clause_code'],
-				$value['phase_name'],
 				$active,
 				$buttons
 			);
@@ -120,7 +119,6 @@ class Sub_clause extends Admin_Controller
         		'code' => $this->input->post('sub_clause_code'),
         		'name' => $this->input->post('sub_clause_name'),
         		'clause_id' => $this->input->post('clause'),
-        		'phase_id' => $this->input->post('phase'),
         		'active' => $this->input->post('active'),	
         	);
 
@@ -171,7 +169,6 @@ class Sub_clause extends Admin_Controller
 	        		'code' => $this->input->post('edit_sub_clause_code'),
 	        		'name' => $this->input->post('edit_sub_clause_name'),
 	        		'clause_id' => $this->input->post('edit_clause'),	
-	        		'phase_id' => $this->input->post('edit_phase'),
 	        		'active' => $this->input->post('edit_active'),	
 	        	);
 
