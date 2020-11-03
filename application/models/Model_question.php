@@ -11,17 +11,7 @@ class Model_question extends CI_Model
 	public function getQuestionData($id = null)
 	{
 		if($id) {
-			$sql = "SELECT question.id,question,remark,upload_document,
-			            sub_clause_id,sub_clause.name AS 'sub_clause_name',
-			            sub_clause.code AS 'sub_clause_code',
-			            clause.id AS 'clause_id',clause.code AS 'clause_code',clause.name AS 'clause_name',
-						standard.id AS 'standard_id',standard.name AS 'standard_name',
-						question_type.name AS 'question_type_name',question_type_id,question.active
-		 	FROM question
-			      JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				  JOIN clause ON sub_clause.clause_id = clause.id
-				  JOIN standard ON clause.standard_id = standard.id
-				  JOIN question_type ON question.question_type_id = question_type.id
+			$sql = "SELECT * FROM question
 			WHERE question.id = ?";
 			$query = $this->db->query($sql, array($id));
 			return $query->row_array();

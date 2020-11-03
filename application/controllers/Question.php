@@ -141,21 +141,27 @@ class Question extends Admin_Controller
 
         if(!$question_id) {redirect('dashboard', 'refresh');}
 
-        $this->form_validation->set_rules('question', 'Question', 'trim|required'); 
+        $this->form_validation->set_rules('question', 'Question', 'trim|required');
+        $this->form_validation->set_rules('question_type', 'Question Type', 'trim|required');
+        $this->form_validation->set_rules('standard', 'Standard', 'trim|required');
+        $this->form_validation->set_rules('program', 'Program', 'trim|required');
+        $this->form_validation->set_rules('phase', 'Phase', 'trim|required');
         $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
 
                 $data = array(
-                    'active' => $this->input->post('active'),
-                    'choice' => $this->input->post('choice'),
-                    'sub_clause_id' => $this->input->post('sub_clause'),
-                    'upload_document' => $this->input->post('upload_document'),
                     'question' => $this->input->post('question'),
-                    'remark' => $this->input->post('remark'),
                     'question_type_id' => $this->input->post('question_type'),
-                    'updated_date' => date('Y-m-d H:i:s'),      
-                    'updated_by' => $this->session->user_id,
+                    'remark' => $this->input->post('remark'),
+                    'active' => $this->input->post('active'),
+                    'upload_document' => $this->input->post('upload_document'),
+                    'program_id' => $this->input->post('program'),
+                    'phase_id' => $this->input->post('phase'),
+                    'standard_id' => $this->input->post('standard'),
+                    'clause_id' => $this->input->post('clause'), 
+                    'sub_clause_id' => $this->input->post('sub_clause'),      
+                    'updated_by' => $this->session->user_id,   
                 );
           
 
@@ -175,7 +181,7 @@ class Question extends Admin_Controller
                      {
                         $option = array(
                             'question_id' => $question_id,
-                            'option_desc' => $this->input->post('option')[$x]           
+                            'ques_option' => $this->input->post('option')[$x]           
                     );
                     $this->db->insert('question_option', $option);
                     }                
@@ -190,11 +196,12 @@ class Question extends Admin_Controller
             }
         }
         else {
-            
+            $this->data['question_type'] = $this->model_question->getActiveQuestionType();  
             $this->data['standard'] = $this->model_standard->getActiveStandard();   
             $this->data['clause'] = $this->model_clause->getActiveClause();             
             $this->data['sub_clause'] = $this->model_sub_clause->getActiveSubClause();           
-            $this->data['question_type'] = $this->model_question->getActiveQuestionType();  
+            $this->data['program'] = $this->model_program->getActiveProgram(); 
+            $this->data['phase'] = $this->model_phase->getActivePhase(); 
 
             $result = array();
             $question_data = $this->model_question->getQuestionData($question_id);
