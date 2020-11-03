@@ -11,7 +11,7 @@ class Model_question extends CI_Model
 	public function getQuestionData($id = null)
 	{
 		if($id) {
-			$sql = "SELECT question.id,choice,question,remark,upload_document,
+			$sql = "SELECT question.id,question,remark,upload_document,
 			            sub_clause_id,sub_clause.name AS 'sub_clause_name',
 			            sub_clause.code AS 'sub_clause_code',
 			            clause.id AS 'clause_id',clause.code AS 'clause_code',clause.name AS 'clause_name',
@@ -27,18 +27,15 @@ class Model_question extends CI_Model
 			return $query->row_array();
 		}
 
-		$sql = "SELECT question.id,choice,question,remark,upload_document,
-			            sub_clause_id,sub_clause.name AS 'sub_clause_name',
-			            sub_clause.code AS 'sub_clause_code',
-			            clause.id AS 'clause_id',clause.code AS 'clause_code',clause.name AS 'clause_name',
-						standard.id AS 'standard_id',standard.name AS 'standard_name',
-						question_type.name AS 'question_type_name',question_type_id,question.active
-		 	FROM question
-			      JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				  JOIN clause ON sub_clause.clause_id = clause.id
-				  JOIN standard ON clause.standard_id = standard.id
-				  JOIN question_type ON question.question_type_id = question_type.id
-			ORDER BY standard.name,clause.code,sub_clause.code,question ASC";
+		$sql = "SELECT question.id ,question, question.remark,upload_document,
+			            question.standard_id,standard.name AS 'standard_name', program.name AS 'program_name',
+						phase.name AS 'phase_name', question_type.name AS 'question_type_name',question_type_id,question.active
+		 	FROM question			     
+				JOIN standard ON question.standard_id = standard.id
+				JOIN question_type ON question.question_type_id = question_type.id
+				JOIN program ON question.program_id = program.id
+				JOIN phase ON question.phase_id = phase.id
+				ORDER BY program.name ASC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
@@ -86,8 +83,7 @@ class Model_question extends CI_Model
 
 
 	public function create($data)
-	{
-            
+	{            
 		$insert = $this->db->insert('question', $data);
 		$question_id = $this->db->insert_id();
 		return ($question_id) ? $question_id : false;
