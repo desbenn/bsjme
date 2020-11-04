@@ -686,9 +686,11 @@
   manageTable=$('#manageTable').DataTable({
     'ajax': base_url + 'consultation/fetchQuestions/'+phase_id+'/'+program_id+'/'+'<?php echo $consultation_data['id']; ?>'
   });
+
+  
   // $(document).ready(function(){
   //   $.ajax({
-  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestion/'+phase_id+'/'+standard_id,
+  //     url: '<?php echo base_url();?>' + 'consultation/captureQuestion/'+phase_id+'/'+'<?php echo $consultation_data['id']; ?>',
   //     dataType: "json",
   //     data: result,
   //     success:function(result){
