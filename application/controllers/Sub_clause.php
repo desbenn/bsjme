@@ -111,7 +111,6 @@ class Sub_clause extends Admin_Controller
 		$this->form_validation->set_rules('sub_clause_name', 'Name', 'trim|required');
 		$this->form_validation->set_rules('sub_clause_code', 'Code', 'trim|required');
 		$this->form_validation->set_rules('clause', 'Clause', 'trim|required');
-		$this->form_validation->set_rules('phase', 'Phase', 'trim|required');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
@@ -160,7 +159,6 @@ class Sub_clause extends Admin_Controller
 		if($id) {
 			$this->form_validation->set_rules('edit_sub_clause_name', 'Name', 'trim|required');
 			$this->form_validation->set_rules('edit_clause', 'Clause', 'trim|required');
-			$this->form_validation->set_rules('edit_phase', 'Phase', 'trim|required');
 			$this->form_validation->set_rules('edit_sub_clause_code', 'Code', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
