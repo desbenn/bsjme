@@ -658,16 +658,18 @@
 
   <div id="question" class="tab-pane fade <?php echo (($active_tab === 'question') ? 'in active' : '') ?>">
     <div class="box">
-      <div class="box-body" id="questionForm"> 
-        <table width='100%' id="manageTable" class="table table-bordered table-striped">
-          <thead>
-            <tr> 
-                <th>Question Number</th>
-                <th>Question</th>
-                <th>Action</th>
-            </tr>
-          </thead>
-        </table>
+      <div class="box-body"> 
+        <div class="table-responsive">
+          <table id="manageTable" style="width:100%" class="table table-bordered table-striped">
+            <thead>
+              <tr> 
+                  <th>Question Number</th>
+                  <th>Question</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>        
       </div> 
     </div>    
   </div>
