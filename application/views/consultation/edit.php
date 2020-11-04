@@ -135,9 +135,7 @@
 
 
       <ul class="nav nav-tabs">
-        <?php if($this->session->profile !='4'): ?>
         <li class="<?php echo (($active_tab === 'consultation') ? 'active' : '') ?>"><a data-toggle="tab" href="#consultation">Consultation</a></li>
-        <?php endif; ?>
         <li class="<?php echo (($active_tab === 'question') ? 'active' : '') ?>"><a data-toggle="tab" href="#question">Questions</a></li>
         <li class="<?php echo (($active_tab === 'document') ? 'active' : '') ?>"><a data-toggle="tab" href="#document">Documents</a></li>    
         
@@ -676,7 +674,7 @@
 
  <!-- JavaScript for QUESTION -->
  <script type="text/javascript">
-  var standard_id = $('#standard').val();
+  var program_id = $('#program').val();
   var phase_id = $('#phase').val();
   var consultation_id = $('#consultation_no').val();
   var result;
@@ -684,7 +682,7 @@
 
   var manageTable;
   manageTable=$('#manageTable').DataTable({
-    'ajax': base_url + 'consultation/fetchQuestionData/'+phase_id+'/'+standard_id+'/'+'<?php echo $consultation_data['id']; ?>'
+    'ajax': base_url + 'consultation/fetchQuestions/'+phase_id+'/'+program_id+'/'+'<?php echo $consultation_data['id']; ?>'
   });
   // $(document).ready(function(){
   //   $.ajax({

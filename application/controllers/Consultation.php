@@ -781,15 +781,16 @@ class Consultation extends Admin_Controller
         }  
     }
 
-    public function fetchQuestionData($phase_id=null,$standard_id=null, $consultation_id=null)
+    public function fetchQuestions($phase_id=null,$program_id=null, $consultation_id=null)
     {
+        $question_count=0;
         $result = array('data' => array());
-        $data = $this->model_consultation->getConsultationQuestion($standard_id,$phase_id);
+        $data = $this->model_consultation->getConsultationQuestion($program_id,$phase_id);
         foreach($data as $key => $value){
             $buttons = '';
-            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['question_id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+            // $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['question_id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
             $result['data'][$key] = array(
-                $value['question_id'],
+                ++$question_count,
                 $value['question'],
                 $buttons
             );
