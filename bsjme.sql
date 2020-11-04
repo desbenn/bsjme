@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2020 at 01:19 PM
+-- Generation Time: Nov 04, 2020 at 05:26 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `billing_item` (
   `type` int(11) NOT NULL COMMENT 'type is either income or expense, income being 0 and expense being 1',
   `cost` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `billing_item`
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `clause` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `clause`
@@ -160,7 +160,9 @@ INSERT INTO `clause` (`id`, `standard_id`, `code`, `name`, `active`) VALUES
 (9, 1, '9', 'clause 9', 1),
 (10, 1, '10', 'clause 10', 1),
 (11, 2, '22', 'Clause 22', 1),
-(13, 5, 'N1', 'Qualification for Registration of Company', 1);
+(13, 5, 'N1', 'Qualification for Registration of Company', 1),
+(14, 6, '1', 'clause 1', 1),
+(15, 6, '2', 'clause 2', 1);
 
 -- --------------------------------------------------------
 
@@ -198,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trn` (`trn`),
   KEY `client_name` (`client_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `client`
@@ -207,7 +209,8 @@ CREATE TABLE IF NOT EXISTS `client` (
 INSERT INTO `client` (`id`, `trn`, `activity_id`, `city_id`, `county_id`, `parish_id`, `address`, `attempt`, `client_name`, `company_name`, `contact_name`, `director_name`, `directory`, `district`, `email`, `mobile`, `objective`, `phone`, `postal_box`, `postal_code`, `remark`, `target`, `website`, `updated_date`, `updated_by`) VALUES
 (24, 'TRN001', 1, 0, 1, 8, '650 Jean-D\'Estrees apt 807', 0, 'Carmen Gagnon', 'Voyagine Inc', 'Carmen', 'Carmen Gagnon', 'TRN001', '', 'voyagine@hotmail.com', '', '', '05149836594', 'H3C0G3', 'H3C0G3', '', '', '', '2020-02-27 00:57:20', 18),
 (25, 'TRN002', 2, 0, 1, 2, '11700 Racette', 0, 'M. Just', 'Hotel Association', 'Muriel', 'Muriel', 'TRN002', '', 'voyagine@hotmail.com', '', '', '5149836594', 'H1G 5J5', 'H1G 5J5', '', '', '', '2020-09-28 19:38:31', 23),
-(26, 'TRN50', 1, 1, 1, 1, '67 Home Drive', 0, 'M. Untel', 'Jewel int.', '', '', 'TRN50', '', 'jewel@gmail.com', '4567899', '', '', '', '', 'dfdfsdfd', '', '', '2020-05-23 00:13:41', 28);
+(26, 'TRN50', 1, 1, 1, 1, '67 Home Drive', 0, 'M. Untel', 'Jewel int.', '', '', 'TRN50', '', 'jewel@gmail.com', '4567899', '', '', '', '', 'dfdfsdfd', '', '', '2020-05-23 00:13:41', 28),
+(28, '123456789', 1, 0, 1, 1, 'dfdfd', 0, 'dfdfdf', 'fdfd', '', '', '123456789', '', 'nicholasjumpp1@gmail.com', '', '', '', '', '', '', '', '', '2020-11-03 19:06:44', 23);
 
 -- --------------------------------------------------------
 
@@ -275,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `updated_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `consultation`
@@ -283,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `product`, `quality_policy`, `remark`, `updated_date`, `updated_by`) VALUES
 (31, 'CON01', 11, 24, '[\"29\",\"30\"]', 1, 8, 4, 2, 11, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-09-25 21:23:11', 23),
-(32, 'CON02', 13, 25, '[\"29\"]', 6, 13, 4, 5, 48, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 2', '', '', '', '', '', '2020-09-28 19:38:43', 23);
+(32, 'CON02', 13, 25, '[\"29\"]', 1, 14, 4, 5, 31, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 2', '', '', '', '', '', '2020-11-04 21:27:07', 23);
 
 -- --------------------------------------------------------
 
@@ -469,17 +472,17 @@ CREATE TABLE IF NOT EXISTS `internal_cost_plan` (
   KEY `client_id` (`client_id`),
   KEY `ta_id` (`ta_id`),
   KEY `updated_by` (`updated_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `internal_cost_plan`
 --
 
 INSERT INTO `internal_cost_plan` (`id`, `ta_id`, `client_id`, `billing_item_id`, `p_amount`, `a_amount`, `date_updated`, `updated_by`) VALUES
-(2, 8, 24, 2, 0, 0, '2020-10-02', 23),
-(3, 8, 24, 3, 0, 0, '2020-10-02', 23),
-(5, 8, 24, 2, 0, 0, '2020-10-03', 23),
-(6, 8, 24, 3, 12000, 11501, '2020-10-05', 23);
+(6, 8, 24, 3, 12000, 11501, '2020-10-08', 23),
+(8, 8, 24, 2, 50123, 30421, '2020-10-20', 23),
+(9, 8, 24, 4, 6000, 5000, '2020-10-20', 23),
+(10, 8, 24, 3, 50, 50, '2020-10-20', 23);
 
 -- --------------------------------------------------------
 
@@ -501,7 +504,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `remark` text,
   `attributes` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `log`
@@ -582,7 +585,25 @@ INSERT INTO `log` (`id`, `user_id`, `timestamp`, `module`, `action`, `subject_id
 (134, 23, '2020-09-25 16:23:11', 'Consultation', 'Update', 31, 24, 31, NULL, 'Update Consultation CON01', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"31\";s:15:\"consultation_no\";s:5:\"CON01\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"24\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:1:\"8\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"11\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 1\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-26 19:57:59\";s:10:\"updated_by\";s:13:\"Carmen Gagnon\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:3:\"trn\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN001\";s:11:\"parish_name\";s:8:\"Kingston\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:9:\"Program 1\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"24\";s:13:\"consultant_id\";s:11:\"[\"29\",\"30\"]\";s:15:\"consultation_no\";s:5:\"CON01\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 1\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"11\";s:12:\"updated_date\";s:19:\"2020-09-25 16:23:11\";s:10:\"updated_by\";s:2:\"23\";}}'),
 (135, 23, '2020-09-28 12:27:46', 'Technical Advice', 'Create', 8, 24, NULL, NULL, 'Create Technical Advice 8', 'a:8:{s:9:\"client_id\";s:2:\"24\";s:13:\"consultant_id\";s:16:\"[\"29\",\"30\",\"31\"]\";s:8:\"activity\";s:1:\"1\";s:12:\"date_created\";s:10:\"2020-09-28\";s:10:\"date_begin\";s:0:\"\";s:10:\"date_ended\";s:0:\"\";s:10:\"work_scope\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
 (136, 23, '2020-09-28 14:38:31', 'Client', 'Update', 25, 25, NULL, NULL, 'Update Client TRN002', 'a:2:{s:3:\"old\";a:3:{i:0;a:25:{s:2:\"id\";s:2:\"25\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:12:\"contact_name\";s:6:\"Muriel\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-27 13:51:16\";s:10:\"updated_by\";s:2:\"18\";}i:1;a:25:{s:2:\"id\";s:2:\"26\";s:3:\"trn\";s:5:\"TRN50\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:13:\"67 Home Drive\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:8:\"dfdfsdfd\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-05-22 19:13:41\";s:10:\"updated_by\";s:2:\"28\";}i:2;a:25:{s:2:\"id\";s:2:\"24\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-26 19:57:20\";s:10:\"updated_by\";s:2:\"18\";}}s:3:\"new\";a:23:{s:11:\"activity_id\";s:1:\"2\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"city_id\";s:0:\"\";s:12:\"company_name\";s:17:\"Hotel Association\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"contact_name\";s:6:\"Muriel\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"2\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:6:\"TRN002\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:31\";s:10:\"updated_by\";s:2:\"23\";}}'),
-(137, 23, '2020-09-28 14:38:43', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-24 21:02:38\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:43\";s:10:\"updated_by\";s:2:\"23\";}}');
+(137, 23, '2020-09-28 14:38:43', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-24 21:02:38\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:43\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(138, 23, '2020-10-14 14:57:18', 'Technical Advice', 'Create', 9, 25, NULL, NULL, 'Create Technical Advice 9', 'a:8:{s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:8:\"activity\";s:1:\"1\";s:12:\"date_created\";s:10:\"2020-10-14\";s:10:\"date_begin\";s:10:\"2020-10-22\";s:10:\"date_ended\";s:10:\"2020-10-31\";s:10:\"work_scope\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(139, 23, '2020-10-26 19:19:03', 'Consultation', 'Create', 33, 26, 33, NULL, 'Create Consultation JEW101', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:6:\"JEW101\";s:13:\"date_creation\";s:10:\"2020-10-26\";s:10:\"date_begin\";s:10:\"2020-10-26\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:33:\"Company would like a spa standard\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:0:\"\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"6\";s:9:\"status_id\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(140, 23, '2020-10-26 19:19:37', 'Consultation', 'Update', 33, 26, 33, NULL, 'Update Consultation JEW101 and Move from phase  to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"33\";s:15:\"consultation_no\";s:6:\"JEW101\";s:9:\"clause_id\";s:1:\"0\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"0\";s:10:\"program_id\";s:1:\"0\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"6\";s:9:\"status_id\";s:1:\"0\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-10-26\";s:13:\"date_creation\";s:10:\"2020-10-26\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:33:\"Company would like a spa standard\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-10-26 14:19:03\";s:10:\"updated_by\";s:11:\"Coordinator\";s:7:\"address\";s:13:\"67 Home Drive\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:13:\"director_name\";s:0:\"\";s:3:\"trn\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:5:\"phone\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:11:\"parish_name\";s:7:\"Hanover\";s:10:\"phase_name\";N;s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";N;}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:6:\"JEW101\";s:10:\"date_begin\";s:10:\"2020-10-26\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:33:\"Company would like a spa standard\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"9\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"6\";s:9:\"status_id\";s:2:\"14\";s:12:\"updated_date\";s:19:\"2020-10-26 19:19:37\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(141, 23, '2020-10-28 21:17:47', 'Consultation', 'Create', 34, 26, 34, NULL, 'Create Consultation ss3', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:3:\"ss3\";s:13:\"date_creation\";s:10:\"2020-10-28\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:2:\"ss\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:0:\"\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:0:\"\";s:11:\"standard_id\";s:0:\"\";s:9:\"status_id\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(142, 23, '2020-10-28 21:35:28', 'Consultation', 'Create', 35, 26, 35, NULL, 'Create Consultation dsgfsdfsdf', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:0:\"\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:6:\"[\"30\"]\";s:15:\"consultation_no\";s:10:\"dsgfsdfsdf\";s:13:\"date_creation\";s:10:\"2020-10-28\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:10:\"sfsdfsdfsd\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:0:\"\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:0:\"\";s:11:\"standard_id\";s:0:\"\";s:9:\"status_id\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(143, 23, '2020-10-28 21:36:22', 'Consultation', 'Create', 36, 26, 36, NULL, 'Create Consultation fftgdfsdf', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:9:\"fftgdfsdf\";s:13:\"date_creation\";s:10:\"2020-10-28\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:8:\"sdfsdfsf\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"2\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:10:\"updated_by\";s:2:\"23\";}'),
+(144, 23, '2020-10-29 16:35:42', 'Consultation', 'Update', 36, 26, 36, NULL, 'Update Consultation fftgdfsdf and Move from phase Introduction to phase Analysis', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"36\";s:15:\"consultation_no\";s:9:\"fftgdfsdf\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"2\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:13:\"date_creation\";s:10:\"2020-10-28\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:8:\"sdfsdfsf\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-10-28 16:36:22\";s:10:\"updated_by\";s:11:\"Coordinator\";s:7:\"address\";s:13:\"67 Home Drive\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:13:\"director_name\";s:0:\"\";s:3:\"trn\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:5:\"phone\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:11:\"parish_name\";s:7:\"Hanover\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:9:\"fftgdfsdf\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:8:\"sdfsdfsf\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"5\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"2\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-10-29 16:35:42\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(145, 23, '2020-10-29 16:35:54', 'Consultation', 'Update', 36, 26, 36, NULL, 'Update Consultation fftgdfsdf and Move from phase Analysis to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"36\";s:15:\"consultation_no\";s:9:\"fftgdfsdf\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"5\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"2\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:1:\"0\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:13:\"date_creation\";s:10:\"2020-10-28\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:8:\"sdfsdfsf\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-10-29 16:35:42\";s:10:\"updated_by\";s:11:\"Coordinator\";s:7:\"address\";s:13:\"67 Home Drive\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:13:\"director_name\";s:0:\"\";s:3:\"trn\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:5:\"phone\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:11:\"parish_name\";s:7:\"Hanover\";s:10:\"phase_name\";s:8:\"Analysis\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:9:\"fftgdfsdf\";s:10:\"date_begin\";s:10:\"2020-10-28\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:8:\"sdfsdfsf\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:1:\"8\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"2\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-10-29 16:35:54\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(146, 23, '2020-11-02 17:49:12', 'Consultation', 'Create', 37, 26, 37, NULL, 'Create Consultation ggg', 'a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:15:\"consultation_no\";s:3:\"ggg\";s:13:\"date_creation\";s:10:\"2020-11-02\";s:10:\"date_begin\";s:10:\"2020-11-02\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:5:\"ggggg\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"6\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"13\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:10:\"updated_by\";s:2:\"23\";}'),
+(147, 23, '2020-11-02 17:49:44', 'Consultation', 'Delete', 37, 26, 37, NULL, 'Delete Consulation ggg', 'a:39:{s:2:\"id\";s:2:\"37\";s:15:\"consultation_no\";s:3:\"ggg\";s:9:\"clause_id\";s:2:\"11\";s:9:\"client_id\";s:2:\"26\";s:13:\"consultant_id\";s:4:\"null\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"2\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-11-02\";s:13:\"date_creation\";s:10:\"2020-11-02\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:5:\"ggggg\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-02 12:49:12\";s:10:\"updated_by\";s:11:\"Coordinator\";s:7:\"address\";s:13:\"67 Home Drive\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:13:\"director_name\";s:0:\"\";s:3:\"trn\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:5:\"phone\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:11:\"parish_name\";s:7:\"Hanover\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}'),
+(148, 23, '2020-11-03 19:05:46', 'Client', 'Create', 27, 27, NULL, NULL, 'Create Client 987654321', 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:7:\"dfdfdfd\";s:7:\"city_id\";s:1:\"1\";s:11:\"client_name\";s:8:\"dfdfdfdf\";s:12:\"company_name\";s:6:\"dfdfdf\";s:12:\"contact_name\";s:0:\"\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:9:\"987654321\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:24:\"nicholasjumpp1@gmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"2\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:5:\"77085\";s:11:\"postal_code\";s:5:\"77085\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"987654321\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(149, 23, '2020-11-03 19:06:05', 'Client', 'Update', 27, 27, NULL, NULL, 'Update Client 987654321', 'a:2:{s:3:\"old\";a:4:{i:0;a:25:{s:2:\"id\";s:2:\"27\";s:3:\"trn\";s:9:\"987654321\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:7:\"dfdfdfd\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"dfdfdfdf\";s:12:\"company_name\";s:6:\"dfdfdf\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:9:\"987654321\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:24:\"nicholasjumpp1@gmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:5:\"77085\";s:11:\"postal_code\";s:5:\"77085\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-03 14:05:46\";s:10:\"updated_by\";s:2:\"23\";}i:1;a:25:{s:2:\"id\";s:2:\"25\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"2\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:12:\"contact_name\";s:6:\"Muriel\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:31\";s:10:\"updated_by\";s:2:\"23\";}i:2;a:25:{s:2:\"id\";s:2:\"26\";s:3:\"trn\";s:5:\"TRN50\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:13:\"67 Home Drive\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:8:\"dfdfsdfd\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-05-22 19:13:41\";s:10:\"updated_by\";s:2:\"28\";}i:3;a:25:{s:2:\"id\";s:2:\"24\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-26 19:57:20\";s:10:\"updated_by\";s:2:\"18\";}}s:3:\"new\";a:23:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:7:\"dfdfdfd\";s:7:\"city_id\";s:0:\"\";s:12:\"company_name\";s:6:\"dfdfdf\";s:11:\"client_name\";s:8:\"dfdfdfdf\";s:12:\"contact_name\";s:0:\"\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:9:\"987654321\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:24:\"nicholasjumpp1@gmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"2\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:5:\"77085\";s:11:\"postal_code\";s:5:\"77085\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"987654321\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-03 19:06:05\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(150, 23, '2020-11-03 19:06:18', 'Client', 'Delete', 27, 27, NULL, NULL, 'Delete Client 27', 'a:4:{i:0;a:25:{s:2:\"id\";s:2:\"27\";s:3:\"trn\";s:9:\"987654321\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:7:\"dfdfdfd\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"dfdfdfdf\";s:12:\"company_name\";s:6:\"dfdfdf\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:9:\"987654321\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:24:\"nicholasjumpp1@gmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:5:\"77085\";s:11:\"postal_code\";s:5:\"77085\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-03 19:06:05\";s:10:\"updated_by\";s:2:\"23\";}i:1;a:25:{s:2:\"id\";s:2:\"25\";s:3:\"trn\";s:6:\"TRN002\";s:11:\"activity_id\";s:1:\"2\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"2\";s:7:\"address\";s:13:\"11700 Racette\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:12:\"contact_name\";s:6:\"Muriel\";s:13:\"director_name\";s:6:\"Muriel\";s:9:\"directory\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:10:\"postal_box\";s:7:\"H1G 5J5\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:31\";s:10:\"updated_by\";s:2:\"23\";}i:2;a:25:{s:2:\"id\";s:2:\"26\";s:3:\"trn\";s:5:\"TRN50\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"1\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"1\";s:7:\"address\";s:13:\"67 Home Drive\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:8:\"M. Untel\";s:12:\"company_name\";s:10:\"Jewel int.\";s:12:\"contact_name\";s:0:\"\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:5:\"TRN50\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:15:\"jewel@gmail.com\";s:6:\"mobile\";s:7:\"4567899\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:8:\"dfdfsdfd\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-05-22 19:13:41\";s:10:\"updated_by\";s:2:\"28\";}i:3;a:25:{s:2:\"id\";s:2:\"24\";s:3:\"trn\";s:6:\"TRN001\";s:11:\"activity_id\";s:1:\"1\";s:7:\"city_id\";s:1:\"0\";s:9:\"county_id\";s:1:\"1\";s:9:\"parish_id\";s:1:\"8\";s:7:\"address\";s:26:\"650 Jean-D\'Estrees apt 807\";s:7:\"attempt\";s:1:\"0\";s:11:\"client_name\";s:13:\"Carmen Gagnon\";s:12:\"company_name\";s:12:\"Voyagine Inc\";s:12:\"contact_name\";s:6:\"Carmen\";s:13:\"director_name\";s:13:\"Carmen Gagnon\";s:9:\"directory\";s:6:\"TRN001\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:5:\"phone\";s:11:\"05149836594\";s:10:\"postal_box\";s:6:\"H3C0G3\";s:11:\"postal_code\";s:6:\"H3C0G3\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:7:\"website\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-02-26 19:57:20\";s:10:\"updated_by\";s:2:\"18\";}}'),
+(151, 23, '2020-11-03 19:06:44', 'Client', 'Create', 28, 28, NULL, NULL, 'Create Client 123456789', 'a:22:{s:11:\"activity_id\";s:1:\"1\";s:7:\"address\";s:5:\"dfdfd\";s:7:\"city_id\";s:0:\"\";s:11:\"client_name\";s:6:\"dfdfdf\";s:12:\"company_name\";s:4:\"fdfd\";s:12:\"contact_name\";s:0:\"\";s:9:\"county_id\";s:1:\"1\";s:13:\"director_name\";s:0:\"\";s:9:\"directory\";s:9:\"123456789\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:24:\"nicholasjumpp1@gmail.com\";s:6:\"mobile\";s:0:\"\";s:9:\"objective\";s:0:\"\";s:9:\"parish_id\";s:1:\"1\";s:5:\"phone\";s:0:\"\";s:10:\"postal_box\";s:0:\"\";s:11:\"postal_code\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:6:\"target\";s:0:\"\";s:3:\"trn\";s:9:\"123456789\";s:7:\"website\";s:0:\"\";s:10:\"updated_by\";s:2:\"23\";}'),
+(152, 23, '2020-11-04 14:19:09', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Introduction to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:43\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:12:\"updated_date\";s:19:\"2020-11-04 14:19:09\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(153, 23, '2020-11-04 14:32:41', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 1 to phase Phase 2', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 14:19:09\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"2\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-04 14:32:41\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(154, 23, '2020-11-04 16:26:55', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 2 to phase Phase 3', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"2\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 14:32:41\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 2\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"3\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-04 16:26:55\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(155, 23, '2020-11-04 16:27:07', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 3 to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"3\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 16:26:55\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 3\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"31\";s:12:\"updated_date\";s:19:\"2020-11-04 16:27:07\";s:10:\"updated_by\";s:2:\"23\";}}');
 
 -- --------------------------------------------------------
 
@@ -751,7 +772,7 @@ CREATE TABLE IF NOT EXISTS `program` (
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `program`
@@ -760,7 +781,8 @@ CREATE TABLE IF NOT EXISTS `program` (
 INSERT INTO `program` (`id`, `standard_id`, `clause_id`, `code`, `name`, `remark`, `active`, `updated_date`, `updated_by`) VALUES
 (8, 2, 11, 'P1', 'Program 1', '', 1, '2020-02-27 18:54:43', 18),
 (9, 1, 10, 'P2', 'Program 2', '', 1, '2020-02-25 00:39:12', 18),
-(13, 5, 13, 'Program 3', 'Needs Analysis', '', 1, '2020-02-27 19:03:02', 18);
+(13, 5, 13, 'Program 3', 'Needs Analysis', '', 1, '2020-02-27 19:03:02', 18),
+(14, 6, 0, 'spa', 'spa standard', '', 1, '2020-11-03 19:58:36', 23);
 
 -- --------------------------------------------------------
 
@@ -776,7 +798,7 @@ CREATE TABLE IF NOT EXISTS `program_phase` (
   `sequence` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `program_phase`
@@ -791,7 +813,10 @@ INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`, `sequence`) VALUES
 (80, 8, 4, 4),
 (84, 13, 6, 1),
 (85, 13, 5, 2),
-(86, 13, 7, 3);
+(86, 13, 7, 3),
+(87, 14, 1, 0),
+(88, 14, 2, 0),
+(89, 14, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -802,209 +827,47 @@ INSERT INTO `program_phase` (`id`, `program_id`, `phase_id`, `sequence`) VALUES
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sub_clause_id` int(11) DEFAULT '1',
-  `question_type_id` int(11) NOT NULL DEFAULT '1',
-  `question` text,
-  `choice` tinyint(4) DEFAULT '1' COMMENT '1=one  2=multiple',
+  `question` text NOT NULL,
+  `question_type_id` int(11) NOT NULL,
   `remark` text,
-  `upload_document` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1=Yes  2=No',
-  `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8;
+  `active` int(11) NOT NULL COMMENT '1=active 2=inactive',
+  `upload_document` int(11) NOT NULL COMMENT '1=yes 2=no',
+  `program_id` int(11) NOT NULL,
+  `phase_id` int(11) NOT NULL,
+  `standard_id` int(11) NOT NULL,
+  `clause_id` int(11) DEFAULT NULL,
+  `sub_clause_id` int(11) DEFAULT NULL,
+  `upload_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_by` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_type_id` (`question_type_id`),
+  KEY `active` (`active`),
+  KEY `program_id` (`program_id`),
+  KEY `phase_id` (`phase_id`),
+  KEY `standard_id` (`standard_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question`
 --
 
-INSERT INTO `question` (`id`, `sub_clause_id`, `question_type_id`, `question`, `choice`, `remark`, `upload_document`, `active`, `updated_date`, `updated_by`) VALUES
-(1, 1, 3, 'Has the organization identified all external and internal issues relevant to its strategic plan ?', 1, '', 1, 1, '2020-02-06 03:41:15', 23),
-(2, 1, 3, 'Has the organization established a process for monitor and review the external and internal issues that may affect the QMS?', 1, '', 1, 1, '2020-02-17 18:57:42', 23),
-(3, 2, 3, 'Has the organization identified all relevant interested party and how their requierments may impact the operations of the organization?', 1, '', 1, 1, '2020-01-28 21:34:29', 23),
-(4, 2, 1, 'How do you monitor and review the information about interested parties  and their requierments ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(5, 3, 3, 'Does the scope of the QMS, include products and services provided by the organization, and a justification for any exclusions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(6, 3, 3, 'Does the organization have the scope of the quality management system\nmaintained as documented information?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(7, 3, 3, 'Have : The internal and external issues;The requirments of the relevant interested parties and; The products and services provided by the organization, been considered when determining the scope of the organization ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(8, 3, 1, 'Is there assurance that: All requirements of the standard that are applicable to the organization, have been applied, and that; Those requirments determined to be non- applicable, do not affect the organization’s ability to ensure conformity to the standard ?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(9, 4, 3, 'Have the processes of the organization been determined for the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(10, 4, 1, 'What are the: Inputs and outputs; Sequence of interactions; Crieteria, Methods, Measurments and Key Performance Indicators; Resources needed; Defined responsibility and authority for all personnel; Risks and Opportunities; Method(s) for monitoring and change to ensure intended results, of these processes ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(11, 4, 3, 'Has the organization defined; Documented information to support the operation of its processes and; Documented information to be retained as evidence that these processes are beingcarried out as planned?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(12, 5, 3, 'Has top management demonstrated leadership by: Taking accountability of the effectivness of the QMS by establishing the Quality Policy and Quality Objectives and; ensuring that they are alligne with the organization\'s strategic objectives?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(13, 5, 3, 'Has top management demonstrated leadership by communicating the Quality Policy and Quality Objectives within the organization, to ensure that the importance of meeting the requirements of the  QMS and customers is understood?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(14, 5, 3, 'Has top management demonstrated leadership by: Providing adequate resources; Engaging/directing/supporting process effectiveness to achieve required results; Conducting Management Reviews, and; Communicating QMS effectiveness.', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(15, 5, 1, 'Has top management demonstrated leadership by promoting continual improvement and supporting other management roles within the organization to do the same?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(16, 6, 1, 'Has top management demonstrated leadership by: Identifying customer requirements, and ensuring adherance to regulatory and statutory requirements?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(17, 6, 1, 'Has top management demonstrated leadership, by ensuring that Risks and Opportunities are determined and addressed?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(18, 6, 1, 'Has top management demonstrated leadership by: Putting focus on consistently providing products/services that meet customer requirements, and enhancing customer satisfaction?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(19, 7, 3, 'Has top management established, a Quality Policy that is appropriate to the context of your organization, and facilites the review and maintaince of the Quality Policy?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(20, 7, 3, 'Has top management established, a Quality Policy that: Includes a commitment to satisfying applicable requirements, and includes a commitment to continual improvement?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(21, 7, 3, 'Has top management established, a Quality Policy that is communicated and understood within the organization, and is continually reviewed for suitability?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(22, 7, 3, 'Has top management established Quality Objectives that are measurable and consistent with the Quality Policy?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(23, 8, 1, 'Has top management established, a Quality Policy that is documented, communicated and understood within the organization, and has been made available to the relevant interested parties?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(24, 9, 1, 'How does top managemnt ensure that the responsibilities and authority for all personnelare defined and communicated within the ogranization?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(25, 9, 1, 'How does top managemnt assign responsibility and authority to ensure that the QMS conforms to intenational sytandards?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(26, 9, 1, 'How does top managemnt assign the responsibility and authority to ensure the reporting of the performance of the QMS and its processes are delivering their intended outputs?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(27, 9, 1, 'How does top managemnt assign the responsibility and authority to ensure Customer Focus throughout the organization?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(29, 10, 1, 'How are the internal and external issues and interested parties considered when planning for the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(30, 10, 1, 'How are risks and opportunities determined and addressed so that the QMS can: Achieve its intended results, prevent or reduce undesired effects, and achieve continual improvement?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(31, 11, 1, 'How are actions planned to address risks and oppertunities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(32, 11, 1, 'How are actions integrated and implemented into the QMS processes, and how does management evalute the  effectivness of these actions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(33, 11, 1, 'How are the actions taken to address risks and oppertunities determined in relation to the potential impact of the non-conforming products or services?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(34, 12, 1, 'Are your Quality Objectives maintained as documented information and, relevant to all functions, processes and levels of the organization ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(35, 12, 3, 'Are your Quality Objectives measurable and consistent with the Quality Policy?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(36, 13, 1, 'How are your Quality Objectives measured, monitered communicated within the organization,  and updated?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(37, 13, 1, 'How does the organization determine:when activities are to be completed, what will be done, what resources are to be used, and how results will be evaluated for quality objectives?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(38, 14, 1, 'How are changes to the QMS planned and exsicuted?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(39, 14, 1, 'Have the potential risks and oppetunities for improvement associated with changes to the QMS been identified and documented?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(40, 14, 1, 'How does the organization determin the integrity of the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(41, 14, 1, 'How are  resources sourced, monitored and made available to the organization?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(42, 14, 1, 'How are responsibilities and autority allocated and relocated within the organization?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(43, 15, 1, 'How are resources determined for the establishment, implementation, maintenance and continual improvement of the QMS; while considering limitations on internal and external resources?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(44, 16, 3, 'Are adequate human resources in place to ensure compliance with customer requirements and applicable statutory and regulatory requierments; both locally and internationally?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(45, 17, 1, 'How do you determine the infrastructure needed for effective operation of processes related to the QMS, such as: Maintenance of equipment, Buildings and associated utilities, Transportation, and Information and Communication Technology ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(46, 18, 1, 'How does the organization determine and manage the work environment needed to achieve conformity to the product and service requirements of the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(47, 19, 1, 'Has the organization determined the monitoring and measurement activities to be undertaken, and the resources needed to ensure conformity to predefined requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(48, 19, 1, 'How do you determine the validity, reliablity and suitablilty of the resources provided for monitoring and measurment activities, including: Ensuring suitablity of resources, maintainace of resources to ensure fitness for purpose, and the maintainance of documented information as evidence of fitness?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(49, 19, 3, 'Have all monitoring and measurment activities been determined?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(50, 19, 3, 'Are resources used for monitoring and measuring suitability maintained?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(51, 19, 1, 'What documented information is maintained as evidence of fitness for the monitoring and\nmeasuring of resources?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(52, 19, 1, 'How Is measurment equipment calibrated or verified: at specified intervals, against national or international measurement standards (or any other means by which the basis for calibration or verification shall be defined)?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(53, 19, 1, 'How is measuring equipment identified to determine:  Its calibration status; How they are safeguarded from adjustments; and safeguarding against damage and deterioration, during handling, maintenance and storage?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(54, 19, 1, 'How do you demonstrate the validity of previously measured results, when measurment equipment is found to not conform to requirements, and what action is taken on the affected equipment?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(56, 20, 1, 'What evidence is available to ensure that the organization has determined the knowledge necessary for effective operation of its processes?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(57, 20, 1, 'How do you detrmine  and maintain the necessary knowledge for the operation of the various processes, and are they available, if needed?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(58, 20, 1, 'How do you consider current knowledge and how do you acquire additional knowledge when addressing changing needs and trends?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(60, 21, 3, 'Have the necessary competence for personnel, been determined, and appropriate documented information for education, training, skills and experience been maintained?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(61, 21, 1, 'How do you determine competence on the basis of appropriate education, training or experience?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(62, 21, 1, 'How do you take actions to acquire necessary competence where applicable, and how do you evaluate the effectiveness of those actions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(63, 21, 3, 'Are Personnel aware of the relevance and importance of their activities and how they contribute to the achievement of the organization\'s quality objectives?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(64, 21, 1, 'Is documented information  maintained on competency and achievements in education, training, skills and experience?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(65, 22, 3, 'Have the Quality Policy and Quality Objectives been communicated within the organization, and the contributions to the effectiveness; benefits of quality and performance, and; the Implications of non-conformance with the QMS, been understood?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(66, 23, 1, 'How do you determine internal and external communications that are relevant to the QMS, along with: the Subject of Communication; When and how to communicate, and; With whom/who to communicate?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(67, 23, 3, 'Is Leadership able to demonstrate how they ensure that appropriate communication processes are established within the organization, and that communication takes place regarding the effectiveness of the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(68, 24, 3, 'Does the organization’s QMS include documented information required by the ISO 9001 standard and Documented information determined to be necessary for the effectiveness the QMS, by the organization ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(69, 25, 1, 'Is documented information properly identified  (e.g. title, date, author or reference) , and discribed in it\'s respective media format (language, software version, graphics)?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(70, 26, 1, 'How is documented information reviewed and approved for suitability and adequacy?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(71, 27, 3, 'Is documented information controlled and protected to ensure Its suitability and availability for use?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(72, 28, 1, 'How do you control Documented Information in order to address: Distribution, control, access, retrieval and use; Storage and preservation and including legibility; and Control of changes (version control); Retention and disposition?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(73, 28, 1, 'How do you identify and control Documented Information of external origin which you have determined as necessary fo the QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(74, 29, 1, 'How are the consequences of unintended changes controlled, and how are actions taken to mitigate their adverse effects?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(75, 29, 3, 'Are adequate actions in place to ensure effective planning, implementation and control of the processes, including, the methods needed to ensure:\n• Adequate identification of requirements for products andservices?\n• Establishment of criteria for products and services?\n• Determination of neededresources?\n• Implementation of the processes in accordance with the notedcriteria?\n• Retention of documented information to show process effectiveness, and to demonstrate conformity of products and services to requirements?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(77, 30, 3, 'Has the organization considered what information is communicated to customers in regards to products and services?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(78, 30, 3, 'Has the organization implemented a system for monitoring customer feedback as it relates to product and/or services including complaints?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(79, 30, 3, 'Does the organization have a system in place regarding the handling and control of customer property?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(80, 30, 3, 'Has the organization considered establishing specific requirements for contingency action when it is necessary?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(81, 31, 3, 'Has the organization considered all regulatory and statutory requirments as well as those determined by the organiztion when determining the requirements for products and services being offered to customers?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(82, 31, 3, 'Has the organization considered its ability to meet its claims for the products and/or services being offered?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(83, 32, 3, 'Has the organization considered its ability to consistently meet the requirements specified by customers as well as it\'s ability to meet the requirements for delivery and post delivery activities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(84, 32, 1, 'Has the organization also considered it\'s ability to meet those requiremets which are not stated by the customer but are necessary for the specified or intended use when known?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(85, 32, 1, 'Has the organization considered its ability to meet its own specified requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(86, 32, 1, 'Has the organization considered its ability to meet statutory and regulatory requirements where applicable to products and services?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(87, 32, 1, 'Has the organization considered it ability to meet any other additional requirements that may be needed for products and services?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(88, 32, 1, 'Has the organization established a process for reviewing requirements specified by customers?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(89, 32, 1, 'Has the organization considered all requirements which may not have been stated by the customer but is necessary for use?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(90, 32, 3, 'Has the organization established a process for identifying all applicable statutory and regulatory requirements for the products or services ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(91, 32, 3, 'Does the organization have a process in place for handling order changes?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(92, 32, 3, 'Does the organization have a process in place for reviewing customer orders before accepting same?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(93, 32, 3, 'Does the organization maintain documented information for order reviews and handling order changes?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(94, 32, 3, 'Does the organization review requirements to the product before committing to providing same to customers?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(95, 32, 3, 'Does the review activity carried out by th organization ensure that product requirements are defined?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(96, 32, 3, 'Does the review activity carried out by the organization ensure that contract or order requirements differing from those previously expressed are resolved?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(97, 32, 3, 'Does the review activity carried out by the organization ensure that it has the capacity or ability to meet defined requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(98, 32, 1, 'How does the organization demonstrate that it confirms customer requirements when no documented statement of requirement is provided by the customer?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(99, 33, 1, 'How does the organization ensure that relevant documented information is amemded, and that relevant persons are made aware of the changed requirements, when the requirements for products and serviecs have been changed?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(101, 34, 3, 'Is evidence available that the organization plans and controls the design and development of products and services, considering the nature,duration and complexity of the design activities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(102, 34, 3, 'Does the organization determine the following during the design and development planning stage: The review, verification and validation appropriate to each design and development stage', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(103, 34, 3, 'Has the organization considered the responsibilities and authorities for design and devlopment?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(104, 34, 3, 'Are the interfaces between different groups involved in design and development managed to ensure effective communication and clear assignment of responsibility, involvement of customer and/or user groups.', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(105, 34, 3, 'Does the organization maintain documented information to demonstrate that the design and development\nrequirements have been met?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(106, 35, 3, 'Are inputs relating to product requirements determined and documented information maintained relating to:\n•  Functional and performancerequirements?\n•  Applicable statutory and regulatory requirements?\n•  Applicable information from previous similar designs?\n•  Other requirements essential for designand development?\n•  Level of control by customers and other relevant interestedparties.\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(107, 35, 3, 'Does the organization have evidence to indicate that design and development inputs have been reviewed for adequacy; and that requirements are unambiguous and not in conflict with each other?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(108, 37, 3, 'Does the organization have controls in place to ensure that the results to be achieved are clearly defined; Design and development reviews are planned and conducted; verification activities are conducted to ensure all inputs are met?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(109, 37, 3, 'Does the organization have a validation process to ensure suitability for intended use?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(110, 37, 1, 'Does the organization conduct a verification process to ensure that design and development outputs have satisfied the design and development input requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(111, 37, 3, 'Is design and development validation conducted to ensure that the resulting product is capable of fulfilling the requirements for the specified or known intended use or application?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(112, 39, 3, 'Does the organization have controls in place to ensure: Input requirements have been met; outputs are adequate for the subsequent processes of the provision of products and services; identification of monitoring and measuring requirements, and the acceptance criteria; design products are fit for intended purpose and their safe and proper use?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(113, 40, 3, 'Does the organization maintain documented information for the design and development activities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(114, 40, 3, 'Does the organization ensure that the design and development changes are: controlled during and after the design and development process; identified, reviewed, verified and validated as appropriate; evaluated for effect on constituent parts and delivered products; approved before implementation?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(115, 40, 3, 'Does the organization consider design and development changes to ensure that it does not have an adverse impact on conformity to requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(116, 40, 3, 'Does the organization maintain documented information on results of changes and any necessary actions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(117, 42, 1, 'What processes exist to ensure that externally provided processes, products and services conform to specified purchase requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(118, 42, 1, 'Are the requirements in 8.4.2 applied to all suppliers who: Provide products for incorporation in the products; Provide products directly to thecustomers; Provide full or partial outsourced processto the organization.', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(119, 42, 3, 'Are external providers evaluated and selected; monitored for performance and re-evaluated based upon their ability to supply product in accordance with the organization requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(120, 42, 3, 'Is documented information of the results of supplier evaluations and any necessary actions arising from evaluations maintained?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(121, 43, 1, 'Does the external provider monitoring process take into consideration: The type and extent of controls to be applied; The potential impact of the externally provided processes, products and services on the ability to meet applicable statutory and regulatory requirements; ', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(122, 43, 1, 'Does the external provider monitoring process take into consideration the perceived effectiveness of the controls applied by the external provider?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(123, 43, 1, 'Have the necessary verification processes been implemented to ensure that externally provided processes, products and services do not adversely affect the organization’s ability to meet customer\nrequirements?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(124, 43, 1, 'Does the controls of outsourced processess and functions remain within the scope of the organization\'s QMS?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(125, 43, 1, 'Is documented information maintained as a result of evaluation, monitoring and re-evaluation\nof external providers?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(126, 43, 3, 'Have inspections or other activities necessary for ensuring that purchased product meets specified purchase requirements been established and implemented?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(127, 44, 3, 'Does the organization ensure communication is provided to external providers concerning: Products and services to be provided or provided on behalf of the organization; Approval of products and services, methods, processes or equipment; Competence of personnel, including needed qualification; Interactions with the organization’s QMS; Control and monitoring of the external provider’sperformance ?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(128, 44, 3, 'Does the organization ensure communication is provided to external providers concerning Notification of verification activities to be conducted by the organization at the external provider’spremises', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(129, 44, 3, 'Is the adequacy of specified purchase requirements ensured prior to their communication to the supplier', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(130, 46, 1, 'Are production and service operations carried out under controlled conditions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(131, 46, 1, 'What evidence does the organization have to demonstrate production and service operate under controlled conditions? Controlled conditions shall include as applicable the following: The availability of information that describes the characteristics of the product; The availability of the required documented information;  The use of suitable equipment; The availability and use of monitoring and measurement resources; The implementation of monitoring and measurement; The implementation of release, delivery and post-delivery activities; The competency requirements or qualification of personnel; The implementation of products and services release, delivery and post-delivery activities.', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(132, 46, 3, 'Can it be demonstrated that measurement and monitoring of the product is carried out at various stages of the product realization process in accordance with planned arrangements?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(133, 46, 1, 'Are production and service processes validated, and periodically revalidated, where the resulting output cannot be verified by subsequent monitoring or measurement?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(134, 48, 1, 'Are process outputs identified, as appropriate, by suitable means throughout the product/service\nrealization process?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(135, 48, 1, 'Is product status identified with respect to measuring and monitoring requirements\nthroughout product realization?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(136, 48, 1, 'Is traceability a specified requirement? If so, is unique identification of the product outputs\ncontrolled and documented information maintained to ensure adequatetraceability?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(137, 49, 1, 'Is customer property provided for the use or incorporation into the product under the control or use of the organization? If so, does a process exist which ensures that care is provided for\ncustomer or external provider property?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(138, 49, 1, 'Is the organization reporting to the customer or external provider, when their property is incorrectly used, lost, damaged or otherwise found to be unsuitable for use?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(139, 49, 1, 'How does the organization demonstrate that customer property is identified; verified; protected and safeguarded?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(140, 50, 1, 'How does the organization demonstrate that product and constituent part to the product  are preserved during internal processing and delivery to the intended destination in order to maintain conformity to requirements?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(141, 50, 1, 'As applicable, are product preservation methods established, as appropriate,for:                                              • Identification?\n• Handling?\n• Packaging?\n• Storage?\n• Protection\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(142, 51, 3, 'Is the organization meeting requirements for post- delivery activities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(143, 51, 1, 'With respect to post-delivery activities does the organization condsider the following:                                                                       •The risks associated with its products and services                                                                                                                                         • Customer requirements\n•  The nature, use and intended  lifetime of the products and services\n• Customer feedback\n• Statutory and regulatory requirements\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(144, 52, 3, 'Are documented information maintained describing the results of the review of the changes, the personnel authorizing the change, and the necessary actions?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(145, 53, 1, 'Are planned arrangements in place to ensure achievement of the product and service\nrequirements?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(146, 54, 3, 'Are documented information maintained as evidence of conformity with the acceptance\ncriteria and traceability to the person(s) authorizing release?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(147, 53, 1, 'Are controls in place to ensure that release of product and delivery of service to the customer do not proceed until all planned arrangements are satisfactorily completed? ', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(148, 54, 3, 'Does the organization maintain documented information to identify the person authorizing the\nrelease?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(149, 56, 3, 'Are products and services that do not conform to the requirements, identified and controlled to prevent their\nunintended use or delivery?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(150, 56, 1, 'Has the organization taken appropriate actions in addressing non conformities detected based on its nature and the impact it has on conformity of products and services? (This also applies to non conforming products and services detected after delivery of products, during or after the provision of services) ', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(151, 56, 1, 'In addressing non conformities detected, does the organization utelize any of the methods:                                                    • Correction\n• Segregation, containment\n• Informing the customer\n• Obtaining authorization for use “as-is”, continuation or acceptance under concession.\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(152, 56, 1, 'Does the organization maintain documented information that: Describes the nonconformity; describes the actions taken; describes concessions obtained; and identifies the authority deciding the action in respect of the nonconformity?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(153, 56, 1, 'Are corrected nonconforming products and services verified for compliance after rework?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(156, 57, 3, 'Has the organization identified                                                                                                                                                          • What has to be monitored\n• The methods for monitoring, measurement, analysis, evaluation\n• When the monitoring is to be performed\n• When the results are to be analyzed.\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(157, 57, 3, 'Does the organization maintain documented information to ensure that the monitoring and measurement activities are implemented in accordance with the above\nrequirements?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(158, 57, 3, 'Does this evaluation include review of the quality performance data to ensure effectiveness of the\nquality management system?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(159, 58, 3, 'Is information relating to customer perception to whether the organization has fulfilled customer requirements monitored?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(160, 58, 3, 'Is information obtained related to customer views and opinions of the organization and its products and services?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(161, 58, 3, 'Is the method for obtaining and using the customer satisfaction information determined?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(162, 59, 1, 'Does the organization analyze and evaluate the data arising from monitoring and measurement?\nactivities?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(163, 59, 1, 'Is the organization using the sources of data to:\n• Demonstrate conformity of products and services to requirements?\n• Assess and enhance customer satisfaction?\n• Ensure conformity of effectiveness of the quality managementsystem?\n• Demonstrate that planning has been successfully implemented?\n• Assess the performance ofprocesses?\n• Assess the performance of external providers?\n• Determine the need or opportunities for improvement within the quality management system', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(164, 59, 3, 'Are the results of the above analysis provided as input to management review?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(166, 60, 3, 'Is evidence available to confirm that internal audits are conducted at planned intervals based upon:\n•  The status and importance of the processes and areas to be audited?\n• The results of previous audits?\n• Customer feedback?\n• Changes impacting the organization?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(167, 60, 3, 'Does the internal quality audit activity determine whether the quality management system:\n•  Conforms to planned arrangements?\n•  Conforms to ISO 9001:2015?\n•  Conforms to quality management system requirements established by the organization?\n• Is effectively implemented and maintained?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(168, 61, 3, 'Have audit criteria, scope, frequency and methods been defined?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(169, 61, 1, 'Is evidence available to confirm that internal auditors do not audit their own work, and are\nobjective and impartial of the audit process?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(170, 61, 1, 'Does the management responsible for the area being audited ensure that any necessary corrections and corrective actions are taken without undue delay to eliminate detected\nnonconformities and their causes?\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(171, 61, 3, 'Are documented information maintained as evidence of the implementation of the audit?\nprogram and the audit results?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(173, 62, 1, 'Does top management review the quality management system at planned intervals to\nensure its continuing suitability, adequacy and effectiveness?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(174, 62, 1, 'Does management review evaluate the need for changes to the quality management system, including the quality policy and quality objectives?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(175, 62, 3, 'Is documented information maintained as the result of management reviews?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(176, 63, 1, 'Do the inputs to management review include information on the following (including quality indicators (if any):\n• Results of audits\n• Customer Satisfaction\n• Nonconformities and Corrective Actions\n• Monitoring and measurement results\n• Issues concerning external providers and other relevant interested parties\n• Adequacy of resources\n• Process performance and conformity of products andservices\n• Effectiveness of actions taken to address risks and opportunities.\n• Performance of external suppliers.\n', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(177, 64, 1, 'Do the outputs from management review include decisions and actions related to:\n• Improvement of the effectiveness of the quality management system and itsprocesses?\n• Improvement of product related to customer requirements?\n•Resource needs?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(178, 64, 3, 'Does the organization maintain documented information as evidence of management reviews?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(179, 64, 3, ' Does management review evaluate the need for changes to the quality management system, including the quality policy and quality objectives?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(180, 66, 1, 'Is the organization selecting opportunities for improvement and implementing necessary actions to meet customer requirements?', 1, '', 2, 1, '2019-12-18 03:07:48', 18),
-(181, 66, 1, 'Is the organization taking actions to prevent nonconformities, improve products and services, and improve the overall quality management system results?', 1, '', 1, 1, '2020-02-22 20:05:15', 18),
-(182, 67, 1, 'In the presence of a nonconformity, does the organization\n• React to the nonconformity by taking actions to control and correct it, and dealing with its consequences\n• Evaluate the need for action to eliminate the cause                                                                                                                    • Implement any action needed\n• Review the effective of any corrective action?\n• Make change to the quality management system?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(183, 68, 3, 'Is documented information maintained to show the nature of the nonconformity and any subsequent actions taken, and the results of any corrective action taken?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(184, 68, 1, 'In the presence of a nonconformity, does the organization react to the nonconformity by taking actions to control and correct it, and dealing with its consequences?', 1, '', 2, 1, '2019-12-18 03:08:53', 18),
-(185, 68, 1, 'Are the actions taken appropriate to the effects, or potential effects of the nonconformity?', 1, NULL, 2, 1, '2019-12-13 22:37:57', NULL),
-(186, 68, 3, 'Are the corrective actions taken appropriate to the effects of the nonconformities encountered?', 1, '', 1, 1, '2019-12-18 03:08:44', 18),
-(187, 68, 3, 'Is action taken to eliminate the causes of nonconformities in order to prevent recurrence?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(188, 69, 1, 'Is the organization continually improving the suitability, adequacy and effectiveness of the quality management system?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(189, 69, 1, 'Are the outputs of analysis and evaluation, and the outputs from the management review process used to identify the areas of underperformances?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(190, 69, 1, 'Are specialized tools and methodologies used for investigation of the causes of underperformance?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(191, 69, 1, 'How does the organization demonstrate that the effectiveness of the quality management system is being\ncontinually improved?', 1, NULL, 1, 1, '2019-12-13 22:37:57', NULL),
-(192, 70, 2, 'This is a test question', 1, '', 1, 1, '2019-12-18 01:20:57', 18),
-(193, 71, 1, 'Is your company in Jamaica?', 1, '', 1, 1, '2020-02-27 19:18:34', 18),
-(194, 71, 1, 'Where will you give the services?', 1, '', 1, 1, '2020-02-27 19:19:09', 18),
-(195, 72, 1, 'How much money can you invest?', 1, '', 1, 1, '2020-02-27 19:19:33', 18);
+INSERT INTO `question` (`id`, `question`, `question_type_id`, `remark`, `active`, `upload_document`, `program_id`, `phase_id`, `standard_id`, `clause_id`, `sub_clause_id`, `upload_date`, `updated_by`) VALUES
+(14, 'What is your primary customers/ target markets for your services?', 2, '', 1, 1, 14, 1, 6, 0, 0, '2020-11-04 15:47:44', 23),
+(15, 'How long has your company been in operation?', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 15:48:32', 23),
+(16, 'Is the company registered with the registrar of companies?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 15:49:21', 23),
+(17, 'State other agencies with whom your company is registered.', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:05:04', 23),
+(18, 'State the number of employees in the company', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:06:36', 23),
+(19, 'State the size of the establishment facility (m^2)', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:07:08', 23),
+(20, 'State total investment in equipment used.', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:07:50', 23),
+(21, 'Are your operations guided by any of the following?', 6, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:08:49', 23),
+(22, 'Do you have any documented standard operating procedures', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:09:56', 23),
+(23, 'Do you have a quality manual/ policy manual?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:10:47', 23),
+(24, 'Do you have a best practice manual?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:12:00', 23),
+(25, 'What are your services offered or where can this information be found?', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:12:50', 23),
+(26, 'Has management made a decision to adopt/adopt the quality manual template provided?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:16:13', 23),
+(27, 'Has management defined the scope of services provided?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:16:47', 23),
+(28, 'What is the status of value chain services with respect to business processes?', 1, '', 1, 1, 14, 2, 6, 0, 0, '2020-11-04 16:25:18', 23),
+(29, 'What are the results of the internal audit?', 1, '', 1, 2, 14, 3, 6, 0, 0, '2020-11-04 16:25:50', 23);
 
 -- --------------------------------------------------------
 
@@ -1016,22 +879,28 @@ DROP TABLE IF EXISTS `question_option`;
 CREATE TABLE IF NOT EXISTS `question_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_id` int(11) NOT NULL,
-  `option_desc` varchar(100) NOT NULL,
+  `ques_option` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question_option`
 --
 
-INSERT INTO `question_option` (`id`, `question_id`, `option_desc`) VALUES
-(1, 2, 'yes'),
-(2, 2, 'no'),
-(3, 181, ''),
-(4, 193, ''),
-(5, 194, ''),
-(6, 195, '');
+INSERT INTO `question_option` (`id`, `question_id`, `ques_option`) VALUES
+(4, 16, 'Yes'),
+(5, 16, 'No'),
+(6, 22, 'Yes'),
+(7, 22, 'No'),
+(8, 23, 'Yes'),
+(9, 23, 'No'),
+(10, 24, 'Yes'),
+(11, 24, 'No'),
+(12, 26, 'Yes'),
+(13, 26, 'No'),
+(14, 27, 'Yes'),
+(15, 27, 'No');
 
 -- --------------------------------------------------------
 
@@ -1182,7 +1051,7 @@ CREATE TABLE IF NOT EXISTS `standard` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `standard`
@@ -1192,7 +1061,8 @@ INSERT INTO `standard` (`id`, `code`, `name`, `active`) VALUES
 (1, 'ISO9001', 'ISO 9001', 1),
 (2, '2', 'Certification 2', 1),
 (3, 'STA1', 'Standard 1', 1),
-(5, 'NEEDS', 'Registration of Company', 1);
+(5, 'NEEDS', 'Registration of Company', 1),
+(6, 'SPA9001', 'SPA STANDARD', 1);
 
 -- --------------------------------------------------------
 
@@ -1208,7 +1078,7 @@ CREATE TABLE IF NOT EXISTS `status` (
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `status`
@@ -1254,90 +1124,90 @@ DROP TABLE IF EXISTS `sub_clause`;
 CREATE TABLE IF NOT EXISTS `sub_clause` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clause_id` int(11) NOT NULL DEFAULT '1',
-  `phase_id` int(11) NOT NULL DEFAULT '1',
   `code` varchar(10) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=active  2=inactive',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sub_clause`
 --
 
-INSERT INTO `sub_clause` (`id`, `clause_id`, `phase_id`, `code`, `name`, `active`) VALUES
-(1, 4, 1, '4.1', 'Understanding the organization and its context', 1),
-(2, 4, 1, '4.2', 'Understanding the needs and expectations of interested parties', 1),
-(3, 4, 2, '4.3', 'Determining the scope of the Quality Management System', 1),
-(4, 4, 2, '4.4', 'Quality Management System and its processes', 1),
-(5, 5, 2, '5.1.1', 'Leadership', 1),
-(6, 5, 3, '5.1.2', 'Customer Focus ', 1),
-(7, 5, 2, '5.2.1', 'Quality Policy', 1),
-(8, 5, 2, '5.2.2', 'Quality Policy', 1),
-(9, 5, 3, '5.3', 'Organizational roles, responsibilities and authorities', 1),
-(10, 6, 4, '6.1', 'Actions to address risks and opportunities', 1),
-(11, 6, 4, '6.1.2', 'Actions to address risks and opportunities', 1),
-(12, 6, 4, '6.2.1', 'Quality objectives and planning to achieve them', 1),
-(13, 6, 4, '6.2.2', 'Quality objectives and planning to achieve them', 1),
-(14, 6, 4, '6.3', 'Planning for changes', 1),
-(15, 7, 4, '7.1.1', 'Resources', 1),
-(16, 7, 4, '7.1.2', 'People', 1),
-(17, 7, 4, '7.1.3', 'Infrastructure', 1),
-(18, 7, 4, '7.1.4', 'Environment for the operation of processes', 1),
-(19, 7, 4, '7.1.5', 'Monitoring and measuring resources', 1),
-(20, 7, 4, '7.1.6', 'Organizational Knowledge', 1),
-(21, 7, 4, '7.2', 'Competence', 1),
-(22, 7, 4, '7.3', 'Awareness', 1),
-(23, 7, 4, '7.4', 'Communication', 1),
-(24, 7, 4, '7.5.1', 'Documneted Information', 1),
-(25, 7, 4, '7.5.2', 'Documneted Information', 1),
-(26, 7, 4, '7.5.3', 'Documneted Information', 1),
-(27, 7, 4, '7.5.3.1', 'Documneted Information', 1),
-(28, 7, 4, '7.5.3.2', 'Documneted Information', 1),
-(29, 8, 4, '8.1', 'Operations', 1),
-(30, 8, 4, '8.2.1', 'Customer Communication', 1),
-(31, 8, 4, '8.2.2', 'Determining the requirement for products & Services', 1),
-(32, 8, 4, '8.2.3', 'Review of the requirements for products and services', 1),
-(33, 8, 4, '8.2.4', 'Review of the requirements for products and services', 1),
-(34, 8, 4, '8.3.2', 'Design and development of products and services', 1),
-(35, 8, 4, '8.3.3', 'Design and development of products and services', 1),
-(36, 8, 4, '8.3.3', 'Design and development inputs', 1),
-(37, 8, 4, '8.3.4', 'Design and development inputs', 1),
-(38, 8, 4, '8.3.4', 'Design and development controls', 1),
-(39, 8, 4, '8.3.5', 'Design and development controls', 1),
-(40, 8, 4, '8.3.6', 'Design and development outputs', 1),
-(41, 8, 4, '8.3.6', 'Design and Development changes', 1),
-(42, 8, 4, '8.4.1', 'Control of externally provided processes, products and services', 1),
-(43, 8, 4, '8.4.2', 'Type and extent of control', 1),
-(44, 8, 4, '8.4.3', 'Type and extent of control', 1),
-(45, 8, 4, '8.4.3', 'Information for external providers', 1),
-(46, 8, 4, '8.5.1', 'Production and Service provision', 1),
-(47, 8, 4, '8.5.1', 'Control of production and service provision', 1),
-(48, 8, 4, '8.5.2', 'Identification and traceability', 1),
-(49, 8, 4, '8.5.3', 'Property belonging to customers or external providers', 1),
-(50, 8, 4, '8.5.4', 'Preservation', 1),
-(51, 8, 4, '8.5.5', 'Post Delivery Activities', 1),
-(52, 8, 4, '8.5.6', 'Post Delivery Activities', 1),
-(53, 8, 4, '8.6', 'Control of Changes', 1),
-(54, 8, 4, '8.6.', 'Release of products and services', 1),
-(55, 8, 4, '8.6', 'Release of products and services', 1),
-(56, 8, 4, '8.7', 'Control of Nonconforming outputs', 1),
-(57, 9, 4, '9.1.1', 'Performance Evaluation', 1),
-(58, 9, 4, '9.1.2', 'Customer satisfaction', 1),
-(59, 9, 4, '9.1.3', 'Analysis and evaluation', 1),
-(60, 9, 4, '9.2.1', 'Internal Audit', 1),
-(61, 9, 4, '9.2.2', 'Internal Audit', 1),
-(62, 9, 4, '9.3.1', 'Management Review', 1),
-(63, 9, 4, '9.3.2', 'Management Review', 1),
-(64, 9, 4, '9.3.3', 'Management Review inputs', 1),
-(65, 9, 4, '9.3.3', 'Management Revew outputs', 1),
-(66, 10, 4, '10.1', 'Improvement', 1),
-(67, 10, 4, '10.2.1', 'Nonconformity and corrective action ', 1),
-(68, 10, 4, '10.2.2', 'Nonconformity and corrective action ', 1),
-(69, 10, 4, '10.3', 'Continual improvement', 1),
-(70, 11, 1, '80.1', 'Here is the sub-clause for Standard 1', 1),
-(71, 13, 6, 'N.1.1', 'Situation of the client', 1),
-(72, 13, 6, 'N.1.2', 'Investiment', 1);
+INSERT INTO `sub_clause` (`id`, `clause_id`, `code`, `name`, `active`) VALUES
+(1, 4, '4.1', 'Understanding the organization and its context', 1),
+(2, 4, '4.2', 'Understanding the needs and expectations of interested parties', 1),
+(3, 4, '4.3', 'Determining the scope of the Quality Management System', 1),
+(4, 4, '4.4', 'Quality Management System and its processes', 1),
+(5, 5, '5.1.1', 'Leadership', 1),
+(6, 5, '5.1.2', 'Customer Focus ', 1),
+(7, 5, '5.2.1', 'Quality Policy', 1),
+(8, 5, '5.2.2', 'Quality Policy', 1),
+(9, 5, '5.3', 'Organizational roles, responsibilities and authorities', 1),
+(10, 6, '6.1', 'Actions to address risks and opportunities', 1),
+(11, 6, '6.1.2', 'Actions to address risks and opportunities', 1),
+(12, 6, '6.2.1', 'Quality objectives and planning to achieve them', 1),
+(13, 6, '6.2.2', 'Quality objectives and planning to achieve them', 1),
+(14, 6, '6.3', 'Planning for changes', 1),
+(15, 7, '7.1.1', 'Resources', 1),
+(16, 7, '7.1.2', 'People', 1),
+(17, 7, '7.1.3', 'Infrastructure', 1),
+(18, 7, '7.1.4', 'Environment for the operation of processes', 1),
+(19, 7, '7.1.5', 'Monitoring and measuring resources', 1),
+(20, 7, '7.1.6', 'Organizational Knowledge', 1),
+(21, 7, '7.2', 'Competence', 1),
+(22, 7, '7.3', 'Awareness', 1),
+(23, 7, '7.4', 'Communication', 1),
+(24, 7, '7.5.1', 'Documneted Information', 1),
+(25, 7, '7.5.2', 'Documneted Information', 1),
+(26, 7, '7.5.3', 'Documneted Information', 1),
+(27, 7, '7.5.3.1', 'Documneted Information', 1),
+(28, 7, '7.5.3.2', 'Documneted Information', 1),
+(29, 8, '8.1', 'Operations', 1),
+(30, 8, '8.2.1', 'Customer Communication', 1),
+(31, 8, '8.2.2', 'Determining the requirement for products & Services', 1),
+(32, 8, '8.2.3', 'Review of the requirements for products and services', 1),
+(33, 8, '8.2.4', 'Review of the requirements for products and services', 1),
+(34, 8, '8.3.2', 'Design and development of products and services', 1),
+(35, 8, '8.3.3', 'Design and development of products and services', 1),
+(36, 8, '8.3.3', 'Design and development inputs', 1),
+(37, 8, '8.3.4', 'Design and development inputs', 1),
+(38, 8, '8.3.4', 'Design and development controls', 1),
+(39, 8, '8.3.5', 'Design and development controls', 1),
+(40, 8, '8.3.6', 'Design and development outputs', 1),
+(41, 8, '8.3.6', 'Design and Development changes', 1),
+(42, 8, '8.4.1', 'Control of externally provided processes, products and services', 1),
+(43, 8, '8.4.2', 'Type and extent of control', 1),
+(44, 8, '8.4.3', 'Type and extent of control', 1),
+(45, 8, '8.4.3', 'Information for external providers', 1),
+(46, 8, '8.5.1', 'Production and Service provision', 1),
+(47, 8, '8.5.1', 'Control of production and service provision', 1),
+(48, 8, '8.5.2', 'Identification and traceability', 1),
+(49, 8, '8.5.3', 'Property belonging to customers or external providers', 1),
+(50, 8, '8.5.4', 'Preservation', 1),
+(51, 8, '8.5.5', 'Post Delivery Activities', 1),
+(52, 8, '8.5.6', 'Post Delivery Activities', 1),
+(53, 8, '8.6', 'Control of Changes', 1),
+(54, 8, '8.6.', 'Release of products and services', 1),
+(55, 8, '8.6', 'Release of products and services', 1),
+(56, 8, '8.7', 'Control of Nonconforming outputs', 1),
+(57, 9, '9.1.1', 'Performance Evaluation', 1),
+(58, 9, '9.1.2', 'Customer satisfaction', 1),
+(59, 9, '9.1.3', 'Analysis and evaluation', 1),
+(60, 9, '9.2.1', 'Internal Audit', 1),
+(61, 9, '9.2.2', 'Internal Audit', 1),
+(62, 9, '9.3.1', 'Management Review', 1),
+(63, 9, '9.3.2', 'Management Review', 1),
+(64, 9, '9.3.3', 'Management Review inputs', 1),
+(65, 9, '9.3.3', 'Management Revew outputs', 1),
+(66, 10, '10.1', 'Improvement', 1),
+(67, 10, '10.2.1', 'Nonconformity and corrective action ', 1),
+(68, 10, '10.2.2', 'Nonconformity and corrective action ', 1),
+(69, 10, '10.3', 'Continual improvement', 1),
+(70, 11, '80.1', 'Here is the sub-clause for Standard 1', 1),
+(71, 13, 'N.1.1', 'Situation of the client', 1),
+(72, 13, 'N.1.2', 'Investiment', 1),
+(73, 14, 'testspa', 'spatest', 1);
 
 -- --------------------------------------------------------
 
@@ -1381,14 +1251,15 @@ CREATE TABLE IF NOT EXISTS `technical_advice` (
   PRIMARY KEY (`id`),
   KEY `client_id` (`client_id`),
   KEY `activity` (`activity`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `technical_advice`
 --
 
 INSERT INTO `technical_advice` (`id`, `client_id`, `consultant_id`, `activity`, `date_created`, `date_begin`, `date_ended`, `work_scope`, `updated_by`) VALUES
-(8, 24, '[\"31\"]', 1, '2020-09-28', '2020-09-29', '2020-10-26', 'hsdfhskglhsjklghsalkgsa', 23);
+(8, 24, '[\"31\"]', 1, '2020-09-28', '2020-09-29', '2020-10-26', 'hsdfhskglhsjklghsalkgsa', 23),
+(9, 25, '[\"30\"]', 1, '2020-10-14', '2020-10-22', '2020-10-31', '', 23);
 
 -- --------------------------------------------------------
 
