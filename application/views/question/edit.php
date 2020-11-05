@@ -110,11 +110,11 @@
                     </thead>
                     <tbody>
                     <?php if(isset($question_data['question_option'])): ?>
-                      <?php $x = 1; ?>
+                      <?php $x = 1;?>
                       <?php foreach ($question_data['question_option'] as $key => $val): ?>
                       <tr id="row_<?php echo $x; ?>">
                           <td><input type="text" name="option[]" id="option_<?php echo $x; ?>" class="form-control" required value="<?php echo $val['ques_option'] ?>" autocomplete="off"></td>
-
+                          <input type="hidden"  name="optionId[]" value="<?php echo $val['id'] ?>">
                           <td><button type="button" class="btn btn-default" onclick="removeRow('<?php echo $x; ?>')"><i class="fa fa-close"></i></button></td>
                       </tr>
                       <?php $x++; ?>
