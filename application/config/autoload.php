@@ -138,6 +138,7 @@ $autoload['model'] = array(
 	'model_activity',
     'model_answer',
 	'model_auth',
+	'model_billing',
 	'model_category',
 	'model_city',
 	'model_clause',
@@ -150,6 +151,7 @@ $autoload['model'] = array(
 	'model_dynamic_dependent',
 	'model_inquiry',
 	'model_inquiry_type',
+	'model_internal_cost_plan',
 	'model_log',
 	'model_parish',
 	'model_manual',
@@ -167,4 +169,5 @@ $autoload['model'] = array(
 	'model_status',
 	'model_sub_clause',
 	'model_support_type',
+	'model_technical_advice',
 	'model_user');

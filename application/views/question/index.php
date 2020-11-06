@@ -25,10 +25,10 @@
         <div id="messages"></div>
 
         <?php if($this->session->flashdata('success')): ?>
-          <!-- <div class="alert alert-success alert-dismissible" role="alert">
+          <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <?php echo $this->session->flashdata('success'); ?>
-          </div>--> 
+          </div> 
         <?php elseif($this->session->flashdata('error')): ?>
           <div class="alert alert-error alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -60,9 +60,9 @@
               <table id="manageTable" class="table table-bordered table-striped">
                 <thead>
                 <tr> 
+                    <th>Program</th>
+                    <th>Phase</th>
                     <th>Standard</th>
-                    <th>Clause</th>
-                    <th>Sub Clause</th>
                     <th>Question</th>
                     <th>Question Type</th>
                   <?php if(in_array('updateQuestion', $user_permission) || in_array('deleteQuestion', $user_permission)): ?>

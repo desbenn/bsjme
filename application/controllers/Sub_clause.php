@@ -87,7 +87,6 @@ class Sub_clause extends Admin_Controller
 				$value['code'],				
 				$value['standard_name'],
 				$value['clause_code'],
-				$value['phase_name'],
 				$active,
 				$buttons
 			);
@@ -112,7 +111,6 @@ class Sub_clause extends Admin_Controller
 		$this->form_validation->set_rules('sub_clause_name', 'Name', 'trim|required');
 		$this->form_validation->set_rules('sub_clause_code', 'Code', 'trim|required');
 		$this->form_validation->set_rules('clause', 'Clause', 'trim|required');
-		$this->form_validation->set_rules('phase', 'Phase', 'trim|required');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
@@ -120,7 +118,6 @@ class Sub_clause extends Admin_Controller
         		'code' => $this->input->post('sub_clause_code'),
         		'name' => $this->input->post('sub_clause_name'),
         		'clause_id' => $this->input->post('clause'),
-        		'phase_id' => $this->input->post('phase'),
         		'active' => $this->input->post('active'),	
         	);
 
@@ -162,7 +159,6 @@ class Sub_clause extends Admin_Controller
 		if($id) {
 			$this->form_validation->set_rules('edit_sub_clause_name', 'Name', 'trim|required');
 			$this->form_validation->set_rules('edit_clause', 'Clause', 'trim|required');
-			$this->form_validation->set_rules('edit_phase', 'Phase', 'trim|required');
 			$this->form_validation->set_rules('edit_sub_clause_code', 'Code', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
@@ -171,7 +167,6 @@ class Sub_clause extends Admin_Controller
 	        		'code' => $this->input->post('edit_sub_clause_code'),
 	        		'name' => $this->input->post('edit_sub_clause_name'),
 	        		'clause_id' => $this->input->post('edit_clause'),	
-	        		'phase_id' => $this->input->post('edit_phase'),
 	        		'active' => $this->input->post('edit_active'),	
 	        	);
 
