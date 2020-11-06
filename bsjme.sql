@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 04, 2020 at 05:26 PM
+-- Generation Time: Nov 06, 2020 at 03:22 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -56,12 +56,23 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `consultation_id` int(11) NOT NULL,
   `question_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `answer` text NOT NULL,
+  `answer` text,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `consultation_id` (`consultation_id`),
+  KEY `question_id` (`question_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `answer`
+--
+
+INSERT INTO `answer` (`id`, `consultation_id`, `question_id`, `answer`, `updated_date`, `updated_by`) VALUES
+(1, 32, 14, '[\"hello darkness my old friend\"]', '2020-11-06 14:20:58', 23),
+(2, 32, 23, '[\"26\"]', '2020-11-06 14:26:24', 23),
+(3, 32, 30, '[\"31\"]', '2020-11-06 14:28:36', 23),
+(4, 32, 28, '[\"we trying our best\"]', '2020-11-06 14:59:37', 23);
 
 -- --------------------------------------------------------
 
@@ -286,7 +297,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
 
 INSERT INTO `consultation` (`id`, `consultation_no`, `clause_id`, `client_id`, `consultant_id`, `phase_id`, `program_id`, `sector_id`, `standard_id`, `status_id`, `board_meeting_time_period`, `business_process`, `date_begin`, `date_creation`, `date_end`, `description`, `exemption`, `management_review_time`, `product`, `quality_policy`, `remark`, `updated_date`, `updated_by`) VALUES
 (31, 'CON01', 11, 24, '[\"29\",\"30\"]', 1, 8, 4, 2, 11, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 1', '', '', '', '', '', '2020-09-25 21:23:11', 23),
-(32, 'CON02', 13, 25, '[\"29\"]', 1, 14, 4, 5, 31, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 2', '', '', '', '', '', '2020-11-04 21:27:07', 23);
+(32, 'CON02', 13, 25, '[\"29\"]', 2, 14, 4, 5, 21, '', '', '2020-02-27', '2020-02-27', '0000-00-00', 'Consultation 2', '', '', '', '', '', '2020-11-06 19:28:28', 23);
 
 -- --------------------------------------------------------
 
@@ -480,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `internal_cost_plan` (
 
 INSERT INTO `internal_cost_plan` (`id`, `ta_id`, `client_id`, `billing_item_id`, `p_amount`, `a_amount`, `date_updated`, `updated_by`) VALUES
 (6, 8, 24, 3, 12000, 11501, '2020-10-08', 23),
-(8, 8, 24, 2, 50123, 30421, '2020-10-20', 23),
+(8, 8, 24, 2, 50123, 30426, '2020-11-06', 23),
 (9, 8, 24, 4, 6000, 5000, '2020-10-20', 23),
 (10, 8, 24, 3, 50, 50, '2020-10-20', 23);
 
@@ -504,7 +515,7 @@ CREATE TABLE IF NOT EXISTS `log` (
   `remark` text,
   `attributes` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `log`
@@ -603,7 +614,10 @@ INSERT INTO `log` (`id`, `user_id`, `timestamp`, `module`, `action`, `subject_id
 (152, 23, '2020-11-04 14:19:09', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Introduction to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"6\";s:10:\"program_id\";s:2:\"13\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"48\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-09-28 14:38:43\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:12:\"Introduction\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:14:\"Needs Analysis\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:12:\"updated_date\";s:19:\"2020-11-04 14:19:09\";s:10:\"updated_by\";s:2:\"23\";}}'),
 (153, 23, '2020-11-04 14:32:41', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 1 to phase Phase 2', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 14:19:09\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"2\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-04 14:32:41\";s:10:\"updated_by\";s:2:\"23\";}}'),
 (154, 23, '2020-11-04 16:26:55', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 2 to phase Phase 3', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"2\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 14:32:41\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 2\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"3\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-04 16:26:55\";s:10:\"updated_by\";s:2:\"23\";}}'),
-(155, 23, '2020-11-04 16:27:07', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 3 to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"3\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 16:26:55\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 3\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"31\";s:12:\"updated_date\";s:19:\"2020-11-04 16:27:07\";s:10:\"updated_by\";s:2:\"23\";}}');
+(155, 23, '2020-11-04 16:27:07', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 3 to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"3\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 16:26:55\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 3\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"31\";s:12:\"updated_date\";s:19:\"2020-11-04 16:27:07\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(156, 23, '2020-11-05 18:53:11', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 1 to phase Phase 2', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"31\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-04 16:27:07\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"2\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-05 18:53:11\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(157, 23, '2020-11-06 14:08:29', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 2 to phase Phase 1', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"2\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-05 18:53:11\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 2\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"1\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:12:\"updated_date\";s:19:\"2020-11-06 14:08:29\";s:10:\"updated_by\";s:2:\"23\";}}'),
+(158, 23, '2020-11-06 14:28:28', 'Consultation', 'Update', 32, 25, 32, NULL, 'Update Consultation CON02 and Move from phase Phase 1 to phase Phase 2', 'a:2:{s:3:\"old\";a:39:{s:2:\"id\";s:2:\"32\";s:15:\"consultation_no\";s:5:\"CON02\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:8:\"phase_id\";s:1:\"1\";s:10:\"program_id\";s:2:\"14\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"11\";s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:13:\"date_creation\";s:10:\"2020-02-27\";s:8:\"date_end\";s:10:\"0000-00-00\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:7:\"product\";s:0:\"\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:12:\"updated_date\";s:19:\"2020-11-06 14:08:29\";s:10:\"updated_by\";s:5:\"admin\";s:7:\"address\";s:13:\"11700 Racette\";s:11:\"client_name\";s:7:\"M. Just\";s:12:\"company_name\";s:17:\"Hotel Association\";s:13:\"director_name\";s:6:\"Muriel\";s:3:\"trn\";s:6:\"TRN002\";s:8:\"district\";s:0:\"\";s:5:\"email\";s:20:\"voyagine@hotmail.com\";s:6:\"mobile\";s:0:\"\";s:5:\"phone\";s:10:\"5149836594\";s:11:\"postal_code\";s:7:\"H1G 5J5\";s:7:\"website\";s:0:\"\";s:9:\"directory\";s:6:\"TRN002\";s:11:\"parish_name\";s:9:\"Clarendon\";s:10:\"phase_name\";s:7:\"Phase 1\";s:11:\"county_name\";s:8:\"Cornwall\";s:12:\"program_name\";s:12:\"spa standard\";}s:3:\"new\";a:21:{s:25:\"board_meeting_time_period\";s:0:\"\";s:16:\"business_process\";s:0:\"\";s:9:\"clause_id\";s:2:\"13\";s:9:\"client_id\";s:2:\"25\";s:13:\"consultant_id\";s:6:\"[\"29\"]\";s:15:\"consultation_no\";s:5:\"CON02\";s:10:\"date_begin\";s:10:\"2020-02-27\";s:8:\"date_end\";s:0:\"\";s:11:\"description\";s:14:\"Consultation 2\";s:9:\"exemption\";s:0:\"\";s:22:\"management_review_time\";s:0:\"\";s:8:\"phase_id\";s:1:\"2\";s:7:\"product\";s:0:\"\";s:10:\"program_id\";s:2:\"14\";s:14:\"quality_policy\";s:0:\"\";s:6:\"remark\";s:0:\"\";s:9:\"sector_id\";s:1:\"4\";s:11:\"standard_id\";s:1:\"5\";s:9:\"status_id\";s:2:\"21\";s:12:\"updated_date\";s:19:\"2020-11-06 14:28:28\";s:10:\"updated_by\";s:2:\"23\";}}');
 
 -- --------------------------------------------------------
 
@@ -845,7 +859,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   KEY `program_id` (`program_id`),
   KEY `phase_id` (`phase_id`),
   KEY `standard_id` (`standard_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question`
@@ -854,20 +868,17 @@ CREATE TABLE IF NOT EXISTS `question` (
 INSERT INTO `question` (`id`, `question`, `question_type_id`, `remark`, `active`, `upload_document`, `program_id`, `phase_id`, `standard_id`, `clause_id`, `sub_clause_id`, `upload_date`, `updated_by`) VALUES
 (14, 'What is your primary customers/ target markets for your services?', 2, '', 1, 1, 14, 1, 6, 0, 0, '2020-11-04 15:47:44', 23),
 (15, 'How long has your company been in operation?', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 15:48:32', 23),
-(16, 'Is the company registered with the registrar of companies?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 15:49:21', 23),
 (17, 'State other agencies with whom your company is registered.', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:05:04', 23),
 (18, 'State the number of employees in the company', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:06:36', 23),
 (19, 'State the size of the establishment facility (m^2)', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:07:08', 23),
 (20, 'State total investment in equipment used.', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:07:50', 23),
 (21, 'Are your operations guided by any of the following?', 6, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:08:49', 23),
-(22, 'Do you have any documented standard operating procedures', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:09:56', 23),
 (23, 'Do you have a quality manual/ policy manual?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:10:47', 23),
-(24, 'Do you have a best practice manual?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:12:00', 23),
 (25, 'What are your services offered or where can this information be found?', 1, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:12:50', 23),
-(26, 'Has management made a decision to adopt/adopt the quality manual template provided?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:16:13', 23),
 (27, 'Has management defined the scope of services provided?', 4, '', 1, 2, 14, 1, 6, 0, 0, '2020-11-04 16:16:47', 23),
 (28, 'What is the status of value chain services with respect to business processes?', 1, '', 1, 1, 14, 2, 6, 0, 0, '2020-11-04 16:25:18', 23),
-(29, 'What are the results of the internal audit?', 1, '', 1, 2, 14, 3, 6, 0, 0, '2020-11-04 16:25:50', 23);
+(29, 'What are the results of the internal audit?', 1, '', 1, 2, 14, 3, 6, 0, 0, '2020-11-04 16:25:50', 23),
+(30, 'This is a test for the drop down list', 5, '', 1, 2, 14, 2, 6, 0, 0, '2020-11-05 18:53:01', 23);
 
 -- --------------------------------------------------------
 
@@ -882,25 +893,21 @@ CREATE TABLE IF NOT EXISTS `question_option` (
   `ques_option` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `question_option`
 --
 
 INSERT INTO `question_option` (`id`, `question_id`, `ques_option`) VALUES
-(4, 16, 'Yes'),
-(5, 16, 'No'),
-(6, 22, 'Yes'),
-(7, 22, 'No'),
-(8, 23, 'Yes'),
-(9, 23, 'No'),
-(10, 24, 'Yes'),
-(11, 24, 'No'),
-(12, 26, 'Yes'),
-(13, 26, 'No'),
 (14, 27, 'Yes'),
-(15, 27, 'No');
+(15, 27, 'No'),
+(25, 23, 'YAAAAAAAAAAS'),
+(26, 23, 'Maybe'),
+(30, 30, 'Yes'),
+(31, 30, 'No'),
+(32, 30, 'Maybe'),
+(33, 30, 'LOOOL you thought');
 
 -- --------------------------------------------------------
 
@@ -1303,6 +1310,13 @@ INSERT INTO `user` (`id`, `profile_id`, `username`, `password`, `email`, `name`,
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `answer`
+--
+ALTER TABLE `answer`
+  ADD CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`consultation_id`) REFERENCES `consultation` (`id`),
+  ADD CONSTRAINT `answer_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`);
 
 --
 -- Constraints for table `internal_cost_plan`
