@@ -698,32 +698,31 @@ class Consultation extends Admin_Controller
         echo json_encode($result);
     }
 
-    public function answerQuestion($question_id, $consultationId)
+    public function answerQuestion($question_id=null, $consultationId=null)
     {
-        $this->form_validation->set_rules('response[]', ' ', 'trim|required');
-        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>');   
-        if ($this->form_validation->run() == TRUE) 
+        $this->form_validation->set_rules('response[]', 'A response is required to save changes', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p class="alert alert-warning">','</p>'); 
+        if($this->form_validation->run() == TRUE)
         {
             $count_response = count($this->input->post('response'));
             $response = array();
-            $trn=$this->session->username;
-            for($x = 0; $x < $count_response; $x++) 
+            for($x = 0; $x < $count_response; $x++)
             {
                 array_push($response,$this->input->post('response')[$x]);
-            }  
+            }
             $data = array(
                 'question_id' => $question_id,
-                'user_id' =>  $trn,
                 'consultation_id' => $consultationId,
                 'answer' => json_encode($response),
-                'updated_by' => $trn);
-            
+                'updated_by' => $this->session->user_id,
+            );
+
             //gets an ID of response if it exist, false if it does not exist
             $ifExist = $this->model_answer->ifExist($consultationId, $question_id);
 
-            //check to see if a record of this question has already been answered by this user
-            // if true then it will be updated else it will be created
-            if($ifExist!=false) 
+            //check to see if a record of this question has already been answered by this user 
+            //if true then it will be updated else it will be created
+            if($ifExist!=false)
             {
                 $success = $this->model_answer->update($data, $ifExist);
                 if($success)
@@ -737,7 +736,7 @@ class Consultation extends Admin_Controller
                     redirect('consultation/update/'.$consultationId, 'refresh');
                 }
             }
-            else //create a record (response)
+            else //create a record
             {
                 $success = $this->model_answer->create($data);
                 if($success)
@@ -749,11 +748,11 @@ class Consultation extends Admin_Controller
                 {
                     $this->session->set_flashdata('errors', 'Error occurred!!');
                     redirect('consultation/update/'.$consultationId, 'refresh');
-                }
+                } 
             }
         }
-        else 
-        {   
+        else
+        {
             $result = array();
             $ifExist = $this->model_answer->ifExist($consultationId, $question_id);
             if($ifExist)
@@ -765,20 +764,26 @@ class Consultation extends Admin_Controller
                     $result['question_response'][] = $v;
                 }
             }
-            $this->data['consultationId'] = $consultationId;            
+            $this->data['consultationId'] = $consultationId;
             $question_data = $this->model_question->getQuestionData($question_id);
             $result['question'] = $question_data;
             $question_option = $this->model_question->getOptionData($question_data['id']);
             if($question_option!=null)
             {
-                foreach($question_option as $k => $v) 
+                foreach($question_option as $k => $v)
                 {
                     $result['question_option'][] = $v;
                 }
-            }            
+            }
             $this->data['question_data'] = $result;
-            $this->render_template('consultation/answer', $this->data); 
-        }  
+            if($ifExist){
+                $this->render_template('answer/edit', $this->data);
+            }
+            else{                
+                $this->render_template('answer/create', $this->data);
+            }
+        }
+
     }
 
     public function fetchQuestions($phase_id=null,$program_id=null, $consultation_id=null)
@@ -788,7 +793,7 @@ class Consultation extends Admin_Controller
         $data = $this->model_consultation->getConsultationQuestion($program_id,$phase_id);
         foreach($data as $key => $value){
             $buttons = '';
-            // $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['question_id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
+            $buttons .= '<a href="'.base_url('consultation/answerQuestion/'.$value['id'].'/'.$consultation_id).'"class="btn btn-default"><i class="fa fa-pencil"></i></a>';
             $result['data'][$key] = array(
                 ++$question_count,
                 $value['question'],
