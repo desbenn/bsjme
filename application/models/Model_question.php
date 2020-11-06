@@ -43,7 +43,7 @@ class Model_question extends CI_Model
 
 	
 
-	// get the option question data
+	// get the option question data ----Maybe delete
 	public function getOptionData($question_id = null)
 	{
 		if(!$question_id) {
@@ -61,13 +61,17 @@ class Model_question extends CI_Model
 	// get the option question data
 	public function getQuestionOptionDataById($id = null)
 	{
-		if(!$id) {return false;}
-
-		$sql = "SELECT question_option.id
+		if($id) 
+		{
+			return false;
+		}
+		else{
+			$sql = "SELECT question_option.id
 				FROM question_option 
 				WHERE id = ?";
-		$query = $this->db->query($sql, array($id));
-		return $query->row_array();
+			$query = $this->db->query($sql, array($id));
+			return $query->row_array();
+		}		
 	}
 
 
@@ -116,11 +120,13 @@ class Model_question extends CI_Model
 	public function remove($id)
 	{
 		if($id) {
-			$this->db->where('id', $id);
-			$delete = $this->db->delete('question');
 
 			$this->db->where('question_id', $id);
 			$delete_option = $this->db->delete('question_option');
+
+			$this->db->where('id', $id);
+			$delete = $this->db->delete('question');
+
 
 			return ($delete == true && $delete_option) ? true : false;
 
