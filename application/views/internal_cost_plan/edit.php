@@ -72,27 +72,23 @@
                       <input type="text" class="form-control"  value="<?php foreach($billing_item as $k => $v){if($icp_item_data['billing_item_id'] == $v['id']){echo $v['name'];}} ?>" READONLY>
                       <input type="hidden" class="form-control" name="edit_billing_item" value="<?php foreach($billing_item as $k => $v){if($icp_item_data['billing_item_id'] == $v['id']){echo $v['id'];}} ?>" READONLY>
                     </div>
-                  </div>
+                  </div>                                                  
+                </div>  
+                <br>
+                <div class="row">
                   <div class="col-md-6 col-xs-6">
                     <div class="form-group">
                       <label for="item_description">Item Description<font color="red">*</font></label>
                       <textarea type="text" class="form-control" id="item_description" name="item_description" autocomplete="off" rows="2" READONLY><?php foreach($billing_item as $k => $v){if($icp_item_data['billing_item_id'] == $v['id']){echo $v['description'];}} ?></textarea>
                     </div>
                   </div>
-                                                  
-                </div>  
-                <br>              
+                </div> 
+                <br>             
                 <div class="row">  
                   <div class="col-md-3 col-xs-3">
                     <div class="form-group">
-                      <label for="edit_billing_cost">Item Cost $JMD<font color="red">*</font></label>
-                      <input type="number" class="form-control" id="edit_billing_cost" name="edit_billing_cost" autocomplete="off" value="<?php foreach($billing_item as $k => $v){if($icp_item_data['billing_item_id'] == $v['id']){echo $v['cost'];}} ?>" READONLY>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-xs-3">
-                    <div class="form-group">
                       <label for="edit_p_amount">Estimated Amount $JMD</label>
-                      <input type="number" class="form-control" id="edit_p_amount" name="edit_p_amount" autocomplete="off" value="<?php echo set_value('edit_p_amount', isset($icp_item_data['p_amount']) ? $icp_item_data['p_amount'] : ''); ?>">
+                      <input type="number" class="form-control" id="edit_p_amount" name="edit_p_amount" autocomplete="off" value="<?php foreach($billing_item as $k => $v){if($icp_item_data['billing_item_id'] == $v['id']){echo $v['cost'];}} ?>" READONLY>
                     </div>
                   </div>
                   <div class="col-md-3 col-xs-3">

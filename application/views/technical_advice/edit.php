@@ -25,7 +25,6 @@
 <section class="content">
   <ul class="nav nav-tabs">
     <li class="<?php echo (($active_tab === 'technical_advice') ? 'active' : '') ?>"><a data-toggle="tab" href="#technical_advice">Technical Advice</a></li>
-    <li class="<?php echo (($active_tab === 'needs_assessment') ? 'active' : '') ?>"><a data-toggle="tab" href="#needs_assessment">Needs Assessment</a></li>
     <li class="<?php echo (($active_tab === 'client_work_plan') ? 'active' : '') ?>"><a data-toggle="tab" href="#client_work_plan">Work Plan</a></li>		
     <li class="<?php echo (($active_tab === 'internal_cost_plan') ? 'active' : '') ?>"><a data-toggle="tab" href="#internal_cost_plan">Cost Plan</a></li>
   </ul>
@@ -320,7 +319,7 @@ $(document).ready(function() {
                         <tr>
                             <th>Budget Type</th>
                             <th>Item</th>
-                            <th>Estimate Amount</th>								
+                            <th>Planned Estimate</th>								
                             <th>Actual Amount</th>
                             <th>Created/Updated by</th>
                             <th>Date Created/Updated</th>
@@ -368,16 +367,11 @@ $(document).ready(function() {
           </select>
       </div>
 
-      <div class="form-group">
-      <label for="cost">Cost $JMD</label>
-            <input type="number" class="form-control" id="cost" name="cost" autocomplete="off" READONLY>
-      </div>
-
       <div class="row">
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
             <label for="p_amount">Planned Estimate ($JMD)</label>
-            <input type="number" class="form-control" id="p_amount" name="p_amount" autocomplete="off">
+            <input type="number" class="form-control" id="p_amount" name="p_amount" autocomplete="off" READONLY> 
           </div>
         </div>
         <div class="col-md-6 col-xs-6">
@@ -391,9 +385,7 @@ $(document).ready(function() {
       <div class="form-group">
         <label for="date_updated">Date<font color="red"> *</font></label>
         <input type="date" class="form-control" id="date_updated" name="date_updated" value="<?php echo date('Y-m-d'); ?>" autocomplete="off" READONLY> 
-      </div>
-        
-    
+      </div>    
 
     </div>
 
@@ -449,7 +441,7 @@ var base_url = "<?php echo base_url(); ?>";
 
 $(document).ready(function() {
 
-$item_cost=$('[id="cost"]');
+$item_cost=$('[id="p_amount"]');
 $item_name = $('[id="item_name"]');
 var budget_type= document.getElementById('budget_type');
 budget_type.onchange=function(){

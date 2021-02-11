@@ -136,7 +136,7 @@ class Internal_cost_plan extends Admin_Controller
 		$response = array();
 
 		$this->form_validation->set_rules('budget_type', 'Budget Type', 'trim|required');
-		$this->form_validation->set_rules('item_name', 'Item', 'trim|required');
+		$this->form_validation->set_rules('a_amount', 'Actual Spent', 'trim|required');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">','</p>');
 
         if ($this->form_validation->run() == TRUE) {
@@ -144,7 +144,6 @@ class Internal_cost_plan extends Admin_Controller
                 'ta_id' => $this->session->technical_advice_id,
         		'client_id' => $this->session->client_id,
         		'billing_item_id' => $this->input->post('item_name'),
-        		'p_amount' => $this->input->post('p_amount'),
         		'a_amount' => $this->input->post('a_amount'),
         		'date_updated' => $this->input->post('date_updated'),
         		'updated_by' => $this->session->user_id,
@@ -188,7 +187,6 @@ class Internal_cost_plan extends Admin_Controller
 					'ta_id' => $this->session->technical_advice_id,
 					'client_id' => $this->session->client_id,
 					'billing_item_id' => $this->input->post('edit_billing_item'),
-					'p_amount' => $this->input->post('edit_p_amount'),
 					'a_amount' => $this->input->post('edit_a_amount'),
 					'date_updated' => date('Y-m-d'),
 					'updated_by' => $this->session->user_id,

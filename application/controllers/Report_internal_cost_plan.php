@@ -91,11 +91,10 @@ class Report_Internal_Cost_Plan extends Admin_Controller
 		$cell1 = array('data' => '<strong>Internal Cost Plan</strong>', 'height' => '20', 'width' => '100%', 'bgcolor' => 'rgb(235,235,235)');
 		$this->table->add_row($cell1);
 		$cell1 = array('data' => '<strong>Item Name</strong>', 'width' => '20%');
-		$cell2 = array('data' => '<strong>Description</strong>', 'width' => '35%');
-		$cell3 = array('data' => '<strong>Item Cost</strong>', 'width' => '15%');
-		$cell4 = array('data' => '<strong>Planned Estimate ($JMD)</strong>', 'width' => '15%');
-		$cell5 = array('data' => '<strong>Actual Amount ($JMD)</strong>', 'width' => '15%');
-		$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+		$cell2 = array('data' => '<strong>Description</strong>', 'width' => '50%');
+		$cell3 = array('data' => '<strong>Planned Estimate ($JMD)</strong>', 'width' => '15%');
+		$cell4 = array('data' => '<strong>Actual Amount ($JMD)</strong>', 'width' => '15%');
+		$this->table->add_row($cell1, $cell2, $cell3, $cell4);
 		
 		$cell1 = array('data' => '');
 		$this->table->add_row($cell1);
@@ -103,17 +102,15 @@ class Report_Internal_Cost_Plan extends Admin_Controller
 		$this->table->add_row($cell1);
 
 		foreach($ICP_Report as $rs):
-
 			if($rs->budget_type=="0")//Check if item is a revenue item
 			{
-				$estimate_income += $rs->p_amount;
+				$estimate_income += $rs->item_cost;
 				$actual_income += $rs->a_amount;
 				$cell1 = array('data' => $rs->item_name, 'width' => '20%');
-				$cell2 = array('data' => $rs->description, 'width' => '35%');
-				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');			
-				$cell4 = array('data' => $rs->p_amount, 'width' => '15%');
-				$cell5 = array('data' => $rs->a_amount, 'width' => '15%');
-				$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+				$cell2 = array('data' => $rs->description, 'width' => '50%');
+				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');	
+				$cell4 = array('data' => $rs->a_amount, 'width' => '15%');
+				$this->table->add_row($cell1, $cell2, $cell3, $cell4);
 			}
 
 		endforeach;
@@ -134,14 +131,13 @@ class Report_Internal_Cost_Plan extends Admin_Controller
 
 			if($rs->budget_type=="1")//Check if item is a revenue item
 			{
-				$estimate_expense += $rs->p_amount;
+				$estimate_expense += $rs->item_cost;
 				$actual_expense += $rs->a_amount;
 				$cell1 = array('data' => $rs->item_name, 'width' => '20%');
-				$cell2 = array('data' => $rs->description, 'width' => '35%');
-				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');			
-				$cell4 = array('data' => $rs->p_amount, 'width' => '15%');
-				$cell5 = array('data' => $rs->a_amount, 'width' => '15%');
-				$this->table->add_row($cell1, $cell2, $cell3, $cell4, $cell5);
+				$cell2 = array('data' => $rs->description, 'width' => '50%');		
+				$cell3 = array('data' => $rs->item_cost, 'width' => '15%');
+				$cell4 = array('data' => $rs->a_amount, 'width' => '15%');
+				$this->table->add_row($cell1, $cell2, $cell3, $cell4);
 			}
 
 		endforeach;
