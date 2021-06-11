@@ -68,7 +68,6 @@ class Model_city extends CI_Model
 		$sql = "SELECT * FROM client WHERE city_id = ?";
 		$query = $this->db->query($sql, array($id));
 		return $query->num_rows();
-
 	}
 
 }

@@ -49,7 +49,6 @@
                 <th>Code</th>
                 <th>Standard</th>
                 <th>Clause</th>
-                <th>Phase</th>
                 <th>Active</th>
                 <?php if(in_array('updateSubClause', $user_permission) || in_array('deleteSubClause', $user_permission)): ?>
                   <th>Action</th>
@@ -113,12 +112,6 @@
               </select>
           </div> 
 
-           <div class="form-group">
-            <label for="phase">Phase<font color="red"> *</font></label>
-              <select name="phase" id="phase" class="form-control" style="width: 100%;">
-              </select>
-          </div>
-
         </div><!-- /.modal-body -->
 
         <div class="modal-footer">
@@ -178,13 +171,7 @@
             <label for="edit_clause">Clause<font color="red"> *</font></label>
               <select name="edit_clause" id="clause" class="form-control" style="width: 100%;">
               </select>
-          </div> 
-
-          <div class="form-group">
-            <label for="edit_phase">Phase<font color="red"> *</font></label>
-              <select name="edit_phase" id="phase" class="form-control" style="width: 100%;">
-              </select>
-          </div>      
+          </div>     
 
         </div> <!-- /.modal-body -->
 
@@ -261,26 +248,6 @@ var base_url = "<?php echo base_url(); ?>";
         error: function () {
         //if there is an error append a 'none available' option
         $clause.html('<option id="-1">none available</option>');
-        }
-    });
-
-
-     //---> creation of the drop-down list  phase
-    $phase = $('[id="phase"]');    
-    $.ajax({
-        url: base_url +'phase/fetchActivePhase',
-        dataType: "JSON", 
-        success: function (data) {
-            $phase.html('<option value=""></option>');
-            //iterate over the data and append a select option
-            $.each(data, function (key, val) {
-                $phase.append('<option value="' + val.id + '">' + val.name + '</option>');
-            }); 
-            
-        }, 
-        error: function () {
-        //if there is an error append a 'none available' option
-        $phase.html('<option id="-1">none available</option>');
         }
     });
 

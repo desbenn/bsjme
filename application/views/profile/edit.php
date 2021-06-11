@@ -56,7 +56,7 @@
             <div class="panel-heading bg-black">Client</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -146,7 +146,7 @@
             <div class="panel-heading bg-black">Consultation</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:300px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -240,13 +240,122 @@
                 </tbody> 
               </table>
             </ul>
-          </div></div></div>         
+          </div></div></div>  
 
-
-
- <!-- < Part on QMS -->
+          <!-- < Part on Technical Advice -->
 
         <div class="col-md-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading bg-black">Teechnical Advice</div>
+              <div class="panel-body">
+
+                <ul class="chart-legend" style="height:300px">
+
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Create</th>
+                      <th>Update</th>
+                      <th>View</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                <tbody>
+                
+                  <tr>
+                    <td>Technical Advice</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createTechnicalAdvice" <?php if($serialize_permission) {
+                      if(in_array('createTechnicalAdvice', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateTechnicalAdvice" <?php if($serialize_permission) {
+                      if(in_array('updateTechnicalAdvice', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewTechnicalAdvice" <?php if($serialize_permission) {
+                      if(in_array('viewTechnicalAdvice', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteTechnicalAdvice" <?php if($serialize_permission) {
+                      if(in_array('deleteTechnicalAdvice', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
+                    <td>Needs Assessment</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createNeedsAssessment" <?php if($serialize_permission) {
+                      if(in_array('createNeedsAssessment', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateNeedsAssessment" <?php if($serialize_permission) {
+                      if(in_array('updateNeedsAssessment', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewNeedsAssessment" <?php if($serialize_permission) {
+                      if(in_array('viewNeedsAssessment', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteNeedsAssessment" <?php if($serialize_permission) {
+                      if(in_array('deleteNeedsAssessment', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
+                    <td>Client Work Plan</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createWorkPlan" <?php if($serialize_permission) {
+                      if(in_array('createWorkPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateWorkPlan" <?php if($serialize_permission) {
+                      if(in_array('updateWorkPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewWorkPlan" <?php if($serialize_permission) {
+                      if(in_array('viewWorkPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteWorkPlan" <?php if($serialize_permission) {
+                      if(in_array('deleteWorkPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
+                    <td>Internal Cost Plan</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createInternalCostPlan" <?php if($serialize_permission) {
+                      if(in_array('createInternalCostPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateInternalCostPlan" <?php if($serialize_permission) {
+                      if(in_array('updateInternalCostPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewInternalCostPlan" <?php if($serialize_permission) {
+                      if(in_array('viewInternalCostPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteInternalCostPlan" <?php if($serialize_permission) {
+                      if(in_array('deleteInternalCostPlan', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+
+                  <tr>
+                    <td>Billing</td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="createBilling" <?php if($serialize_permission) {
+                      if(in_array('createBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="updateBilling" <?php if($serialize_permission) {
+                      if(in_array('updateBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="viewBilling" <?php if($serialize_permission) {
+                      if(in_array('viewBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                    <td><input type="checkbox" name="permission[]" id="permission" class="minimal" value="deleteBilling" <?php if($serialize_permission) {
+                      if(in_array('deleteBilling', $serialize_permission)) { echo "checked"; }
+                    } ?>></td>
+                  </tr>
+                </tbody> 
+              </table>
+            </ul>
+          </div></div></div>  
+        </div> <!-- end of work-->
+          
+
+
+        
+      <div class="row">
+
+      <!-- < Part on QMS -->
+
+      <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading bg-black">Quality Management System</div>
               <div class="panel-body">
@@ -345,13 +454,8 @@
               </table>
             </ul>
           </div></div></div>
-        </div>
-          
 
-
-         <!-- < Part on Document -->
-      <div class="row">
-
+            <!--  Part on Document -->
         <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading bg-black">Document</div>
@@ -506,16 +610,18 @@
               </table>
             </ul>
           </div></div></div>
+       </div>   
 
+       <div class="row">
 
-   <!-- < Part on Inquiry -->
+       <!-- < Part on Inquiry -->
 
-        <div class="col-md-4">
+       <div class="col-md-4">
           <div class="panel panel-primary">
             <div class="panel-heading bg-black">Inquiry</div>
               <div class="panel-body">
 
-                <ul class="chart-legend" style="height:240px">
+                <ul class="chart-legend" style="height:280px">
 
                 <table class="table table-responsive">
                   <thead>
@@ -579,14 +685,7 @@
             </ul>
           </div></div></div>
 
-       </div>   
-      
-
-   
-
-<!-- < Part on News -->
-
-       <div class="row">
+          <!-- < Part on News -->
 
         <div class="col-md-4">
           <div class="panel panel-primary">
@@ -715,7 +814,9 @@
             </ul>
           </div></div></div>
 
+        </div>    <!-- /row -->
 
+        <div class="row">
           <!-- < Part on Admin -->
 
         <div class="col-md-4">
@@ -802,8 +903,7 @@
               </table>
             </ul>
           </div></div></div>
-
-        </div>    <!-- /row -->
+        </div>
 
 
        <?php endif; ?> <!-- user permission info -->

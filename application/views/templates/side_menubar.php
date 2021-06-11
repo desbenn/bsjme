@@ -35,6 +35,12 @@
             </li>
         <?php endif; ?>
 
+        <?php if(in_array('createTechnicalAdvice', $user_permission) || in_array('updateTechnicalAdivce', $user_permission) || in_array('viewTechnicalAdvice', $user_permission) || in_array('deleteTechnicalAdvice', $user_permission)): ?>                
+            <li><a href="<?php echo base_url('Technical_advice') ?>"><i class="fa fa-comments"></i>
+                <span>Technical Advice(s)</span></a>
+            </li>
+        <?php endif; ?>
+
 
         <?php if(in_array('viewReport', $user_permission)): ?>
           <li><a href="<?php echo base_url('report') ?>">

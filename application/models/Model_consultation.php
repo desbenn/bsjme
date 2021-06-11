@@ -220,9 +220,11 @@ class Model_consultation extends CI_Model
 		return $query->result_array();
 	}
 
-	public function getConsultationQuestion($standard_id,$phase)
+	public function getConsultationQuestion($program_id,$phase)
 	{
-
+		$sql="SELECT question.*, question FROM question WHERE `program_id`=$program_id AND `phase_id`=$phase";
+		$query = $this->db->query($sql);
+		return $query->result_array();
 		//Nicholas ... here you have to think differently as we don't know how many
 		//             phase they will have for each program and at what phase the questions
 		//             should appear.  
@@ -246,65 +248,16 @@ class Model_consultation extends CI_Model
 		
 		// Unless they know exactly what they want, I suggest to bring the general questions
 		// for demonstration of the system...
-		$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
-			question_type.code AS 'question_type_code'  
-			FROM question 
-				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				JOIN clause ON sub_clause.clause_id = clause.id 
-				JOIN standard ON clause.standard_id = standard.id 
-				LEFT JOIN question_type ON question.question_type_id = question_type.id
-		WHERE clause.standard_id = 1 AND sub_clause.code BETWEEN '4.0.0' AND '4.9.9'";
-		$query = $this->db->query($sql, array());
-		return $query->result_array();
-
-		/*$sql=null;
-		if($phase==1)
-		{
-			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
-			question_type.code AS 'question_type_code'  
-			FROM question 
-				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				JOIN clause ON sub_clause.clause_id = clause.id 
-				JOIN standard ON clause.standard_id = standard.id 
-				JOIN question_type ON question.question_type_id = question_type.id 
-			WHERE standard.id = $standard_id AND sub_clause.code = 4.1";
-		}
-		elseif($phase==2)
-		{
-			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
-			question_type.code AS 'question_type_code'  
-			FROM question 
-				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				JOIN clause ON sub_clause.clause_id = clause.id 
-				JOIN standard ON clause.standard_id = standard.id 
-				JOIN question_type ON question.question_type_id = question_type.id 
-			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 4.2 AND 5";
-		}
-		elseif($phase==3)
-		{
-			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
-			question_type.code AS 'question_type_code'  
-			FROM question 
-				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				JOIN clause ON sub_clause.clause_id = clause.id 
-				JOIN standard ON clause.standard_id = standard.id 
-				JOIN question_type ON question.question_type_id = question_type.id 
-			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 4 and 10";
-		}
-		elseif($phase==4)
-		{
-			$sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
-			question_type.code AS 'question_type_code'  
-			FROM question 
-				JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
-				JOIN clause ON sub_clause.clause_id = clause.id 
-				JOIN standard ON clause.standard_id = standard.id 
-				JOIN question_type ON question.question_type_id = question_type.id 
-			WHERE standard.id = $standard_id AND sub_clause.code BETWEEN 5 and 10";
-		}
-		if($sql==null){return null;}
-		$query = $this->db->query($sql);
-		return $query->result_array();*/
+		// $sql = "SELECT question.id AS 'question_id',question, sub_clause.code AS 'sub_clause', 
+		// 	question_type.code AS 'question_type_code'  
+		// 	FROM question 
+		// 		JOIN sub_clause ON question.sub_clause_id = sub_clause.id 
+		// 		JOIN clause ON sub_clause.clause_id = clause.id 
+		// 		JOIN standard ON clause.standard_id = standard.id 
+		// 		LEFT JOIN question_type ON question.question_type_id = question_type.id
+		// WHERE clause.standard_id = 1 AND sub_clause.code BETWEEN '4.0.0' AND '4.9.9'";
+		// $query = $this->db->query($sql, array());
+		// return $query->result_array();
 	}
 
 
