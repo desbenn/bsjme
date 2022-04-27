@@ -2,7 +2,7 @@
 What is BSJME
 ###################
 
-BSJME stands for Bureau of Standards Monitoring and Evaluation...
+BSJME stands for Bureau of Standards Jamaica Monitoring and Evaluation...
 
 
 
